@@ -11,6 +11,7 @@ export function PhotoFrame({ photo }: { photo: Photo }) {
     photo.radius === 20 ? "radius-20" : "",
     photo.rotate ? `rot-${photo.rotate}` : "",
     photo.src ? "has-image" : "",
+    !photo.src && photo.fallbackSrc ? "has-fallback" : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -19,6 +20,14 @@ export function PhotoFrame({ photo }: { photo: Photo }) {
     <div className={classes}>
       {photo.src ? (
         <Image src={photo.src} alt={photo.label} fill sizes="(max-width: 800px) 90vw, 320px" className="photo-img" />
+      ) : photo.fallbackSrc ? (
+        <Image
+          src={photo.fallbackSrc}
+          alt={photo.fallbackAlt || ""}
+          fill
+          sizes="(max-width: 800px) 90vw, 320px"
+          className="photo-img photo-fallback"
+        />
       ) : photo.lines ? (
         <span>
           {photo.lines[0]}

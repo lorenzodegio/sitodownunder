@@ -1,12 +1,13 @@
+import Link from "next/link";
 import { site } from "@/content/site";
 
 export function Header() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <a className="logo" href="#top">
+        <Link className="logo" href="/">
           {site.logo.word} <span className="logo-cafe">{site.logo.cafe}</span>
-        </a>
+        </Link>
         <nav className="nav-links" aria-label="Sezioni">
           {site.nav.map((item) => (
             <a key={item.href} href={item.href}>

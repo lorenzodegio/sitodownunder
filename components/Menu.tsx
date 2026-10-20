@@ -5,7 +5,7 @@ const bubbles = ["b1", "b2", "b3", "b4", "b5"] as const;
 
 export function Menu() {
   return (
-    <section id="menu" className="section-sea section-menu">
+    <section id="menu" className="section-sea section-menu" aria-labelledby="menu-title">
       {bubbles.map((name) => (
         <span key={name} className={`bub bubble ${name}`} aria-hidden="true" />
       ))}
@@ -13,7 +13,9 @@ export function Menu() {
         <div className="head">
           <div className="head-copy">
             <span className="rib rv">{site.menu.kicker}</span>
-            <h2 className="display rv">{site.menu.title}</h2>
+            <h2 id="menu-title" className="display rv">
+              {site.menu.title}
+            </h2>
           </div>
           <Polpo />
         </div>
@@ -28,6 +30,9 @@ export function Menu() {
         </div>
         <div className="menu-foot rv">
           <p>{site.menu.takeaway}</p>
+          <a className="pill btn-ghost" href={site.menu.htmlHref}>
+            {site.menu.htmlLabel}
+          </a>
           <a className="pill btn-solid" href={site.menu.pdfHref}>
             {site.menu.pdfLabel}
           </a>

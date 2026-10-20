@@ -4,12 +4,14 @@ import { site } from "@/content/site";
 
 export function Info() {
   return (
-    <section id="info" className="section">
+    <section id="info" className="section" aria-labelledby="info-title">
       <div className="wrap">
         <div className="head">
           <div className="head-copy slim">
             <span className="rib rv">{site.info.kicker}</span>
-            <h2 className="display rv">{site.info.title}</h2>
+            <h2 id="info-title" className="display rv">
+              {site.info.title}
+            </h2>
           </div>
           <Faro />
         </div>
@@ -24,9 +26,11 @@ export function Info() {
             </div>
             <div>
               <div className="contact-label">{site.info.whereLabel}</div>
-              <a className="address-link" href={site.mapsUrl}>
-                {site.address}
-              </a>
+              <address>
+                <a className="address-link" href={site.mapsUrl}>
+                  {site.addressFull}
+                </a>
+              </address>
             </div>
             <div>
               <div className="contact-label">{site.info.socialLabel}</div>

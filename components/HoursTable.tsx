@@ -2,6 +2,7 @@
 
 import { useOpeningStatus } from "@/components/useOpeningStatus";
 import { site, type Weekday } from "@/content/site";
+import { hoursPlaceholder } from "@/data/locale";
 import { formatDayRanges } from "@/lib/opening";
 
 export function HoursTable() {
@@ -17,7 +18,9 @@ export function HoursTable() {
               {site.dayNames[day]}
               {today ? site.openingCopy.todaySuffix : ""}
             </span>
-            <span className="hours-time">{formatDayRanges(site.hours[day as Weekday])}</span>
+            <span className="hours-time">
+              {site.hours ? formatDayRanges(site.hours[day as Weekday]) : hoursPlaceholder}
+            </span>
           </div>
         );
       })}

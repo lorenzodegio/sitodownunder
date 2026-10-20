@@ -1,27 +1,26 @@
+import { Murale } from "@/components/Murale";
 import { site } from "@/content/site";
 
 export function Pranzo() {
   return (
-    <section id="pranzo" className="section-tight">
+    <section id="pranzo" className="section-tight" aria-labelledby="pranzo-title">
       <div className="wrap sheet-ink">
         <div className="head">
           <div className="head-copy">
             <span className="rib rv">{site.pranzo.kicker}</span>
-            <h2 className="display rv w-820">{site.pranzo.title}</h2>
+            <h2 id="pranzo-title" className="display rv w-820">
+              {site.pranzo.title}
+            </h2>
             <p className="sub rv w-600 on-dark">{site.pranzo.lead}</p>
           </div>
-          <svg className="ink bussola" aria-hidden="true" viewBox="0 0 160 200">
-            <path d="M80 38V22M66 22h28" />
-            <circle cx="80" cy="14" r="8" />
-            <circle className="w" cx="80" cy="116" r="74" />
-            <circle cx="80" cy="116" r="62" />
-            <path d="M80 60v10M80 162v10M24 116h10M126 116h10" />
-            <path d="M80 116V84" />
-            <g className="spin fast needle">
-              <path d="M80 116V66" />
-            </g>
-            <circle className="k" cx="80" cy="116" r="5" />
-          </svg>
+          <Murale
+            src="/murales/mongolfiera.png"
+            alt="Murale della mongolfiera: Il giro del mondo in 80 giorni, Down Under Cafè Vanzago"
+            width={775}
+            height={907}
+            invert
+            className="mongolfiera"
+          />
         </div>
         <div className="pranzo-grid">
           <div className="rv price-card">

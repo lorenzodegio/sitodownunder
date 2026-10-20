@@ -1,6 +1,6 @@
 # Down Under Cafè — Vanzago
 
-Sito statico della home, ricostruito dalla demo. Next.js (App Router), TypeScript, niente backend e niente variabili d’ambiente.
+Sito della home e delle pagine locali. Next.js (App Router), TypeScript. Menù PDF e foto dei piatti stanno su Vercel Blob; i murales stanno in `public/murales/`.
 
 ## Avvio in locale
 
@@ -11,7 +11,9 @@ npm install
 npm run dev
 ```
 
-Apri [http://localhost:3000](http://localhost:3000).
+Copia `.env.example` in `.env.local` e compila token Blob, password admin e URL del sito. `.env.local` non va committato.
+
+Apri [http://localhost:3000](http://localhost:3000). L’archivio è su `/admin` (utente `admin`, password `ADMIN_PASSWORD`).
 
 Altri comandi:
 
@@ -23,43 +25,24 @@ npm run lint
 
 ## Modificare i contenuti
 
-Tutto il testo modificabile sta in `content/site.ts`: telefono, indirizzo, link Instagram e Maps, orari, voci del menù, serate, menù fisso del pranzo, segnaposto tra parentesi quadre.
+I testi della home stanno in `content/site.ts`. Indirizzo e telefono stanno in `data/locale.ts`. Le pagine di zona stanno in `data/pagine-locali.ts`. Voci del menù HTML stanno in `data/menu.ts`.
 
-Gli orari sono minuti a partire dalla mezzanotte, fuso Europe/Rome. Se il locale chiude dopo mezzanotte, il minuto di chiusura supera 1440.
+Orari, prezzi, P. IVA e coordinate non confermati sono segnaposto: `[orari da confermare]`, `[prezzo da confermare]`, `[P. IVA]`, `[latitudine]`, `[longitudine]`. Finché `hours` in `data/locale.ts` è `null`, la tabella e il badge mostrano il segnaposto e il JSON-LD non pubblica orari, fascia di prezzo né coordinate.
 
-Esempi:
+Quando il locale conferma gli orari, `hours` diventa un array di minuti dalla mezzanotte, fuso Europe/Rome. Se la chiusura è dopo mezzanotte, il minuto di chiusura supera 1440. L’indice segue `Date.getDay()`: 0 domenica, 1 lunedì, … 6 sabato. A quel punto il badge «aperto ora» si calcola nel browser e il JSON-LD emette `openingHoursSpecification`.
 
-- 11:30 = `11 * 60 + 30` = `690`
-- 18:30 = `1110`
-- 00:30 del giorno dopo = `1470`
-- 01:00 del giorno dopo = `1500`
+## Foto e menù PDF
 
-L’indice dell’array `hours` segue `Date.getDay()`: 0 domenica, 1 lunedì, … 6 sabato. In pagina i giorni sono mostrati dal lunedì.
+I murales sono in `public/murales/`. Le foto di piatti, sala, garden ed eventi si caricano da `/admin` e finiscono su Vercel Blob, nelle sezioni `burger`, `pizza`, `bancone`, `sala`, `garden`, `eventi`. Senza foto, il riquadro mostra un murale.
 
-Lo stato «aperto ora» si calcola nel browser (non in build), si aggiorna ogni minuto ed evidenzia la riga di oggi. Sul server, prima dell’hydration, compare solo «Via I Maggio 1, Vanzago».
-
-## Aggiungere le foto
-
-Le immagini vanno in `public/images/`. I nomi attesi sono elencati in `public/images/README.md`: burger, pizza, bancone, murales, garden, buffet.
-
-Finché `src` è `null` in `content/site.ts`, resta il riquadro tratteggiato. Per mostrare una foto:
-
-```ts
-burger: {
-  src: "/images/burger.jpg",
-  // il resto resta com’è
-}
-```
-
-Formati utili: jpg, jpeg, png, webp. Niente foto di persone. In produzione la pagina è statica: dopo aver aggiunto i file serve un nuovo build (in locale `npm run dev` le vede al refresh).
+Il PDF del menù si sostituisce dalla stessa pagina e si scarica da `/menu/pdf`. Il menù testuale, quello che legge Google, è `/menu`.
 
 ## Pubblicare su Vercel
 
-1. Metti il progetto su un repository Git.
-2. Su [vercel.com](https://vercel.com) importa il repository.
-3. Framework: Next.js (viene riconosciuto da solo). Non servono variabili d’ambiente.
-4. Deploy.
+1. Metti il progetto su un repository Git. Non includere `.env.local`.
+2. Su [vercel.com](https://vercel.com) importa il repository e collega lo store Blob (Storage → Blob → Connect).
+3. In Project → Settings → Environment Variables imposta `BLOB_READ_WRITE_TOKEN` e `ADMIN_PASSWORD`. Nessuno dei due ha un valore di default nel codice.
+4. `NEXT_PUBLIC_SITE_URL` va impostata solo quando c’è il dominio definitivo, e solo in produzione se vuoi che Google indicizzi. Finché manca, tutto il sito — produzione compresa — risponde `noindex`. Sitemap, robots e canonical usano quella variabile se c’è; altrimenti l’host di produzione Vercel in produzione e l’host del branch in preview.
+5. Framework: Next.js. Deploy.
 
-In alternativa, dalla cartella del progetto, con la CLI di Vercel già autenticata: `npx vercel`.
-
-Il comando `npm run build` deve terminare senza errori prima del deploy.
+Il comando `npm run build` deve terminare senza errori prima del deploy. La checklist fuori dal codice sta in `README-SEO.md`.

@@ -41,12 +41,13 @@ export function Hero() {
       <div className="hero-grid">
         <div>
           <OpeningBadge />
-          <h1 className="hero-title">
+          <h1 className="hero-h1">Burger, pizza e aperitivo a Vanzago</h1>
+          <p className="hero-title">
             <span className="in d1">{lunch}</span>
             <span className="in d2 stroke">{ape}</span>
             <span className="in d3">{cena}</span>
             <span className="in d4 soft">{again}</span>
-          </h1>
+          </p>
           <p className="hero-lead in d4">{site.hero.lead}</p>
           <div className="hero-actions in d5">
             <a className="pill btn-solid" href={site.phone.tel}>

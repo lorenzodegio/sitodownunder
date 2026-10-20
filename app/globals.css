@@ -1311,3 +1311,462 @@ p {
     animation: none !important;
   }
 }
+
+.inv {
+  filter: invert(1) sepia(0.12) brightness(1.03);
+}
+
+.stemma-img,
+.dirigibile-img,
+.mongolfiera,
+.polpo,
+.faro,
+.timbro,
+.mano-welcome,
+.centro-img,
+.camaleonte,
+.mural-card-img,
+.local-murale,
+.toilettes-img {
+  height: auto;
+}
+
+.stemma-img,
+.dirigibile-img {
+  width: 100%;
+}
+
+.hero-h1 {
+  margin: 18px 0 0;
+  max-width: 14em;
+  font-family: var(--font-instrument), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.05;
+  color: var(--paper);
+}
+
+.mano-welcome {
+  display: block;
+  width: min(440px, 100%);
+  margin: 0 0 8px;
+}
+
+.centro-tile {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 5;
+  border-radius: 24px;
+  background: var(--ink);
+  transform: rotate(1.5deg);
+  padding: 18px;
+}
+
+.centro-img {
+  width: 78%;
+}
+
+.mongolfiera {
+  width: min(190px, 46vw);
+  flex: 0 1 190px;
+}
+
+.section-serate {
+  position: relative;
+}
+
+.camaleonte {
+  position: absolute;
+  right: 4%;
+  top: 28px;
+  width: min(200px, 28vw);
+  pointer-events: none;
+}
+
+.mural-columns {
+  columns: 3 240px;
+  column-gap: 16px;
+  margin-top: 36px;
+}
+
+.mural-card {
+  break-inside: avoid;
+  margin: 0 0 16px;
+  border-radius: 20px;
+  padding: 16px;
+}
+
+.mural-card.paper {
+  background: #fff;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+}
+
+.mural-card.ink {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.mural-card-img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.mural-card h3 {
+  margin: 14px 0 4px;
+  font-family: var(--font-rokkitt), serif;
+  font-size: 28px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.mural-card p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.photo-fallback {
+  object-fit: contain;
+  padding: 16px;
+}
+
+.photo-frame.has-fallback {
+  background: #fff;
+  border-color: var(--ink);
+}
+
+.photo-strip {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  margin-top: 16px;
+  padding-bottom: 8px;
+}
+
+.strip-img {
+  width: 180px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 16px;
+  flex: 0 0 auto;
+}
+
+.flyer-fan {
+  position: relative;
+  height: 360px;
+  margin-top: 36px;
+}
+
+.nastro {
+  position: absolute;
+  z-index: 3;
+  top: 8px;
+  left: 18%;
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 999px;
+  transform: rotate(-2deg);
+}
+
+.flyer {
+  position: absolute;
+  bottom: 0;
+  width: auto;
+  height: 300px;
+  border: 2px solid var(--paper);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.flyer-a {
+  left: 0;
+  transform: rotate(-8deg);
+}
+
+.flyer-b {
+  left: 28%;
+  z-index: 1;
+  transform: rotate(1deg);
+}
+
+.flyer-c {
+  left: 52%;
+  transform: rotate(7deg);
+}
+
+.zona-copy {
+  max-width: 720px;
+  margin-top: 18px;
+}
+
+.zona-copy p + p {
+  margin-top: 14px;
+}
+
+.comuni-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 28px 0 8px;
+}
+
+.comuni-chips span {
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.faq {
+  margin-top: 36px;
+  max-width: 760px;
+}
+
+.faq-title,
+.local-page h2 {
+  margin: 28px 0 12px;
+  font-family: var(--font-rokkitt), serif;
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.faq h3,
+.local-faq h3 {
+  margin: 18px 0 6px;
+  font-size: 18px;
+}
+
+.faq p,
+.local-page p {
+  margin-top: 0;
+}
+
+.local-page p + p,
+.local-faq p {
+  margin-top: 12px;
+}
+
+.local-page {
+  padding: clamp(28px, 5vw, 72px) 24px 96px;
+}
+
+.local-wrap {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.local-h1 {
+  margin-bottom: 22px;
+  font-size: clamp(40px, 6vw, 72px);
+}
+
+.breadcrumb {
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+
+.breadcrumb a,
+.local-links a,
+.footer-local a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.local-dishes {
+  padding-left: 18px;
+}
+
+.local-dishes li + li {
+  margin-top: 8px;
+}
+
+.local-murales,
+.local-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 28px 0;
+  align-items: end;
+}
+
+.local-murale,
+.local-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
+.local-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 28px;
+}
+
+.local-page address,
+.footer-legal,
+address {
+  font-style: normal;
+}
+
+.footer-local {
+  margin-top: 28px;
+}
+
+.footer-local p {
+  margin: 0 0 8px;
+  color: var(--mutedD);
+}
+
+.footer-local ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toilettes-egg {
+  margin: 28px auto 0;
+  max-width: 240px;
+  color: var(--mutedD);
+}
+
+.toilettes-egg summary {
+  cursor: pointer;
+}
+
+.toilettes-img {
+  width: 110px;
+  margin-top: 12px;
+}
+
+.admin-body {
+  min-height: 100vh;
+}
+
+.admin-mark {
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.admin-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+.admin-wrap h1 {
+  font-family: var(--font-rokkitt), serif;
+  font-size: 64px;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.admin-card {
+  margin-top: 28px;
+  padding: 20px;
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  background: #fff;
+}
+
+.admin-card form,
+.admin-card label {
+  display: grid;
+  gap: 8px;
+}
+
+.admin-card form {
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.admin-card input,
+.admin-card select {
+  font: inherit;
+  padding: 8px 10px;
+  border: 1.5px solid var(--ink);
+  border-radius: 10px;
+  background: var(--paper);
+}
+
+.admin-warn {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f3d2ce;
+}
+
+.admin-message {
+  font-weight: 700;
+}
+
+.admin-list {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin-list li {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.admin-list img {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: var(--paper);
+}
+
+.admin-list button {
+  font: inherit;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .camaleonte {
+    position: static;
+    display: block;
+    margin: 0 24px 0 auto;
+  }
+
+  .flyer-fan {
+    height: 280px;
+  }
+
+  .flyer {
+    height: 220px;
+  }
+}
+
+.local-page .btn-solid,
+.admin-card .btn-solid {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.local-page .btn-ghost {
+  border-color: var(--ink);
+  color: var(--ink);
+}

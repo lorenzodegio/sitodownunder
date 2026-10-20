@@ -1,17 +1,17 @@
 /**
- * Unica fonte dei testi, orari e link della pagina.
- * Gli orari sono minuti da mezzanotte (Europe/Rome).
- * Una chiusura dopo mezzanotte supera 1440: 1500 = 01:00 del giorno dopo.
+ * Testi e link della pagina.
+ * Orari, indirizzo e telefono stanno in data/locale.ts.
  */
 
-const name = "Down Under Cafè";
-const phoneDisplay = "338 439 5727";
-const address = "Via I Maggio 1, Vanzago";
+import { hours, locale } from "@/data/locale";
+
+export type { MinuteRange, Weekday } from "@/data/locale";
+
+const name = locale.name;
+const phoneDisplay = locale.phoneDisplay;
+const address = locale.addressShort;
 const heroLead =
   "Viaggi straordinari a base di burger, pizza e cocktail. In un locale disegnato come un romanzo di Jules Verne, a Vanzago dal 2010.";
-
-export type MinuteRange = readonly [start: number, end: number];
-export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 export type PhotoRotate = "n15" | "p1" | "n1" | "p15";
 
 export type Photo = {
@@ -19,6 +19,8 @@ export type Photo = {
   src: string | null;
   label: string;
   lines?: readonly [string, string];
+  fallbackSrc?: string;
+  fallbackAlt?: string;
   ratio: "portrait" | "landscape" | "wide";
   radius: 20 | 24;
   rotate?: PhotoRotate;
@@ -28,8 +30,9 @@ export type Photo = {
 export const site = {
   name,
   meta: {
-    title: "Down Under Cafè — Vanzago",
-    description: heroLead,
+    title: "Down Under Cafè · Burger, pizza e aperitivo a Vanzago (Rho, Milano)",
+    description:
+      "Hamburger, pizza e cocktail tra i murales di Jules Verne. Pranzo di lavoro, aperitivo e cena a Vanzago, a due passi da Rho. Prenota: 338 439 5727.",
   },
   demoBanner:
     "Demo — proposta non ufficiale. Testi, menù e foto da confermare con il locale.",
@@ -44,23 +47,22 @@ export const site = {
       "https://wa.me/393384395727?text=Ciao%2C%20vorrei%20prenotare%20un%20tavolo%20per%20pranzo",
   },
   address,
-  addressFull: "Via I Maggio 1, Vanzago (MI)",
-  mapsUrl:
-    "https://www.google.com/maps/dir/?api=1&destination=Down+Under+Caf%C3%A8+Via+I+Maggio+1+Vanzago",
+  addressFull: locale.addressFull,
+  mapsUrl: locale.mapsUrl,
   instagram: {
-    handle: "@downundercafe",
-    url: "https://www.instagram.com/downundercafe/",
+    handle: locale.instagramHandle,
+    url: locale.instagram,
   },
   placeholders: {
     vat: "[P. IVA]",
   },
   nav: [
-    { href: "#pranzo", label: "pranzo" },
-    { href: "#menu", label: "menù" },
-    { href: "#serate", label: "serate" },
-    { href: "#garden", label: "garden" },
-    { href: "#eventi", label: "feste" },
-    { href: "#info", label: "orari" },
+    { href: "/#pranzo", label: "pranzo" },
+    { href: "/#menu", label: "menù" },
+    { href: "/#serate", label: "serate" },
+    { href: "/#garden", label: "garden" },
+    { href: "/#eventi", label: "feste" },
+    { href: "/#info", label: "orari" },
   ],
   header: {
     cta: "Prenota",
@@ -88,15 +90,7 @@ export const site = {
   ],
   /** Ordine in tabella: dal lunedì alla domenica. */
   hoursOrder: [1, 2, 3, 4, 5, 6, 0] as const,
-  hours: [
-    [[1080, 1470]],
-    [[690, 900]],
-    [[690, 900], [1110, 1470]],
-    [[690, 900], [1110, 1470]],
-    [[690, 900], [1110, 1470]],
-    [[690, 900], [1110, 1500]],
-    [[1110, 1500]],
-  ] as const satisfies readonly (readonly MinuteRange[])[],
+  hours,
   hero: {
     lines: ["Pranzo.", "Ape.", "Cena.", "ripeti."] as const,
     lead: heroLead,
@@ -121,19 +115,19 @@ export const site = {
     cards: [
       {
         tone: "paper",
-        time: "lun – ven · 11:30 – 15:00",
+        time: "[orari da confermare]",
         title: "Lunch",
         text: "Menù fisso tutti i giorni, più burger, piade e insalatone. Pensato per chi ha un’ora e un ufficio che aspetta.",
       },
       {
         tone: "ink",
-        time: "dalle 18:30 · dom dalle 18:00",
+        time: "[orari da confermare]",
         title: "Ape",
         text: "«Uno e andiamo.» Certo. Cocktail, bollicine e taglieri, tra specchi e lampadari o fuori nel garden.",
       },
       {
         tone: "paper",
-        time: "fino a tardi",
+        time: "[orari da confermare]",
         title: "Cena",
         text: "Burger, pizze e i piatti della cucina. Poi arriva il tiramisù fatto in casa e la dieta riparte lunedì.",
       },
@@ -143,6 +137,8 @@ export const site = {
     burger: {
       src: null,
       label: "foto burger",
+      fallbackSrc: "/murales/camaleonte.png",
+      fallbackAlt: "Murale del camaleonte, al posto della foto del burger, Down Under Cafè Vanzago",
       ratio: "portrait",
       radius: 24,
       rotate: "n15",
@@ -150,6 +146,8 @@ export const site = {
     pizza: {
       src: null,
       label: "foto pizza",
+      fallbackSrc: "/murales/rosam.png",
+      fallbackAlt: "Cartiglio Rosam cape, spinam cave, al posto della foto della pizza, Down Under Cafè Vanzago",
       ratio: "portrait",
       radius: 24,
       rotate: "p1",
@@ -157,6 +155,8 @@ export const site = {
     bancone: {
       src: null,
       label: "foto bancone",
+      fallbackSrc: "/murales/order-here.png",
+      fallbackAlt: "Murale del bancone: order here, wait the shaking, drink eat enjoy, pay here",
       ratio: "portrait",
       radius: 24,
       rotate: "n1",
@@ -172,12 +172,16 @@ export const site = {
     garden: {
       src: null,
       label: "foto del garden",
+      fallbackSrc: "/murales/gabbie.png",
+      fallbackAlt: "Murale della voliera di gabbie, al posto della foto del garden, Down Under Cafè Vanzago",
       ratio: "landscape",
       radius: 20,
     },
     buffet: {
       src: null,
       label: "foto buffet / sala allestita",
+      fallbackSrc: "/murales/caverna-duc.png",
+      fallbackAlt: "Murale della caverna con il monogramma DUC, al posto della foto della sala",
       ratio: "wide",
       radius: 20,
       tone: "light",
@@ -186,24 +190,24 @@ export const site = {
   pranzo: {
     kicker: "capitolo II · pausa pranzo",
     title: "Il giro del pranzo in 60 minuti.",
-    lead: "Phileas Fogg ci ha messo 80 giorni, tu hai un’ora. Menù fisso dal lunedì al venerdì: ti siedi, mangi bene, torni alla scrivania in orario.",
+    lead: "Phileas Fogg ci ha messo 80 giorni, tu hai un’ora. Menù fisso negli orari [orari da confermare]: ti siedi, mangi bene, torni alla scrivania.",
     fixed: {
-      eyebrow: "menù fisso · lun – ven · 11:30 – 15:00",
-      price: "[PREZZO] €",
+      eyebrow: "menù fisso · [orari da confermare]",
+      price: "[prezzo da confermare]",
       includes: "[Cosa comprende: es. piatto del giorno, acqua, caffè]",
       vouchers: "Buoni pasto: [quali accettate]",
     },
     features: [
       {
         title: "Il diario di bordo",
-        text: "Il menù della settimana esce ogni lunedì, qui e su Instagram. Così sai già che giovedì vieni. [da confermare]",
+        text: "Il menù della settimana esce qui e su Instagram. [da confermare]",
       },
       {
         title: "L’equipaggio dell’ufficio",
         text: "Siete in sei e avete un’ora? Scrivici in mattinata e trovate il tavolo pronto.",
       },
       {
-        title: "Call fino all’una?",
+        title: "La call non finisce?",
         text: "Take away: ordini al telefono, passi, mangi davanti al monitor. Non giudichiamo.",
       },
     ],
@@ -225,8 +229,10 @@ export const site = {
       ["Vini, Bolle & Birre", "Al calice, in bottiglia, alla spina."],
     ] as const,
     takeaway: "Serata divano? Take away sempre attivo: chiami, passi, sparisci.",
-    pdfLabel: "Menù completo in PDF [da collegare]",
-    pdfHref: "#info",
+    pdfLabel: "Scarica il menù in PDF",
+    pdfHref: "/menu/pdf",
+    htmlLabel: "Leggi il menù",
+    htmlHref: "/menu",
   },
   serate: {
     kicker: "capitolo IV · le serate straordinarie",
@@ -270,19 +276,19 @@ export const site = {
     ],
   },
   garden: {
-    kicker: "capitolo V · l’isola misteriosa",
+    kicker: "capitolo VI · l’isola misteriosa",
     title: "Garden mode: on.",
     text: "Misteriosa fino a un certo punto: è il garden qui fuori. Gazebo, siepi, lucine. Appena il meteo collabora si mangia e si beve all’aperto.",
   },
   eventi: {
-    kicker: "capitolo VI · dalla Terra alla Luna",
+    kicker: "capitolo VII · dalla Terra alla Luna",
     title: "Tu porti l’equipaggio. Al resto pensiamo noi.",
     text: "Compleanni, lauree, battesimi, cene aziendali che per una volta non sono una tortura. Aperitivo a buffet o cena su misura: dicci quanti siete.",
     tags: ["18 anni", "lauree", "compleanni", "battesimi", "cene aziendali"],
     cta: "Organizziamola",
   },
   info: {
-    kicker: "capitolo VII · il faro in capo al mondo",
+    kicker: "orari e contatti · il faro in capo al mondo",
     title: "Segui il faro. Passa.",
     phoneLabel: "chiama o scrivi",
     whereLabel: "coordinate",

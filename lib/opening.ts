@@ -1,4 +1,5 @@
 import { site, type MinuteRange, type Weekday } from "@/content/site";
+import { hoursPlaceholder } from "@/data/locale";
 
 export type OpeningKind = "neutral" | "open" | "closed";
 
@@ -9,11 +10,9 @@ export type OpeningSnapshot = {
   today: number;
 };
 
-export const serverOpening: OpeningSnapshot = {
-  text: site.openingCopy.neutral,
-  kind: "neutral",
-  today: -1,
-};
+export const serverOpening: OpeningSnapshot = site.hours
+  ? { text: site.openingCopy.neutral, kind: "neutral", today: -1 }
+  : { text: hoursPlaceholder, kind: "neutral", today: -1 };
 
 function isWeekday(value: number): value is Weekday {
   return value >= 0 && value <= 6;
@@ -38,6 +37,8 @@ export function formatDayRanges(ranges: readonly MinuteRange[]): string {
 }
 
 export function computeOpening(now = romeNow()): OpeningSnapshot {
+  if (!site.hours) return serverOpening;
+
   try {
     if (Number.isNaN(now.getTime())) return serverOpening;
 

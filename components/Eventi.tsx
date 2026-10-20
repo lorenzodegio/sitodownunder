@@ -1,5 +1,9 @@
+import { Murale } from "@/components/Murale";
 import { PhotoFrame } from "@/components/PhotoFrame";
+import { PhotoStrip } from "@/components/PhotoStrip";
+import { flyers } from "@/data/murales";
 import { site } from "@/content/site";
+import type { PublicPhoto } from "@/lib/archivio-shared";
 
 const stars = [
   [120, 90, 2.2, ""],
@@ -10,9 +14,11 @@ const stars = [
   [620, 300, 1.6, "2s"],
 ] as const;
 
-export function Eventi() {
+export function Eventi({ photos }: { photos: readonly PublicPhoto[] }) {
+  const frame = photos[0] ? { ...site.photos.buffet, src: photos[0].src, label: photos[0].alt } : site.photos.buffet;
+
   return (
-    <section id="eventi" className="section section-sea">
+    <section id="eventi" className="section section-sea" aria-labelledby="eventi-title">
       <svg className="skyline" aria-hidden="true" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid slice">
         <g fill="#F4F0E6">
           {stars.map(([cx, cy, r, delay]) => (
@@ -23,7 +29,9 @@ export function Eventi() {
       <div className="wrap eventi-grid">
         <div className="rv">
           <span className="rib">{site.eventi.kicker}</span>
-          <h2 className="display display-event">{site.eventi.title}</h2>
+          <h2 id="eventi-title" className="display display-event">
+            {site.eventi.title}
+          </h2>
           <p className="prose-lg prose-mutedD">{site.eventi.text}</p>
           <div className="chips">
             {site.eventi.tags.map((tag) => (
@@ -35,6 +43,19 @@ export function Eventi() {
           <a className="pill btn-solid" href={site.phone.tel}>
             {site.eventi.cta}
           </a>
+          <div className="flyer-fan">
+            <span className="nastro">dall’archivio · 22 novembre 2010</span>
+            {flyers.map((flyer) => (
+              <Murale
+                key={flyer.src}
+                src={flyer.src}
+                alt={flyer.alt}
+                width={flyer.width}
+                height={flyer.height}
+                className={flyer.className}
+              />
+            ))}
+          </div>
         </div>
         <div className="rv eventi-art">
           <svg className="ink luna" aria-hidden="true" viewBox="0 0 400 400">
@@ -50,8 +71,9 @@ export function Eventi() {
             </g>
           </svg>
           <div className="buffet-slot">
-            <PhotoFrame photo={site.photos.buffet} />
+            <PhotoFrame photo={frame} />
           </div>
+          <PhotoStrip photos={photos.slice(1)} />
         </div>
       </div>
     </section>

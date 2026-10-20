@@ -1,11 +1,22 @@
+import { Murale } from "@/components/Murale";
 import { site } from "@/content/site";
 
 export function Serate() {
   return (
-    <section id="serate" className="section">
+    <section id="serate" className="section section-serate" aria-labelledby="serate-title">
+      <Murale
+        src="/murales/camaleonte.png"
+        alt=""
+        decorative
+        width={463}
+        height={204}
+        className="camaleonte"
+      />
       <div className="wrap">
         <span className="rib rv">{site.serate.kicker}</span>
-        <h2 className="display rv">{site.serate.title}</h2>
+        <h2 id="serate-title" className="display rv">
+          {site.serate.title}
+        </h2>
         <p className="sub rv w-560 muted">{site.serate.lead}</p>
         <div className="night-grid">
           {site.serate.nights.map((night) => (
