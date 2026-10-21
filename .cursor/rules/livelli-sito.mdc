@@ -1,0 +1,15 @@
+---
+description: Livelli del sito Down Under. Si leggono prima di ogni modifica.
+alwaysApply: true
+---
+
+# Livelli del sito
+
+Prima di qualsiasi modifica, leggi `docs/REGOLE-SITO.md` e rispettalo.
+
+- Livello 0, base: sezioni, ordine, testi, logo, palette, font, murales, animazioni, nuvole, contatti, orari, SEO, admin. Non si tocca se la richiesta non dice esplicitamente «modifica la base». Se serve toccarla, fermati e chiedi.
+- Livello 1, stagione: solo colori di hero e barra, accento, decorazioni e riga evento in hero. Dati in `data/stagioni.ts`. Senza stagione valgono `data/theme.ts`.
+- Livello 2, eventi: Prossimamente e la riga in hero leggono solo `data/eventi.ts`.
+- Livello 3, contenuti: menù pranzo, PDF e foto solo da Blob via `/admin`.
+- Solo branch `dev`. Nessuna chiave o token in risposte o commit. Dati non confermati tra [parentesi].
+- Alla fine del lavoro, indica il livello delle modifiche.

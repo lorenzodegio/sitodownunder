@@ -1,11 +1,11 @@
-import { Foglie } from "@/components/Foglie";
+import { Decorazioni } from "@/components/Decorazioni";
 import { Murale } from "@/components/Murale";
 import { site } from "@/content/site";
 
 export function Serate() {
   return (
     <section id="serate" className="section section-serate" aria-labelledby="serate-title">
-      <Foglie where="serate" />
+      <Decorazioni dove="serate" />
       <Murale
         src="/murales/camaleonte.png"
         alt=""

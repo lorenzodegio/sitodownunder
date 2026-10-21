@@ -1,4 +1,4 @@
-import { Foglie } from "@/components/Foglie";
+import { Decorazioni } from "@/components/Decorazioni";
 import { Murale } from "@/components/Murale";
 import { PhotoStrip } from "@/components/PhotoStrip";
 import { flyers } from "@/data/murales";
@@ -18,13 +18,13 @@ export function Eventi({ photos }: { photos: readonly PublicPhoto[] }) {
   return (
     <section id="eventi" className="section section-sea" aria-labelledby="eventi-title">
       <svg className="skyline" aria-hidden="true" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid slice">
-        <g fill="#F4F0E6">
+        <g fill="var(--fondo)">
           {stars.map(([cx, cy, r, delay]) => (
             <circle key={`${cx}-${cy}`} className="tw" style={delay ? { animationDelay: delay } : undefined} cx={cx} cy={cy} r={r} />
           ))}
         </g>
       </svg>
-      <Foglie where="feste" />
+      <Decorazioni dove="feste" />
       <div className="wrap eventi-grid">
         <div className="rv">
           <span className="rib">{site.eventi.kicker}</span>

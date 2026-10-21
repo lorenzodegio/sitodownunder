@@ -20,7 +20,7 @@ function lighten(hex: string) {
   return `#${[channel(16), channel(8), channel(0)].map((part) => part.toString(16).padStart(2, "0")).join("")}`;
 }
 
-export function Nuvole({ color = "#f6efdf" }: { color?: string }) {
+export function Nuvole({ color }: { color: string }) {
   return (
     <div className="nuvole" aria-hidden="true">
       <div

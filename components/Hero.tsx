@@ -1,13 +1,13 @@
+import { Decorazioni } from "@/components/Decorazioni";
 import { Dirigibile } from "@/components/Dirigibile";
-import { Foglie } from "@/components/Foglie";
 import { Murale } from "@/components/Murale";
 import { Nuvole } from "@/components/Nuvole";
 import { OpeningBadge } from "@/components/OpeningBadge";
 import { Stemma } from "@/components/Stemma";
 import { site } from "@/content/site";
-import { romeToday } from "@/data/calendario";
-import { prossimoMartedi } from "@/data/eventi";
-import { activeSeason } from "@/lib/season";
+import { eventoInHero } from "@/data/eventi";
+import { theme } from "@/data/theme";
+import { stagioneAttiva } from "@/lib/season";
 
 const stars = [
   [90, 80, 2.4, ""],
@@ -23,14 +23,14 @@ const stars = [
 
 export async function Hero() {
   const [lunch, ape, cena, again] = site.hero.lines;
-  const autunno = (await activeSeason()) === "autunno";
-  const next = prossimoMartedi();
-  const stasera = next?.data === romeToday();
+  const stagione = await stagioneAttiva();
+  const spinta = eventoInHero();
+  const mostraRiga = Boolean(stagione?.rigaHero && spinta);
 
   return (
     <section className="hero">
       <svg className="skyline" aria-hidden="true" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid slice">
-        <g fill="#F4F0E6">
+        <g fill="var(--fondo)">
           {stars.map(([cx, cy, r, delay]) => (
             <circle key={`${cx}-${cy}`} className="tw" style={delay ? { animationDelay: delay } : undefined} cx={cx} cy={cy} r={r} />
           ))}
@@ -39,14 +39,14 @@ export async function Hero() {
           className="dash"
           d="M-20 470C240 380 420 520 700 360S1180 180 1420 250"
           fill="none"
-          stroke="#F4F0E6"
+          stroke="var(--fondo)"
           strokeOpacity={0.35}
           strokeWidth={2}
           strokeDasharray="6 10"
           strokeLinecap="round"
         />
       </svg>
-      {autunno ? <Foglie where="hero" /> : null}
+      <Decorazioni dove="hero" />
       <div className="hero-grid">
         <div>
           <OpeningBadge />
@@ -57,7 +57,7 @@ export async function Hero() {
             <span className="in d3">{cena}</span>
             <span className="in d4 soft">{again}</span>
           </p>
-          {autunno && next ? (
+          {mostraRiga && spinta ? (
             <a className="nonna-line" href="#prossimamente">
               <Murale
                 src="/murales/mano-welcome.png"
@@ -70,11 +70,11 @@ export async function Hero() {
               />
               <span>
                 <span className="nonna-hand-title">
-                  {stasera ? "Stasera, dalla nonna." : "…e a novembre, il martedì, dalla nonna."}
+                  {spinta.oggi ? "Stasera, dalla nonna." : "…e a novembre, il martedì, dalla nonna."}
                 </span>
                 <span className="nonna-hand-dish">
-                  {stasera ? null : <>{next.label}: </>}
-                  <strong>{next.piatto}</strong> · <span>{next.prezzo}</span>
+                  {spinta.oggi ? null : <>{spinta.day.label}: </>}
+                  <strong>{spinta.day.piatto}</strong> · <span>{spinta.day.prezzo}</span>
                 </span>
                 <span className="nonna-hand-cta">Scopri i martedì della nonna →</span>
               </span>
@@ -107,7 +107,7 @@ export async function Hero() {
           </svg>
         </div>
       </div>
-      <Nuvole color={next ? "#f6efdf" : "#f4f0e6"} />
+      <Nuvole color={spinta ? theme.carta : theme.fondo} />
     </section>
   );
 }

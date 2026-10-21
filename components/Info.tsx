@@ -1,12 +1,12 @@
 import { Faro } from "@/components/Faro";
-import { Foglie } from "@/components/Foglie";
+import { Decorazioni } from "@/components/Decorazioni";
 import { HoursTable } from "@/components/HoursTable";
 import { site } from "@/content/site";
 
 export function Info() {
   return (
     <section id="info" className="section" aria-labelledby="info-title">
-      <Foglie where="info" />
+      <Decorazioni dove="info" />
       <div className="wrap">
         <div className="head">
           <div className="head-copy slim">

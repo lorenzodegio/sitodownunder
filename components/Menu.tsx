@@ -1,4 +1,4 @@
-import { Foglie } from "@/components/Foglie";
+import { Decorazioni } from "@/components/Decorazioni";
 import { Polpo } from "@/components/Polpo";
 import { site } from "@/content/site";
 
@@ -10,7 +10,7 @@ export function Menu() {
       {bubbles.map((name) => (
         <span key={name} className={`bub bubble ${name}`} aria-hidden="true" />
       ))}
-      <Foglie where="menu" />
+      <Decorazioni dove="menu" />
       <div className="wrap menu-stage">
         <div className="head">
           <div className="head-copy">

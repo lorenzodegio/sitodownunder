@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { caveat } from "@/components/duc-font";
-import { Foglie } from "@/components/Foglie";
+import { Decorazioni } from "@/components/Decorazioni";
 import { eventiAttivi, whatsappEvento } from "@/data/eventi";
 import { locale } from "@/data/locale";
 import type { PublicPhoto } from "@/lib/archivio-shared";
@@ -11,7 +11,7 @@ export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
 
   return (
     <section id="prossimamente" className={`${caveat.variable} chapter chapter-paper`} aria-labelledby="prossimamente-title">
-      <Foglie where="paper" />
+      <Decorazioni dove="paper" />
       <div className="chapter-wrap chapter-stack">
         <div className="chapter-intro">
           <span className="kicker">capitolo I · il diario di bordo</span>
@@ -35,7 +35,7 @@ export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
                 <p className="ev-text">{evento.descrizione}</p>
               </div>
               <div className="ev-actions">
-                <a className="pill btn-ink" href={whatsappEvento(evento.next.short)}>
+                <a className="pill btn-ink" href={whatsappEvento(evento.prenotazione, evento.next.short)}>
                   Prenota su WhatsApp
                 </a>
                 <a className="pill btn-ink-ghost" href={`tel:${locale.phoneE164}`}>
@@ -66,7 +66,7 @@ export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
                       <span>a persona</span>
                     </div>
                     <div className="ev-book">
-                      <a href={whatsappEvento(giorno.short)}>Prenota il {giorno.breve}</a>
+                      <a href={whatsappEvento(evento.prenotazione, giorno.short)}>Prenota il {giorno.breve}</a>
                     </div>
                   </div>
                 );

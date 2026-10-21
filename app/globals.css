@@ -1,20 +1,4 @@
-:root {
-  --accent: #a6dccb;
-  --hero-bg: #1e282b;
-  --spot: #a6dccb;
-  --paper: #f4f0e6;
-  --ink: #1e282b;
-  --mutedL: #556163;
-  --mutedD: #a9b4b2;
-  --lineL: rgba(30, 40, 43, 0.18);
-  --lineD: rgba(244, 240, 230, 0.2);
-  --status-neutral: #8a9096;
-  --status-open: #a6dccb;
-  --status-closed: #e3a6a0;
-  --butter: #f3e2b8;
-  --sage: #8eae9a;
-  --terracotta: #c56a45;
-}
+/* I colori arrivano da data/theme.ts e, per la stagione, da data/stagioni.ts. */
 
 html {
   scroll-behavior: smooth;
@@ -22,7 +6,7 @@ html {
 
 body {
   margin: 0;
-  background: #f4f0e6;
+  background: var(--fondo);
 }
 
 a {
@@ -157,10 +141,10 @@ p {
 @keyframes pulse {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(166, 220, 203, 0.5);
+    box-shadow: 0 0 0 0 var(--bagliore);
   }
   50% {
-    box-shadow: 0 0 0 8px rgba(166, 220, 203, 0);
+    box-shadow: 0 0 0 8px var(--bagliore-spento);
   }
 }
 
@@ -237,7 +221,7 @@ p {
 }
 .row:hover {
   padding-left: 18px !important;
-  background: rgba(244, 240, 230, 0.06);
+  background: var(--velo);
 }
 
 .pill {
@@ -270,7 +254,7 @@ p {
   width: 16px;
   height: 100%;
   border: 2px solid var(--ink);
-  background: #d9d3c4;
+  background: var(--corda);
   z-index: -1;
 }
 .rib::before {
@@ -308,7 +292,7 @@ p {
 }
 
 .demo-bar {
-  background: #11181a;
+  background: var(--demo);
   color: var(--mutedD);
   font-size: 13px;
   text-align: center;
@@ -319,7 +303,7 @@ p {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(30, 40, 43, 0.9);
+  background: var(--barra);
   color: var(--paper);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--lineD);
@@ -493,7 +477,7 @@ p {
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.34em;
-  fill: #a9b4b2;
+  fill: var(--muto-chiaro);
 }
 
 .stemma {
@@ -508,7 +492,7 @@ p {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.3em;
-  fill: #f4f0e6;
+  fill: var(--fondo);
 }
 .stemma-kicker-wide {
   letter-spacing: 0.34em;
@@ -516,14 +500,14 @@ p {
 .stemma-duc {
   font-family: var(--font-instrument), serif;
   font-size: 26px;
-  fill: #f4f0e6;
+  fill: var(--fondo);
 }
 .stemma-word {
   font-family: var(--font-rokkitt), serif;
   font-size: 64px;
   font-weight: 500;
   fill: none;
-  stroke: #f4f0e6;
+  stroke: var(--fondo);
   stroke-width: 1.4;
 }
 .stemma-down {
@@ -537,13 +521,13 @@ p {
   font-style: italic;
   font-size: 30px;
   letter-spacing: 0.18em;
-  fill: #f4f0e6;
+  fill: var(--fondo);
 }
 .stemma-since {
   font-family: var(--font-instrument), serif;
   font-style: italic;
   font-size: 17px;
-  fill: #f4f0e6;
+  fill: var(--fondo);
 }
 
 .dirigibile {
@@ -551,8 +535,8 @@ p {
   right: -10%;
   top: -8%;
   width: 50%;
-  --f: #1e282b;
-  color: #f4f0e6;
+  --f: var(--inchiostro);
+  color: var(--fondo);
 }
 
 .badge {
@@ -701,7 +685,7 @@ p {
   gap: 8px;
 }
 .day.paper {
-  background: #fff;
+  background: var(--bianco);
 }
 .day.ink {
   background: var(--ink);
@@ -799,7 +783,7 @@ p {
   position: absolute;
   right: 24px;
   top: -18px;
-  background: #fff;
+  background: var(--bianco);
   border: 2px solid var(--ink);
   font-weight: 700;
   font-size: 14px;
@@ -900,7 +884,7 @@ p {
   font-family: var(--font-instrument), serif;
   font-style: italic;
   font-size: 19px;
-  fill: #f4f0e6;
+  fill: var(--fondo);
 }
 
 .menu-list {
@@ -954,7 +938,7 @@ p {
   margin-top: 44px;
 }
 .night {
-  background: #fff;
+  background: var(--bianco);
   border: 2px solid var(--ink);
   border-radius: 24px;
   padding: 30px;
@@ -1044,7 +1028,7 @@ p {
 }
 
 .faro {
-  --f: #fff;
+  --f: var(--bianco);
   flex: 0 1 170px;
   width: 170px;
 }
@@ -1056,7 +1040,7 @@ p {
   margin-top: 44px;
 }
 .hours-card {
-  background: #fff;
+  background: var(--bianco);
   border: 2px solid var(--ink);
   border-radius: 24px;
   padding: 10px 26px;
@@ -1141,7 +1125,7 @@ p {
   font-weight: 700;
   font-size: 19px;
   letter-spacing: 0.06em;
-  fill: #1e282b;
+  fill: var(--inchiostro);
 }
 .footer-note,
 .footer-legal {
@@ -1170,17 +1154,17 @@ p {
   text-align: center;
   padding: 13px;
   border: 2px solid;
-  box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 10px 24px -10px var(--ombra);
 }
 .call-primary {
-  background: #f4f0e6;
-  color: #1e282b;
-  border-color: #1e282b;
+  background: var(--fondo);
+  color: var(--inchiostro);
+  border-color: var(--inchiostro);
 }
 .call-secondary {
-  background: #1e282b;
-  color: #f4f0e6;
-  border-color: #f4f0e6;
+  background: var(--inchiostro);
+  color: var(--fondo);
+  border-color: var(--fondo);
 }
 
 .skyline {
@@ -1196,7 +1180,7 @@ p {
   bottom: 4%;
   width: 20%;
   opacity: 0.7;
-  color: #f4f0e6;
+  color: var(--fondo);
 }
 .gear-ring {
   stroke-width: 12;
@@ -1204,8 +1188,8 @@ p {
 }
 
 .bussola {
-  --f: #1e282b;
-  color: #f4f0e6;
+  --f: var(--inchiostro);
+  color: var(--fondo);
   flex: 0 1 150px;
   width: 150px;
 }
@@ -1271,7 +1255,7 @@ p {
 }
 
 .rosa {
-  --f: #f4f0e6;
+  --f: var(--fondo);
   position: absolute;
   right: 22px;
   top: -34px;
@@ -1293,28 +1277,28 @@ p {
   position: relative;
 }
 .luna {
-  --f: #f4f0e6;
-  color: #1e282b;
+  --f: var(--fondo);
+  color: var(--inchiostro);
   display: block;
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
 }
 .luna-disc {
-  stroke: #f4f0e6;
+  stroke: var(--fondo);
 }
 .orbit {
   transform-origin: 200px 200px;
   transform-box: view-box;
   animation-duration: 14s;
-  color: #f4f0e6;
+  color: var(--fondo);
 }
 .orbit ellipse {
   stroke-dasharray: 3 12;
   stroke-opacity: 0.5;
 }
 .rocket {
-  --f: #1e282b;
+  --f: var(--inchiostro);
 }
 .buffet-slot {
   margin: 18px auto 0;
@@ -1436,7 +1420,7 @@ p {
 }
 
 .mural-card.paper {
-  background: #fff;
+  background: var(--bianco);
   color: var(--ink);
   border: 2px solid var(--ink);
 }
@@ -1470,7 +1454,7 @@ p {
 }
 
 .photo-frame.has-fallback {
-  background: #fff;
+  background: var(--bianco);
   border-color: var(--ink);
 }
 
@@ -1717,7 +1701,7 @@ address {
   padding: 20px;
   border: 2px solid var(--ink);
   border-radius: 20px;
-  background: #fff;
+  background: var(--bianco);
 }
 
 .admin-card form,
@@ -1743,7 +1727,7 @@ address {
 .admin-warn {
   padding: 12px 14px;
   border-radius: 12px;
-  background: #f3d2ce;
+  background: var(--blush);
 }
 
 .admin-message {
@@ -1827,7 +1811,7 @@ address {
   border-radius: 22px;
   background: var(--butter);
   color: var(--ink);
-  box-shadow: 0 14px 0 rgba(244, 240, 230, 0.08);
+  box-shadow: 0 14px 0 var(--ombra-morbida);
 }
 
 .nonna-kicker,
@@ -1867,7 +1851,7 @@ address {
 .nonna-price {
   font-family: var(--hand);
   font-size: 32px;
-  color: var(--terracotta);
+  color: var(--coccio);
 }
 
 .nonna-meta {
@@ -1880,7 +1864,7 @@ address {
 .nonna-time,
 .nonna-lead,
 .nonna-only {
-  color: #3d4a46;
+  color: var(--muschio);
 }
 
 .nonna-cta {
@@ -1898,7 +1882,7 @@ address {
   padding: 28px 22px 32px;
   border: 2px solid var(--sage);
   border-radius: 28px;
-  background: linear-gradient(180deg, #f7f1e4 0%, var(--butter) 100%);
+  background: linear-gradient(180deg, var(--crema) 0%, var(--butter) 100%);
   box-shadow: inset 14px 0 0 var(--sage);
 }
 
@@ -1928,11 +1912,11 @@ address {
   gap: 12px;
   padding: 14px;
   border-radius: 18px;
-  background: rgba(244, 240, 230, 0.72);
+  background: var(--velo-forte);
 }
 
 .nonna-day.is-oggi {
-  outline: 3px solid var(--terracotta);
+  outline: 3px solid var(--coccio);
 }
 
 .nonna-day.is-finito {
@@ -1947,8 +1931,8 @@ address {
   border: 1.5px dashed var(--sage);
   border-radius: 14px;
   overflow: hidden;
-  background: #fffdf8;
-  color: #5c6a64;
+  background: var(--avorio);
+  color: var(--ardesia);
   font-family: var(--hand);
   font-size: 28px;
   text-align: center;
@@ -1967,9 +1951,9 @@ address {
   display: inline-block;
   margin: 4px 0;
   padding: 2px 8px;
-  border: 2px solid var(--terracotta);
+  border: 2px solid var(--coccio);
   border-radius: 8px;
-  color: var(--terracotta);
+  color: var(--coccio);
   font-size: 22px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -2090,9 +2074,9 @@ address {
   }
 }
 
-[data-season="autunno"] {
-  --hero-bg: #2b2420;
-  --spot: #e3a08a;
+[data-season] {
+  --hero-bg: var(--fondo-hero);
+  --spot: var(--accento);
 }
 
 .section {
@@ -2107,18 +2091,18 @@ address {
   pointer-events: none;
   z-index: 1;
 }
-[data-season="autunno"] .foglie {
+[data-season] .foglie {
   display: block;
 }
-[data-season="autunno"] .site-header,
-[data-season="autunno"] .hero {
-  background: #2b2420;
+[data-season] .site-header,
+[data-season] .hero {
+  background: var(--fondo-hero);
 }
-[data-season="autunno"] .hero-title .soft {
-  color: #e3a08a;
+[data-season] .hero-title .soft {
+  color: var(--accento);
 }
-[data-season="autunno"] .hero .status-dot:not(.is-open):not(.is-closed) {
-  background: #e3a08a;
+[data-season] .hero .status-dot:not(.is-open):not(.is-closed) {
+  background: var(--accento);
 }
 .leaf,
 .fg {
@@ -2140,8 +2124,8 @@ address {
   padding: 96px 0;
 }
 .chapter-paper {
-  background: #f6efdf;
-  color: #1e282b;
+  background: var(--carta);
+  color: var(--inchiostro);
 }
 .chapter-wrap {
   max-width: 1280px;
@@ -2170,7 +2154,7 @@ address {
   font-family: var(--font-instrument), serif;
   font-style: italic;
   font-size: 22px;
-  color: #b8604a;
+  color: var(--inchiostro-mano);
 }
 .kicker-dark {
   color: var(--spot);
@@ -2191,7 +2175,7 @@ address {
   align-items: start;
   margin-top: 8px;
   padding-top: 22px;
-  border-top: 1.5px dashed rgba(243, 223, 162, 0.45);
+  border-top: 1.5px dashed var(--tratteggio);
   text-decoration: none;
 }
 .nonna-hand {
@@ -2210,26 +2194,26 @@ address {
   font-weight: 700;
   font-size: 38px;
   line-height: 1;
-  color: #f3dfa2;
+  color: var(--burro);
 }
 .nonna-hand-dish {
   font-size: 17px;
   line-height: 1.45;
-  color: rgba(246, 239, 223, 0.88);
+  color: var(--carta-morbida);
 }
 .nonna-hand-dish strong {
-  color: #f6efdf;
+  color: var(--carta);
 }
 .nonna-hand-dish span {
   font-family: var(--font-caveat), cursive;
   font-weight: 700;
   font-size: 26px;
-  color: #e3a08a;
+  color: var(--accento);
 }
 .nonna-hand-cta {
   font-weight: 700;
   font-size: 16px;
-  color: #f3dfa2;
+  color: var(--burro);
   text-decoration: underline;
   text-underline-offset: 5px;
 }
@@ -2248,8 +2232,8 @@ address {
 }
 
 .evento-sheet {
-  background: #fffcf4;
-  border: 1.5px solid #1e282b;
+  background: var(--biglietto);
+  border: 1.5px solid var(--inchiostro);
   border-radius: 24px;
   padding: 40px;
   display: flex;
@@ -2279,12 +2263,12 @@ address {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  border: 1.5px solid #1e282b;
+  border: 1.5px solid var(--inchiostro);
   padding: 5px 12px;
   border-radius: 999px;
 }
 .ev-tag-fill {
-  background: #f3dfa2;
+  background: var(--burro);
   border-color: transparent;
 }
 .ev-title {
@@ -2302,15 +2286,15 @@ address {
   line-height: 1.55;
 }
 .btn-ink {
-  background: #1e282b;
-  color: #f6efdf;
+  background: var(--inchiostro);
+  color: var(--carta);
   padding: 16px 24px;
 }
 .btn-ink:hover {
-  color: #f6efdf;
+  color: var(--carta);
 }
 .btn-ink-ghost {
-  border: 2px solid #1e282b;
+  border: 2px solid var(--inchiostro);
   padding: 14px 22px;
 }
 .ev-grid {
@@ -2324,25 +2308,25 @@ address {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background: #f6efdf;
+  background: var(--carta);
   border-radius: 18px;
   overflow: hidden;
-  border: 1.5px solid rgba(30, 40, 43, 0.18);
+  border: 1.5px solid var(--linea);
 }
 .ev-card.is-next {
-  border: 2px solid #b8604a;
+  border: 2px solid var(--inchiostro-mano);
 }
 .ev-photo {
   position: relative;
   flex: none;
   aspect-ratio: 4 / 3;
-  background: #fffcf4;
+  background: var(--biglietto);
 }
 .ev-photo img {
   object-fit: cover;
 }
 .ev-photo-empty {
-  background-image: repeating-linear-gradient(180deg, transparent 0 23px, rgba(169, 188, 160, 0.45) 23px 24px);
+  background-image: repeating-linear-gradient(180deg, transparent 0 23px, var(--riga-salvia) 23px 24px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2350,7 +2334,7 @@ address {
 .ev-photo-empty > span {
   font-family: var(--font-caveat), cursive;
   font-size: 26px;
-  color: rgba(30, 40, 43, 0.55);
+  color: var(--linea-forte);
 }
 .ev-badge {
   position: absolute;
@@ -2360,8 +2344,8 @@ address {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  background: #b8604a;
-  color: #fffcf4;
+  background: var(--inchiostro-mano);
+  color: var(--biglietto);
   padding: 6px 10px;
   border-radius: 999px;
 }
@@ -2379,7 +2363,7 @@ address {
   font-family: var(--font-caveat), cursive;
   font-size: 26px;
   font-weight: 700;
-  color: #b8604a;
+  color: var(--inchiostro-mano);
   line-height: 1;
 }
 .ev-dish {
@@ -2401,12 +2385,12 @@ address {
   font-family: var(--font-caveat), cursive;
   font-weight: 700;
   font-size: 34px;
-  color: #b8604a;
+  color: var(--inchiostro-mano);
   line-height: 1;
 }
 .ev-price span:last-child {
   font-size: 14px;
-  color: #3c4a4e;
+  color: var(--testo-muto);
 }
 .ev-book {
   margin-top: auto;
@@ -2415,7 +2399,7 @@ address {
 .ev-book a {
   display: flex;
   justify-content: center;
-  border: 1.5px solid #1e282b;
+  border: 1.5px solid var(--inchiostro);
   border-radius: 999px;
   padding: 12px 16px;
   font-weight: 700;
@@ -2427,7 +2411,7 @@ address {
 }
 .split-btn {
   display: inline-flex;
-  border: 2px solid #f6efdf;
+  border: 2px solid var(--carta);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -2440,16 +2424,16 @@ address {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #f6efdf;
-  color: #1e282b;
+  background: var(--carta);
+  color: var(--inchiostro);
 }
 .split-btn a + a:hover {
-  color: #1e282b;
+  color: var(--inchiostro);
 }
 
 .pranzo-card {
-  background: #f3dfa2;
-  color: #1e282b;
+  background: var(--burro);
+  color: var(--inchiostro);
   border-radius: 24px;
   padding: 32px;
   display: flex;
@@ -2460,7 +2444,7 @@ address {
   font-family: var(--font-caveat), cursive;
   font-size: 30px;
   font-weight: 700;
-  color: #b8604a;
+  color: var(--inchiostro-mano);
   line-height: 1;
 }
 .pranzo-card h3,
@@ -2488,19 +2472,19 @@ address {
   padding: 9px 13px;
   min-height: 40px;
   border-radius: 999px;
-  border: 1.5px solid #1e282b;
+  border: 1.5px solid var(--inchiostro);
   background: transparent;
-  color: #1e282b;
+  color: var(--inchiostro);
   cursor: pointer;
 }
 .day-tabs button.is-on {
-  background: #1e282b;
-  color: #f3dfa2;
+  background: var(--inchiostro);
+  color: var(--burro);
 }
 .day-dishes {
   display: flex;
   flex-direction: column;
-  border-top: 1.5px solid #1e282b;
+  border-top: 1.5px solid var(--inchiostro);
   padding-top: 10px;
   min-height: 250px;
 }
@@ -2510,7 +2494,7 @@ address {
   gap: 10px;
   align-items: baseline;
   padding: 7px 0;
-  border-bottom: 1px dashed rgba(30, 40, 43, 0.3);
+  border-bottom: 1px dashed var(--linea-media);
 }
 .day-row span:first-child {
   font-size: 11px;
@@ -2526,13 +2510,13 @@ address {
   font-family: var(--font-caveat), cursive;
   font-weight: 700;
   font-size: 22px;
-  color: #b8604a;
+  color: var(--inchiostro-mano);
 }
 .pranzo-rule {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  border-top: 1.5px solid #1e282b;
+  border-top: 1.5px solid var(--inchiostro);
   padding-top: 14px;
 }
 .pranzo-rule > span {
@@ -2580,8 +2564,8 @@ address {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background: #fffcf4;
-  border: 1.5px solid #1e282b;
+  background: var(--biglietto);
+  border: 1.5px solid var(--inchiostro);
   border-radius: 18px;
   overflow: hidden;
 }
@@ -2617,7 +2601,7 @@ address {
 }
 .gal figcaption span:last-child {
   font-size: 15px;
-  color: #3c4a4e;
+  color: var(--testo-muto);
 }
 
 .feste-grid {
@@ -2631,7 +2615,7 @@ address {
   max-width: 520px;
   font-size: 18px;
   line-height: 1.55;
-  color: rgba(246, 239, 223, 0.85);
+  color: var(--carta-velata);
 }
 .feste-cta {
   display: flex;
@@ -2660,8 +2644,8 @@ address {
   height: 100%;
   min-height: 176px;
   box-sizing: border-box;
-  background: #fffcf4;
-  border: 1.5px solid #1e282b;
+  background: var(--biglietto);
+  border: 1.5px solid var(--inchiostro);
   border-radius: 18px;
   padding: 24px 26px;
   display: flex;
@@ -2672,8 +2656,8 @@ address {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #1e282b;
-  color: #f6efdf;
+  background: var(--inchiostro);
+  color: var(--carta);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2693,7 +2677,7 @@ address {
   margin: 8px 0 0;
   font-size: 16px;
   line-height: 1.55;
-  color: #2c3a3e;
+  color: var(--testo-faq);
 }
 
 .admin-line {

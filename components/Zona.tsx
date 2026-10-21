@@ -1,12 +1,12 @@
 import { Faq } from "@/components/Faq";
-import { Foglie } from "@/components/Foglie";
+import { Decorazioni } from "@/components/Decorazioni";
 import { showGarden } from "@/data/flags";
 import { comuni } from "@/data/locale";
 
 export function Zona() {
   return (
     <section id="zona" className="section section-tight" aria-labelledby="zona-title">
-      <Foglie where="info" />
+      <Decorazioni dove="info" />
       <div className="wrap">
         <span className="rib rv">{showGarden ? "capitolo VIII · da dove arrivi" : "capitolo VII · da dove arrivi"}</span>
         <h2 id="zona-title" className="display rv w-900">

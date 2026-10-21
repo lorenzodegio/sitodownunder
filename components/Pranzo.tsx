@@ -1,4 +1,4 @@
-import { Foglie } from "@/components/Foglie";
+import { Decorazioni } from "@/components/Decorazioni";
 import { MenuPranzoSettimana } from "@/components/MenuPranzoSettimana";
 import { Murale } from "@/components/Murale";
 import { site } from "@/content/site";
@@ -6,7 +6,7 @@ import { site } from "@/content/site";
 export function Pranzo() {
   return (
     <section id="pranzo" className="section-tight" aria-labelledby="pranzo-title">
-      <Foglie where="pranzo" />
+      <Decorazioni dove="pranzo" />
       <div className="wrap sheet-ink">
         <div className="head">
           <div className="head-copy">

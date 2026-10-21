@@ -32,7 +32,7 @@ export default async function HomePage() {
         <svg className="wave onda-svg" viewBox="0 0 1700 40" preserveAspectRatio="none">
           <defs>
             <pattern id="wv" width="100" height="40" patternUnits="userSpaceOnUse">
-              <path d="M0 22q25-22 50 0t50 0V40H0z" fill="#1E282B" />
+              <path d="M0 22q25-22 50 0t50 0V40H0z" fill="var(--inchiostro)" />
             </pattern>
           </defs>
           <rect width="1700" height="40" fill="url(#wv)" />

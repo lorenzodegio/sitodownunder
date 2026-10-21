@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { theme } from "@/data/theme";
 
 export const ogSize = { width: 1200, height: 630 };
 
@@ -19,15 +20,15 @@ export async function renderOg(title: string, subtitle: string) {
           width: "100%",
           height: "100%",
           display: "flex",
-          background: "#1E282B",
-          color: "#F4F0E6",
+          background: theme.inchiostro,
+          color: theme.fondo,
         }}
       >
         <div
           style={{
             width: 420,
             height: "100%",
-            background: "#F4F0E6",
+            background: theme.fondo,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -48,9 +49,9 @@ export async function renderOg(title: string, subtitle: string) {
             flex: 1,
           }}
         >
-          <div style={{ fontSize: 28, letterSpacing: 4, color: "#A6DCCB" }}>DOWN UNDER CAFÈ</div>
+          <div style={{ fontSize: 28, letterSpacing: 4, color: theme.tiffany }}>DOWN UNDER CAFÈ</div>
           <div style={{ fontSize: 58, lineHeight: 1.05, marginTop: 24 }}>{title}</div>
-          <div style={{ fontSize: 28, marginTop: 28, color: "#A9B4B2" }}>{subtitle}</div>
+          <div style={{ fontSize: 28, marginTop: 28, color: theme.mutoChiaro }}>{subtitle}</div>
         </div>
       </div>
     ),

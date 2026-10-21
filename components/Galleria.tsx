@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Foglie } from "@/components/Foglie";
+import { Decorazioni } from "@/components/Decorazioni";
 import { Murale } from "@/components/Murale";
 import { paretiColonne, type Parete } from "@/data/murales";
 import type { PublicPhoto } from "@/lib/archivio-shared";
@@ -21,7 +21,7 @@ function Card({ item, fill }: { item: Parete; fill?: boolean }) {
 export function Galleria({ photos }: { photos: readonly PublicPhoto[] }) {
   return (
     <section id="murales" className="chapter chapter-paper" aria-labelledby="galleria-title">
-      <Foglie where="pareti" />
+      <Decorazioni dove="pareti" />
       <div className="chapter-wrap chapter-stack">
         <div className="chapter-intro">
           <span className="kicker">capitolo IV · il giro del locale in 80 pareti</span>

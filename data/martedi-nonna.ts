@@ -27,7 +27,8 @@ export type MartediGiorno = {
 };
 
 export function whatsappMartedi(label: string): string {
-  return whatsappEvento(label);
+  const evento = eventiAttivi().find((item) => item.id === "martedi-nonna");
+  return whatsappEvento(evento?.prenotazione ?? "Ciao! Vorrei prenotare per il martedì della nonna del {data}", label);
 }
 
 /** Compatibilità con la sezione precedente. I dati veri stanno in data/eventi.ts. */

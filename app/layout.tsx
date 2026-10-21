@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 import { DM_Sans, Instrument_Serif, Rokkitt } from "next/font/google";
 import { caveat } from "@/components/duc-font";
 import { site } from "@/content/site";
+import { leggiStagione } from "@/data/stagioni";
+import { themeStyle } from "@/data/theme";
 import { indexingEnabled, siteUrl } from "@/lib/site-url";
 import { activeSeason } from "@/lib/season";
 import "./globals.css";
@@ -59,10 +61,12 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const season = await activeSeason();
+  const stagione = leggiStagione(season);
   return (
     <html
       lang="it"
-      data-season={season === "autunno" ? "autunno" : undefined}
+      data-season={stagione ? season ?? undefined : undefined}
+      style={themeStyle(stagione)}
       className={`${rokkitt.variable} ${instrumentSerif.variable} ${dmSans.variable} ${caveat.variable}`}
     >
       <body>{children}</body>
