@@ -28,7 +28,7 @@ export const pagineLocali: readonly PaginaLocale[] = [
     navLabel: "Hamburger in provincia",
     paragraphs: [
       "Cercare un hamburger in provincia di Milano, fuori dal centro, finisce spesso in due posti: una catena sul viale commerciale, oppure un locale che ha una cucina e una sala sua. Il Down Under Cafè sta a Vanzago, in Via Primo Maggio 1, ed è la seconda cosa. Dal 2010 si mangiano burger e pizza e si beve al bancone, in una sala coperta di murales tratti dai romanzi di Jules Verne.",
-      "Il burger qui non è un contorno dell’aperitivo. È il motivo per cui si attraversa la provincia ovest: pane ai semi, carne seria, abbinamenti che non sono la solita lista fotocopiata. Accanto ci sono le pizze, dalla margherita a burrata, crudo e pistacchio, le piade romagnole, i club sandwich e i dolci fatti in casa, tiramisù compreso. A pranzo, negli orari [orari da confermare], c’è anche il menù fisso per chi ha un’ora e un ufficio che aspetta.",
+      "Il burger qui non è un contorno dell’aperitivo. È il motivo per cui si attraversa la provincia ovest: pane ai semi, carne seria, abbinamenti che non sono la solita lista fotocopiata. Accanto ci sono le pizze, dalla margherita a burrata, crudo e pistacchio, le piade romagnole, i club sandwich e i dolci fatti in casa, tiramisù compreso. A pranzo: primo + secondo con contorno da 14€, primi e secondi da 7€, bevande escluse. C’è anche tutto il menù della sera.",
       "La sala è un romanzo aperto. Polpo, dirigibile, caverne, gabbie, faro: ogni parete cita un libro, e il monogramma DUC torna tra i fossili e le nuvole. Non è una scenografia da sfilata. È il locale in cui, dal 22 novembre 2010, a Vanzago si pranza, si fa l’aperitivo e si cena. Gli orari sono [orari da confermare].",
       "Se stai confrontando le hamburagerie della provincia, vieni a vedere la sala prima di decidere dal solo nome. Il menù completo è in questa stessa pagina, anche in PDF quando il file è online. Per un tavolo si chiama o si scrive al 338 439 5727. L’asporto è sempre attivo: si ordina, si passa in Via Primo Maggio, si porta a casa.",
     ],
@@ -36,7 +36,7 @@ export const pagineLocali: readonly PaginaLocale[] = [
       "Vanzago è su Milano ovest, lungo l’asse del Sempione. Via Primo Maggio 1 sta sul lato del paese rivolto verso Pregnana Milanese e Rho: da quel lato si entra senza attraversare tutto il centro. In auto si cerca posto lungo la via e nelle strade del quartiere. Non indichiamo un parcheggio multipiano, perché non c’è un silos da promettere. Da Mantegazza, che è frazione di Vanzago, la strada è ancora più corta.",
     piatti: [
       { name: "I burger", text: "Pane ai semi e carne seria: è la voce per cui il locale è conosciuto in zona." },
-      { name: "Menù fisso di pranzo", text: "[orari da confermare], per chi deve tornare in ufficio. Prezzo: [prezzo da confermare]." },
+      { name: "Pranzo", text: "Primo + secondo con contorno da 14€. Primi e secondi da 7€, bevande escluse. C’è anche tutto il menù della sera." },
       { name: "Tiramisù", text: "Fatto in casa, a fine cena, quando il burger ha già fatto il suo." },
     ],
     murales: [
@@ -79,7 +79,7 @@ export const pagineLocali: readonly PaginaLocale[] = [
     navLabel: "Hamburger Rho",
     paragraphs: [
       "Rho ha i suoi bar e i suoi centri commerciali. Per un hamburger seduti, con una sala che non sia un food court, tanti si spostano di un paese: Vanzago, Via Primo Maggio 1, Down Under Cafè. È il lato di Vanzago rivolto proprio verso Rho e Pregnana, quindi non si tratta di attraversare Milano. Si esce da Rho in direzione ovest, lungo l’asse che porta al Sempione, e si arriva sulla via del locale.",
-      "Il piatto che cerchi è il burger: pane ai semi, carne seria, abbinamenti del bancone e della cucina, non una lista identica a quella del centro commerciale. Se la fame è diversa ci sono le pizze, le piade, i taglieri e i cocktail. A pranzo il menù fisso è pensato per chi ha un’ora. Aperitivo e cena seguono gli orari [orari da confermare].",
+      "Il piatto che cerchi è il burger: pane ai semi, carne seria, abbinamenti del bancone e della cucina, non una lista identica a quella del centro commerciale. Se la fame è diversa ci sono le pizze, le piade, i taglieri e i cocktail. A pranzo, primo + secondo con contorno da 14€ e primi o secondi da 7€, bevande escluse. Aperitivo e cena seguono gli orari [orari da confermare].",
       "La differenza, rispetto a un pub qualunque vicino a Rho, è il locale stesso. Le pareti sono murales di Jules Verne: il polpo delle ventimila leghe, il dirigibile, la caverna con il monogramma DUC, le gabbie, il faro. Si viene per mangiare e si resta a guardare i muri. Dal 2010 è la stessa insegna, Lunch & Happy Hour, Vanzago.",
       "Per il tavolo usa il 338 439 5727, telefono o WhatsApp. Se sei a Rho e non vuoi sederti, l’asporto funziona allo stesso modo: ordini, passi in Via Primo Maggio, torni indietro. Il menù scritto, con le voci e il PDF quando c’è, sta nella pagina del menù.",
     ],
@@ -131,7 +131,7 @@ export const pagineLocali: readonly PaginaLocale[] = [
     paragraphs: [
       "A Vanzago la pizza del Down Under si mangia al tavolo, sotto i murales, non solo nel cartone sul divano. Il locale è in Via Primo Maggio 1, cafè dal 2010: burger, pizza e cocktail nello stesso posto. Le pizze partono dalla margherita e arrivano a burrata, crudo e pistacchio. Il resto della carta — specialità, piade, dolci — sta nel menù, che aggiorniamo in PDF e in questa pagina.",
       "Ha senso sedersi, se abiti a Vanzago o a Mantegazza, perché la sala è il motivo per cui il locale non somiglia a una pizzeria d’asporto. Jules Verne è sulle pareti: il viaggio al centro della terra, il faro, le gabbie, il polpo. Si ordina, si aspetta, si mangia, e intorno c’è un romanzo disegnato.",
-      "L’asporto c’è, e non è un piano B di cui vergognarsi. Si chiama il 338 439 5727, si passa, si porta a casa. È la stessa pizza della sala. A pranzo molti mescolano: qualcuno prende il menù fisso, qualcuno la pizza, qualcuno il burger. La sera la pizza sta bene con un calice o con un cocktail del bancone.",
+      "L’asporto c’è, e non è un piano B di cui vergognarsi. Si chiama il 338 439 5727, si passa, si porta a casa. È la stessa pizza della sala. A pranzo molti mescolano: qualcuno prende primo e secondo da 14€, qualcuno la pizza, qualcuno il burger. La sera la pizza sta bene con un calice o con un cocktail del bancone.",
       "Gli orari sono [orari da confermare], non quelli di una consegna fino a tardi a tutti i costi. Se vuoi il tavolo, prenota prima. Da Mantegazza la strada è ancora più corta. Il numero è sempre 338 439 5727.",
     ],
     comeArrivare:
@@ -175,20 +175,20 @@ export const pagineLocali: readonly PaginaLocale[] = [
     slug: "pranzo-di-lavoro-rho",
     title: "Pranzo di lavoro tra Rho e Vanzago",
     description:
-      "Pranzo di lavoro tra Rho e Vanzago: menù fisso negli orari [orari da confermare]. Burger, piade e asporto al Down Under. Prenota al 338 439 5727.",
+      "Pranzo di lavoro tra Rho e Vanzago: primo e secondo con contorno da 14€. Burger, piade e asporto al Down Under. Prenota al 338 439 5727.",
     h1: "Pranzo di lavoro tra Rho e Vanzago",
     kicker: "capitolo pranzo · un’ora, non ottanta giorni",
     navLabel: "Pranzo di lavoro",
     paragraphs: [
-      "Il pranzo di lavoro, tra Rho e Vanzago, ha un problema solo: l’ora. Phileas Fogg ci ha messo ottanta giorni, tu hai la pausa. Il Down Under, in Via Primo Maggio 1 a Vanzago, tiene il menù fisso negli orari [orari da confermare]. Ti siedi, mangi, torni. Non è un pranzo di rappresentanza e non è un panino mangiato in macchina sul Sempione.",
-      "Il prezzo del fisso è [prezzo da confermare]. Accanto al fisso restano burger, piade, insalatone e il resto della carta, per chi quel giorno non vuole il piatto unico. I buoni pasto accettati vanno chiesti al telefono, così non elenchiamo marchi a caso. Il numero è 338 439 5727.",
+      "Il pranzo di lavoro, tra Rho e Vanzago, ha un problema solo: l’ora. Phileas Fogg ci ha messo ottanta giorni, tu hai la pausa. Il Down Under, in Via Primo Maggio 1 a Vanzago, a pranzo fa primo + secondo con contorno da 14€, primi e secondi da 7€, bevande escluse. Ti siedi, mangi, torni. Non è un pranzo di rappresentanza e non è un panino mangiato in macchina sul Sempione.",
+      "Accanto al pranzo restano burger, piade, insalatone e tutto il menù della sera, per chi quel giorno vuole altro. I buoni pasto accettati vanno chiesti al telefono, così non elenchiamo marchi a caso. Il numero è 338 439 5727.",
       "Se siete l’equipaggio dell’ufficio, in sei e con un’ora, scrivete in mattinata su WhatsApp: il tavolo si prepara. Se la call slitta, c’è l’asporto. Ordini, passi da Via Primo Maggio, mangi davanti al monitor. Non è il modo più bello di vedere i murales, ma la cucina è la stessa. Apertura e chiusura sono [orari da confermare].",
       "Chi arriva dagli uffici di Rho, da Pregnana Milanese o dalla zona della Fiera trova il locale sul lato est di Vanzago, senza dover entrare a Milano. È un pranzo di provincia ovest, con una sala che almeno non sembra una mensa: Jules Verne sui muri, dal 2010. Il diario di bordo della settimana, quando c’è, esce anche su Instagram @downundercafe.",
     ],
     comeArrivare:
       "Da Rho e dalla Fiera Milano Rho si va verso Vanzago, direzione ovest. Via Primo Maggio 1 è prima del cuore del paese se si arriva da est. Per un’ora di pausa conta il tragitto reale di quel giorno, non un minutaggio stampato qui: il traffico sul Sempione non si lascia promettere. All’arrivo si parcheggia lungo la via, se c’è posto.",
     piatti: [
-      { name: "Menù fisso", text: "[orari da confermare]. Composizione in sala o al telefono. Prezzo: [prezzo da confermare]." },
+      { name: "Pranzo", text: "Primo + secondo con contorno da 14€. Primi e secondi da 7€, bevande escluse. C’è anche tutto il menù della sera." },
       { name: "Piade e insalatone", text: "Se il fisso non fa per quel giorno, la carta di mezzogiorno resta aperta." },
       { name: "Asporto", text: "Per la call che non finisce: si ordina e si ritira." },
     ],
@@ -209,8 +209,8 @@ export const pagineLocali: readonly PaginaLocale[] = [
     photoSection: "bancone",
     faq: [
       {
-        q: "Il menù fisso c’è anche il sabato?",
-        a: "Gli orari del menù fisso, anche nel weekend, sono [orari da confermare].",
+        q: "Il pranzo c’è anche il sabato?",
+        a: "Nel weekend, se la settimana successiva è già pronta, si vede quel menù. Altrimenti gli orari restano [orari da confermare].",
       },
       {
         q: "Accettate buoni pasto?",
@@ -279,7 +279,7 @@ export const pagineLocali: readonly PaginaLocale[] = [
     navLabel: "Vicino alla Fiera",
     paragraphs: [
       "Fiera Milano Rho, a fine giornata, ha i suoi punti ristoro dentro il quartiere e poco desiderio di restarci. Il Down Under non è in fiera. Sta a Vanzago, Via Primo Maggio 1, a ovest di Rho: si esce dal polo fieristico, si prende la direzione Vanzago e si arriva in un cafè, non in un altro padiglione. Burger, pizza, cocktail, sala con i murales di Jules Verne. Aperto dal 2010.",
-      "Ha senso se vuoi sederti, parlare e mangiare qualcosa che non sia il menù del congresso. A pranzo c’è il menù fisso per chi ha un’ora tra un incontro e l’altro, più la carta con burger e piade. La sera si cena. Apertura e chiusura sono [orari da confermare]: se la fiera chiude tardi, meglio chiedere prima.",
+      "Ha senso se vuoi sederti, parlare e mangiare qualcosa che non sia il menù del congresso. A pranzo, primo + secondo con contorno da 14€ per chi ha un’ora tra un incontro e l’altro, più la carta con burger e piade. La sera si cena. Apertura e chiusura sono [orari da confermare]: se la fiera chiude tardi, meglio chiedere prima.",
       "Non promettiamo una navetta e non inventiamo un tempo di percorrenza. Dal quartiere Rho Fiera si va verso ovest. In alcune fasce orarie la strada è libera, in altre il Sempione è il Sempione. Meglio partire con questo in testa che con un «dieci minuti» stampato su un sito. All’arrivo si parcheggia in via, non in un garage del locale.",
       "Per il tavolo, soprattutto se siete un gruppo appena uscito da un padiglione, chiamate il 338 439 5727. Se volete solo portar via la cena in albergo o in appartamento, l’asporto è attivo: stesso numero, ritiro in Via Primo Maggio. Il menù si legge per intero nella pagina dedicata, così si sceglie prima di muoversi.",
     ],
@@ -287,7 +287,7 @@ export const pagineLocali: readonly PaginaLocale[] = [
       "Si lascia Fiera Milano Rho verso Rho e poi verso Vanzago, direzione ovest, asse del Sempione. Il Down Under è in Via Primo Maggio 1, all’ingresso est di Vanzago, dal lato di Pregnana Milanese. Non è una fermata interna al quartiere fieristico: è un locale di paese, volutamente fuori dai padiglioni. Il ritorno in fiera o in stazione Rho Fiera è la stessa strada al contrario.",
     piatti: [
       { name: "Cena dopo la fiera", text: "Burger o pizza, a tavola, quando il badge si può togliere." },
-      { name: "Pranzo tra due incontri", text: "Menù fisso negli orari [orari da confermare], se l’ora di pausa è una sola. Prezzo: [prezzo da confermare]." },
+      { name: "Pranzo tra due incontri", text: "Primo + secondo con contorno da 14€. Primi e secondi da 7€, bevande escluse. C’è anche tutto il menù della sera." },
       { name: "Asporto", text: "Se l’albergo è dall’altra parte e non vuoi cenare in fiera." },
     ],
     murales: [

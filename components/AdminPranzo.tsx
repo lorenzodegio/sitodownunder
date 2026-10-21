@@ -1,132 +1,145 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useMemo, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import {
-  PORTATE,
-  portataLabel,
-  presentMenuPranzo,
-  type MenuPranzo,
-  type Portata,
-} from "@/lib/pranzo-settimana";
+import { formatWeekdayLong, romeWeekday } from "@/data/calendario";
+import { TIPI, isDay, presentMenuPranzo, type MenuPranzo, type TipoVoce, type VocePranzo } from "@/lib/pranzo-settimana";
 
-const emptyVoci = (): Record<Portata, string[]> => ({
-  primi: [""],
-  secondi: [""],
-  contorni: [""],
-  dessert: [""],
-});
+type Row = { tipo: TipoVoce; nome: string; prezzo: string; nota: string };
+
+const emptyRow = (): Row => ({ tipo: "Primo", nome: "", prezzo: "", nota: "" });
+
+function weekdays(from: string, to: string): string[] {
+  if (!isDay(from) || !isDay(to) || to < from) return [];
+  const days: string[] = [];
+  const [year, month, day] = from.split("-").map(Number);
+  const cursor = new Date(Date.UTC(year, month - 1, day, 12));
+  while (days.length < 5) {
+    const iso = cursor.toISOString().slice(0, 10);
+    if (iso > to) break;
+    const dow = romeWeekday(iso);
+    if (dow >= 1 && dow <= 5) days.push(iso);
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+  }
+  return days;
+}
+
+function rowsFrom(voci: VocePranzo[] | undefined): Row[] {
+  if (!voci?.length) return [emptyRow()];
+  return voci.map((voce) => ({ tipo: voce.tipo, nome: voce.nome, prezzo: voce.prezzo, nota: voce.nota }));
+}
 
 export function AdminPranzo({ configured, saved }: { configured: boolean; saved: MenuPranzo | null }) {
   const router = useRouter();
   const [from, setFrom] = useState(saved?.from ?? "");
   const [to, setTo] = useState(saved?.to ?? "");
-  const [price, setPrice] = useState(saved?.price ?? "");
-  const [includes, setIncludes] = useState(saved?.includes ?? "");
-  const [notes, setNotes] = useState(saved?.notes ?? "");
-  const [voci, setVoci] = useState<Record<Portata, string[]>>(
-    saved
-      ? {
-          primi: saved.voci.primi.length ? saved.voci.primi : [""],
-          secondi: saved.voci.secondi.length ? saved.voci.secondi : [""],
-          contorni: saved.voci.contorni.length ? saved.voci.contorni : [""],
-          dessert: saved.voci.dessert.length ? saved.voci.dessert : [""],
-        }
-      : emptyVoci(),
-  );
+  const [giorni, setGiorni] = useState<Record<string, Row[]>>(() => {
+    const map: Record<string, Row[]> = {};
+    for (const giorno of saved?.giorni ?? []) map[giorno.data] = rowsFrom(giorno.voci);
+    return map;
+  });
+  const [sempre, setSempre] = useState<Row[]>(saved?.sempre.length ? rowsFrom(saved.sempre) : [emptyRow()]);
   const [message, setMessage] = useState("");
   const [pending, setPending] = useState(false);
-  const view = presentMenuPranzo(saved);
+  const dates = useMemo(() => weekdays(from, to), [from, to]);
+  const expired = saved ? presentMenuPranzo(saved).status === "pending" : false;
 
-  function setLine(portata: Portata, index: number, value: string) {
-    setVoci((current) => ({
-      ...current,
-      [portata]: current[portata].map((line, lineIndex) => (lineIndex === index ? value : line)),
-    }));
+  function setRow(date: string, index: number, patch: Partial<Row>) {
+    setGiorni((current) => {
+      const rows = [...(current[date] ?? [emptyRow()])];
+      rows[index] = { ...rows[index], ...patch };
+      return { ...current, [date]: rows };
+    });
   }
 
-  function addLine(portata: Portata) {
-    setVoci((current) => ({ ...current, [portata]: [...current[portata], ""] }));
-  }
-
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent) {
     event.preventDefault();
     setPending(true);
     setMessage("");
+    const body = {
+      from,
+      to,
+      giorni: dates.map((data) => ({
+        data,
+        voci: (giorni[data] ?? []).filter((row) => row.nome.trim()),
+      })),
+      sempre: sempre.filter((row) => row.nome.trim()).map((row) => ({ ...row, tipo: "Sempre" })),
+    };
     try {
       const response = await fetch("/api/pranzo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ from, to, price, includes, notes, voci }),
+        body: JSON.stringify(body),
       });
-      const body = (await response.json().catch(() => null)) as { error?: string } | null;
-      if (!response.ok) throw new Error(body?.error || "Salvataggio non riuscito");
-      setMessage("Menù pranzo pubblicato.");
+      const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+      if (!response.ok) {
+        setMessage(payload?.error || "Salvataggio non riuscito.");
+        return;
+      }
+      setMessage("Menù della settimana salvato.");
       router.refresh();
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Salvataggio non riuscito");
+    } catch {
+      setMessage("Salvataggio non riuscito.");
     } finally {
       setPending(false);
     }
   }
 
   return (
-    <section className="admin-card" aria-labelledby="admin-pranzo">
-      <h2 id="admin-pranzo">Menù pranzo della settimana</h2>
-      <p>Compare in home e in /menu. Se la settimana è passata, il sito mostra il messaggio di attesa e non il menù vecchio.</p>
-      {view.status === "expired" ? (
-        <p className="admin-warn">La settimana salvata è scaduta: in pagina non viene più mostrata.</p>
-      ) : null}
-      <form onSubmit={onSubmit}>
-        <div className="admin-dates">
-          <label>
-            Dal
-            <input type="date" required value={from} onChange={(event) => setFrom(event.target.value)} />
-          </label>
-          <label>
-            Al
-            <input type="date" required value={to} onChange={(event) => setTo(event.target.value)} />
-          </label>
-        </div>
-        {PORTATE.map((portata) => (
-          <fieldset key={portata} className="admin-course">
-            <legend>{portataLabel[portata]}</legend>
-            {voci[portata].map((line, index) => (
-              <input
-                key={`${portata}-${index}`}
-                value={line}
-                onChange={(event) => setLine(portata, index, event.target.value)}
-                placeholder="Una voce"
-                maxLength={160}
-              />
+    <form className="admin-card" onSubmit={onSubmit}>
+      <h2>Menù pranzo della settimana</h2>
+      <p>Dal lunedì al venerdì. Il prezzo della riga è facoltativo. La regola dei 14€ è fissa sul sito.</p>
+      {expired && saved ? <p className="admin-warn">La settimana salvata è scaduta: sul sito compare il messaggio di attesa.</p> : null}
+      <div className="admin-dates">
+        <label>
+          Dal
+          <input type="date" value={from} onChange={(event) => setFrom(event.target.value)} required />
+        </label>
+        <label>
+          Al
+          <input type="date" value={to} onChange={(event) => setTo(event.target.value)} required />
+        </label>
+      </div>
+      {dates.map((data) => {
+        const rows = giorni[data] ?? [emptyRow()];
+        return (
+          <fieldset key={data} className="admin-course">
+            <legend>{formatWeekdayLong(data)}</legend>
+            {rows.map((row, index) => (
+              <div key={`${data}-${index}`} className="admin-line">
+                <select value={row.tipo} onChange={(event) => setRow(data, index, { tipo: event.target.value as TipoVoce })}>
+                  {TIPI.filter((tipo) => tipo !== "Sempre").map((tipo) => (
+                    <option key={tipo}>{tipo}</option>
+                  ))}
+                </select>
+                <input value={row.nome} placeholder="Piatto" maxLength={160} onChange={(event) => setRow(data, index, { nome: event.target.value })} />
+                <input value={row.prezzo} placeholder="Prezzo" maxLength={20} onChange={(event) => setRow(data, index, { prezzo: event.target.value })} />
+                <input value={row.nota} placeholder="Nota" maxLength={180} onChange={(event) => setRow(data, index, { nota: event.target.value })} />
+              </div>
             ))}
-            <button type="button" onClick={() => addLine(portata)}>
-              Aggiungi una riga
+            <button type="button" onClick={() => setGiorni((current) => ({ ...current, [data]: [...(current[data] ?? [emptyRow()]), emptyRow()] }))}>
+              Aggiungi riga
             </button>
           </fieldset>
+        );
+      })}
+      <fieldset className="admin-course">
+        <legend>Sempre disponibili</legend>
+        {sempre.map((row, index) => (
+          <div key={`sempre-${index}`} className="admin-line">
+            <input value={row.nome} placeholder="Piatto" maxLength={160} onChange={(event) => setSempre((current) => current.map((item, itemIndex) => (itemIndex === index ? { ...item, nome: event.target.value } : item)))} />
+            <input value={row.prezzo} placeholder="Prezzo" maxLength={20} onChange={(event) => setSempre((current) => current.map((item, itemIndex) => (itemIndex === index ? { ...item, prezzo: event.target.value } : item)))} />
+            <input value={row.nota} placeholder="Nota" maxLength={180} onChange={(event) => setSempre((current) => current.map((item, itemIndex) => (itemIndex === index ? { ...item, nota: event.target.value } : item)))} />
+          </div>
         ))}
-        <label>
-          Prezzo del menù fisso
-          <input value={price} onChange={(event) => setPrice(event.target.value)} maxLength={80} placeholder="[prezzo da confermare]" />
-        </label>
-        <label>
-          Cosa è incluso
-          <input
-            value={includes}
-            onChange={(event) => setIncludes(event.target.value)}
-            maxLength={280}
-            placeholder="Acqua, caffè…"
-          />
-        </label>
-        <label>
-          Note
-          <textarea value={notes} onChange={(event) => setNotes(event.target.value)} maxLength={500} rows={3} />
-        </label>
-        <button className="pill btn-solid" type="submit" disabled={pending || !configured}>
-          Pubblica il menù pranzo
+        <button type="button" onClick={() => setSempre((current) => [...current, emptyRow()])}>
+          Aggiungi riga
         </button>
-      </form>
-      {message ? <p className="admin-message">{message}</p> : null}
-    </section>
+      </fieldset>
+      <button type="submit" disabled={!configured || pending}>
+        {pending ? "Salvo…" : "Salva la settimana"}
+      </button>
+      {message ? <p>{message}</p> : null}
+    </form>
   );
 }

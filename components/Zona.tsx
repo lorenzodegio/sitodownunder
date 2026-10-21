@@ -1,10 +1,11 @@
-import { homeFaq } from "@/data/faq";
+import { Foglie } from "@/components/Foglie";
 import { showGarden } from "@/data/flags";
 import { comuni } from "@/data/locale";
 
 export function Zona() {
   return (
     <section id="zona" className="section section-tight" aria-labelledby="zona-title">
+      <Foglie where="info" />
       <div className="wrap">
         <span className="rib rv">{showGarden ? "capitolo VIII · da dove arrivi" : "capitolo VII · da dove arrivi"}</span>
         <h2 id="zona-title" className="display rv w-900">
@@ -24,15 +25,6 @@ export function Zona() {
         <div className="comuni-chips" aria-label="Comuni della zona">
           {comuni.map((comune) => (
             <span key={comune}>{comune}</span>
-          ))}
-        </div>
-        <div className="faq">
-          <p className="faq-title">Domande frequenti</p>
-          {homeFaq.map((item) => (
-            <div key={item.q}>
-              <h3>{item.q}</h3>
-              <p>{item.a}</p>
-            </div>
           ))}
         </div>
       </div>

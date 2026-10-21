@@ -1,4 +1,3 @@
-import { MenuPranzoSettimana } from "@/components/MenuPranzoSettimana";
 import { Murale } from "@/components/Murale";
 import { site } from "@/content/site";
 
@@ -39,7 +38,6 @@ export function Pranzo() {
             ))}
           </div>
         </div>
-        <MenuPranzoSettimana heading="h3" />
         <div className="cta-row rv">
           <a className="pill btn-solid" href={site.phone.whatsapp}>
             {site.pranzo.whatsappCta}

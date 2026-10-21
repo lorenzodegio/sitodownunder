@@ -8,7 +8,7 @@ export const homeFaq: readonly Faq[] = [
   },
   {
     q: "Fate pranzo di lavoro vicino a Rho?",
-    a: "Sì. Il menù fisso segue gli orari [orari da confermare]. Il locale è a Vanzago, in Via Primo Maggio 1, sul lato verso Rho e Pregnana Milanese. Per i gruppi si può scrivere in mattinata su WhatsApp al 338 439 5727. C’è anche l’asporto.",
+    a: "Sì: piatti del giorno da 7€, primo + secondo con contorno da 14€, bevande escluse, e anche tutto il menù della sera. Siamo a Vanzago, sul lato verso Rho e Pregnana Milanese. Per i gruppi scrivici in mattinata su WhatsApp.",
   },
   {
     q: "Dove fare l’aperitivo tra Rho e Vanzago?",
@@ -21,5 +21,9 @@ export const homeFaq: readonly Faq[] = [
   {
     q: "Fate asporto?",
     a: "Sì, l’asporto è sempre attivo. Si ordina al 338 439 5727, si passa in Via Primo Maggio 1 a Vanzago e si porta via.",
+  },
+  {
+    q: "Come si prenotano i martedì della nonna?",
+    a: "Solo su prenotazione, su WhatsApp o al telefono: 338 439 5727. Dicci il martedì e quanti siete.",
   },
 ];

@@ -1,9 +1,7 @@
+import { Foglie } from "@/components/Foglie";
 import { Murale } from "@/components/Murale";
-import { PhotoFrame } from "@/components/PhotoFrame";
-import { PhotoStrip } from "@/components/PhotoStrip";
 import { flyers } from "@/data/murales";
 import { site } from "@/content/site";
-import type { PublicPhoto } from "@/lib/archivio-shared";
 
 const stars = [
   [120, 90, 2.2, ""],
@@ -14,11 +12,9 @@ const stars = [
   [620, 300, 1.6, "2s"],
 ] as const;
 
-export function Eventi({ photos }: { photos: readonly PublicPhoto[] }) {
-  const frame = photos[0] ? { ...site.photos.buffet, src: photos[0].src, label: photos[0].alt } : site.photos.buffet;
-
+export function Eventi() {
   return (
-    <section id="eventi" className="section section-sea" aria-labelledby="eventi-title">
+    <section id="eventi" className="section-sea chapter" aria-labelledby="eventi-title">
       <svg className="skyline" aria-hidden="true" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid slice">
         <g fill="#F4F0E6">
           {stars.map(([cx, cy, r, delay]) => (
@@ -26,13 +22,14 @@ export function Eventi({ photos }: { photos: readonly PublicPhoto[] }) {
           ))}
         </g>
       </svg>
-      <div className="wrap eventi-grid">
-        <div className="rv">
-          <span className="rib">{site.eventi.kicker}</span>
-          <h2 id="eventi-title" className="display display-event">
+      <Foglie where="feste" />
+      <div className="chapter-wrap feste-grid">
+        <div>
+          <span className="kicker kicker-dark">{site.eventi.kicker}</span>
+          <h2 id="eventi-title" className="display">
             {site.eventi.title}
           </h2>
-          <p className="prose-lg prose-mutedD">{site.eventi.text}</p>
+          <p className="feste-lead">{site.eventi.text}</p>
           <div className="chips">
             {site.eventi.tags.map((tag) => (
               <span key={tag} className="pill chip">
@@ -40,40 +37,33 @@ export function Eventi({ photos }: { photos: readonly PublicPhoto[] }) {
               </span>
             ))}
           </div>
-          <a className="pill btn-solid" href={site.phone.tel}>
-            {site.eventi.cta}
-          </a>
-          <div className="flyer-fan">
-            <span className="nastro">dall’archivio · 22 novembre 2010</span>
-            {flyers.map((flyer) => (
-              <Murale
-                key={flyer.src}
-                src={flyer.src}
-                alt={flyer.alt}
-                width={flyer.width}
-                height={flyer.height}
-                className={flyer.className}
-              />
-            ))}
+          <div className="feste-cta">
+            <a className="pill btn-solid" href={site.eventi.ctaHref}>
+              {site.eventi.cta}
+            </a>
+            <Murale
+              src="/murales/camaleonte.png"
+              alt=""
+              decorative
+              width={463}
+              height={204}
+              invert
+              className="feste-yo"
+            />
           </div>
         </div>
-        <div className="rv eventi-art">
-          <svg className="ink luna" aria-hidden="true" viewBox="0 0 400 400">
-            <circle className="w luna-disc" cx="200" cy="200" r="118" />
-            <circle cx="160" cy="160" r="22" />
-            <circle cx="244" cy="214" r="30" />
-            <circle cx="176" cy="254" r="14" />
-            <circle cx="250" cy="136" r="10" />
-            <path d="M150 154c6-8 16-10 22-6M232 204c8-8 22-8 30 0" />
-            <g className="spin orbit">
-              <ellipse cx="200" cy="200" rx="178" ry="178" />
-              <path className="w rocket" d="M186 30h28v-14c0-12-28-12-28 0zM186 30h28v26h-28zM180 56h40M192 40h16" />
-            </g>
-          </svg>
-          <div className="buffet-slot">
-            <PhotoFrame photo={frame} />
-          </div>
-          <PhotoStrip photos={photos.slice(1)} />
+        <div className="flyer-fan" aria-label="Volantini del 22 novembre 2010">
+          <span className="nastro">Dall&apos;archivio · 22 novembre 2010</span>
+          {flyers.map((flyer) => (
+            <Murale
+              key={flyer.src}
+              src={flyer.src}
+              alt={flyer.alt}
+              width={flyer.width}
+              height={flyer.height}
+              className={flyer.className}
+            />
+          ))}
         </div>
       </div>
     </section>

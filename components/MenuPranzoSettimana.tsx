@@ -1,66 +1,60 @@
+import { PranzoTabs } from "@/components/PranzoTabs";
+import { caveat } from "@/components/duc-font";
 import { loadMenuPranzo } from "@/lib/blob-archive";
-import {
-  MENU_PLACEHOLDER,
-  PORTATE,
-  PRICE_PLACEHOLDER,
-  WEEK_PENDING,
-  formatDayIt,
-  portataLabel,
-  presentMenuPranzo,
-} from "@/lib/pranzo-settimana";
+import { REGOLA_PRANZO, WEEK_PENDING, presentMenuPranzo } from "@/lib/pranzo-settimana";
 
-export async function MenuPranzoSettimana({ heading = "h2" }: { heading?: "h2" | "h3" }) {
+export async function MenuPranzoSettimana({ variant = "card" }: { variant?: "card" | "page" }) {
   const view = presentMenuPranzo(await loadMenuPranzo());
-  const Title = heading;
 
-  if (view.status === "expired") {
+  if (variant === "page") {
     return (
-      <section className="pranzo-week" aria-labelledby="pranzo-week-title">
-        <Title id="pranzo-week-title" className="pranzo-week-title">
-          Menù pranzo
-        </Title>
-        <p>{WEEK_PENDING}</p>
+      <section className={`${caveat.variable} pranzo-page`} aria-labelledby="pranzo-week-title">
+        <h2 id="pranzo-week-title">Menù pranzo della settimana</h2>
+        {view.status === "pending" ? (
+          <p>{WEEK_PENDING}</p>
+        ) : (
+          <>
+            <p className="pranzo-periodo">{view.periodo}</p>
+            {view.giorni.map((giorno) => (
+              <div key={giorno.data}>
+                <h3>{giorno.titolo}</h3>
+                <ul className="pranzo-list">
+                  {giorno.voci.map((voce, index) => (
+                    <li key={`${voce.nome}-${index}`}>
+                      {voce.tipo} · {voce.nome}
+                      {voce.nota ? ` (${voce.nota})` : ""}
+                      {voce.prezzo ? ` · ${voce.prezzo}` : ""}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </>
+        )}
+        <p>{REGOLA_PRANZO}</p>
       </section>
     );
   }
 
-  if (view.status === "empty") {
-    return (
-      <section className="pranzo-week" aria-labelledby="pranzo-week-title">
-        <Title id="pranzo-week-title" className="pranzo-week-title">
-          Menù pranzo
-        </Title>
-        <p>{MENU_PLACEHOLDER}</p>
-        <p className="pranzo-week-price">{PRICE_PLACEHOLDER}</p>
-      </section>
-    );
-  }
-
-  const { menu } = view;
   return (
-    <section className="pranzo-week" aria-labelledby="pranzo-week-title">
-      <Title id="pranzo-week-title" className="pranzo-week-title">
-        Menù della settimana dal {formatDayIt(menu.from)} al {formatDayIt(menu.to)}
-      </Title>
-      {PORTATE.map((portata) =>
-        menu.voci[portata].length ? (
-          <div key={portata}>
-            {heading === "h2" ? (
-              <h3 className="pranzo-course">{portataLabel[portata]}</h3>
-            ) : (
-              <h4 className="pranzo-course">{portataLabel[portata]}</h4>
-            )}
-            <ul className="pranzo-dishes">
-              {menu.voci[portata].map((voce) => (
-                <li key={voce}>{voce}</li>
-              ))}
-            </ul>
-          </div>
-        ) : null,
+    <aside id="pranzo" className={`${caveat.variable} pranzo-card`} aria-labelledby="pranzo-week-title">
+      <span className="pranzo-kicker">il giro del pranzo in 60 minuti</span>
+      <h3 id="pranzo-week-title">Menù pranzo della settimana</h3>
+      {view.status === "pending" ? (
+        <p className="pranzo-pending">{WEEK_PENDING}</p>
+      ) : (
+        <>
+          <span className="pranzo-periodo">{view.periodo}</span>
+          <PranzoTabs giorni={view.giorni} selected={view.selected} />
+        </>
       )}
-      <p className="pranzo-week-price">{menu.price || PRICE_PLACEHOLDER}</p>
-      {menu.includes ? <p>Comprende: {menu.includes}</p> : null}
-      {menu.notes ? <p>{menu.notes}</p> : null}
-    </section>
+      <div className="pranzo-rule">
+        <span>
+          <span>Primo + secondo con contorno</span>
+          <span>da 14€</span>
+        </span>
+        <p>Primi e secondi da 7€, bevande escluse. E a pranzo c&apos;è anche tutto il menù della sera.</p>
+      </div>
+    </aside>
   );
 }

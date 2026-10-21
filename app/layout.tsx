@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { DM_Sans, Instrument_Serif, Rokkitt } from "next/font/google";
+import { caveat } from "@/components/duc-font";
 import { site } from "@/content/site";
 import { indexingEnabled, siteUrl } from "@/lib/site-url";
+import { activeSeason } from "@/lib/season";
 import "./globals.css";
 
 const rokkitt = Rokkitt({
   subsets: ["latin"],
-  weight: ["300", "500", "700", "800"],
+  weight: ["300", "500", "700", "800", "900"],
   style: ["normal"],
   variable: "--font-rokkitt",
   display: "swap",
@@ -55,9 +57,14 @@ export const metadata: Metadata = {
     : { index: false, follow: false },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const season = await activeSeason();
   return (
-    <html lang="it" className={`${rokkitt.variable} ${instrumentSerif.variable} ${dmSans.variable}`}>
+    <html
+      lang="it"
+      data-season={season === "autunno" ? "autunno" : undefined}
+      className={`${rokkitt.variable} ${instrumentSerif.variable} ${dmSans.variable} ${caveat.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

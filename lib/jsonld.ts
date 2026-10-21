@@ -1,7 +1,7 @@
 import { homeFaq, type Faq } from "@/data/faq";
 import { showGarden } from "@/data/flags";
 import { areaServed, hours, locale, schemaDays } from "@/data/locale";
-import { campaignState, martediNonna } from "@/data/martedi-nonna";
+import { eventiAttivi } from "@/data/eventi";
 import type { FotoSection, PublicPhoto } from "@/lib/archivio-shared";
 import { FOTO_SECTIONS } from "@/lib/archivio-shared";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
@@ -76,41 +76,41 @@ export function restaurantNode(photos: Record<FotoSection, PublicPhoto[]>) {
 }
 
 function martediEvents(photos: Record<FotoSection, PublicPhoto[]>) {
-  const state = campaignState();
-  if (!state.visible) return [];
-  return state.days.map((day, index) => {
-    const photo = photos.martedi[index];
-    return {
-      "@type": "Event",
-      "@id": `${siteUrl()}/#martedi-${day.date}`,
-      name: `${martediNonna.title}: ${day.dish}`,
-      startDate: day.date,
-      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-      eventStatus: "https://schema.org/EventScheduled",
-      description: `${martediNonna.cuisine}, ${martediNonna.booking}. Orario della cena: ${martediNonna.time}.`,
-      ...(photo ? { image: photo.src } : {}),
-      location: {
-        "@type": "Place",
-        name: locale.name,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: locale.streetAddress,
-          postalCode: locale.postalCode,
-          addressLocality: locale.addressLocality,
-          addressRegion: locale.addressRegion,
-          addressCountry: locale.addressCountry,
+  return eventiAttivi().flatMap((evento) =>
+    evento.date.map((day, index) => {
+      const photo = day.foto || photos.martedi[index]?.src;
+      return {
+        "@type": "Event",
+        "@id": `${siteUrl()}/#${evento.id}-${day.data}`,
+        name: `${evento.titolo}: ${day.piatto}`,
+        startDate: day.data,
+        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+        eventStatus: "https://schema.org/EventScheduled",
+        description: evento.descrizione,
+        ...(photo ? { image: photo } : {}),
+        location: {
+          "@type": "Place",
+          name: locale.name,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: locale.streetAddress,
+            postalCode: locale.postalCode,
+            addressLocality: locale.addressLocality,
+            addressRegion: locale.addressRegion,
+            addressCountry: locale.addressCountry,
+          },
         },
-      },
-      organizer: { "@id": `${siteUrl()}/#ristorante` },
-      offers: {
-        "@type": "Offer",
-        price: day.amount,
-        priceCurrency: "EUR",
-        availability: "https://schema.org/LimitedAvailability",
-        url: `${siteUrl()}/#martedi-nonna`,
-      },
-    };
-  });
+        organizer: { "@id": `${siteUrl()}/#ristorante` },
+        offers: {
+          "@type": "Offer",
+          price: day.amount,
+          priceCurrency: "EUR",
+          availability: "https://schema.org/LimitedAvailability",
+          url: `${siteUrl()}/#prossimamente`,
+        },
+      };
+    }),
+  );
 }
 
 export function homeJsonLd(photos: Record<FotoSection, PublicPhoto[]>) {

@@ -11,12 +11,12 @@ import { menuJsonLd } from "@/lib/jsonld";
 export const metadata: Metadata = {
   title: "Menù",
   description:
-    "Menù del Down Under Cafè a Vanzago: burger, pizze, piade, cocktail e pranzo fisso. Prezzi [prezzo da confermare]. Prenota al 338 439 5727.",
+    "Menù del Down Under Cafè a Vanzago: burger, pizze, cocktail e pranzo. Primo e secondo con contorno da 14€. Prenota al 338 439 5727.",
   alternates: { canonical: "/menu" },
   openGraph: {
     title: "Menù · Down Under Cafè Vanzago",
     description:
-      "Burger, pizze, piade, cocktail e pranzo fisso. Il PDF si scarica da questa pagina quando è online.",
+      "Burger, pizze, cocktail e pranzo. Primo e secondo con contorno da 14€. Il PDF si scarica da questa pagina.",
     locale: "it_IT",
     type: "website",
     url: "/menu",
@@ -53,12 +53,10 @@ export default async function MenuPage({ searchParams }: { searchParams: Promise
             </Link>
           </p>
 
-          <MenuPranzoSettimana />
+          <MenuPranzoSettimana variant="page" />
 
           <h2>{pranzoFisso.name}</h2>
-          <p>
-            {pranzoFisso.when}. {pranzoFisso.text}
-          </p>
+          <p>{pranzoFisso.text}</p>
 
           <ul className="local-dishes">
             {vociMenu.map((voce) => (

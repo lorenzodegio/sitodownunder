@@ -5,10 +5,9 @@ export type VoceMenu = {
 };
 
 export const pranzoFisso = {
-  name: "Menù fisso di pranzo",
-  when: "[orari da confermare]",
-  text: "Pausa pranzo per chi ha un’ora. Il dettaglio di cosa comprende e i buoni pasto accettati si confermano con il locale.",
-  price: "[prezzo da confermare]",
+  name: "Pranzo",
+  when: "Dal lunedì al venerdì",
+  text: "Primo + secondo con contorno da 14€. Primi e secondi da 7€, bevande escluse. A pranzo c’è anche tutto il menù della sera.",
 };
 
 export const vociMenu: readonly VoceMenu[] = [
