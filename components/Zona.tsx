@@ -1,3 +1,4 @@
+import { Faq } from "@/components/Faq";
 import { Foglie } from "@/components/Foglie";
 import { showGarden } from "@/data/flags";
 import { comuni } from "@/data/locale";
@@ -27,6 +28,7 @@ export function Zona() {
             <span key={comune}>{comune}</span>
           ))}
         </div>
+        <Faq />
       </div>
     </section>
   );

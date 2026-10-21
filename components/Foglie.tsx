@@ -54,6 +54,22 @@ const edges: Record<string, Leaf[]> = {
     { shape: "oak", fill: "#A9744F", className: "fg", style: { right: "5%", top: 36, width: 30, transform: "rotate(40deg)", opacity: 0.7 } },
     { shape: "maple", fill: "#D9B77A", className: "fg", style: { left: "4%", bottom: 28, width: 26, transform: "rotate(-20deg)", opacity: 0.75 } },
   ],
+  giornata: [
+    { shape: "oak", fill: "#C98A63", className: "fg", style: { right: "3%", top: 36, width: 28, transform: "rotate(18deg)", opacity: 0.55 } },
+    { shape: "oval", fill: "#A9744F", className: "fg", style: { left: "2%", bottom: 48, width: 22, transform: "rotate(-40deg)", opacity: 0.5 } },
+  ],
+  pranzo: [
+    { shape: "maple", fill: "#D9B77A", className: "fg", style: { left: "3%", top: 28, width: 26, transform: "rotate(30deg)", opacity: 0.6 } },
+    { shape: "oak", fill: "#C98A63", className: "fg", style: { right: "4%", bottom: 40, width: 30, transform: "rotate(-80deg)", opacity: 0.55 } },
+  ],
+  serate: [
+    { shape: "oval", fill: "#B8604A", className: "fg", style: { left: "2%", top: 80, width: 24, transform: "rotate(70deg)", opacity: 0.5 } },
+    { shape: "maple", fill: "#A9744F", className: "fg", style: { right: "18%", bottom: 36, width: 28, transform: "rotate(-15deg)", opacity: 0.5 } },
+  ],
+  garden: [
+    { shape: "oak", fill: "#8C6A4A", className: "fg", style: { right: "6%", top: 24, width: 26, transform: "rotate(50deg)", opacity: 0.55 } },
+    { shape: "oval", fill: "#C98A63", className: "fg", style: { left: "5%", bottom: 32, width: 22, transform: "rotate(-25deg)", opacity: 0.5 } },
+  ],
 };
 
 function LeafSvg({ leaf }: { leaf: Leaf }) {

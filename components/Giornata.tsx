@@ -1,3 +1,4 @@
+import { Foglie } from "@/components/Foglie";
 import { Murale } from "@/components/Murale";
 import { PhotoFrame } from "@/components/PhotoFrame";
 import { PhotoStrip } from "@/components/PhotoStrip";
@@ -27,6 +28,7 @@ export function Giornata({
 
   return (
     <section className="section" aria-labelledby="giornata-title">
+      <Foglie where="giornata" />
       <div className="wrap">
         <Murale
           src="/murales/mano-welcome.png"

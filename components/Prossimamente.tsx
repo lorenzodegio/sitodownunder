@@ -14,7 +14,7 @@ export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
       <Foglie where="paper" />
       <div className="chapter-wrap chapter-stack">
         <div className="chapter-intro">
-          <span className="kicker">capitolo II · il diario di bordo</span>
+          <span className="kicker">capitolo I · il diario di bordo</span>
           <h2 id="prossimamente-title" className="display">
             Prossimamente
           </h2>

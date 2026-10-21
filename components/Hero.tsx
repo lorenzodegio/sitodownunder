@@ -4,8 +4,8 @@ import { Murale } from "@/components/Murale";
 import { Nuvole } from "@/components/Nuvole";
 import { OpeningBadge } from "@/components/OpeningBadge";
 import { Stemma } from "@/components/Stemma";
-import { caveat } from "@/components/duc-font";
 import { site } from "@/content/site";
+import { romeToday } from "@/data/calendario";
 import { prossimoMartedi } from "@/data/eventi";
 import { activeSeason } from "@/lib/season";
 
@@ -25,9 +25,10 @@ export async function Hero() {
   const [lunch, ape, cena, again] = site.hero.lines;
   const autunno = (await activeSeason()) === "autunno";
   const next = prossimoMartedi();
+  const stasera = next?.data === romeToday();
 
   return (
-    <section className={`${caveat.variable} hero`}>
+    <section className="hero">
       <svg className="skyline" aria-hidden="true" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid slice">
         <g fill="#F4F0E6">
           {stars.map(([cx, cy, r, delay]) => (
@@ -47,15 +48,15 @@ export async function Hero() {
       </svg>
       {autunno ? <Foglie where="hero" /> : null}
       <div className="hero-grid">
-        <div className="hero-copy">
+        <div>
           <OpeningBadge />
-          <p className="hero-h1">Burger, pizza e aperitivo a Vanzago</p>
-          <h1 className="hero-title">
+          <h1 className="hero-h1">Burger, pizza e aperitivo a Vanzago</h1>
+          <p className="hero-title">
             <span className="in d1">{lunch}</span>
             <span className="in d2 stroke">{ape}</span>
             <span className="in d3">{cena}</span>
-          </h1>
-          <p className="ripeti in d4">{again}</p>
+            <span className="in d4 soft">{again}</span>
+          </p>
           {autunno && next ? (
             <a className="nonna-line" href="#prossimamente">
               <Murale
@@ -68,16 +69,20 @@ export async function Hero() {
                 className="nonna-hand"
               />
               <span>
-                <span className="nonna-hand-title">…e a novembre, il martedì, dalla nonna.</span>
+                <span className="nonna-hand-title">
+                  {stasera ? "Stasera, dalla nonna." : "…e a novembre, il martedì, dalla nonna."}
+                </span>
                 <span className="nonna-hand-dish">
-                  {next.label}: <strong>{next.piatto}</strong> · <span>{next.prezzo}</span>
+                  {stasera ? null : <>{next.label}: </>}
+                  <strong>{next.piatto}</strong> · <span>{next.prezzo}</span>
                 </span>
                 <span className="nonna-hand-cta">Scopri i martedì della nonna →</span>
               </span>
             </a>
           ) : null}
+          <p className="hero-lead in d4">{site.hero.lead}</p>
           <div className="hero-actions in d5">
-            <a className="pill btn-solid" href={site.hero.primaryHref}>
+            <a className="pill btn-solid" href={site.phone.tel}>
               {site.hero.primaryCta}
             </a>
             <a className="pill btn-ghost" href={site.hero.secondaryHref}>
@@ -86,15 +91,6 @@ export async function Hero() {
           </div>
         </div>
         <div className="crest in d3">
-          <Murale
-            src="/murales/mongolfiera.png"
-            alt=""
-            decorative
-            width={775}
-            height={907}
-            invert
-            className="mongolfiera-hero"
-          />
           <svg className="spin crest-ring" aria-hidden="true" viewBox="0 0 400 400">
             <defs>
               <path id="ring" d="M200 200m-182 0a182 182 0 1 1 364 0a182 182 0 1 1 -364 0" />

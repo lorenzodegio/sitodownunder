@@ -1,3 +1,4 @@
+import { Foglie } from "@/components/Foglie";
 import { PhotoFrame } from "@/components/PhotoFrame";
 import { PhotoStrip } from "@/components/PhotoStrip";
 import { site } from "@/content/site";
@@ -8,6 +9,7 @@ export function Garden({ photos }: { photos: readonly PublicPhoto[] }) {
 
   return (
     <section id="garden" className="section-tight" aria-labelledby="garden-title">
+      <Foglie where="garden" />
       <div className="wrap sheet-garden">
         <svg className="ink spin rosa" aria-hidden="true" viewBox="0 0 120 120">
           <circle className="w" cx="60" cy="60" r="54" />

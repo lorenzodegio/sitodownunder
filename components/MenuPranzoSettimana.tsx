@@ -37,7 +37,7 @@ export async function MenuPranzoSettimana({ variant = "card" }: { variant?: "car
   }
 
   return (
-    <aside id="pranzo" className={`${caveat.variable} pranzo-card`} aria-labelledby="pranzo-week-title">
+    <aside id="pranzo-settimana" className={`${caveat.variable} pranzo-card`} aria-labelledby="pranzo-week-title">
       <span className="pranzo-kicker">il giro del pranzo in 60 minuti</span>
       <h3 id="pranzo-week-title">Menù pranzo della settimana</h3>
       {view.status === "pending" ? (

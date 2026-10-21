@@ -58,13 +58,13 @@ export const site = {
     vat: "[P. IVA]",
   },
   nav: [
-    { href: "/#prossimamente", label: "Prossimamente" },
-    { href: "/#menu", label: "Menù" },
-    { href: "/#murales", label: "Le pareti" },
-    { href: "/#eventi", label: "Feste" },
-    { href: "/#faq", label: "Domande" },
-    { href: "/#info", label: "Orari" },
+    { href: "/#prossimamente", label: "prossimamente" },
+    { href: "/#pranzo", label: "pranzo" },
+    { href: "/#menu", label: "menù" },
+    { href: "/#serate", label: "serate" },
     { href: "/#garden", label: "garden" },
+    { href: "/#eventi", label: "feste" },
+    { href: "/#info", label: "orari" },
   ],
   header: {
     cta: "Prenota",
@@ -113,7 +113,7 @@ export const site = {
     "✳",
   ],
   giornata: {
-    kicker: "capitolo I · una giornata tipo",
+    kicker: "capitolo II · una giornata tipo",
     title: "Entri per un panino, esci che chiudiamo.",
     cards: [
       {
@@ -193,7 +193,7 @@ export const site = {
     },
   } satisfies Record<string, Photo>,
   pranzo: {
-    kicker: "capitolo II · pausa pranzo",
+    kicker: "capitolo III · pausa pranzo",
     title: "Il giro del pranzo in 60 minuti.",
     lead: "Phileas Fogg ci ha messo 80 giorni, tu hai un’ora. Primo + secondo con contorno da 14€, primi e secondi da 7€, bevande escluse. C’è anche tutto il menù della sera.",
     fixed: {
@@ -205,7 +205,7 @@ export const site = {
     features: [
       {
         title: "Il diario di bordo",
-        text: "Il menù della settimana è in questa sezione: dal giorno al giorno, con le portate.",
+        text: "Il menù della settimana, dal lunedì al venerdì, sta nel menù.",
       },
       {
         title: "L’equipaggio dell’ufficio",
@@ -220,14 +220,18 @@ export const site = {
     takeawayCta: "Ordina da asporto",
   },
   menu: {
-    kicker: "capitolo III · ventimila burger sotto i mari",
+    kicker: "capitolo IV · ventimila burger sotto i mari",
     title: "E tu cosa scegli?",
     items: [
-      ["I burger", "Carne vera, pane vero, nessuna scorciatoia."],
-      ["Le pizze", "Dal forno al tavolo senza giri di parole."],
-      ["Il pranzo", "Piatti del giorno da 7€, primo + secondo con contorno da 14€. E c’è anche tutto il menù della sera."],
-      ["I cocktail", "I classici fatti come si deve, più quello che si inventa il bancone."],
-      ["Vini, bolle & birre", "Al calice, in bottiglia, alla spina."],
+      ["I Burgers", "Il motivo per cui la gente viene. Carne seria, pane ai semi, abbinamenti che non ti aspetti."],
+      ["Le Pizze", "Dalla margherita a burrata, crudo e pistacchio. Sì, puoi fare la foto prima."],
+      ["Le Specialità", "I piatti della cucina. Cambiano spesso, quindi chiedi."],
+      ["Le Piade Romagnole", "Farcite al momento. Per chi ha fame ma non troppa."],
+      ["Club Sandwich & Hotdog", "I classici da pub, con patatine. Zero sorprese, solo gioie."],
+      ["Taglieri & Insalatone", "Da dividere all’ape. O insalatona, se oggi fai il bravo."],
+      ["I Dolci", "Fatti in casa. Il tiramisù ha un fan club."],
+      ["I Cocktail", "I classici fatti come si deve, più quello che si inventa il bancone."],
+      ["Vini, Bolle & Birre", "Al calice, in bottiglia, alla spina."],
     ] as const,
     takeaway: "Serata divano? Take away sempre attivo: chiami, passi, sparisci.",
     pdfLabel: "Scarica PDF",
@@ -236,7 +240,7 @@ export const site = {
     htmlHref: "/menu",
   },
   serate: {
-    kicker: "capitolo IV · le serate straordinarie",
+    kicker: "capitolo V · le serate straordinarie",
     title: "La settimana ha già una rotta.",
     lead: "Su prenotazione, e i posti finiscono. Il programma del mese sta qui e su Instagram.",
     note: "Esempi dai programmi passati: il calendario va aggiornato ogni mese.",
@@ -282,12 +286,11 @@ export const site = {
     text: "Misteriosa fino a un certo punto: è il garden qui fuori. Gazebo, siepi, lucine. Appena il meteo collabora si mangia e si beve all’aperto.",
   },
   eventi: {
-    kicker: showGarden ? "capitolo VI · dalla Terra alla festa" : "capitolo V · dalla Terra alla festa",
-    title: "La festa la facciamo noi",
-    text: "Compleanni, lauree, battesimi, cene aziendali: aperitivo a buffet o cena, su misura. Tu porti la gente, al resto pensiamo noi.",
+    kicker: showGarden ? "capitolo VII · dalla Terra alla Luna" : "capitolo VI · dalla Terra alla Luna",
+    title: "Tu porti l’equipaggio. Al resto pensiamo noi.",
+    text: "Compleanni, lauree, battesimi, cene aziendali che per una volta non sono una tortura. Aperitivo a buffet o cena su misura: dicci quanti siete.",
     tags: ["18 anni", "lauree", "compleanni", "battesimi", "cene aziendali"],
     cta: "Organizziamola",
-    ctaHref: "https://wa.me/393384395727?text=Ciao!%20Vorrei%20organizzare%20una%20festa",
   },
   info: {
     kicker: "orari e contatti · il faro in capo al mondo",

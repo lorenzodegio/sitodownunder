@@ -1,9 +1,11 @@
+import { Foglie } from "@/components/Foglie";
 import { Murale } from "@/components/Murale";
 import { site } from "@/content/site";
 
 export function Pranzo() {
   return (
     <section id="pranzo" className="section-tight" aria-labelledby="pranzo-title">
+      <Foglie where="pranzo" />
       <div className="wrap sheet-ink">
         <div className="head">
           <div className="head-copy">
