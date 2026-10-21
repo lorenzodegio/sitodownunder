@@ -1,10 +1,8 @@
 "use client";
 
-import { put } from "@vercel/blob/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
-import { MENU_PATH } from "@/lib/archivio-shared";
 
 const PDF_LIMIT = 15 * 1024 * 1024;
 
@@ -17,22 +15,6 @@ function visibleError(error: unknown, fallback: string): string {
 async function readError(response: Response, fallback: string): Promise<string> {
   const payload = (await response.json().catch(() => null)) as { error?: string } | null;
   return payload?.error || fallback;
-}
-
-async function uploadWithToken(pathname: string, file: File, contentType: string): Promise<void> {
-  const response = await fetch("/api/upload", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      type: "blob.generate-client-token",
-      payload: { pathname, clientPayload: null, multipart: false },
-    }),
-  });
-  const payload = (await response.json().catch(() => null)) as { error?: string; clientToken?: string } | null;
-  if (!response.ok || !payload?.clientToken) {
-    throw new Error(payload?.error || "Caricamento non riuscito");
-  }
-  await put(pathname, file, { access: "public", token: payload.clientToken, contentType });
 }
 
 export function AdminPanel({
@@ -63,7 +45,9 @@ export function AdminPanel({
       report("Scegli un PDF.", true);
       return;
     }
-    if (file.type !== "application/pdf") {
+    const pdfName = file.name.toLowerCase().endsWith(".pdf");
+    const pdfType = !file.type || file.type === "application/pdf";
+    if (!pdfName || !pdfType) {
       report("Il menù dev’essere un PDF.", true);
       return;
     }
@@ -74,13 +58,10 @@ export function AdminPanel({
     setPending(true);
     report("Caricamento del PDF in corso…");
     try {
-      await uploadWithToken(MENU_PATH, file, "application/pdf");
-      const response = await fetch("/api/archivio", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pathname: MENU_PATH, alt: "", section: "menu" }),
-      });
-      if (!response.ok) throw new Error(await readError(response, "Aggiornamento non riuscito"));
+      const body = new FormData();
+      body.set("pdf", file);
+      const response = await fetch("/api/upload", { method: "POST", body });
+      if (!response.ok) throw new Error(await readError(response, "Caricamento non riuscito"));
       report("Menù PDF sostituito.");
       form.reset();
       router.refresh();

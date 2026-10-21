@@ -1,105 +1,57 @@
-import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
+import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
 import { requestIsAdmin } from "@/lib/admin-auth";
-import {
-  isAllowedFotoPath,
-  isFotoSection,
-  isMenuPath,
-  sectionFromPath,
-  type FotoSection,
-} from "@/lib/archivio-shared";
-import { revalidatePublic, upsertFotoMeta } from "@/lib/blob-archive";
+import { MENU_PATH } from "@/lib/archivio-shared";
+import { revalidatePublic } from "@/lib/blob-archive";
 import { readBlobToken } from "@/lib/blob-token";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 const PDF_LIMIT = 15 * 1024 * 1024;
-const FOTO_LIMIT = 8 * 1024 * 1024;
 
-function readPayload(clientPayload: string | null): { alt: string; section: FotoSection | null } {
-  if (!clientPayload) return { alt: "", section: null };
-  try {
-    const parsed = JSON.parse(clientPayload) as { alt?: unknown; section?: unknown };
-    const section = typeof parsed.section === "string" && isFotoSection(parsed.section) ? parsed.section : null;
-    const alt = typeof parsed.alt === "string" ? parsed.alt.slice(0, 180) : "";
-    return { alt, section };
-  } catch {
-    return { alt: "", section: null };
-  }
+function publicError(error: unknown): string {
+  const raw = error instanceof Error ? error.message : "";
+  if (!raw || /vercel_blob|eyJ[A-Za-z0-9_-]{8,}/.test(raw)) return "Caricamento non riuscito";
+  return "Caricamento non riuscito";
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
+  if (!(await requestIsAdmin(request))) {
+    return NextResponse.json({ error: "Non autorizzato" }, { status: 401 });
+  }
+
   const token = readBlobToken();
   if (!token) {
     return NextResponse.json({ error: "Manca il token Blob di questo ambiente." }, { status: 503 });
   }
 
-  const body = (await request.json()) as HandleUploadBody;
+  const form = await request.formData().catch(() => null);
+  const file = form?.get("pdf");
+  if (!(file instanceof File)) {
+    return NextResponse.json({ error: "Scegli un PDF." }, { status: 400 });
+  }
+  const pdfName = file.name.toLowerCase().endsWith(".pdf");
+  const pdfType = !file.type || file.type === "application/pdf";
+  if (!pdfName || !pdfType) {
+    return NextResponse.json({ error: "Il menù dev’essere un PDF." }, { status: 400 });
+  }
+  if (file.size > PDF_LIMIT) {
+    return NextResponse.json({ error: "Il PDF supera i 15 MB." }, { status: 400 });
+  }
 
   try {
-    const jsonResponse = await handleUpload({
+    const body = Buffer.from(await file.arrayBuffer());
+    await put(MENU_PATH, body, {
+      access: "public",
       token,
-      body,
-      request,
-      onBeforeGenerateToken: async (pathname, clientPayload) => {
-        if (!(await requestIsAdmin(request))) {
-          throw new Error("Non autorizzato");
-        }
-
-        if (isMenuPath(pathname)) {
-          return {
-            allowedContentTypes: ["application/pdf"],
-            maximumSizeInBytes: PDF_LIMIT,
-            addRandomSuffix: false,
-            allowOverwrite: true,
-            tokenPayload: JSON.stringify({ kind: "menu" }),
-          };
-        }
-
-        if (!isAllowedFotoPath(pathname)) {
-          throw new Error("Percorso non consentito");
-        }
-
-        const meta = readPayload(clientPayload);
-        const section = sectionFromPath(pathname);
-        if (!section || (meta.section && meta.section !== section)) {
-          throw new Error("Sezione non consentita");
-        }
-
-        return {
-          allowedContentTypes: ["image/jpeg", "image/png", "image/webp"],
-          maximumSizeInBytes: FOTO_LIMIT,
-          addRandomSuffix: false,
-          allowOverwrite: true,
-          tokenPayload: JSON.stringify({ alt: meta.alt, section }),
-        };
-      },
-      onUploadCompleted: async ({ blob, tokenPayload }) => {
-        try {
-          if (blob.pathname.startsWith("foto/")) {
-            const meta = tokenPayload ? (JSON.parse(tokenPayload) as { alt?: string; section?: string }) : {};
-            const section = sectionFromPath(blob.pathname);
-            if (section) {
-              await upsertFotoMeta(blob.pathname, meta.alt || "Foto del Down Under Cafè a Vanzago", section);
-            }
-          }
-          revalidatePublic();
-        } catch {
-          throw new Error("Aggiornamento archivio dopo l’upload non riuscito");
-        }
-      },
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      contentType: "application/pdf",
     });
-
-    return NextResponse.json(jsonResponse);
+    revalidatePublic();
+    return NextResponse.json({ ok: true });
   } catch (error) {
-    const raw = error instanceof Error ? error.message : "";
-    const known =
-      raw === "Non autorizzato" ||
-      raw === "Percorso non consentito" ||
-      raw === "Sezione non consentita" ||
-      raw === "Aggiornamento archivio dopo l’upload non riuscito";
-    const message = known ? raw : "Upload non riuscito";
-    const status = message === "Non autorizzato" ? 401 : 400;
-    return NextResponse.json({ error: message }, { status });
+    return NextResponse.json({ error: publicError(error) }, { status: 400 });
   }
 }
