@@ -1,4 +1,5 @@
 import { Dirigibile } from "@/components/Dirigibile";
+import { MartediBand } from "@/components/MartediNonna";
 import { Nuvole } from "@/components/Nuvole";
 import { OpeningBadge } from "@/components/OpeningBadge";
 import { Stemma } from "@/components/Stemma";
@@ -75,6 +76,7 @@ export function Hero() {
           </svg>
         </div>
       </div>
+      <MartediBand />
       <Nuvole />
     </section>
   );

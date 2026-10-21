@@ -1,11 +1,12 @@
 import { homeFaq } from "@/data/faq";
+import { showGarden } from "@/data/flags";
 import { comuni } from "@/data/locale";
 
 export function Zona() {
   return (
     <section id="zona" className="section section-tight" aria-labelledby="zona-title">
       <div className="wrap">
-        <span className="rib rv">capitolo VIII · da dove arrivi</span>
+        <span className="rib rv">{showGarden ? "capitolo VIII · da dove arrivi" : "capitolo VII · da dove arrivi"}</span>
         <h2 id="zona-title" className="display rv w-900">
           Milano ovest, senza attraversare la città.
         </h2>
@@ -17,7 +18,7 @@ export function Zona() {
           </p>
           <p>
             A pranzo ci si siede tra un impegno e l’altro. La sera si fa l’aperitivo e si cena. Gli orari sono [orari da
-            confermare]. Il garden apre quando il tempo collabora. Per il tavolo, il 338 439 5727.
+            confermare]. Per il tavolo, il 338 439 5727.
           </p>
         </div>
         <div className="comuni-chips" aria-label="Comuni della zona">

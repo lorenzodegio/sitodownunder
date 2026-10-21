@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
+import { MenuPranzoSettimana } from "@/components/MenuPranzoSettimana";
 import { SiteFrame } from "@/components/SiteFrame";
 import { pranzoFisso, serateMenu, vociMenu } from "@/data/menu";
 import { locale } from "@/data/locale";
@@ -51,6 +52,8 @@ export default async function MenuPage({ searchParams }: { searchParams: Promise
               Scarica il menù in PDF
             </Link>
           </p>
+
+          <MenuPranzoSettimana />
 
           <h2>{pranzoFisso.name}</h2>
           <p>

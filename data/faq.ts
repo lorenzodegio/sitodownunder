@@ -1,6 +1,6 @@
 export type Faq = { q: string; a: string };
 
-/** Testi visibili nel capitolo VIII e nel JSON-LD, tenuti uguali. */
+/** Testi visibili nella zona e nel JSON-LD, tenuti uguali. */
 export const homeFaq: readonly Faq[] = [
   {
     q: "Dove mangiare un hamburger in provincia di Milano?",
@@ -12,7 +12,7 @@ export const homeFaq: readonly Faq[] = [
   },
   {
     q: "Dove fare l’aperitivo tra Rho e Vanzago?",
-    a: "Al Down Under, negli orari [orari da confermare]: cocktail, bollicine e taglieri, in sala o nel garden quando il tempo lo permette. L’indirizzo è Via Primo Maggio 1, Vanzago.",
+    a: "Al Down Under, negli orari [orari da confermare]: cocktail, bollicine e taglieri, in sala. L’indirizzo è Via Primo Maggio 1, Vanzago.",
   },
   {
     q: "Si può festeggiare un compleanno o una laurea?",

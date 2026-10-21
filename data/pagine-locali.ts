@@ -130,7 +130,7 @@ export const pagineLocali: readonly PaginaLocale[] = [
     navLabel: "Pizza Vanzago",
     paragraphs: [
       "A Vanzago la pizza del Down Under si mangia al tavolo, sotto i murales, non solo nel cartone sul divano. Il locale è in Via Primo Maggio 1, cafè dal 2010: burger, pizza e cocktail nello stesso posto. Le pizze partono dalla margherita e arrivano a burrata, crudo e pistacchio. Il resto della carta — specialità, piade, dolci — sta nel menù, che aggiorniamo in PDF e in questa pagina.",
-      "Ha senso sedersi, se abiti a Vanzago o a Mantegazza, perché la sala è il motivo per cui il locale non somiglia a una pizzeria d’asporto. Jules Verne è sulle pareti: il viaggio al centro della terra, il faro, le gabbie, il polpo. Si ordina, si aspetta, si mangia, e intorno c’è un romanzo disegnato. Quando il tempo collabora, il garden è l’altra sala, quella fuori.",
+      "Ha senso sedersi, se abiti a Vanzago o a Mantegazza, perché la sala è il motivo per cui il locale non somiglia a una pizzeria d’asporto. Jules Verne è sulle pareti: il viaggio al centro della terra, il faro, le gabbie, il polpo. Si ordina, si aspetta, si mangia, e intorno c’è un romanzo disegnato.",
       "L’asporto c’è, e non è un piano B di cui vergognarsi. Si chiama il 338 439 5727, si passa, si porta a casa. È la stessa pizza della sala. A pranzo molti mescolano: qualcuno prende il menù fisso, qualcuno la pizza, qualcuno il burger. La sera la pizza sta bene con un calice o con un cocktail del bancone.",
       "Gli orari sono [orari da confermare], non quelli di una consegna fino a tardi a tutti i costi. Se vuoi il tavolo, prenota prima. Da Mantegazza la strada è ancora più corta. Il numero è sempre 338 439 5727.",
     ],
@@ -159,7 +159,7 @@ export const pagineLocali: readonly PaginaLocale[] = [
     faq: [
       {
         q: "Fate solo asporto?",
-        a: "No. La pizza si mangia in sala e nel garden, quando è aperto, e si può anche portare via. L’asporto si ordina al 338 439 5727.",
+        a: "No. La pizza si mangia in sala e si può anche portare via. L’asporto si ordina al 338 439 5727.",
       },
       {
         q: "La domenica a pranzo fate pizza?",
@@ -226,13 +226,13 @@ export const pagineLocali: readonly PaginaLocale[] = [
     slug: "aperitivo-rho",
     title: "Aperitivo vicino a Rho",
     description:
-      "Aperitivo vicino a Rho, al Down Under di Vanzago: cocktail, bollicine e taglieri negli orari [orari da confermare], anche in garden. Via Primo Maggio 1. 338 439 5727.",
+      "Aperitivo vicino a Rho, al Down Under di Vanzago: cocktail, bollicine e taglieri negli orari [orari da confermare]. Via Primo Maggio 1. 338 439 5727.",
     h1: "Aperitivo vicino a Rho",
     kicker: "[orari da confermare]",
     navLabel: "Aperitivo Rho",
     paragraphs: [
       "L’aperitivo tra Rho e Vanzago, al Down Under, segue gli orari [orari da confermare]. L’indirizzo è Via Primo Maggio 1, Vanzago, sul lato che guarda Rho. Si esce dal paese, si fa poca strada verso ovest, si entra in un cafè che dal 2010 scrive Lunch & Happy Hour sullo scudo.",
-      "«Uno e andiamo» è la frase che sentiamo più spesso, e di solito non è vero. Cocktail fatti come si deve, bollicine, birre alla spina, taglieri da dividere. Se l’aperitivo diventa cena, la carta ha burger, pizze e i piatti del giorno. Se resta un giro solo, il bancone basta. Quando il meteo collabora si esce nel garden: gazebo, siepi, lucine. Non è un rooftop, è il giardino del locale, e d’estate conta.",
+      "«Uno e andiamo» è la frase che sentiamo più spesso, e di solito non è vero. Cocktail fatti come si deve, bollicine, birre alla spina, taglieri da dividere. Se l’aperitivo diventa cena, la carta ha burger, pizze e i piatti del giorno. Se resta un giro solo, il bancone basta.",
       "La sala, dentro, non è neutra. I murales di Jules Verne occupano le pareti: è un aperitivo in un romanzo, non in un bancone interchangeable. Specchi, lampadari, il polpo, il faro. Si può venire da Rho dopo il lavoro, da Pregnana, da Pogliano, da Arluno, senza dossier di locali del centro. Per il tavolo, soprattutto se siete in tanti o se è venerdì, scrivete al 338 439 5727.",
       "Il giovedì e il martedì, a volte, l’aperitivo sconfina nelle serate a tema: gnocchi, cena della nonna, menù che va prenotato perché i posti finiscono. Il calendario del mese sta in sala e su Instagram. Se cercate solo un calice e un tagliere, la carta di tutti i giorni resta comunque lì.",
     ],
@@ -241,7 +241,7 @@ export const pagineLocali: readonly PaginaLocale[] = [
     piatti: [
       { name: "Cocktail", text: "I classici e quello che decide il bancone quella sera." },
       { name: "Taglieri", text: "Da dividere, così «uno e andiamo» dura un po’ di più." },
-      { name: "Garden", text: "Lo stesso aperitivo, fuori, quando il tempo tiene." },
+      { name: "In sala", text: "Lo stesso aperitivo, tra specchi, lampadari e murales." },
     ],
     murales: [
       {
@@ -262,10 +262,6 @@ export const pagineLocali: readonly PaginaLocale[] = [
       {
         q: "L’aperitivo c’è anche il lunedì?",
         a: "Gli orari dell’aperitivo, anche il lunedì, sono [orari da confermare].",
-      },
-      {
-        q: "Il garden è sempre aperto?",
-        a: "Si usa quando il tempo lo permette. Se piove, l’aperitivo resta in sala, tra i murales.",
       },
     ],
     links: [
@@ -333,8 +329,8 @@ export const pagineLocali: readonly PaginaLocale[] = [
     kicker: "tu porti l’equipaggio",
     navLabel: "Feste e compleanni",
     paragraphs: [
-      "Compleanni, lauree, diciotto anni, battesimi, cene aziendali che per una volta non sono una tortura: al Down Under di Vanzago si organizzano in Via Primo Maggio 1. Tu porti l’equipaggio. Al resto — aperitivo a buffet o cena su misura — pensiamo noi, dopo aver saputo quanti siete e che giorno vi serve. Non pubblichiamo una capienza inventata: la sala e il garden hanno un limite vero, e si dice al telefono, non in una brochure.",
-      "Il locale aiuta, perché non è una sala neutra da congresso. I murales di Jules Verne fanno già scena: polpo, faro, caverne, gabbie, il monogramma DUC. Per un diciottesimo o una laurea è una sala di cui la gente si ricorda, senza doverla addobbare fino a coprirla. Se il tempo è dalla vostra, il garden aggiunge lo spazio fuori. Se piove, si resta dentro. Dal 22 novembre 2010, giorno dell’inaugurazione, di feste qui ne sono passate: i volantini di quella sera stanno ancora in archivio, sul sito.",
+      "Compleanni, lauree, diciotto anni, battesimi, cene aziendali che per una volta non sono una tortura: al Down Under di Vanzago si organizzano in Via Primo Maggio 1. Tu porti l’equipaggio. Al resto — aperitivo a buffet o cena su misura — pensiamo noi, dopo aver saputo quanti siete e che giorno vi serve. Non pubblichiamo una capienza inventata: la sala ha un limite vero, e si dice al telefono, non in una brochure.",
+      "Il locale aiuta, perché non è una sala neutra da congresso. I murales di Jules Verne fanno già scena: polpo, faro, caverne, gabbie, il monogramma DUC. Per un diciottesimo o una laurea è una sala di cui la gente si ricorda, senza doverla addobbare fino a coprirla. Dal 22 novembre 2010, giorno dell’inaugurazione, di feste qui ne sono passate: i volantini di quella sera stanno ancora in archivio, sul sito.",
       "Si parte da una telefonata, 338 439 5727, o da un messaggio WhatsApp. Servono il numero delle persone, il tipo di festa e se preferite aperitivo a buffet o cena. I tag che sentiamo più spesso sono diciotto anni, lauree, compleanni, battesimi, cene aziendali. Il menù si costruisce da lì, non da un pacchetto unico con un prezzo copia-incollato. I prezzi si fanno sul preventivo, dopo la chiamata.",
       "Le feste stanno negli orari [orari da confermare], oppure in un accordo preciso preso prima. Una data fuori da quegli orari non si incastra da sola: va chiesta, e può essere un no. Meglio dirlo subito che scoprirlo il giorno prima. Prezzo: [prezzo da confermare].",
     ],
@@ -343,7 +339,7 @@ export const pagineLocali: readonly PaginaLocale[] = [
     piatti: [
       { name: "Aperitivo a buffet", text: "Per i diciotto e le lauree, quando la gente arriva a ondate." },
       { name: "Cena su misura", text: "Per il tavolo che vuole stare seduto, dal burger al tiramisù." },
-      { name: "Garden", text: "Lo spazio fuori, se la data e il meteo stanno dalla stessa parte." },
+      { name: "Sala", text: "Tra i murales, senza doverla addobbare fino a coprirla." },
     ],
     murales: [
       {
@@ -363,7 +359,7 @@ export const pagineLocali: readonly PaginaLocale[] = [
     faq: [
       {
         q: "Quante persone ci stanno?",
-        a: "Dipende da buffet o cena, e da sala o garden. Chiamaci al 338 439 5727 con il numero degli invitati: ti diciamo se la data regge.",
+        a: "Dipende da buffet o cena, e da quanti siete in sala. Chiamaci al 338 439 5727 con il numero degli invitati: ti diciamo se la data regge.",
       },
       {
         q: "Posso fare una festa di lunedì sera?",

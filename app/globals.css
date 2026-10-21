@@ -9,6 +9,9 @@
   --status-neutral: #8a9096;
   --status-open: #a6dccb;
   --status-closed: #e3a6a0;
+  --butter: #f3e2b8;
+  --sage: #8eae9a;
+  --terracotta: #c56a45;
 }
 
 html {
@@ -1769,4 +1772,285 @@ address {
 .local-page .btn-ghost {
   border-color: var(--ink);
   color: var(--ink);
+}
+
+.nonna-band,
+.nonna-section {
+  --hand: var(--font-caveat), "Segoe Script", cursive;
+}
+
+.nonna-band {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 18px 22px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 28px auto 8px;
+  padding: 18px 22px;
+  border-radius: 22px;
+  background: var(--butter);
+  color: var(--ink);
+  box-shadow: 0 14px 0 rgba(244, 240, 230, 0.08);
+}
+
+.nonna-kicker,
+.nonna-title,
+.nonna-date,
+.nonna-stamp,
+.duc-mark text {
+  font-family: var(--hand);
+}
+
+.duc-mark {
+  width: 92px;
+  height: auto;
+  fill: var(--ink);
+}
+
+.nonna-kicker {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.nonna-when,
+.nonna-meta,
+.nonna-time,
+.nonna-lead,
+.nonna-only {
+  font-family: var(--font-dm), system-ui, sans-serif;
+}
+
+.nonna-dish {
+  margin-top: 4px;
+  font-family: var(--font-rokkitt), serif;
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.05;
+}
+
+.nonna-price {
+  font-family: var(--hand);
+  font-size: 32px;
+  color: var(--terracotta);
+}
+
+.nonna-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: baseline;
+}
+
+.nonna-time,
+.nonna-lead,
+.nonna-only {
+  color: #3d4a46;
+}
+
+.nonna-cta {
+  background: var(--ink);
+  color: var(--butter);
+  white-space: nowrap;
+}
+
+.nonna-section {
+  padding: 28px 0 10px;
+  background: var(--paper);
+}
+
+.nonna-sheet {
+  padding: 28px 22px 32px;
+  border: 2px solid var(--sage);
+  border-radius: 28px;
+  background: linear-gradient(180deg, #f7f1e4 0%, var(--butter) 100%);
+  box-shadow: inset 14px 0 0 var(--sage);
+}
+
+.nonna-head {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.nonna-title {
+  font-size: clamp(42px, 6vw, 68px);
+  font-weight: 700;
+  line-height: 0.9;
+}
+
+.nonna-days {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nonna-day {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(244, 240, 230, 0.72);
+}
+
+.nonna-day.is-oggi {
+  outline: 3px solid var(--terracotta);
+}
+
+.nonna-day.is-finito {
+  opacity: 0.62;
+}
+
+.nonna-photo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 160px;
+  border: 1.5px dashed var(--sage);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fffdf8;
+  color: #5c6a64;
+  font-family: var(--hand);
+  font-size: 28px;
+  text-align: center;
+}
+
+.nonna-photo img {
+  object-fit: cover;
+}
+
+.nonna-date {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.nonna-stamp {
+  display: inline-block;
+  margin: 4px 0;
+  padding: 2px 8px;
+  border: 2px solid var(--terracotta);
+  border-radius: 8px;
+  color: var(--terracotta);
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transform: rotate(-6deg);
+}
+
+.nonna-day h3 {
+  font-family: var(--font-rokkitt), serif;
+  font-size: 26px;
+  line-height: 1.05;
+}
+
+.nonna-book,
+.nonna-phone {
+  font-family: var(--font-dm), system-ui, sans-serif;
+}
+
+.nonna-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.nonna-phone {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.pranzo-week {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  padding: 22px;
+  border-radius: 20px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.pranzo-week-title,
+.pranzo-course {
+  font-family: var(--font-rokkitt), serif;
+  line-height: 1;
+}
+
+.pranzo-week-title {
+  font-size: clamp(28px, 4vw, 42px);
+  margin-bottom: 12px;
+}
+
+.pranzo-course {
+  margin-top: 14px;
+  font-size: 24px;
+}
+
+.pranzo-dishes {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.pranzo-week-price {
+  margin-top: 12px;
+  font-weight: 700;
+}
+
+.local-page .pranzo-week {
+  margin: 28px 0;
+  border: 2px solid var(--ink);
+}
+
+.admin-dates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.admin-course {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 12px;
+  border: 1.5px dashed var(--ink);
+  border-radius: 14px;
+}
+
+.admin-course legend {
+  padding: 0 6px;
+  font-weight: 700;
+}
+
+.admin-course button,
+.admin-card textarea {
+  font: inherit;
+}
+
+.admin-card textarea {
+  padding: 8px 10px;
+  border: 1.5px solid var(--ink);
+  border-radius: 10px;
+  background: var(--paper);
+}
+
+.admin-course button {
+  justify-self: start;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .nonna-band {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-dates {
+    grid-template-columns: 1fr;
+  }
 }

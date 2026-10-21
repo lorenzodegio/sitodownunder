@@ -4,15 +4,16 @@ import { upload } from "@vercel/blob/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
+import { AdminPranzo } from "@/components/AdminPranzo";
 import {
-  FOTO_SECTIONS,
+  FOTO_UPLOAD_SECTIONS,
   MENU_PATH,
-  fotoPath,
-  isFotoSection,
+  isUploadSection,
   sectionLabel,
   type ArchivioFoto,
   type FotoSection,
 } from "@/lib/archivio-shared";
+import type { MenuPranzo } from "@/lib/pranzo-settimana";
 
 const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const PDF_LIMIT = 15 * 1024 * 1024;
@@ -22,10 +23,16 @@ export function AdminPanel({
   configured,
   menuUrl,
   photos,
+  pranzo,
+  tokenName,
+  environmentLabel,
 }: {
   configured: boolean;
   menuUrl: string | null;
   photos: ArchivioFoto[];
+  pranzo: MenuPranzo | null;
+  tokenName: string;
+  environmentLabel: string;
 }) {
   const router = useRouter();
   const [message, setMessage] = useState("");
@@ -81,7 +88,7 @@ export function AdminPanel({
     const file = (form.elements.namedItem("foto") as HTMLInputElement).files?.[0];
     const section = (form.elements.namedItem("sezione") as HTMLSelectElement).value;
     const alt = (form.elements.namedItem("alt") as HTMLInputElement).value.trim();
-    if (!file || !isFotoSection(section)) return;
+    if (!file || !isUploadSection(section)) return;
     if (!IMAGE_TYPES.includes(file.type)) {
       setMessage("Usa JPG, PNG o WebP.");
       return;
@@ -97,15 +104,14 @@ export function AdminPanel({
     setPending(true);
     setMessage("");
     try {
-      const pathname = fotoPath(section, file.name);
-      await upload(pathname, file, {
-        access: "public",
-        handleUploadUrl: "/api/upload",
-        contentType: file.type,
-        clientPayload: JSON.stringify({ alt, section }),
-      });
-      await saveMeta(pathname, alt, section);
-      setMessage("Foto caricata.");
+      const body = new FormData();
+      body.set("foto", file);
+      body.set("alt", alt);
+      body.set("sezione", section);
+      const response = await fetch("/api/foto", { method: "POST", body });
+      const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+      if (!response.ok) throw new Error(payload?.error || "Caricamento non riuscito");
+      setMessage("Foto caricata, in WebP.");
       form.reset();
       router.refresh();
     } catch (error) {
@@ -138,8 +144,12 @@ export function AdminPanel({
   return (
     <div className="admin-wrap">
       <h1>Archivio</h1>
-      <p>Menù PDF e foto del locale. Le pagine pubbliche si aggiornano al salvataggio.</p>
-      {!configured ? <p className="admin-warn">Manca BLOB_READ_WRITE_TOKEN: gli upload non possono partire.</p> : null}
+      <p>
+        Archivio {environmentLabel}. Menù PDF, menù pranzo e foto. Le pagine pubbliche si aggiornano al salvataggio.
+      </p>
+      {!configured ? (
+        <p className="admin-warn">Manca {tokenName}: gli upload non possono partire e non viene usato un altro store.</p>
+      ) : null}
       {message ? <p className="admin-message">{message}</p> : null}
 
       <section className="admin-card" aria-labelledby="admin-menu">
@@ -161,13 +171,16 @@ export function AdminPanel({
         </form>
       </section>
 
+      <AdminPranzo configured={configured} saved={pranzo} />
+
       <section className="admin-card" aria-labelledby="admin-foto">
         <h2 id="admin-foto">Foto</h2>
+        <p>JPG, PNG o WebP. Al caricamento diventano WebP, lato lungo massimo 1600 px. Il testo alternativo è obbligatorio.</p>
         <form onSubmit={onFoto}>
           <label>
             Sezione
             <select name="sezione" defaultValue="burger">
-              {FOTO_SECTIONS.map((section) => (
+              {FOTO_UPLOAD_SECTIONS.map((section) => (
                 <option key={section} value={section}>
                   {sectionLabel[section]}
                 </option>

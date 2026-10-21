@@ -33,15 +33,17 @@ Quando il locale conferma gli orari, `hours` diventa un array di minuti dalla me
 
 ## Foto e menù PDF
 
-I murales sono in `public/murales/`. Le foto di piatti, sala, garden ed eventi si caricano da `/admin` e finiscono su Vercel Blob, nelle sezioni `burger`, `pizza`, `bancone`, `sala`, `garden`, `eventi`. Senza foto, il riquadro mostra un murale.
+I murales sono in `public/murales/`. Le foto si caricano da `/admin` e finiscono su Vercel Blob, nelle sezioni `burger`, `pizza`, `bancone`, `sala`, `eventi`, `martedi`. Il garden non è in elenco, ma i file già caricati restano nello store. Ogni foto chiede un testo alternativo e viene salvata in WebP, lato lungo massimo 1600 px.
 
-Il PDF del menù si sostituisce dalla stessa pagina e si scarica da `/menu/pdf`. Il menù testuale, quello che legge Google, è `/menu`.
+Il PDF del menù completo si sostituisce dalla stessa pagina e si scarica da `/menu/pdf`. Il menù pranzo della settimana è un JSON nello stesso store e si legge in HTML nella home e in `/menu`.
+
+La sezione garden si accende con `showGarden` in `data/flags.ts`. I martedì della nonna stanno in `data/martedi-nonna.ts` e spariscono da soli dopo l’ultima data.
 
 ## Pubblicare su Vercel
 
 1. Metti il progetto su un repository Git. Non includere `.env.local`.
 2. Su [vercel.com](https://vercel.com) importa il repository e collega lo store Blob (Storage → Blob → Connect).
-3. In Project → Settings → Environment Variables imposta `BLOB_READ_WRITE_TOKEN` e `ADMIN_PASSWORD`. Nessuno dei due ha un valore di default nel codice.
+3. In Project → Settings → Environment Variables imposta `ADMIN_PASSWORD`, `BLOB_READ_WRITE_TOKEN` solo per Production e `PREVIEWBLOB_READ_WRITE_TOKEN` per Preview e Development. Nessuno ha un valore di default. Se manca il token di quell’ambiente, l’admin si ferma e non usa l’altro store.
 4. `NEXT_PUBLIC_SITE_URL` va impostata solo quando c’è il dominio definitivo, e solo in produzione se vuoi che Google indicizzi. Finché manca, tutto il sito — produzione compresa — risponde `noindex`. Sitemap, robots e canonical usano quella variabile se c’è; altrimenti l’host di produzione Vercel in produzione e l’host del branch in preview.
 5. Framework: Next.js. Deploy.
 

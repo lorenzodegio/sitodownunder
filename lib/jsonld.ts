@@ -1,5 +1,7 @@
 import { homeFaq, type Faq } from "@/data/faq";
+import { showGarden } from "@/data/flags";
 import { areaServed, hours, locale, schemaDays } from "@/data/locale";
+import { campaignState, martediNonna } from "@/data/martedi-nonna";
 import type { FotoSection, PublicPhoto } from "@/lib/archivio-shared";
 import { FOTO_SECTIONS } from "@/lib/archivio-shared";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
@@ -39,7 +41,8 @@ function faqNode(faqs: readonly Faq[], id: string) {
 
 export function restaurantNode(photos: Record<FotoSection, PublicPhoto[]>) {
   const images = [absoluteUrl("/murales/logo-scudo.png")];
-  for (const section of FOTO_SECTIONS) {
+  const sections = showGarden ? FOTO_SECTIONS : FOTO_SECTIONS.filter((section) => section !== "garden");
+  for (const section of sections) {
     for (const photo of photos[section]) {
       if (images.length >= 4) break;
       images.push(photo.src);
@@ -72,10 +75,48 @@ export function restaurantNode(photos: Record<FotoSection, PublicPhoto[]>) {
   };
 }
 
+function martediEvents(photos: Record<FotoSection, PublicPhoto[]>) {
+  const state = campaignState();
+  if (!state.visible) return [];
+  return state.days.map((day, index) => {
+    const photo = photos.martedi[index];
+    return {
+      "@type": "Event",
+      "@id": `${siteUrl()}/#martedi-${day.date}`,
+      name: `${martediNonna.title}: ${day.dish}`,
+      startDate: day.date,
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      eventStatus: "https://schema.org/EventScheduled",
+      description: `${martediNonna.cuisine}, ${martediNonna.booking}. Orario della cena: ${martediNonna.time}.`,
+      ...(photo ? { image: photo.src } : {}),
+      location: {
+        "@type": "Place",
+        name: locale.name,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: locale.streetAddress,
+          postalCode: locale.postalCode,
+          addressLocality: locale.addressLocality,
+          addressRegion: locale.addressRegion,
+          addressCountry: locale.addressCountry,
+        },
+      },
+      organizer: { "@id": `${siteUrl()}/#ristorante` },
+      offers: {
+        "@type": "Offer",
+        price: day.amount,
+        priceCurrency: "EUR",
+        availability: "https://schema.org/LimitedAvailability",
+        url: `${siteUrl()}/#martedi-nonna`,
+      },
+    };
+  });
+}
+
 export function homeJsonLd(photos: Record<FotoSection, PublicPhoto[]>) {
   return {
     "@context": "https://schema.org",
-    "@graph": [restaurantNode(photos), faqNode(homeFaq, `${siteUrl()}/#faq`)],
+    "@graph": [restaurantNode(photos), ...martediEvents(photos), faqNode(homeFaq, `${siteUrl()}/#faq`)],
   };
 }
 

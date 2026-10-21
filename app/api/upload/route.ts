@@ -9,6 +9,7 @@ import {
   type FotoSection,
 } from "@/lib/archivio-shared";
 import { revalidatePublic, upsertFotoMeta } from "@/lib/blob-archive";
+import { readBlobToken } from "@/lib/blob-token";
 
 export const runtime = "nodejs";
 
@@ -28,10 +29,16 @@ function readPayload(clientPayload: string | null): { alt: string; section: Foto
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
+  const token = readBlobToken();
+  if (!token) {
+    return NextResponse.json({ error: "Manca il token Blob di questo ambiente." }, { status: 503 });
+  }
+
   const body = (await request.json()) as HandleUploadBody;
 
   try {
     const jsonResponse = await handleUpload({
+      token,
       body,
       request,
       onBeforeGenerateToken: async (pathname, clientPayload) => {

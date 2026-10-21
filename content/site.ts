@@ -3,6 +3,7 @@
  * Orari, indirizzo e telefono stanno in data/locale.ts.
  */
 
+import { showGarden } from "@/data/flags";
 import { hours, locale } from "@/data/locale";
 
 export type { MinuteRange, Weekday } from "@/data/locale";
@@ -123,7 +124,9 @@ export const site = {
         tone: "ink",
         time: "[orari da confermare]",
         title: "Ape",
-        text: "«Uno e andiamo.» Certo. Cocktail, bollicine e taglieri, tra specchi e lampadari o fuori nel garden.",
+        text: showGarden
+          ? "«Uno e andiamo.» Certo. Cocktail, bollicine e taglieri, tra specchi e lampadari o fuori nel garden."
+          : "«Uno e andiamo.» Certo. Cocktail, bollicine e taglieri, tra specchi e lampadari.",
       },
       {
         tone: "paper",
@@ -200,7 +203,7 @@ export const site = {
     features: [
       {
         title: "Il diario di bordo",
-        text: "Il menù della settimana esce qui e su Instagram. [da confermare]",
+        text: "Il menù della settimana è in questa sezione: dal giorno al giorno, con le portate.",
       },
       {
         title: "L’equipaggio dell’ufficio",
@@ -281,7 +284,7 @@ export const site = {
     text: "Misteriosa fino a un certo punto: è il garden qui fuori. Gazebo, siepi, lucine. Appena il meteo collabora si mangia e si beve all’aperto.",
   },
   eventi: {
-    kicker: "capitolo VII · dalla Terra alla Luna",
+    kicker: showGarden ? "capitolo VII · dalla Terra alla Luna" : "capitolo VI · dalla Terra alla Luna",
     title: "Tu porti l’equipaggio. Al resto pensiamo noi.",
     text: "Compleanni, lauree, battesimi, cene aziendali che per una volta non sono una tortura. Aperitivo a buffet o cena su misura: dicci quanti siete.",
     tags: ["18 anni", "lauree", "compleanni", "battesimi", "cene aziendali"],

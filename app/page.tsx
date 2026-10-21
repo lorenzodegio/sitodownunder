@@ -1,4 +1,5 @@
 import { Galleria } from "@/components/Galleria";
+import { MartediNonna } from "@/components/MartediNonna";
 import { Giornata } from "@/components/Giornata";
 import { Eventi } from "@/components/Eventi";
 import { Garden } from "@/components/Garden";
@@ -11,6 +12,7 @@ import { Pranzo } from "@/components/Pranzo";
 import { Serate } from "@/components/Serate";
 import { SiteFrame } from "@/components/SiteFrame";
 import { Zona } from "@/components/Zona";
+import { showGarden } from "@/data/flags";
 import { loadPublicPhotos } from "@/lib/blob-archive";
 import { homeJsonLd } from "@/lib/jsonld";
 
@@ -42,8 +44,9 @@ export default async function HomePage() {
       </div>
       <Menu />
       <Serate />
+      <MartediNonna photos={photos.martedi} />
       <Galleria photos={photos.sala} />
-      <Garden photos={photos.garden} />
+      {showGarden ? <Garden photos={photos.garden} /> : null}
       <Eventi photos={photos.eventi} />
       <Info />
       <Zona />
