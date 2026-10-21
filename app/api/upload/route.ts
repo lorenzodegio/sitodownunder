@@ -84,16 +84,21 @@ export async function POST(request: Request): Promise<NextResponse> {
             }
           }
           revalidatePublic();
-        } catch (error) {
-          console.error("Aggiornamento archivio dopo l’upload non riuscito");
-          if (process.env.NODE_ENV === "development") console.error(error);
+        } catch {
+          throw new Error("Aggiornamento archivio dopo l’upload non riuscito");
         }
       },
     });
 
     return NextResponse.json(jsonResponse);
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Upload non riuscito";
+    const raw = error instanceof Error ? error.message : "";
+    const known =
+      raw === "Non autorizzato" ||
+      raw === "Percorso non consentito" ||
+      raw === "Sezione non consentita" ||
+      raw === "Aggiornamento archivio dopo l’upload non riuscito";
+    const message = known ? raw : "Upload non riuscito";
     const status = message === "Non autorizzato" ? 401 : 400;
     return NextResponse.json({ error: message }, { status });
   }

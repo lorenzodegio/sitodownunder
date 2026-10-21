@@ -31,7 +31,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Sezione non consentita" }, { status: 400 });
   }
 
-  await upsertFotoMeta(pathname, alt, section);
+  try {
+    await upsertFotoMeta(pathname, alt, section);
+  } catch (error) {
+    const missing = error instanceof Error && error.message === "Blob non configurato";
+    return NextResponse.json(
+      { error: missing ? "Manca il token Blob di questo ambiente." : "Aggiornamento non riuscito" },
+      { status: missing ? 503 : 500 },
+    );
+  }
   revalidatePublic();
   return NextResponse.json({ ok: true });
 }
@@ -46,7 +54,15 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ error: "Percorso non consentito" }, { status: 400 });
   }
 
-  await removeFoto(pathname);
+  try {
+    await removeFoto(pathname);
+  } catch (error) {
+    const missing = error instanceof Error && error.message === "Blob non configurato";
+    return NextResponse.json(
+      { error: missing ? "Manca il token Blob di questo ambiente." : "Eliminazione non riuscita" },
+      { status: missing ? 503 : 500 },
+    );
+  }
   revalidatePublic();
   return NextResponse.json({ ok: true });
 }

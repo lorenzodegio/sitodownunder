@@ -1724,14 +1724,21 @@ address {
   background: var(--paper);
 }
 
-.admin-warn {
+.admin-status {
   padding: 12px 14px;
   border-radius: 12px;
+  background: var(--carta);
+}
+
+.admin-status.is-missing,
+.admin-message.is-error {
   background: var(--blush);
 }
 
 .admin-message {
   font-weight: 700;
+  padding: 12px 14px;
+  border-radius: 12px;
 }
 
 .admin-list {

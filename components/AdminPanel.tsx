@@ -1,6 +1,6 @@
 "use client";
 
-import { upload } from "@vercel/blob/client";
+import { put } from "@vercel/blob/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
@@ -19,24 +19,55 @@ const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const PDF_LIMIT = 15 * 1024 * 1024;
 const FOTO_LIMIT = 8 * 1024 * 1024;
 
+function visibleError(error: unknown, fallback: string): string {
+  const raw = error instanceof Error ? error.message : fallback;
+  if (/vercel_blob|eyJ[A-Za-z0-9_-]{8,}/.test(raw)) return fallback;
+  return raw || fallback;
+}
+
+async function readError(response: Response, fallback: string): Promise<string> {
+  const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+  return payload?.error || fallback;
+}
+
+async function uploadWithToken(pathname: string, file: File, contentType: string): Promise<void> {
+  const response = await fetch("/api/upload", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      type: "blob.generate-client-token",
+      payload: { pathname, clientPayload: null, multipart: false },
+    }),
+  });
+  const payload = (await response.json().catch(() => null)) as { error?: string; clientToken?: string } | null;
+  if (!response.ok || !payload?.clientToken) {
+    throw new Error(payload?.error || "Caricamento non riuscito");
+  }
+  await put(pathname, file, { access: "public", token: payload.clientToken, contentType });
+}
+
 export function AdminPanel({
-  configured,
+  connected,
   menuUrl,
   photos,
   pranzo,
-  tokenName,
   environmentLabel,
 }: {
-  configured: boolean;
+  connected: boolean;
   menuUrl: string | null;
   photos: ArchivioFoto[];
   pranzo: MenuPranzo | null;
-  tokenName: string;
   environmentLabel: string;
 }) {
   const router = useRouter();
   const [message, setMessage] = useState("");
+  const [failed, setFailed] = useState(false);
   const [pending, setPending] = useState(false);
+
+  function report(text: string, isError = false) {
+    setMessage(text);
+    setFailed(isError);
+  }
 
   async function saveMeta(pathname: string, alt: string, section: FotoSection | "menu") {
     const response = await fetch("/api/archivio", {
@@ -44,39 +75,36 @@ export function AdminPanel({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ pathname, alt, section }),
     });
-    if (!response.ok) {
-      const body = (await response.json().catch(() => null)) as { error?: string } | null;
-      throw new Error(body?.error || "Aggiornamento non riuscito");
-    }
+    if (!response.ok) throw new Error(await readError(response, "Aggiornamento non riuscito"));
   }
 
   async function onMenu(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const input = event.currentTarget.elements.namedItem("pdf") as HTMLInputElement;
+    const form = event.currentTarget;
+    const input = form.elements.namedItem("pdf") as HTMLInputElement;
     const file = input.files?.[0];
-    if (!file) return;
+    if (!file) {
+      report("Scegli un PDF.", true);
+      return;
+    }
     if (file.type !== "application/pdf") {
-      setMessage("Il menù dev’essere un PDF.");
+      report("Il menù dev’essere un PDF.", true);
       return;
     }
     if (file.size > PDF_LIMIT) {
-      setMessage("Il PDF supera i 15 MB.");
+      report("Il PDF supera i 15 MB.", true);
       return;
     }
     setPending(true);
-    setMessage("");
+    report("Caricamento del PDF in corso…");
     try {
-      await upload(MENU_PATH, file, {
-        access: "public",
-        handleUploadUrl: "/api/upload",
-        contentType: "application/pdf",
-      });
+      await uploadWithToken(MENU_PATH, file, "application/pdf");
       await saveMeta(MENU_PATH, "", "menu");
-      setMessage("Menù PDF sostituito.");
-      event.currentTarget.reset();
+      report("Menù PDF sostituito.");
+      form.reset();
       router.refresh();
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Caricamento non riuscito");
+      report(visibleError(error, "Caricamento non riuscito"), true);
     } finally {
       setPending(false);
     }
@@ -88,34 +116,36 @@ export function AdminPanel({
     const file = (form.elements.namedItem("foto") as HTMLInputElement).files?.[0];
     const section = (form.elements.namedItem("sezione") as HTMLSelectElement).value;
     const alt = (form.elements.namedItem("alt") as HTMLInputElement).value.trim();
-    if (!file || !isUploadSection(section)) return;
+    if (!file || !isUploadSection(section)) {
+      report("Scegli una foto e una sezione.", true);
+      return;
+    }
     if (!IMAGE_TYPES.includes(file.type)) {
-      setMessage("Usa JPG, PNG o WebP.");
+      report("Usa JPG, PNG o WebP.", true);
       return;
     }
     if (file.size > FOTO_LIMIT) {
-      setMessage("La foto supera gli 8 MB.");
+      report("La foto supera gli 8 MB.", true);
       return;
     }
     if (!alt) {
-      setMessage("Scrivi il testo alternativo.");
+      report("Scrivi il testo alternativo.", true);
       return;
     }
     setPending(true);
-    setMessage("");
+    report("Caricamento della foto in corso…");
     try {
       const body = new FormData();
       body.set("foto", file);
       body.set("alt", alt);
       body.set("sezione", section);
       const response = await fetch("/api/foto", { method: "POST", body });
-      const payload = (await response.json().catch(() => null)) as { error?: string } | null;
-      if (!response.ok) throw new Error(payload?.error || "Caricamento non riuscito");
-      setMessage("Foto caricata, in WebP.");
+      if (!response.ok) throw new Error(await readError(response, "Caricamento non riuscito"));
+      report("Foto caricata, in WebP.");
       form.reset();
       router.refresh();
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Caricamento non riuscito");
+      report(visibleError(error, "Caricamento non riuscito"), true);
     } finally {
       setPending(false);
     }
@@ -124,18 +154,18 @@ export function AdminPanel({
   async function onDelete(pathname: string) {
     if (!window.confirm("Eliminare questa foto?")) return;
     setPending(true);
-    setMessage("");
+    report("Eliminazione in corso…");
     try {
       const response = await fetch("/api/archivio", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ pathname }),
       });
-      if (!response.ok) throw new Error("Eliminazione non riuscita");
-      setMessage("Foto eliminata.");
+      if (!response.ok) throw new Error(await readError(response, "Eliminazione non riuscita"));
+      report("Foto eliminata.");
       router.refresh();
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Eliminazione non riuscita");
+      report(visibleError(error, "Eliminazione non riuscita"), true);
     } finally {
       setPending(false);
     }
@@ -144,13 +174,15 @@ export function AdminPanel({
   return (
     <div className="admin-wrap">
       <h1>Archivio</h1>
-      <p>
-        Archivio {environmentLabel}. Menù PDF, menù pranzo e foto. Le pagine pubbliche si aggiornano al salvataggio.
+      <p className={connected ? "admin-status" : "admin-status is-missing"} role="status">
+        {connected ? `Archivio: ${environmentLabel} collegato` : "Archivio: token mancante"}
       </p>
-      {!configured ? (
-        <p className="admin-warn">Manca {tokenName}: gli upload non possono partire e non viene usato un altro store.</p>
+      <p>Menù PDF, menù pranzo e foto. Le pagine pubbliche si aggiornano al salvataggio.</p>
+      {message ? (
+        <p className={failed ? "admin-message is-error" : "admin-message"} role="status">
+          {message}
+        </p>
       ) : null}
-      {message ? <p className="admin-message">{message}</p> : null}
 
       <section className="admin-card" aria-labelledby="admin-menu">
         <h2 id="admin-menu">Menù PDF</h2>
@@ -165,13 +197,13 @@ export function AdminPanel({
             File PDF, massimo 15 MB
             <input name="pdf" type="file" accept="application/pdf,.pdf" required />
           </label>
-          <button className="pill btn-solid" type="submit" disabled={pending || !configured}>
-            Sostituisci il menù
+          <button className="pill btn-solid" type="submit" disabled={pending}>
+            {pending ? "Caricamento…" : "Sostituisci il menù"}
           </button>
         </form>
       </section>
 
-      <AdminPranzo configured={configured} saved={pranzo} />
+      <AdminPranzo saved={pranzo} />
 
       <section className="admin-card" aria-labelledby="admin-foto">
         <h2 id="admin-foto">Foto</h2>
@@ -195,8 +227,8 @@ export function AdminPanel({
             Immagine, massimo 8 MB
             <input name="foto" type="file" accept="image/jpeg,image/png,image/webp" required />
           </label>
-          <button className="pill btn-solid" type="submit" disabled={pending || !configured}>
-            Carica la foto
+          <button className="pill btn-solid" type="submit" disabled={pending}>
+            {pending ? "Caricamento…" : "Carica la foto"}
           </button>
         </form>
         <ul className="admin-list">

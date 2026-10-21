@@ -29,7 +29,7 @@ function rowsFrom(voci: VocePranzo[] | undefined): Row[] {
   return voci.map((voce) => ({ tipo: voce.tipo, nome: voce.nome, prezzo: voce.prezzo, nota: voce.nota }));
 }
 
-export function AdminPranzo({ configured, saved }: { configured: boolean; saved: MenuPranzo | null }) {
+export function AdminPranzo({ saved }: { saved: MenuPranzo | null }) {
   const router = useRouter();
   const [from, setFrom] = useState(saved?.from ?? "");
   const [to, setTo] = useState(saved?.to ?? "");
@@ -136,7 +136,7 @@ export function AdminPranzo({ configured, saved }: { configured: boolean; saved:
           Aggiungi riga
         </button>
       </fieldset>
-      <button type="submit" disabled={!configured || pending}>
+      <button type="submit" disabled={pending}>
         {pending ? "Salvo…" : "Salva la settimana"}
       </button>
       {message ? <p>{message}</p> : null}
