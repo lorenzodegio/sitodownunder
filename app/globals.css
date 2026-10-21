@@ -579,12 +579,37 @@ p {
 .nuvole {
   position: relative;
   z-index: 2;
-  display: block;
-  width: 100%;
-  height: clamp(90px, 12vw, 170px);
-  margin-top: 24px;
-  --f: #f4f0e6;
-  color: #1e282b;
+  height: clamp(120px, 16vw, 190px);
+  margin: 24px -24px 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.nuvole-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 640px 100%;
+  animation: nuvole-drift linear infinite;
+}
+.nuvole-back {
+  top: 0;
+  height: 72%;
+  animation-duration: 58s;
+}
+.nuvole-front {
+  bottom: 0;
+  height: 78%;
+  animation-duration: 46s;
+}
+@keyframes nuvole-drift {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: -640px;
+  }
 }
 
 .marquee-bar {
@@ -1312,6 +1337,7 @@ p {
   .spin,
   .marquee,
   .wave,
+  .nuvole-layer,
   .sway,
   .tw,
   .beam,
@@ -2396,8 +2422,8 @@ address {
   font-size: 15px;
 }
 
-.menu-list + .pranzo-card {
-  margin-top: 36px;
+.pranzo-grid .pranzo-card {
+  height: 100%;
 }
 .split-btn {
   display: inline-flex;

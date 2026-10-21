@@ -1,5 +1,4 @@
 import { Foglie } from "@/components/Foglie";
-import { MenuPranzoSettimana } from "@/components/MenuPranzoSettimana";
 import { Polpo } from "@/components/Polpo";
 import { site } from "@/content/site";
 
@@ -31,7 +30,6 @@ export function Menu() {
             </div>
           ))}
         </div>
-        <MenuPranzoSettimana />
         <div className="menu-foot rv">
           <p>{site.menu.takeaway}</p>
           <div className="split-btn" role="group" aria-label="Menù completo">

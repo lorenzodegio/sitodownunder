@@ -107,7 +107,7 @@ export async function Hero() {
           </svg>
         </div>
       </div>
-      <Nuvole />
+      <Nuvole color={next ? "#f6efdf" : "#f4f0e6"} />
     </section>
   );
 }

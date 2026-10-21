@@ -1,4 +1,5 @@
 import { Foglie } from "@/components/Foglie";
+import { MenuPranzoSettimana } from "@/components/MenuPranzoSettimana";
 import { Murale } from "@/components/Murale";
 import { site } from "@/content/site";
 
@@ -25,12 +26,7 @@ export function Pranzo() {
           />
         </div>
         <div className="pranzo-grid">
-          <div className="rv price-card">
-            <div className="eyebrow">{site.pranzo.fixed.eyebrow}</div>
-            <div className="price">{site.pranzo.fixed.price}</div>
-            <p className="muted">{site.pranzo.fixed.includes}</p>
-            <p className="vouchers">{site.pranzo.fixed.vouchers}</p>
-          </div>
+          <MenuPranzoSettimana />
           <div className="stack">
             {site.pranzo.features.map((feature) => (
               <article key={feature.title} className="rv feature">

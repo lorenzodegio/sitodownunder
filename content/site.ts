@@ -195,7 +195,7 @@ export const site = {
   pranzo: {
     kicker: "capitolo III · pausa pranzo",
     title: "Il giro del pranzo in 60 minuti.",
-    lead: "Phileas Fogg ci ha messo 80 giorni, tu hai un’ora. Primo + secondo con contorno da 14€, primi e secondi da 7€, bevande escluse. C’è anche tutto il menù della sera.",
+    lead: "Phileas Fogg ci ha messo 80 giorni, tu hai un’ora.",
     fixed: {
       eyebrow: "pranzo",
       price: "da 14€",
@@ -205,7 +205,7 @@ export const site = {
     features: [
       {
         title: "Il diario di bordo",
-        text: "Il menù della settimana, dal lunedì al venerdì, sta nel menù.",
+        text: "Il menù della settimana è in questa sezione, dal lunedì al venerdì.",
       },
       {
         title: "L’equipaggio dell’ufficio",
