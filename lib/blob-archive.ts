@@ -114,13 +114,17 @@ export async function readMenuPdf(): Promise<Uint8Array | null> {
     if (!file) return null;
     const body = new Uint8Array(await new Response(file.stream).arrayBuffer());
     if (pathname !== MENU_PATH) {
-      await put(MENU_PATH, Buffer.from(body), {
-        access: "public",
-        token,
-        addRandomSuffix: false,
-        allowOverwrite: true,
-        contentType: "application/pdf",
-      });
+      try {
+        await put(MENU_PATH, Buffer.from(body), {
+          access: "public",
+          token,
+          addRandomSuffix: false,
+          allowOverwrite: true,
+          contentType: "application/pdf",
+        });
+      } catch {
+        return body;
+      }
     }
     return body;
   } catch {

@@ -56,11 +56,27 @@ export function AdminPanel({
       return;
     }
     setPending(true);
-    report("Caricamento del PDF in corso…");
     try {
-      const body = new FormData();
-      body.set("pdf", file);
-      const response = await fetch("/api/upload", { method: "POST", body });
+      const uploadId = crypto.randomUUID();
+      const chunkSize = 3 * 1024 * 1024;
+      const total = Math.ceil(file.size / chunkSize);
+      for (let index = 0; index < total; index += 1) {
+        report(`Caricamento del PDF, parte ${index + 1} di ${total}…`);
+        const body = new FormData();
+        body.set("phase", "part");
+        body.set("uploadId", uploadId);
+        body.set("index", String(index));
+        body.set("total", String(total));
+        body.set("chunk", file.slice(index * chunkSize, (index + 1) * chunkSize), "parte.pdf");
+        const response = await fetch("/api/upload", { method: "POST", body });
+        if (!response.ok) throw new Error(await readError(response, "Caricamento non riuscito"));
+      }
+      report("Salvataggio del menù…");
+      const done = new FormData();
+      done.set("phase", "complete");
+      done.set("uploadId", uploadId);
+      done.set("total", String(total));
+      const response = await fetch("/api/upload", { method: "POST", body: done });
       if (!response.ok) throw new Error(await readError(response, "Caricamento non riuscito"));
       report("Menù PDF sostituito.");
       form.reset();
