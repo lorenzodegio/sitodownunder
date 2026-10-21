@@ -6,6 +6,7 @@ import { SiteFrame } from "@/components/SiteFrame";
 import { serateMenu, vociMenu } from "@/data/menu";
 import { locale } from "@/data/locale";
 import { site } from "@/content/site";
+import { getMenuPdfUrl } from "@/lib/blob-archive";
 import { menuJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
@@ -25,8 +26,8 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600;
 
-export default async function MenuPage({ searchParams }: { searchParams: Promise<{ pdf?: string }> }) {
-  const { pdf } = await searchParams;
+export default async function MenuPage() {
+  const pdf = await getMenuPdfUrl();
 
   return (
     <SiteFrame>
@@ -44,14 +45,13 @@ export default async function MenuPage({ searchParams }: { searchParams: Promise
             Burger, pizza e cocktail in Via Primo Maggio 1, a Vanzago. I prezzi si confermano in sala e sul PDF: finché una
             voce non ha un prezzo verificato, qui non ne inventiamo uno.
           </p>
-          {pdf === "assente" ? (
-            <p className="admin-warn">Il PDF non è ancora online. Intanto il menù si legge qui sotto.</p>
+          {pdf ? (
+            <p>
+              <Link className="pill btn-solid" href="/menu/pdf">
+                Scarica il menù in PDF
+              </Link>
+            </p>
           ) : null}
-          <p>
-            <Link className="pill btn-solid" href="/menu/pdf">
-              Scarica il menù in PDF
-            </Link>
-          </p>
 
           <MenuPranzoSettimana variant="page" />
 

@@ -49,12 +49,80 @@ async function writeIndex(token: string, index: FotoIndex): Promise<void> {
   });
 }
 
+const MENU_CANDIDATES = [MENU_PATH, "menu.pdf", "menu/menu.pdf"] as const;
+
+async function locateMenuPdf(token: string): Promise<string | null> {
+  for (const pathname of MENU_CANDIDATES) {
+    try {
+      await head(pathname, { token });
+      return pathname;
+    } catch {
+      continue;
+    }
+  }
+  try {
+    const listed = await listAll(token, "");
+    const match = listed.find((blob) => /(^|\/)menu[^/]*\.pdf$/i.test(blob.pathname));
+    return match?.pathname ?? null;
+  } catch {
+    return null;
+  }
+}
+
+async function copyMenuToCanonical(token: string, pathname: string): Promise<void> {
+  if (pathname === MENU_PATH) return;
+  const file = await get(pathname, { access: "public", token });
+  if (!file) return;
+  const body = Buffer.from(await new Response(file.stream).arrayBuffer());
+  await put(MENU_PATH, body, {
+    access: "public",
+    token,
+    addRandomSuffix: false,
+    allowOverwrite: true,
+    contentType: "application/pdf",
+  });
+}
+
 export async function getMenuPdfUrl(): Promise<string | null> {
   const token = tokenOrNull();
   if (!token) return null;
+  const pathname = await locateMenuPdf(token);
+  if (!pathname) return null;
+  if (pathname !== MENU_PATH) {
+    try {
+      await copyMenuToCanonical(token, pathname);
+    } catch {
+      const blob = await head(pathname, { token }).catch(() => null);
+      return blob?.url ?? null;
+    }
+  }
   try {
-    const blob = await head(MENU_PATH, { token });
+    const blob = await head(pathname === MENU_PATH ? MENU_PATH : pathname, { token });
     return blob.url;
+  } catch {
+    return null;
+  }
+}
+
+export async function readMenuPdf(): Promise<Uint8Array | null> {
+  const token = tokenOrNull();
+  if (!token) return null;
+  const pathname = await locateMenuPdf(token);
+  if (!pathname) return null;
+  try {
+    const file = await get(pathname, { access: "public", token });
+    if (!file) return null;
+    const body = new Uint8Array(await new Response(file.stream).arrayBuffer());
+    if (pathname !== MENU_PATH) {
+      await put(MENU_PATH, Buffer.from(body), {
+        access: "public",
+        token,
+        addRandomSuffix: false,
+        allowOverwrite: true,
+        contentType: "application/pdf",
+      });
+    }
+    return body;
   } catch {
     return null;
   }

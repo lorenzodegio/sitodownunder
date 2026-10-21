@@ -4,7 +4,6 @@ import { Giornata } from "@/components/Giornata";
 import { Hero } from "@/components/Hero";
 import { Info } from "@/components/Info";
 import { JsonLd } from "@/components/JsonLd";
-import { Marquee } from "@/components/Marquee";
 import { Menu } from "@/components/Menu";
 import { Pranzo } from "@/components/Pranzo";
 import { Prossimamente } from "@/components/Prossimamente";
@@ -25,7 +24,6 @@ export default async function HomePage() {
       <JsonLd data={homeJsonLd(photos)} />
       <Hero />
       <Prossimamente photos={photos.martedi} />
-      <Marquee />
       <Giornata burger={photos.burger} pizza={photos.pizza} bancone={photos.bancone} />
       <Pranzo />
       <div className="onda" aria-hidden="true">
@@ -41,7 +39,7 @@ export default async function HomePage() {
       <Menu />
       <Serate />
       {showGarden ? <Garden photos={photos.garden} /> : null}
-      <Eventi photos={photos.eventi} />
+      <Eventi />
       <Info />
       <Zona />
     </SiteFrame>

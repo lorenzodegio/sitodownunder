@@ -1,9 +1,5 @@
 import { Decorazioni } from "@/components/Decorazioni";
-import { Murale } from "@/components/Murale";
-import { PhotoStrip } from "@/components/PhotoStrip";
-import { flyers } from "@/data/murales";
 import { site } from "@/content/site";
-import type { PublicPhoto } from "@/lib/archivio-shared";
 
 const stars = [
   [120, 90, 2.2, ""],
@@ -14,7 +10,7 @@ const stars = [
   [620, 300, 1.6, "2s"],
 ] as const;
 
-export function Eventi({ photos }: { photos: readonly PublicPhoto[] }) {
+export function Eventi() {
   return (
     <section id="eventi" className="section section-sea" aria-labelledby="eventi-title">
       <svg className="skyline" aria-hidden="true" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid slice">
@@ -42,22 +38,9 @@ export function Eventi({ photos }: { photos: readonly PublicPhoto[] }) {
           <a className="pill btn-solid" href={site.phone.tel}>
             {site.eventi.cta}
           </a>
-          <div className="flyer-fan">
-            <span className="nastro">Dall&apos;archivio · 22 novembre 2010</span>
-            {flyers.map((flyer) => (
-              <Murale
-                key={flyer.src}
-                src={flyer.src}
-                alt={flyer.alt}
-                width={flyer.width}
-                height={flyer.height}
-                className={flyer.className}
-              />
-            ))}
-          </div>
         </div>
-        <div className="rv eventi-art">
-          <svg className="ink luna" aria-hidden="true" viewBox="0 0 400 400">
+        <div className="eventi-art" aria-hidden="true">
+          <svg className="ink luna" viewBox="0 0 400 400">
             <circle className="w luna-disc" cx="200" cy="200" r="118" />
             <circle cx="160" cy="160" r="22" />
             <circle cx="244" cy="214" r="30" />
@@ -69,7 +52,6 @@ export function Eventi({ photos }: { photos: readonly PublicPhoto[] }) {
               <path className="w rocket" d="M186 30h28v-14c0-12-28-12-28 0zM186 30h28v26h-28zM180 56h40M192 40h16" />
             </g>
           </svg>
-          <PhotoStrip photos={photos} />
         </div>
       </div>
     </section>

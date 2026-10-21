@@ -236,8 +236,6 @@ export const site = {
     takeaway: "Serata divano? Take away sempre attivo: chiami, passi, sparisci.",
     pdfLabel: "Scarica PDF",
     pdfHref: "/menu/pdf",
-    htmlLabel: "Leggi il menù",
-    htmlHref: "/menu",
   },
   serate: {
     kicker: "capitolo V · le serate straordinarie",

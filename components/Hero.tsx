@@ -5,7 +5,7 @@ import { Nuvole } from "@/components/Nuvole";
 import { OpeningBadge } from "@/components/OpeningBadge";
 import { Stemma } from "@/components/Stemma";
 import { site } from "@/content/site";
-import { eventoInHero } from "@/data/eventi";
+import { eventiAttivi, eventoInHero } from "@/data/eventi";
 import { theme } from "@/data/theme";
 import { stagioneAttiva } from "@/lib/season";
 
@@ -107,7 +107,7 @@ export async function Hero() {
           </svg>
         </div>
       </div>
-      <Nuvole color={spinta ? theme.carta : theme.fondo} />
+      <Nuvole color={eventiAttivi().length ? theme.carta : theme.fondo} />
     </section>
   );
 }

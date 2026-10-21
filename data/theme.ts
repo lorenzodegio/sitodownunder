@@ -10,6 +10,7 @@ export const theme = {
   carta: "#F6EFDF",
   biglietto: "#FFFCF4",
   burro: "#F3DFA2",
+  burroChiaro: "#F7EAC4",
   salvia: "#A9BCA0",
   terracotta: "#E3A08A",
   rame: "#C98A63",

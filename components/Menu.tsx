@@ -1,10 +1,12 @@
 import { Decorazioni } from "@/components/Decorazioni";
 import { Polpo } from "@/components/Polpo";
 import { site } from "@/content/site";
+import { getMenuPdfUrl } from "@/lib/blob-archive";
 
 const bubbles = ["b1", "b2", "b3", "b4", "b5"] as const;
 
-export function Menu() {
+export async function Menu() {
+  const pdf = await getMenuPdfUrl();
   return (
     <section id="menu" className="section-sea section-menu" aria-labelledby="menu-title">
       {bubbles.map((name) => (
@@ -32,9 +34,8 @@ export function Menu() {
         </div>
         <div className="menu-foot rv">
           <p>{site.menu.takeaway}</p>
-          <div className="split-btn" role="group" aria-label="Menù completo">
-            <a href={site.menu.htmlHref}>{site.menu.htmlLabel}</a>
-            <a href={site.menu.pdfHref}>
+          {pdf ? (
+            <a className="pdf-btn" href={site.menu.pdfHref}>
               <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 4v11" />
                 <path d="M7 10l5 5 5-5" />
@@ -42,7 +43,7 @@ export function Menu() {
               </svg>
               {site.menu.pdfLabel}
             </a>
-          </div>
+          ) : null}
         </div>
       </div>
     </section>
