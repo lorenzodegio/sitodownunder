@@ -53,6 +53,8 @@ export function restaurantNode(photos: Record<FotoSection, PublicPhoto[]>) {
     "@type": ["Restaurant", "BarOrPub"],
     "@id": `${siteUrl()}/#ristorante`,
     name: locale.name,
+    legalName: locale.legalName,
+    vatID: `IT${locale.vat}`,
     url: siteUrl(),
     image: images,
     logo: absoluteUrl("/murales/logo-scudo.png"),
@@ -87,7 +89,7 @@ function martediEvents(photos: Record<FotoSection, PublicPhoto[]>) {
         eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
         eventStatus: "https://schema.org/EventScheduled",
         description: evento.descrizione,
-        ...(photo ? { image: photo } : {}),
+        ...(photo ? { image: photo.startsWith("http") ? photo : absoluteUrl(photo) } : {}),
         location: {
           "@type": "Place",
           name: locale.name,

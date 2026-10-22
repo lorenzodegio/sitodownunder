@@ -1136,6 +1136,11 @@ p {
 .footer-legal {
   margin-top: 18px;
   font-size: 14px;
+  line-height: 1.55;
+}
+.footer-legal a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .callbar {

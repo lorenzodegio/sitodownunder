@@ -33,7 +33,13 @@ export function Footer() {
           </li>
         </ul>
       </nav>
-      <p className="footer-legal">{site.placeholders.vat}</p>
+      <p className="footer-legal">
+        {locale.legalName}
+        <br />
+        P. IVA {locale.vat}
+        {" · "}
+        PEC <a href={`mailto:${locale.pec}`}>{locale.pec}</a>
+      </p>
       <details className="toilettes-egg">
         <summary>C’è anche scritto sul muro</summary>
         <Murale

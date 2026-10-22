@@ -8,6 +8,9 @@ export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export const locale = {
   name: "Down Under Cafè",
+  legalName: "Down Under Sas di Busnelli Eniacos e C.",
+  vat: "07081370962",
+  pec: "downunder@pec.it",
   streetAddress: "Via Primo Maggio 1",
   postalCode: "20043",
   addressLocality: "Vanzago",

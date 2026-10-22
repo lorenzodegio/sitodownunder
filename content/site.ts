@@ -54,9 +54,6 @@ export const site = {
     handle: locale.instagramHandle,
     url: locale.instagram,
   },
-  placeholders: {
-    vat: "[P. IVA]",
-  },
   nav: [
     { href: "/#prossimamente", label: "prossimamente" },
     { href: "/#pranzo", label: "pranzo" },
@@ -142,8 +139,8 @@ export const site = {
     burger: {
       src: null,
       label: "foto burger",
-      fallbackSrc: "/murales/camaleonte.png",
-      fallbackAlt: "Murale del camaleonte, al posto della foto del burger, Down Under Cafè Vanzago",
+      fallbackSrc: "/murales/mongolfiera.png",
+      fallbackAlt: "Murale della mongolfiera: Il giro del mondo in 80 giorni, Down Under Cafè Vanzago",
       ratio: "portrait",
       radius: 24,
       rotate: "n15",
@@ -151,8 +148,8 @@ export const site = {
     pizza: {
       src: null,
       label: "foto pizza",
-      fallbackSrc: "/murales/rosam.png",
-      fallbackAlt: "Cartiglio Rosam cape, spinam cave, al posto della foto della pizza, Down Under Cafè Vanzago",
+      fallbackSrc: "/murales/faro.png",
+      fallbackAlt: "Murale del faro con il monogramma DUC, Down Under Cafè Vanzago",
       ratio: "portrait",
       radius: 24,
       rotate: "p1",
