@@ -164,26 +164,38 @@ async function listAll(token: string, prefix: string) {
 export async function loadMenuPranzo(): Promise<MenuPranzo | null> {
   const token = tokenOrNull();
   if (!token) return null;
-  try {
-    const file = await get(PRANZO_PATH, { access: "public", token, useCache: false });
-    if (!file) return null;
-    const text = await new Response(file.stream).text();
-    return parseMenuPranzo(JSON.parse(text));
-  } catch {
-    return null;
+  for (const access of ["public", "private"] as const) {
+    try {
+      const file = await get(PRANZO_PATH, { access, token, useCache: false });
+      if (!file?.stream) continue;
+      const text = await new Response(file.stream).text();
+      return parseMenuPranzo(JSON.parse(text));
+    } catch {
+      continue;
+    }
   }
+  return null;
 }
 
 export async function saveMenuPranzo(menu: MenuPranzo): Promise<void> {
   const token = tokenOrNull();
   if (!token) throw new Error("Blob non configurato");
-  await put(PRANZO_PATH, JSON.stringify(menu), {
-    access: "public",
+  const body = JSON.stringify(menu);
+  const shared = {
     token,
-    addRandomSuffix: false,
+    addRandomSuffix: false as const,
     allowOverwrite: true,
     contentType: "application/json",
-  });
+  };
+  try {
+    await put(PRANZO_PATH, body, { ...shared, access: "public" });
+  } catch (error) {
+    try {
+      await put(PRANZO_PATH, body, { ...shared, access: "private" });
+    } catch {
+      throw error;
+    }
+  }
 }
 
 export async function putFotoWebp(pathname: string, body: Buffer): Promise<string> {
