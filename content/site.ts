@@ -118,13 +118,13 @@ export const site = {
     cards: [
       {
         tone: "paper",
-        time: "[orari da confermare]",
+        time: "lun–ven 11:30–15",
         title: "Lunch",
         text: "Primo + secondo con contorno da 14€, primi e secondi da 7€, bevande escluse. C’è anche tutto il menù della sera. Pensato per chi ha un’ora e un ufficio che aspetta.",
       },
       {
         tone: "ink",
-        time: "[orari da confermare]",
+        time: "mar–sab 18:30 · dom 18:00",
         title: "Ape",
         text: showGarden
           ? "«Uno e andiamo.» Certo. Cocktail, bollicine e taglieri, tra specchi e lampadari o fuori nel garden."
@@ -132,7 +132,7 @@ export const site = {
       },
       {
         tone: "paper",
-        time: "[orari da confermare]",
+        time: "fino alle 00:30 · ven e sab all’1",
         title: "Cena",
         text: "Burger, pizze e i piatti della cucina. Poi arriva il tiramisù fatto in casa e la dieta riparte lunedì.",
       },

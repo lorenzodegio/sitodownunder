@@ -1,8 +1,6 @@
 /**
  * Indirizzo e contatti. Unica fonte per la UI e il JSON-LD.
- * Orari, prezzi e coordinate restano segnaposto finché il locale non li conferma.
- * Quando gli orari ci sono: minuti da mezzanotte (Europe/Rome).
- * Una chiusura dopo mezzanotte supera 1440.
+ * Minuti da mezzanotte (Europe/Rome). Una chiusura dopo mezzanotte supera 1440.
  */
 
 export type MinuteRange = readonly [start: number, end: number];
@@ -32,8 +30,32 @@ export const locale = {
 export const hoursPlaceholder = "[orari da confermare]";
 export const pricePlaceholder = "[prezzo da confermare]";
 
-/** Indice = getDay(): 0 domenica … 6 sabato. Null finché il locale non conferma. */
-export const hours: readonly (readonly MinuteRange[])[] | null = null;
+/** Frase unica per i testi. La tabella legge `hours`. */
+export const hoursSummary =
+  "lunedì 11:30–15, martedì mercoledì e giovedì 11:30–15 e 18:30–00:30, venerdì 11:30–15 e 18:30–1, sabato 18:30–1, domenica 18–00:30";
+
+/** Indice = getDay(): 0 domenica … 6 sabato. */
+export const hours: readonly (readonly MinuteRange[])[] = [
+  [[18 * 60, 24 * 60 + 30]],
+  [[11 * 60 + 30, 15 * 60]],
+  [
+    [11 * 60 + 30, 15 * 60],
+    [18 * 60 + 30, 24 * 60 + 30],
+  ],
+  [
+    [11 * 60 + 30, 15 * 60],
+    [18 * 60 + 30, 24 * 60 + 30],
+  ],
+  [
+    [11 * 60 + 30, 15 * 60],
+    [18 * 60 + 30, 24 * 60 + 30],
+  ],
+  [
+    [11 * 60 + 30, 15 * 60],
+    [18 * 60 + 30, 24 * 60 + 60],
+  ],
+  [[18 * 60 + 30, 24 * 60 + 60]],
+];
 
 export const schemaDays = [
   "Sunday",

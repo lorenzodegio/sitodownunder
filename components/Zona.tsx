@@ -19,8 +19,9 @@ export function Zona() {
             in centro a Milano: resta sull’asse ovest e trova il civico 1.
           </p>
           <p>
-            A pranzo ci si siede tra un impegno e l’altro. La sera si fa l’aperitivo e si cena. Gli orari sono [orari da
-            confermare]. Per il tavolo, il 338 439 5727.
+            A pranzo ci si siede tra un impegno e l’altro. La sera si fa l’aperitivo e si cena. Gli orari sono lunedì
+            11:30–15, martedì mercoledì e giovedì 11:30–15 e 18:30–00:30, venerdì 11:30–15 e 18:30–1, sabato 18:30–1,
+            domenica 18–00:30. Per il tavolo, il 338 439 5727.
           </p>
         </div>
         <div className="comuni-chips" aria-label="Comuni della zona">

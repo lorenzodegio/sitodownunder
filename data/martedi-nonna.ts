@@ -8,7 +8,7 @@ const sorgente = {
   title: "I martedì della nonna",
   cuisine: "Cucina lombarda",
   booking: "solo su prenotazione",
-  time: "[orario da confermare]",
+  time: "18:30–00:30",
   lastDay: "2026-11-24",
 } as const;
 

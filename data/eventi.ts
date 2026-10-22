@@ -55,8 +55,8 @@ export const eventi: readonly Evento[] = [
     titolo: "I martedì della nonna",
     tag: ["Novembre · ogni martedì", "Solo su prenotazione"],
     descrizione:
-      "Cucina lombarda dal quaderno di ricette della nonna: un piatto per martedì, quattro martedì. Cena dalle [orario da confermare].",
-    orario: "[orario da confermare]",
+      "Cucina lombarda dal quaderno di ricette della nonna: un piatto per martedì, quattro martedì. Cena dalle 18:30.",
+    orario: "18:30–00:30",
     dataFine: "2026-11-24",
     prenotazione: "Ciao! Vorrei prenotare per il martedì della nonna del {data}",
     date: [

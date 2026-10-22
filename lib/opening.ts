@@ -31,9 +31,7 @@ export function formatMinutes(total: number): string {
 }
 
 export function formatDayRanges(ranges: readonly MinuteRange[]): string {
-  return ranges
-    .map(([start, end]) => `${formatMinutes(start)} – ${formatMinutes(end)}`)
-    .join("  ·  ");
+  return ranges.map(([start, end]) => `${formatMinutes(start)}–${formatMinutes(end)}`).join("\n");
 }
 
 export function computeOpening(now = romeNow()): OpeningSnapshot {
