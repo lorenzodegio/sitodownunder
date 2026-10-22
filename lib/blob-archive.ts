@@ -109,26 +109,44 @@ export async function readMenuPdf(): Promise<Uint8Array | null> {
   if (!token) return null;
   const pathname = await locateMenuPdf(token);
   if (!pathname) return null;
-  try {
-    const file = await get(pathname, { access: "public", token });
-    if (!file) return null;
-    const body = new Uint8Array(await new Response(file.stream).arrayBuffer());
-    if (pathname !== MENU_PATH) {
-      try {
-        await put(MENU_PATH, Buffer.from(body), {
-          access: "public",
-          token,
-          addRandomSuffix: false,
-          allowOverwrite: true,
-          contentType: "application/pdf",
-        });
-      } catch {
-        return body;
-      }
+  const bytes = await readBlobBytes(pathname, token);
+  if (!bytes) return null;
+  if (pathname !== MENU_PATH) {
+    await writeBlobFile(MENU_PATH, Buffer.from(bytes), "application/pdf").catch(() => undefined);
+  }
+  return bytes;
+}
+
+export async function readBlobBytes(pathname: string, token: string): Promise<Uint8Array | null> {
+  for (const access of ["public", "private"] as const) {
+    try {
+      const file = await get(pathname, { access, token, useCache: false });
+      if (!file?.stream) continue;
+      return new Uint8Array(await new Response(file.stream).arrayBuffer());
+    } catch {
+      continue;
     }
-    return body;
-  } catch {
-    return null;
+  }
+  return null;
+}
+
+export async function writeBlobFile(pathname: string, body: Buffer, contentType: string): Promise<void> {
+  const token = tokenOrNull();
+  if (!token) throw new Error("Manca il token Blob di questo ambiente.");
+  const shared = {
+    token,
+    addRandomSuffix: false as const,
+    allowOverwrite: true,
+    contentType,
+  };
+  try {
+    await put(pathname, body, { ...shared, access: "public" });
+  } catch (error) {
+    try {
+      await put(pathname, body, { ...shared, access: "private" });
+    } catch {
+      throw error;
+    }
   }
 }
 

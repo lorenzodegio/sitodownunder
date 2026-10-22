@@ -62,21 +62,22 @@ export function AdminPanel({
       const total = Math.ceil(file.size / chunkSize);
       for (let index = 0; index < total; index += 1) {
         report(`Caricamento del PDF, parte ${index + 1} di ${total}…`);
-        const body = new FormData();
-        body.set("phase", "part");
-        body.set("uploadId", uploadId);
-        body.set("index", String(index));
-        body.set("total", String(total));
-        body.set("chunk", file.slice(index * chunkSize, (index + 1) * chunkSize), "parte.pdf");
-        const response = await fetch("/api/upload", { method: "POST", body });
+        const params = new URLSearchParams({
+          phase: "part",
+          uploadId,
+          index: String(index),
+          total: String(total),
+        });
+        const response = await fetch(`/api/upload?${params}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/octet-stream" },
+          body: file.slice(index * chunkSize, (index + 1) * chunkSize),
+        });
         if (!response.ok) throw new Error(await readError(response, "Caricamento non riuscito"));
       }
       report("Salvataggio del menù…");
-      const done = new FormData();
-      done.set("phase", "complete");
-      done.set("uploadId", uploadId);
-      done.set("total", String(total));
-      const response = await fetch("/api/upload", { method: "POST", body: done });
+      const done = new URLSearchParams({ phase: "complete", uploadId, total: String(total) });
+      const response = await fetch(`/api/upload?${done}`, { method: "POST" });
       if (!response.ok) throw new Error(await readError(response, "Caricamento non riuscito"));
       report("Menù PDF sostituito.");
       form.reset();
