@@ -1,17 +1,16 @@
 const TILE = 640;
 
+/** Due gobbe che si incontrano alla stessa altezza, così il bordo non ha un tratto dritto. */
 const onda =
-  "M0 92C24 92 36 58 72 54C96 51 108 70 132 68C160 66 168 40 208 38C248 36 260 62 292 64C324 66 340 34 388 32C428 30 444 58 480 60C512 62 528 44 568 48C600 51 616 92 640 92V140H0Z";
-
-function cloudImage(fill: string) {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${TILE} 140"><path fill="${fill}" d="${onda}"/></svg>`;
-  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
-}
+  "M0 86C40 86 70 34 150 38C230 42 270 86 320 86C360 86 400 28 490 32C580 36 610 86 640 86V140H0Z";
 
 export function Nuvole({ color }: { color: string }) {
   return (
     <div className="nuvole" aria-hidden="true">
-      <div className="nuvole-layer" style={{ backgroundImage: cloudImage(color) }} />
+      <svg className="nuvole-svg" viewBox={`0 0 ${TILE * 2} 140`} preserveAspectRatio="none">
+        <path fill={color} d={onda} />
+        <path fill={color} d={onda} transform={`translate(${TILE} 0)`} />
+      </svg>
     </div>
   );
 }

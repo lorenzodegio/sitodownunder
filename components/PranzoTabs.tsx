@@ -22,12 +22,14 @@ export function PranzoTabs({ giorni, selected }: { giorni: readonly GiornoVista[
       <div className="day-dishes">
         {current.voci.map((voce, index) => (
           <div key={`${voce.tipo}-${voce.nome}-${index}`} className="day-row">
-            <span>{voce.tipo}</span>
-            <span>
-              {voce.nome}
-              {voce.nota ? ` (${voce.nota})` : ""}
-            </span>
-            <span>{voce.prezzo}</span>
+            <div className="day-dish">
+              <span className="day-tipo">{voce.tipo}</span>
+              <span className="day-nome">
+                {voce.nome}
+                {voce.nota ? ` (${voce.nota})` : ""}
+              </span>
+            </div>
+            <span className="day-prezzo">{voce.prezzo}</span>
           </div>
         ))}
       </div>
