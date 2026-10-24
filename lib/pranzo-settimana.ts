@@ -120,7 +120,8 @@ function righe(giorno: GiornoPranzo, sempre: VocePranzo[]): RigaPranzo[] {
 }
 
 export function presentMenuPranzo(menu: MenuPranzo | null, today = romeToday()): MenuPranzoView {
-  if (!menu || today > menu.to) return { status: "pending" };
+  // Resta in pagina anche dopo l'ultimo giorno, finché non arriva un menù nuovo.
+  if (!menu) return { status: "pending" };
   const giorni = menu.giorni.map((giorno) => ({
     data: giorno.data,
     tab: formatTabGiorno(giorno.data),
