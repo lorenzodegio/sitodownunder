@@ -9,8 +9,20 @@ const tono = {
 
 type Tono = keyof typeof tono;
 
-/** Segni diversi fra le sezioni. Niente immagini: un tracciato e un’animazione CSS. */
-export type Motivo = "onda" | "scandaglio" | "rotta" | "telegrafo" | "parallelo" | "catena";
+/**
+ * Fasce piene che si ripetono senza stacco e scorrono di lato.
+ * La mattonella divide 1000, metà del viewBox, così il giro non salta.
+ */
+const fasce = {
+  onda: { w: 100, d: "M0 22q25-22 50 0t50 0V40H0Z" },
+  mare: { w: 200, d: "M0 26C50 26 50 8 100 8C150 8 150 26 200 26V40H0Z" },
+  doppia: { w: 200, d: "M0 24C25 24 25 10 50 10C75 10 75 28 100 28C125 28 125 16 150 16C175 16 175 24 200 24V40H0Z" },
+  cavo: { w: 200, d: "M0 14C50 14 50 32 100 32C150 32 150 14 200 14V40H0Z" },
+  stretta: { w: 100, d: "M0 28C12 28 12 12 25 12C38 12 38 28 50 28C62 28 62 18 75 18C88 18 88 28 100 28V40H0Z" },
+  lunga: { w: 250, d: "M0 24C40 24 40 10 80 10C120 10 120 24 160 24C190 24 190 16 220 16C235 16 235 24 250 24V40H0Z" },
+} as const;
+
+export type Motivo = keyof typeof fasce;
 
 export function Cucitura({
   da,
@@ -24,15 +36,17 @@ export function Cucitura({
   stacca?: boolean;
 }) {
   const id = `cu${useId().replace(/:/g, "")}`;
-  const segno = da === "ink" ? "var(--carta)" : "var(--inchiostro)";
+  const fascia = fasce[motivo];
   const corpo = (
-    <div className={`cucitura cucitura-${motivo}`} style={{ background: tono[da], color: segno }} aria-hidden="true">
-      {motivo === "onda" ? <Onda id={id} fill={tono[a]} /> : null}
-      {motivo === "scandaglio" ? <Tratti id={id} passo={36} tacca /> : null}
-      {motivo === "rotta" ? <Rotta /> : null}
-      {motivo === "telegrafo" ? <Telegrafo /> : null}
-      {motivo === "parallelo" ? <Tratti id={id} passo={72} croce /> : null}
-      {motivo === "catena" ? <Catena id={id} /> : null}
+    <div className="cucitura cucitura-onda" style={{ background: tono[da] }} aria-hidden="true">
+      <svg className="cucitura-svg cucitura-deriva" viewBox="0 0 2000 40" preserveAspectRatio="none">
+        <defs>
+          <pattern id={id} width={fascia.w} height="40" patternUnits="userSpaceOnUse">
+            <path d={fascia.d} fill={tono[a]} />
+          </pattern>
+        </defs>
+        <rect width="2000" height="40" fill={`url(#${id})`} />
+      </svg>
     </div>
   );
 
@@ -41,65 +55,5 @@ export function Cucitura({
     <div className="cucitura-stacca" style={{ background: tono[a] }}>
       {corpo}
     </div>
-  );
-}
-
-function Onda({ id, fill }: { id: string; fill: string }) {
-  return (
-    <svg className="cucitura-svg cucitura-deriva" viewBox="0 0 2000 40" preserveAspectRatio="none">
-      <defs>
-        <pattern id={id} width="100" height="40" patternUnits="userSpaceOnUse">
-          <path d="M0 22q25-22 50 0t50 0V40H0z" fill={fill} />
-        </pattern>
-      </defs>
-      <rect width="2000" height="40" fill={`url(#${id})`} />
-    </svg>
-  );
-}
-
-function Tratti({ id, passo, tacca, croce }: { id: string; passo: number; tacca?: boolean; croce?: boolean }) {
-  const taccaPath = tacca ? `M0 8V28` : "";
-  const crocePath = croce ? "M8 10V22 M2 16H14" : "";
-  return (
-    <svg className="cucitura-svg cucitura-deriva" viewBox="0 0 1440 36" preserveAspectRatio="none">
-      <defs>
-        <pattern id={id} width={passo} height="36" patternUnits="userSpaceOnUse">
-          <path d={`M0 18H${passo} ${taccaPath} ${crocePath}`} fill="none" stroke="currentColor" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
-        </pattern>
-      </defs>
-      <rect width="1440" height="36" fill={`url(#${id})`} />
-    </svg>
-  );
-}
-
-function Rotta() {
-  return (
-    <>
-      <svg className="cucitura-svg" viewBox="0 0 1200 36" preserveAspectRatio="none">
-        <path d="M0 18H1200" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2 10" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-      </svg>
-      <span className="cucitura-punto" />
-    </>
-  );
-}
-
-function Telegrafo() {
-  return (
-    <svg className="cucitura-svg" viewBox="0 0 1200 32" preserveAspectRatio="none">
-      <path className="cucitura-segnale" d="M0 16H1200" fill="none" stroke="currentColor" strokeWidth="2.5" strokeDasharray="16 20" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-    </svg>
-  );
-}
-
-function Catena({ id }: { id: string }) {
-  return (
-    <svg className="cucitura-svg cucitura-deriva" viewBox="0 0 1400 36" preserveAspectRatio="none">
-      <defs>
-        <pattern id={id} width="28" height="36" patternUnits="userSpaceOnUse">
-          <circle cx="14" cy="18" r="5" fill="none" stroke="currentColor" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
-        </pattern>
-      </defs>
-      <rect width="1400" height="36" fill={`url(#${id})`} />
-    </svg>
   );
 }

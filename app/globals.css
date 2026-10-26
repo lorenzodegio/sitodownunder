@@ -1228,27 +1228,6 @@ p {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
-.cucitura-punto {
-  position: absolute;
-  top: 18px;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  margin-top: -4px;
-  border-radius: 50%;
-  background: var(--burro);
-  animation: cucitura-punto 18s linear infinite;
-}
-@keyframes cucitura-punto {
-  from { transform: translateX(-12px); }
-  to { transform: translateX(100vw); }
-}
-.cucitura-segnale {
-  animation: cucitura-segnale 8s linear infinite;
-}
-@keyframes cucitura-segnale {
-  to { stroke-dashoffset: -180; }
-}
 .cucitura-stacca {
   padding-bottom: clamp(72px, 9vw, 120px);
 }
@@ -1371,8 +1350,6 @@ p {
   .wave,
   .nuvole-svg,
   .cucitura-deriva,
-  .cucitura-punto,
-  .cucitura-segnale,
   .sway,
   .tw,
   .beam,

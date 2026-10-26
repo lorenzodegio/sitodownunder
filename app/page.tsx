@@ -24,17 +24,17 @@ export default async function HomePage() {
       <JsonLd data={homeJsonLd(photos)} />
       <Hero />
       <Prossimamente photos={photos.martedi} />
-      <Cucitura da="carta" a="biglietto" motivo="scandaglio" />
+      <Cucitura da="carta" a="biglietto" motivo="mare" />
       <Giornata burger={photos.burger} pizza={photos.pizza} bancone={photos.bancone} />
       <Pranzo />
       <Cucitura da="biglietto" a="ink" motivo="onda" />
       <Menu />
-      <Cucitura da="ink" a="fondo" motivo="rotta" />
+      <Cucitura da="ink" a="fondo" motivo="doppia" />
       {showGarden ? <Garden photos={photos.garden} /> : null}
       <Eventi />
-      <Cucitura da="fondo" a="ink" motivo="telegrafo" />
+      <Cucitura da="fondo" a="ink" motivo="cavo" />
       <Info />
-      <Cucitura da="ink" a="fondo" motivo="parallelo" stacca />
+      <Cucitura da="ink" a="fondo" motivo="stretta" stacca />
       <Zona />
     </SiteFrame>
   );
