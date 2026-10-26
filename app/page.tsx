@@ -5,7 +5,6 @@ import { Hero } from "@/components/Hero";
 import { Info } from "@/components/Info";
 import { JsonLd } from "@/components/JsonLd";
 import { Menu } from "@/components/Menu";
-import { Novita } from "@/components/Novita";
 import { Pranzo } from "@/components/Pranzo";
 import { Prossimamente } from "@/components/Prossimamente";
 import { SiteFrame } from "@/components/SiteFrame";
@@ -36,8 +35,7 @@ export default async function HomePage() {
           <rect width="1700" height="40" fill="url(#wv)" />
         </svg>
       </div>
-      <Menu burger={photos.burger} pizza={photos.pizza} carne={photos.carne} />
-      <Novita />
+      <Menu carne={photos.carne} />
       {showGarden ? <Garden photos={photos.garden} /> : null}
       <Eventi />
       <Info />

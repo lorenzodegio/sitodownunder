@@ -11,8 +11,8 @@ export type Novita = {
 };
 
 /**
- * Tagli nuovi. Si compilano qui, non da /admin: /admin carica solo il PDF.
- * In produzione la sezione compare solo quando almeno una scheda non ha [parentesi].
+ * Tagli nuovi, sopra l’elenco di «E tu cosa scegli?».
+ * Si compilano qui, non da /admin. In produzione il blocco compare solo senza [parentesi].
  */
 export const novita: readonly Novita[] = [
   {
@@ -38,6 +38,3 @@ export function novitaInPagina(): readonly Novita[] {
   return novita;
 }
 
-export function mostraNovita(): boolean {
-  return novitaInPagina().length > 0;
-}

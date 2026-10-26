@@ -24,13 +24,11 @@ export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
           <h2 id="prossimamente-title" className="display">
             Prossimamente
           </h2>
-          <p className="chapter-lead">
-            I format che tornano, e le date singole. L’aperitivo ha il suo peso: si parte da lì e, se la serata chiede di più, si resta a cena.
-          </p>
+          <p className="chapter-lead">Aperitivi ed eventi. Ogni data è un’offerta, con il suo prezzo.</p>
         </div>
 
         <div className="format-block">
-          <h3 className="format-title">I nostri format</h3>
+          <h3 className="format-title">Eventi</h3>
           {format.map((evento) => (
             <article key={evento.id} id={evento.id === "martedi-nonna" ? "format-nonna" : undefined} className="evento-sheet">
               <div className="ev-head">
@@ -107,18 +105,24 @@ export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
             </article>
           )}
 
-          {domenica ? (
+        </div>
+
+        {domenica ? (
+          <div className="format-block">
+            <h3 className="format-title">Aperitivi</h3>
             <article id="format-domenica" className="evento-sheet">
               <div className="ev-head">
                 <div className="ev-copy">
                   <div className="ev-tags">
                     <span className="ev-tag ev-tag-fill">Ogni domenica</span>
-                    <span className="ev-tag">Aperitivo</span>
+                    <span className="ev-tag">Offerta</span>
                   </div>
                   <h3 className="ev-title">{aperitivoDomenica.titolo}</h3>
                   <p className="ev-text">{aperitivoDomenica.testo}</p>
-                  <p className="ev-text">
-                    {aperitivoDomenica.orario} · {aperitivoDomenica.include} · {aperitivoDomenica.prezzo}
+                  <p className="ev-text">{aperitivoDomenica.orario}</p>
+                  <p className="offerta-riga">
+                    <span className="offerta-prezzo">{aperitivoDomenica.prezzo}</span>
+                    <span>{aperitivoDomenica.include}</span>
                   </p>
                 </div>
                 <div className="ev-actions">
@@ -131,8 +135,8 @@ export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
                 </div>
               </div>
             </article>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
 
         {singoli.length ? (
           <div className="format-block">

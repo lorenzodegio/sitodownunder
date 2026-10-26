@@ -1,6 +1,9 @@
 import { visibileConSegnaposto } from "@/lib/segnaposto";
 
-/** Format ricorrenti. I dati tra [parentesi] si vedono in preview e restano nascosti in produzione. */
+/**
+ * Offerta dell'aperitivo. Orario, contenuto e prezzo restano tra [parentesi]
+ * finché il locale non manda i dati veri: in produzione, così, non si pubblica.
+ */
 export const aperitivoDomenica = {
   id: "aperitivo-domenica",
   titolo: "Aperitivo della domenica",

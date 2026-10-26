@@ -32,13 +32,13 @@ export const vociMenu: readonly VoceMenu[] = [
     price: "[prezzo da confermare]",
   },
   {
-    name: "Hot dog",
-    text: "I classici da pub, con patatine.",
+    name: "Club Sandwich & Hotdog",
+    text: "I classici da pub, con patatine. Zero sorprese, solo gioie.",
     price: "[prezzo da confermare]",
   },
   {
     name: "Taglieri",
-    text: "Da dividere all’aperitivo.",
+    text: "Da dividere all’ape.",
     price: "[prezzo da confermare]",
   },
   {

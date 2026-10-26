@@ -36,10 +36,9 @@ Richieste esplicite di quel giorno. Da lì in poi fanno parte del sito.
 - In hero, con la stagione accesa, si spinge la cosa del giorno (`data/oggi.ts`), non un evento fisso. La stessa riga, in breve, sta vicino a orari e contatti. L’ordine dei momenti si cambia solo in `prioritaMomenti`.
 - I martedì della nonna sono solo a cena e solo su prenotazione. L’orario si mostra solo se è già nei dati.
 - Il menù del pranzo in pagina non mostra il prezzo dei singoli piatti. Resta il prezzo del menù (da 14€ / da 7€) e le note.
-- «E tu cosa scegli?» è la vetrina di hamburger, carne e pizza. Sotto, più piccoli, taglieri e hot dog. Piadine e insalate non stanno in questa sezione. Le foto vengono dal Blob; senza foto si usa il murale.
+- «E tu cosa scegli?» resta l’elenco. Non ci sono piadine né insalate. La voce da spingere, per ora solo la carne, è più larga e ha la foto. Le novità stanno in quella sezione, sopra l’elenco, da `data/novita.ts`. In produzione non compaiono finché una scheda ha ancora [parentesi].
 - La sezione «La settimana ha già una rotta» non c’è più: niente voce di menu, niente ancora.
-- Le novità (tagli di carne) stanno in `data/novita.ts`, non in `/admin`. `/admin` carica il PDF. In produzione la sezione è nascosta finché una scheda ha ancora [parentesi].
-- Prossimamente ha due parti: i format (`data/eventi.ts` con `tipo: "format"`, più l’aperitivo della domenica in `data/format.ts`) e i prossimi eventi (`tipo: "evento"`). L’aperitivo della domenica è nascosto in produzione finché orario, contenuto e prezzo sono segnaposto.
+- Prossimamente ha gli eventi e, a parte, gli aperitivi. Ogni data è un’offerta con il prezzo. I prezzi già confermati (i martedì della nonna) si vedono. Orario, contenuto e prezzo ancora da ricevere stanno tra [parentesi] e in produzione non si pubblicano.
 - Un blocco nuovo con [parentesi] si vede in preview e in locale. In produzione no, finché i dati non sono compilati.
 - I QR in `public/qr/` servono per la stampa. Non vanno nel menu del sito.
 - Orari, ragione sociale, partita IVA e PEC già confermati restano quelli veri. Non si rimettono tra parentesi.

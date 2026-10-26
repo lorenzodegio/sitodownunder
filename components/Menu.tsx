@@ -2,58 +2,16 @@ import Image from "next/image";
 import { Decorazioni } from "@/components/Decorazioni";
 import { Polpo } from "@/components/Polpo";
 import { site } from "@/content/site";
+import { novitaInPagina } from "@/data/novita";
 import type { PublicPhoto } from "@/lib/archivio-shared";
 import { getMenuPdfUrl } from "@/lib/blob-archive";
 
 const bubbles = ["b1", "b2", "b3", "b4", "b5"] as const;
 
-const grandi = [
-  {
-    id: "burger",
-    titolo: "Hamburger",
-    testo: "Il motivo per cui la gente viene. Carne seria, pane ai semi, abbinamenti che non ti aspetti.",
-    esempi: ["Pane ai semi", "Carne alla piastra", "Abbinamenti del bancone"],
-    fallbackSrc: "/murales/mongolfiera.png",
-    fallbackAlt: "Murale della mongolfiera: Il giro del mondo in 80 giorni, Down Under Cafè Vanzago",
-  },
-  {
-    id: "carne",
-    titolo: "Carne",
-    testo: "I piatti di carne della cucina. I tagli nuovi, quando il locale li manda, stanno nelle novità.",
-    esempi: ["Alla piastra", "Le specialità", "Si chiede in sala"],
-    fallbackSrc: "/murales/caverna-duc.png",
-    fallbackAlt: "Murale della caverna con il monogramma DUC, Down Under Cafè Vanzago",
-  },
-  {
-    id: "pizza",
-    titolo: "Pizza",
-    testo: "Dalla margherita a burrata, crudo e pistacchio. Sì, puoi fare la foto prima.",
-    esempi: ["Margherita", "Burrata, crudo e pistacchio", "Le altre della carta"],
-    fallbackSrc: "/murales/faro.png",
-    fallbackAlt: "Murale del faro con il monogramma DUC, Down Under Cafè Vanzago",
-  },
-] as const;
-
-const minori = [
-  { titolo: "Taglieri", testo: "Da dividere all’aperitivo." },
-  { titolo: "Hot dog", testo: "I classici da pub, con patatine." },
-] as const;
-
-export async function Menu({
-  burger,
-  pizza,
-  carne,
-}: {
-  burger: readonly PublicPhoto[];
-  pizza: readonly PublicPhoto[];
-  carne: readonly PublicPhoto[];
-}) {
+export async function Menu({ carne }: { carne: readonly PublicPhoto[] }) {
   const pdf = await getMenuPdfUrl();
-  const foto: Record<(typeof grandi)[number]["id"], PublicPhoto | undefined> = {
-    burger: burger[0],
-    pizza: pizza[0],
-    carne: carne[0],
-  };
+  const novita = novitaInPagina();
+  const foto = carne[0];
 
   return (
     <section id="menu" className="section-sea section-menu" aria-labelledby="menu-title">
@@ -71,44 +29,60 @@ export async function Menu({
           </div>
           <Polpo />
         </div>
-        <div className="vetrina">
-          {grandi.map((card) => {
-            const live = foto[card.id];
+        {novita.length ? (
+          <div className="menu-novita" id="novita">
+            <h3 className="format-title">Novità</h3>
+            <div className="novita-grid">
+              {novita.map((voce) => (
+                <article key={voce.id} className="novita-card">
+                  <h3>{voce.nome}</h3>
+                  <p>
+                    {voce.provenienza} · {voce.peso}
+                  </p>
+                  <p>{voce.descrizione}</p>
+                  <p className="novita-prezzo">{voce.prezzo}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        ) : null}
+        <div className="menu-list">
+          {site.menu.items.map((item, index) => {
+            const numero = <span className="menu-num">{String(index + 1).padStart(2, "0")}</span>;
+            const nome = <h3 className="menu-name">{item.name}</h3>;
+            const testo = <p className="menu-text">{item.text}</p>;
+            if ("spinta" in item && item.spinta) {
+              return (
+                <div key={item.name} className="row rv menu-row is-spinta">
+                  <div className="menu-row-copy">
+                    {numero}
+                    {nome}
+                    {testo}
+                  </div>
+                  <div className="menu-spinta-photo">
+                    {foto ? (
+                      <Image src={foto.src} alt={foto.alt} fill sizes="(max-width: 800px) 90vw, 420px" className="photo-img" />
+                    ) : (
+                      <Image
+                        src="/murales/caverna-duc.png"
+                        alt="Murale della caverna con il monogramma DUC, in attesa della foto della carne"
+                        fill
+                        sizes="(max-width: 800px) 90vw, 420px"
+                        className="photo-img photo-fallback inv"
+                      />
+                    )}
+                  </div>
+                </div>
+              );
+            }
             return (
-              <article key={card.id} className="vetrina-card rv">
-                <div className="vetrina-photo">
-                  {live ? (
-                    <Image src={live.src} alt={live.alt} fill sizes="(max-width: 800px) 90vw, 360px" className="photo-img" />
-                  ) : (
-                    <Image
-                      src={card.fallbackSrc}
-                      alt={card.fallbackAlt}
-                      fill
-                      sizes="(max-width: 800px) 90vw, 360px"
-                      className="photo-img photo-fallback inv"
-                    />
-                  )}
-                </div>
-                <div className="vetrina-copy">
-                  <h3>{card.titolo}</h3>
-                  <p>{card.testo}</p>
-                  <ul>
-                    {card.esempi.map((esempio) => (
-                      <li key={esempio}>{esempio}</li>
-                    ))}
-                  </ul>
-                </div>
-              </article>
+              <div key={item.name} className="row rv menu-row">
+                {numero}
+                {nome}
+                {testo}
+              </div>
             );
           })}
-        </div>
-        <div className="vetrina-minori">
-          {minori.map((card) => (
-            <article key={card.titolo} className="vetrina-mini rv">
-              <h3>{card.titolo}</h3>
-              <p>{card.testo}</p>
-            </article>
-          ))}
         </div>
         <div className="menu-foot rv">
           <p>{site.menu.takeaway}</p>
