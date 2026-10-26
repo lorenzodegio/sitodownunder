@@ -5,13 +5,16 @@ import { loadMenuPranzo } from "@/lib/blob-archive";
 
 export async function CosaDelGiorno({ variant }: { variant: "hero" | "breve" }) {
   const now = new Date();
+  const momento = scegliMomento(now);
+  if (!momento) return null;
   let piatti: string[] = [];
-  if (scegliMomento(now) === "pranzo") {
+  if (momento === "pranzo") {
     const menu = await loadMenuPranzo();
     const giorno = menu?.giorni.find((item) => item.data === romeToday(now));
     piatti = giorno?.voci.map((voce) => voce.nome) ?? [];
   }
   const vista = presentaMomento(now, piatti);
+  if (!vista) return null;
 
   if (variant === "breve") {
     return (

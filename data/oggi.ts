@@ -1,6 +1,7 @@
 import { romeToday, romeWeekday } from "@/data/calendario";
 import { aperitivoDomenica, aperitivoDomenicaVisibile } from "@/data/format";
 import { eventiAttivi, prossimoMartedi } from "@/data/eventi";
+import { hours } from "@/data/locale";
 
 export type MomentoId = "evento" | "pranzo" | "nonna" | "aperitivo-domenica" | "ape-cena";
 
@@ -59,15 +60,16 @@ function attivo(id: MomentoId, now: Date): boolean {
     return prossimo.data === giornoDopo(today);
   }
   if (id === "aperitivo-domenica") return weekday === 0 && aperitivoDomenicaVisibile();
-  return true;
+  return hours[weekday]?.some(([start]) => start >= 18 * 60) ?? false;
 }
 
-export function scegliMomento(now = new Date()): MomentoId {
-  return prioritaMomenti.find((id) => attivo(id, now)) ?? "ape-cena";
+export function scegliMomento(now = new Date()): MomentoId | null {
+  return prioritaMomenti.find((id) => attivo(id, now)) ?? null;
 }
 
-export function presentaMomento(now = new Date(), piattiPranzo: readonly string[] = []): VistaMomento {
+export function presentaMomento(now = new Date(), piattiPranzo: readonly string[] = []): VistaMomento | null {
   const id = scegliMomento(now);
+  if (!id) return null;
   const today = romeToday(now);
 
   if (id === "evento") {
