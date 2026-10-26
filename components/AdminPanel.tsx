@@ -1,5 +1,6 @@
 "use client";
 
+import { CONTORNI_SEMPRE } from "@/lib/pranzo-settimana";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
@@ -101,6 +102,16 @@ export function AdminPanel({
           {message}
         </p>
       ) : null}
+
+      <section className="admin-card" aria-labelledby="admin-contorni">
+        <h2 id="admin-contorni">Contorni sempre disponibili</h2>
+        <p>Restano questi, anche la prossima settimana. Il contorno del giorno si cambia con il menù di quel giorno.</p>
+        <ul>
+          {CONTORNI_SEMPRE.map((voce) => (
+            <li key={voce.nome}>{voce.nome}</li>
+          ))}
+        </ul>
+      </section>
 
       <section className="admin-card" aria-labelledby="admin-menu">
         <h2 id="admin-menu">Menù PDF</h2>

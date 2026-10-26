@@ -8,5 +8,5 @@ export const contentType = "image/png";
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const page = paginaBySlug(slug);
-  return renderOg(page?.h1 ?? "Down Under Cafè", "Vanzago · Via Primo Maggio 1");
+  return renderOg(page?.h1 ?? "Down Under Cafè", "Vanzago · Via I Maggio 1");
 }

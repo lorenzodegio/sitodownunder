@@ -19,7 +19,9 @@ export function Footer() {
       </div>
       <TimbroCarpeDiem />
       <p className="footer-note">{site.footer.note}</p>
-      <address className="footer-legal">{locale.nap}</address>
+      <address className="footer-legal">
+        <a href={locale.hasMap}>{locale.nap}</a>
+      </address>
       <nav className="footer-local" aria-label="Pagine locali">
         <p>Ci trovi vicino a…</p>
         <ul>

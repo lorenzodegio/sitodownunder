@@ -50,6 +50,8 @@ export const site = {
   address,
   addressFull: locale.addressFull,
   mapsUrl: locale.mapsUrl,
+  hasMap: locale.hasMap,
+  reviewUrl: locale.reviewUrl,
   instagram: {
     handle: locale.instagramHandle,
     url: locale.instagram,
@@ -67,7 +69,7 @@ export const site = {
   },
   callbar: {
     call: "Chiama",
-    maps: "Portami lì",
+    maps: "Indicazioni",
   },
   openingCopy: {
     neutral: address,

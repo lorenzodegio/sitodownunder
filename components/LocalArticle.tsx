@@ -22,6 +22,14 @@ export function LocalArticle({ page, photos }: { page: PaginaLocale; photos: rea
         ))}
         <h2>Come arrivare</h2>
         <p>{page.comeArrivare}</p>
+        <p className="hero-actions">
+          <a className="pill btn-ink" href={locale.mapsUrl}>
+            Indicazioni
+          </a>
+          <a className="pill btn-ink-ghost" href={locale.reviewUrl}>
+            Lasciaci una recensione
+          </a>
+        </p>
         <h2>Cosa ordinare</h2>
         <ul className="local-dishes">
           {page.piatti.map((dish) => (

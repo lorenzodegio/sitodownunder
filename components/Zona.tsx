@@ -14,7 +14,7 @@ export function Zona() {
         </h2>
         <div className="zona-copy">
           <p>
-            Il Down Under è a Vanzago, in Via Primo Maggio 1, sul lato del paese che guarda Pregnana Milanese e Rho.
+            Il Down Under è a Vanzago, in Via I Maggio 1, sul lato del paese che guarda Pregnana Milanese e Rho.
             Mantegazza è la frazione qui accanto. Chi arriva dalla Fiera Milano Rho, da Pogliano o dal Sempione non entra
             in centro a Milano: resta sull’asse ovest e trova il civico 1.
           </p>

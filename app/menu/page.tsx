@@ -43,7 +43,7 @@ export default async function MenuPage() {
           <span className="rib">carta · Vanzago</span>
           <h1 className="display local-h1">Menù del Down Under</h1>
           <p>
-            Burger, pizza e cocktail in Via Primo Maggio 1, a Vanzago. I prezzi si confermano in sala e sul PDF: finché una
+            Burger, pizza e cocktail in Via I Maggio 1, a Vanzago. I prezzi si confermano in sala e sul PDF: finché una
             voce non ha un prezzo verificato, qui non ne inventiamo uno.
           </p>
           {pdf ? (

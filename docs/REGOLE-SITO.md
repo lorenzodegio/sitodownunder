@@ -43,6 +43,8 @@ Richieste esplicite di quel giorno. Da lì in poi fanno parte del sito.
 - Un blocco nuovo con [parentesi] si vede in preview e in locale. In produzione no, finché i dati non sono compilati.
 - I QR in `public/qr/` servono per la stampa. Non vanno nel menu del sito.
 - Orari, ragione sociale, partita IVA e PEC già confermati restano quelli veri. Non si rimettono tra parentesi.
+- L’indirizzo scritto è «Via I Maggio 1, 20043 Vanzago (MI)». Mappe e recensioni usano il Place ID in `data/locale.ts`. Bareggio resta solo tra le zone servite.
+- I contorni fissi del pranzo sono verdure grigliate, insalata mista e patatine fritte. Il contorno del giorno resta nella voce del giorno.
 
 ## Come si lavora
 

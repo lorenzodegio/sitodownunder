@@ -8,6 +8,15 @@ export const REGOLA_PRANZO =
 export const TIPI = ["Primo", "Secondo", "Piatto unico", "Contorno", "Sempre"] as const;
 export type TipoVoce = (typeof TIPI)[number];
 
+/** Contorni fissi. Il contorno del giorno resta nella voce «Contorno» di ogni giorno. */
+export const CONTORNI_SEMPRE: readonly VocePranzo[] = [
+  { tipo: "Sempre", nome: "Verdure grigliate", prezzo: "", nota: "" },
+  { tipo: "Sempre", nome: "Insalata mista", prezzo: "", nota: "" },
+  { tipo: "Sempre", nome: "Patatine fritte", prezzo: "", nota: "" },
+];
+
+const ORDINE_GIORNO: readonly TipoVoce[] = ["Primo", "Piatto unico", "Secondo", "Contorno"];
+
 export function tipoCorto(tipo: string): string {
   return tipo === "Piatto unico" ? "Piatto" : tipo;
 }
@@ -43,6 +52,7 @@ export type GiornoVista = {
   tab: string;
   titolo: string;
   voci: RigaPranzo[];
+  contorni: RigaPranzo[];
 };
 
 export type MenuPranzoView =
@@ -96,7 +106,7 @@ export function parseMenuPranzo(value: unknown): MenuPranzo | null {
     if (day.data < raw.from || day.data > raw.to) continue;
     const dow = romeWeekday(day.data);
     if (dow < 1 || dow > 5) continue;
-    const lines = voci(day.voci, true, 16);
+    const lines = voci(day.voci, false, 16);
     if (!lines.length) continue;
     giorni.push({ data: day.data, voci: lines });
   }
@@ -106,17 +116,25 @@ export function parseMenuPranzo(value: unknown): MenuPranzo | null {
     from: raw.from,
     to: raw.to,
     giorni,
-    sempre: voci(raw.sempre, true, 12).map((item) => ({ ...item, tipo: "Sempre" })),
+    sempre: CONTORNI_SEMPRE.map((item) => ({ ...item })),
   };
 }
 
-function righe(giorno: GiornoPranzo, sempre: VocePranzo[]): RigaPranzo[] {
-  return [...giorno.voci, ...sempre].map((item) => ({
+function riga(item: VocePranzo): RigaPranzo {
+  return {
     tipo: tipoCorto(item.tipo),
     nome: item.nome,
     prezzo: "",
     nota: item.nota,
-  }));
+  };
+}
+
+function righeGiorno(giorno: GiornoPranzo): RigaPranzo[] {
+  return giorno.voci
+    .filter((item) => item.tipo !== "Sempre")
+    .slice()
+    .sort((a, b) => ORDINE_GIORNO.indexOf(a.tipo) - ORDINE_GIORNO.indexOf(b.tipo))
+    .map(riga);
 }
 
 export function presentMenuPranzo(menu: MenuPranzo | null, today = romeToday()): MenuPranzoView {
@@ -126,7 +144,8 @@ export function presentMenuPranzo(menu: MenuPranzo | null, today = romeToday()):
     data: giorno.data,
     tab: formatTabGiorno(giorno.data),
     titolo: formatWeekdayLong(giorno.data),
-    voci: righe(giorno, menu.sempre),
+    voci: righeGiorno(giorno),
+    contorni: CONTORNI_SEMPRE.map(riga),
   }));
   const selected = giorni.find((giorno) => giorno.data === today)?.data ?? giorni[0].data;
   return { status: "current", menu, periodo: formatPeriodo(menu.from, menu.to), giorni, selected };

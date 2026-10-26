@@ -31,6 +31,14 @@ export function PranzoTabs({ giorni, selected }: { giorni: readonly GiornoVista[
             </div>
           </div>
         ))}
+        <p className="contorni-title">Contorni sempre disponibili</p>
+        {current.contorni.map((voce) => (
+          <div key={voce.nome} className="day-row is-contorno">
+            <div className="day-dish">
+              <span className="day-nome">{voce.nome}</span>
+            </div>
+          </div>
+        ))}
       </div>
     </>
   );

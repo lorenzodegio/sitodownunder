@@ -6,27 +6,30 @@
 export type MinuteRange = readonly [start: number, end: number];
 export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
+const PLACE_ID = "ChIJ8cRKFpnshkcRO1lNaT-MLcA";
+
 export const locale = {
   name: "Down Under Cafè",
   legalName: "Down Under Sas di Busnelli Eniacos e C.",
   vat: "07081370962",
   pec: "downunder@pec.it",
-  streetAddress: "Via Primo Maggio 1",
+  streetAddress: "Via I Maggio 1",
   postalCode: "20043",
   addressLocality: "Vanzago",
   addressRegion: "MI",
   addressCountry: "IT",
-  addressShort: "Via Primo Maggio 1, Vanzago",
-  addressFull: "Via Primo Maggio 1, 20043 Vanzago (MI)",
-  nap: "Down Under Cafè · Via Primo Maggio 1, 20043 Vanzago (MI) · 338 439 5727",
+  addressShort: "Via I Maggio 1, Vanzago",
+  addressFull: "Via I Maggio 1, 20043 Vanzago (MI)",
+  nap: "Down Under Cafè · Via I Maggio 1, 20043 Vanzago (MI) · 338 439 5727",
   phoneDisplay: "338 439 5727",
   phoneE164: "+393384395727",
   instagram: "https://www.instagram.com/downundercafe/",
   instagramHandle: "@downundercafe",
-  mapsUrl:
-    "https://www.google.com/maps/dir/?api=1&destination=Via+Primo+Maggio+1+20043+Vanzago",
-  hasMap:
-    "https://www.google.com/maps/search/?api=1&query=Down+Under+Caf%C3%A8+Via+Primo+Maggio+1+Vanzago",
+  /** Scheda Google del locale. Non usare l’indirizzo da solo: esiste anche a Bareggio. */
+  placeId: PLACE_ID,
+  mapsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent("Down Under Cafè, Via I Maggio 1, 20043 Vanzago MI")}&destination_place_id=${PLACE_ID}`,
+  hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Down Under Cafè Vanzago")}&query_place_id=${PLACE_ID}`,
+  reviewUrl: `https://search.google.com/local/writereview?placeid=${PLACE_ID}`,
   geo: { latitude: "[latitudine]", longitude: "[longitudine]" },
 } as const;
 

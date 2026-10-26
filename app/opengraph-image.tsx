@@ -5,5 +5,5 @@ export const size = ogSize;
 export const contentType = "image/png";
 
 export default function Image() {
-  return renderOg("Burger, pizza e aperitivo a Vanzago", "Via Primo Maggio 1 · dal 2010");
+  return renderOg("Burger, pizza e aperitivo a Vanzago", "Via I Maggio 1 · dal 2010");
 }

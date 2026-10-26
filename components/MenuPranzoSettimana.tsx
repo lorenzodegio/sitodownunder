@@ -26,6 +26,12 @@ export async function MenuPranzoSettimana({ variant = "card" }: { variant?: "car
                     </li>
                   ))}
                 </ul>
+                <p className="contorni-title">Contorni sempre disponibili</p>
+                <ul className="pranzo-list">
+                  {giorno.contorni.map((voce) => (
+                    <li key={voce.nome}>{voce.nome}</li>
+                  ))}
+                </ul>
               </div>
             ))}
           </>

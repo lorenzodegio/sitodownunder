@@ -31,10 +31,18 @@ export async function Info() {
             <div>
               <div className="contact-label">{site.info.whereLabel}</div>
               <address>
-                <a className="address-link" href={site.mapsUrl}>
+                <a className="address-link" href={site.hasMap}>
                   {site.addressFull}
                 </a>
               </address>
+              <div className="contact-actions">
+                <a className="pill btn-solid" href={site.mapsUrl}>
+                  Indicazioni
+                </a>
+                <a className="pill btn-ghost" href={site.reviewUrl}>
+                  Lasciaci una recensione
+                </a>
+              </div>
             </div>
             <div>
               <div className="contact-label">{site.info.socialLabel}</div>

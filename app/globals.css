@@ -1158,9 +1158,21 @@ p {
 .call-secondary {
   flex: 1;
   text-align: center;
-  padding: 13px;
+  padding: 13px 8px;
   border: 2px solid;
   box-shadow: 0 10px 24px -10px var(--ombra);
+  font-size: 13px;
+  line-height: 1.15;
+}
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+#info .contact-actions .btn-ghost {
+  border-color: var(--fondo);
+  color: var(--fondo);
 }
 .call-primary {
   background: var(--fondo);
@@ -2588,6 +2600,20 @@ address {
 .day-nome {
   font-size: 15px;
   line-height: 1.35;
+}
+.contorni-title {
+  margin: 16px 0 4px;
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.day-row.is-contorno {
+  grid-template-columns: minmax(0, 1fr);
+}
+.day-row.is-contorno .day-dish {
+  display: block;
 }
 .day-prezzo {
   font-family: var(--font-caveat), cursive;

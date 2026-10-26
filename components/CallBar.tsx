@@ -9,6 +9,9 @@ export function CallBar() {
       <a className="call-secondary" href={site.mapsUrl}>
         {site.callbar.maps}
       </a>
+      <a className="call-secondary" href={site.reviewUrl}>
+        Lasciaci una recensione
+      </a>
     </div>
   );
 }
