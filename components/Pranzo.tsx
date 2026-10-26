@@ -5,7 +5,7 @@ import { site } from "@/content/site";
 
 export function Pranzo() {
   return (
-    <section id="pranzo" className="section-tight" aria-labelledby="pranzo-title">
+    <section id="pranzo" className="section-tight ground-biglietto" aria-labelledby="pranzo-title">
       <Decorazioni dove="pranzo" />
       <div className="wrap sheet-ink">
         <div className="head">

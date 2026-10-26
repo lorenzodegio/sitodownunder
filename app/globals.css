@@ -1204,16 +1204,31 @@ p {
   transform-box: view-box;
 }
 
-.onda {
+.cucitura {
   overflow: hidden;
-  height: 40px;
+  line-height: 0;
   margin-bottom: -1px;
 }
-.onda-svg {
+.cucitura-svg {
   display: block;
   width: calc(100% + 200px);
   min-width: 1700px;
   height: 40px;
+}
+.cucitura-nastro {
+  height: 18px;
+  background: var(--carta);
+}
+.cucitura-tratto {
+  height: 22px;
+  margin: 0;
+  background: var(--fondo);
+}
+.cucitura-tratto .cucitura-svg {
+  height: 22px;
+}
+.ground-biglietto {
+  background: var(--biglietto);
 }
 
 .menu-stage {
@@ -2888,27 +2903,41 @@ address {
 }
 .menu-row.is-spinta {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 22px;
+  row-gap: 6px;
   align-items: center;
-  gap: 18px;
-  padding: 28px 4px;
+  margin: 16px 0;
+  padding: 18px 22px 20px;
+  background: var(--biglietto);
+  color: var(--inchiostro);
+  border: 0;
+  border-radius: 22px;
 }
-.menu-row-copy {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 32px;
-  min-width: 0;
+.menu-row.is-spinta .menu-num {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  width: auto;
+  font-family: var(--font-rokkitt), serif;
+  font-style: normal;
+  font-weight: 800;
+  font-size: clamp(46px, 6vw, 76px);
+  line-height: 0.8;
+  color: var(--inchiostro-mano);
 }
 .menu-row.is-spinta .menu-name {
-  font-size: clamp(40px, 5vw, 68px);
+  grid-column: 2;
+  grid-row: 1;
+  flex: none;
+  font-size: clamp(34px, 4.4vw, 58px);
+  color: var(--inchiostro);
 }
-.menu-spinta-photo {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  border-radius: 20px;
-  overflow: hidden;
-  background: rgba(246, 239, 223, 0.08);
+.menu-row.is-spinta .menu-text {
+  grid-column: 2;
+  grid-row: 2;
+  flex: none;
+  max-width: 38rem;
+  color: var(--testo-muto);
 }
 .offerta-riga {
   display: flex;
@@ -2934,7 +2963,24 @@ address {
   .novita-grid {
     grid-template-columns: 1fr 1fr;
   }
-  .menu-row.is-spinta {
-    grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.85fr);
-  }
+}
+#eventi .chip {
+  border-color: var(--inchiostro);
+  color: var(--inchiostro);
+}
+#eventi .luna {
+  --f: var(--biglietto);
+  color: var(--inchiostro);
+}
+#eventi .luna-disc {
+  stroke: var(--inchiostro);
+}
+#eventi .orbit {
+  color: var(--inchiostro);
+}
+#info .contact-label {
+  color: var(--mutedD);
+}
+#info .hours-card {
+  color: var(--inchiostro);
 }

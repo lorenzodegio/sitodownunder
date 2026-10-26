@@ -8,6 +8,7 @@ export function Faro() {
       decorative
       width={357}
       height={212}
+      invert
       className="faro"
     />
   );

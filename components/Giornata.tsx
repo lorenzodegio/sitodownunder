@@ -27,7 +27,7 @@ export function Giornata({
   const extra = [...burger.slice(1), ...pizza.slice(1), ...bancone.slice(1)];
 
   return (
-    <section className="section" aria-labelledby="giornata-title">
+    <section className="section ground-biglietto" aria-labelledby="giornata-title">
       <Decorazioni dove="giornata" />
       <div className="wrap">
         <Murale

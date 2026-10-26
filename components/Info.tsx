@@ -6,7 +6,7 @@ import { site } from "@/content/site";
 
 export async function Info() {
   return (
-    <section id="info" className="section" aria-labelledby="info-title">
+    <section id="info" className="section section-sea" aria-labelledby="info-title">
       <Decorazioni dove="info" />
       <div className="wrap">
         <div className="head">

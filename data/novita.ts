@@ -1,5 +1,3 @@
-import { contieneSegnaposto } from "@/lib/segnaposto";
-
 export type Novita = {
   id: string;
   nome: string;
@@ -10,10 +8,7 @@ export type Novita = {
   foto: string | null;
 };
 
-/**
- * Tagli nuovi, sopra l’elenco di «E tu cosa scegli?».
- * Si compilano qui, non da /admin. In produzione il blocco compare solo senza [parentesi].
- */
+/** Tagli nuovi. Il blocco in pagina resta spento finché non arrivano i dati veri. */
 export const novita: readonly Novita[] = [
   {
     id: "taglio-1",
@@ -26,15 +21,7 @@ export const novita: readonly Novita[] = [
   },
 ];
 
-function compilata(item: Novita): boolean {
-  return [item.nome, item.provenienza, item.peso, item.descrizione, item.prezzo].every(
-    (testo) => !contieneSegnaposto(testo),
-  );
-}
-
 export function novitaInPagina(): readonly Novita[] {
-  const pronte = novita.filter(compilata);
-  if (process.env.VERCEL_ENV === "production") return pronte;
-  return novita;
+  return [];
 }
 

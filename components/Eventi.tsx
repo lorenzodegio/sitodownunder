@@ -2,25 +2,9 @@ import { Decorazioni } from "@/components/Decorazioni";
 import { site } from "@/content/site";
 import { capitolo } from "@/lib/capitoli";
 
-const stars = [
-  [120, 90, 2.2, ""],
-  [420, 520, 1.8, ".8s"],
-  [760, 70, 2.4, "1.6s"],
-  [1040, 540, 1.8, ".4s"],
-  [1300, 80, 2.2, "1.2s"],
-  [620, 300, 1.6, "2s"],
-] as const;
-
 export function Eventi() {
   return (
-    <section id="eventi" className="section section-sea" aria-labelledby="eventi-title">
-      <svg className="skyline" aria-hidden="true" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid slice">
-        <g fill="var(--fondo)">
-          {stars.map(([cx, cy, r, delay]) => (
-            <circle key={`${cx}-${cy}`} className="tw" style={delay ? { animationDelay: delay } : undefined} cx={cx} cy={cy} r={r} />
-          ))}
-        </g>
-      </svg>
+    <section id="eventi" className="section" aria-labelledby="eventi-title">
       <Decorazioni dove="feste" />
       <div className="wrap eventi-grid">
         <div className="rv">
@@ -28,7 +12,7 @@ export function Eventi() {
           <h2 id="eventi-title" className="display display-event">
             {site.eventi.title}
           </h2>
-          <p className="prose-lg prose-mutedD">{site.eventi.text}</p>
+          <p className="prose-lg prose-mutedL">{site.eventi.text}</p>
           <div className="chips">
             {site.eventi.tags.map((tag) => (
               <span key={tag} className="pill chip">
@@ -36,7 +20,7 @@ export function Eventi() {
               </span>
             ))}
           </div>
-          <a className="pill btn-solid" href={site.phone.tel}>
+          <a className="pill btn-ink" href={site.phone.tel}>
             {site.eventi.cta}
           </a>
         </div>

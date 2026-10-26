@@ -1,17 +1,14 @@
-import Image from "next/image";
 import { Decorazioni } from "@/components/Decorazioni";
 import { Polpo } from "@/components/Polpo";
 import { site } from "@/content/site";
 import { novitaInPagina } from "@/data/novita";
-import type { PublicPhoto } from "@/lib/archivio-shared";
 import { getMenuPdfUrl } from "@/lib/blob-archive";
 
 const bubbles = ["b1", "b2", "b3", "b4", "b5"] as const;
 
-export async function Menu({ carne }: { carne: readonly PublicPhoto[] }) {
+export async function Menu() {
   const pdf = await getMenuPdfUrl();
   const novita = novitaInPagina();
-  const foto = carne[0];
 
   return (
     <section id="menu" className="section-sea section-menu" aria-labelledby="menu-title">
@@ -54,24 +51,9 @@ export async function Menu({ carne }: { carne: readonly PublicPhoto[] }) {
             if ("spinta" in item && item.spinta) {
               return (
                 <div key={item.name} className="row rv menu-row is-spinta">
-                  <div className="menu-row-copy">
-                    {numero}
-                    {nome}
-                    {testo}
-                  </div>
-                  <div className="menu-spinta-photo">
-                    {foto ? (
-                      <Image src={foto.src} alt={foto.alt} fill sizes="(max-width: 800px) 90vw, 420px" className="photo-img" />
-                    ) : (
-                      <Image
-                        src="/murales/caverna-duc.png"
-                        alt="Murale della caverna con il monogramma DUC, in attesa della foto della carne"
-                        fill
-                        sizes="(max-width: 800px) 90vw, 420px"
-                        className="photo-img photo-fallback inv"
-                      />
-                    )}
-                  </div>
+                  {numero}
+                  {nome}
+                  {testo}
                 </div>
               );
             }

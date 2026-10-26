@@ -219,9 +219,9 @@ export const site = {
     kicker: "capitolo IV · ventimila burger sotto i mari",
     title: "E tu cosa scegli?",
     items: [
-      { name: "I Burgers", text: "Il motivo per cui la gente viene. Carne seria, pane ai semi, abbinamenti che non ti aspetti." },
-      { name: "Le Pizze", text: "Dalla margherita a burrata, crudo e pistacchio. Sì, puoi fare la foto prima." },
-      { name: "La carne", text: "I piatti di carne della cucina. I tagli nuovi stanno qui sopra.", spinta: true },
+      { name: "I Burgers", text: "Il motivo per cui la gente viene. Carne seria, pane ai semi, abbinamenti che non ti aspetti.", spinta: true },
+      { name: "Le Pizze", text: "Dalla margherita a burrata, crudo e pistacchio. Sì, puoi fare la foto prima.", spinta: true },
+      { name: "La carne", text: "I piatti di carne della cucina. I tagli nuovi si annunciano quando arrivano.", spinta: true },
       { name: "Le Specialità", text: "I piatti della cucina. Cambiano spesso, quindi chiedi." },
       { name: "Club Sandwich & Hotdog", text: "I classici da pub, con patatine. Zero sorprese, solo gioie." },
       { name: "Taglieri", text: "Da dividere all’ape." },
@@ -246,7 +246,7 @@ export const site = {
     cta: "Organizziamola",
   },
   info: {
-    kicker: "orari e contatti · il faro in capo al mondo",
+    kicker: "capitolo VI · il faro in capo al mondo",
     title: "Segui il faro. Passa.",
     phoneLabel: "chiama o scrivi",
     whereLabel: "coordinate",

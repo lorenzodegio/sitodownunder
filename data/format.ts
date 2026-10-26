@@ -1,9 +1,11 @@
 import { visibileConSegnaposto } from "@/lib/segnaposto";
 
 /**
- * Offerta dell'aperitivo. Orario, contenuto e prezzo restano tra [parentesi]
- * finché il locale non manda i dati veri: in produzione, così, non si pubblica.
+ * Offerta dell'aperitivo. Resta spenta finché non arrivano orario, contenuto e prezzo.
+ * A dati pronti, si accende il flag e si tolgono le [parentesi].
  */
+export const aperitivoDomenicaPubblicato = false;
+
 export const aperitivoDomenica = {
   id: "aperitivo-domenica",
   titolo: "Aperitivo della domenica",
@@ -14,6 +16,7 @@ export const aperitivoDomenica = {
 } as const;
 
 export function aperitivoDomenicaVisibile(): boolean {
+  if (!aperitivoDomenicaPubblicato) return false;
   return visibileConSegnaposto([
     aperitivoDomenica.orario,
     aperitivoDomenica.include,

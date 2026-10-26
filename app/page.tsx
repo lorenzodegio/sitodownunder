@@ -1,3 +1,4 @@
+import { Cucitura } from "@/components/Cucitura";
 import { Eventi } from "@/components/Eventi";
 import { Garden } from "@/components/Garden";
 import { Giornata } from "@/components/Giornata";
@@ -23,22 +24,17 @@ export default async function HomePage() {
       <JsonLd data={homeJsonLd(photos)} />
       <Hero />
       <Prossimamente photos={photos.martedi} />
+      <Cucitura da="carta" a="biglietto" />
       <Giornata burger={photos.burger} pizza={photos.pizza} bancone={photos.bancone} />
       <Pranzo />
-      <div className="onda" aria-hidden="true">
-        <svg className="wave onda-svg" viewBox="0 0 1700 40" preserveAspectRatio="none">
-          <defs>
-            <pattern id="wv" width="100" height="40" patternUnits="userSpaceOnUse">
-              <path d="M0 22q25-22 50 0t50 0V40H0z" fill="var(--inchiostro)" />
-            </pattern>
-          </defs>
-          <rect width="1700" height="40" fill="url(#wv)" />
-        </svg>
-      </div>
-      <Menu carne={photos.carne} />
+      <Cucitura da="biglietto" a="ink" />
+      <Menu />
+      <Cucitura da="ink" a="fondo" />
       {showGarden ? <Garden photos={photos.garden} /> : null}
       <Eventi />
+      <Cucitura da="fondo" a="ink" />
       <Info />
+      <Cucitura da="ink" a="fondo" />
       <Zona />
     </SiteFrame>
   );

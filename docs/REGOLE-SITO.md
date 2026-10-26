@@ -36,9 +36,10 @@ Richieste esplicite di quel giorno. Da lì in poi fanno parte del sito.
 - In hero, con la stagione accesa, si spinge la cosa del giorno (`data/oggi.ts`), non un evento fisso. La stessa riga, in breve, sta vicino a orari e contatti. L’ordine dei momenti si cambia solo in `prioritaMomenti`.
 - I martedì della nonna sono solo a cena e solo su prenotazione. L’orario si mostra solo se è già nei dati.
 - Il menù del pranzo in pagina non mostra il prezzo dei singoli piatti. Resta il prezzo del menù (da 14€ / da 7€) e le note.
-- «E tu cosa scegli?» resta l’elenco. Non ci sono piadine né insalate. La voce da spingere, per ora solo la carne, è più larga e ha la foto. Le novità stanno in quella sezione, sopra l’elenco, da `data/novita.ts`. In produzione non compaiono finché una scheda ha ancora [parentesi].
+- «E tu cosa scegli?» resta l’elenco. Non ci sono piadine né insalate. Burger, pizze e carne si spingono nell’elenco, senza foto. Le novità restano spente finché non arrivano i dati, in `data/novita.ts`.
 - La sezione «La settimana ha già una rotta» non c’è più: niente voce di menu, niente ancora.
-- Prossimamente ha gli eventi e, a parte, gli aperitivi. Ogni data è un’offerta con il prezzo. I prezzi già confermati (i martedì della nonna) si vedono. Orario, contenuto e prezzo ancora da ricevere stanno tra [parentesi] e in produzione non si pubblicano.
+- Prossimamente ha gli eventi. L’aperitivo della domenica resta spento (`aperitivoDomenicaPubblicato`) finché non arrivano orario, contenuto e prezzo. I martedì della nonna, con i prezzi già confermati, si vedono.
+- Dal capitolo IV i fondi alternano: IV scuro, V chiaro, orari e contatti scuro (capitolo VI), capitolo VII chiaro. Il VII e le domande frequenti non si ridisegnano.
 - Un blocco nuovo con [parentesi] si vede in preview e in locale. In produzione no, finché i dati non sono compilati.
 - I QR in `public/qr/` servono per la stampa. Non vanno nel menu del sito.
 - Orari, ragione sociale, partita IVA e PEC già confermati restano quelli veri. Non si rimettono tra parentesi.
