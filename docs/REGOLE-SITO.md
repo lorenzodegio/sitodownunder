@@ -34,7 +34,7 @@ Richieste esplicite di quel giorno. Da lì in poi fanno parte del sito.
 - La stagione pubblica è l’autunno, con `NEXT_PUBLIC_SEASON`. Senza la variabile il sito torna all’aspetto base. Il valore su Vercel lo imposta chi tiene il progetto.
 - Il dominio previsto è `www.downundervanzago.it`. Canonical, sitemap, Open Graph e JSON-LD usano `NEXT_PUBLIC_SITE_URL`. Senza, si usa l’host del deploy. Niente URL `.vercel.app` scritti nel codice.
 - In hero, con la stagione accesa, si spinge la cosa del giorno (`data/oggi.ts`), non un evento fisso. La stessa riga, in breve, sta vicino a orari e contatti. L’ordine dei momenti si cambia solo in `prioritaMomenti`.
-- I martedì della nonna sono solo a cena e solo su prenotazione. L’orario si mostra solo se è già nei dati.
+- I martedì della nonna sono solo a cena e solo su prenotazione. L’orario si mostra solo se è già nei dati. In hero «Domani» compare solo il giorno prima di una data in calendario, «Stasera» solo quel martedì dopo le 15. Il primo è il 3 novembre 2026.
 - Il menù del pranzo in pagina non mostra il prezzo dei singoli piatti. Resta il prezzo del menù (da 14€ / da 7€) e le note.
 - «E tu cosa scegli?» resta l’elenco. Non ci sono piadine né insalate. Burger, pizze e carne si spingono nell’elenco, senza foto. Le novità restano spente finché non arrivano i dati, in `data/novita.ts`.
 - La sezione «La settimana ha già una rotta» non c’è più: niente voce di menu, niente ancora.

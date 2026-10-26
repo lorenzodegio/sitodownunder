@@ -39,6 +39,11 @@ export function minutiRoma(now = new Date()): number {
   return hour * 60 + minute;
 }
 
+function giornoDopo(iso: string): string {
+  const [year, month, day] = iso.split("-").map(Number);
+  return new Date(Date.UTC(year, month - 1, day + 1, 12)).toISOString().slice(0, 10);
+}
+
 function attivo(id: MomentoId, now: Date): boolean {
   const today = romeToday(now);
   const weekday = romeWeekday(today);
@@ -48,9 +53,10 @@ function attivo(id: MomentoId, now: Date): boolean {
   }
   if (id === "pranzo") return weekday >= 1 && weekday <= 5 && minutes < 15 * 60;
   if (id === "nonna") {
-    if (!prossimoMartedi(now)) return false;
-    if (weekday === 2 && minutes >= 15 * 60) return true;
-    return weekday === 1;
+    const prossimo = prossimoMartedi(now);
+    if (!prossimo) return false;
+    if (prossimo.data === today) return minutes >= 15 * 60;
+    return prossimo.data === giornoDopo(today);
   }
   if (id === "aperitivo-domenica") return weekday === 0 && aperitivoDomenicaVisibile();
   return true;
@@ -95,7 +101,7 @@ export function presentaMomento(now = new Date(), piattiPranzo: readonly string[
 
   if (id === "nonna") {
     const prossimo = prossimoMartedi(now);
-    const domani = romeWeekday(today) === 1;
+    const domani = prossimo?.data === giornoDopo(today);
     return {
       id,
       kicker: domani ? "Domani" : "Stasera",
