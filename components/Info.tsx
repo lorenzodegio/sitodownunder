@@ -1,9 +1,10 @@
+import { CosaDelGiorno } from "@/components/CosaDelGiorno";
 import { Faro } from "@/components/Faro";
 import { Decorazioni } from "@/components/Decorazioni";
 import { HoursTable } from "@/components/HoursTable";
 import { site } from "@/content/site";
 
-export function Info() {
+export async function Info() {
   return (
     <section id="info" className="section" aria-labelledby="info-title">
       <Decorazioni dove="info" />
@@ -17,6 +18,7 @@ export function Info() {
           </div>
           <Faro />
         </div>
+        <CosaDelGiorno variant="breve" />
         <div className="info-grid">
           <HoursTable />
           <div className="rv contacts">

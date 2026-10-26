@@ -58,7 +58,6 @@ export const site = {
     { href: "/#prossimamente", label: "prossimamente" },
     { href: "/#pranzo", label: "pranzo" },
     { href: "/#menu", label: "menù" },
-    { href: "/#serate", label: "serate" },
     { href: "/#garden", label: "garden" },
     { href: "/#eventi", label: "feste" },
     { href: "/#info", label: "orari" },
@@ -124,8 +123,8 @@ export const site = {
         time: "mar–sab 18:30 · dom 18:00",
         title: "Ape",
         text: showGarden
-          ? "«Uno e andiamo.» Certo. Cocktail, bollicine e taglieri, tra specchi e lampadari o fuori nel garden."
-          : "«Uno e andiamo.» Certo. Cocktail, bollicine e taglieri, tra specchi e lampadari.",
+          ? "L’aperitivo è il primo porto della serata: cocktail, bollicine e taglieri, in sala o nel garden. Se la sera si allunga, i format stanno nel diario di bordo."
+          : "L’aperitivo è il primo porto della serata: cocktail, bollicine e taglieri. Se la sera si allunga, i format stanno nel diario di bordo.",
       },
       {
         tone: "paper",
@@ -219,61 +218,9 @@ export const site = {
   menu: {
     kicker: "capitolo IV · ventimila burger sotto i mari",
     title: "E tu cosa scegli?",
-    items: [
-      ["I Burgers", "Il motivo per cui la gente viene. Carne seria, pane ai semi, abbinamenti che non ti aspetti."],
-      ["Le Pizze", "Dalla margherita a burrata, crudo e pistacchio. Sì, puoi fare la foto prima."],
-      ["Le Specialità", "I piatti della cucina. Cambiano spesso, quindi chiedi."],
-      ["Le Piade Romagnole", "Farcite al momento. Per chi ha fame ma non troppa."],
-      ["Club Sandwich & Hotdog", "I classici da pub, con patatine. Zero sorprese, solo gioie."],
-      ["Taglieri & Insalatone", "Da dividere all’ape. O insalatona, se oggi fai il bravo."],
-      ["I Dolci", "Fatti in casa. Il tiramisù ha un fan club."],
-      ["I Cocktail", "I classici fatti come si deve, più quello che si inventa il bancone."],
-      ["Vini, Bolle & Birre", "Al calice, in bottiglia, alla spina."],
-    ] as const,
-    takeaway: "Serata divano? Take away sempre attivo: chiami, passi, sparisci.",
+    takeaway: "Serata divano? Take away sempre attivo: chiami, passi, sparisci. Dolci fatti in casa, cocktail e birre stanno sulla carta.",
     pdfLabel: "Scarica PDF",
     pdfHref: "/menu/pdf",
-  },
-  serate: {
-    kicker: "capitolo V · le serate straordinarie",
-    title: "La settimana ha già una rotta.",
-    lead: "Su prenotazione, e i posti finiscono. Il programma del mese sta qui e su Instagram.",
-    note: "Esempi dai programmi passati: il calendario va aggiornato ogni mese.",
-    nights: [
-      {
-        day: "martedì",
-        tag: "ink",
-        surface: "paper",
-        title: "A cena come dalla nonna",
-        text: "Comfort food, quello vero. Senza «mangia che sei sciupato».",
-        dishes: [
-          "Polenta taragna e costine",
-          "Pizzoccheri valtellinesi",
-          "Cassoeula",
-          "Polpette al sugo",
-        ],
-      },
-      {
-        day: "giovedì",
-        tag: "ink",
-        surface: "paper",
-        title: "Che gnocchi!",
-        text: "Freschi, ogni settimana un condimento diverso. Giovedì gnocchi è legge.",
-        dishes: [
-          "Zucca e salsiccia",
-          "Alla sorrentina",
-          "Porri e gorgonzola",
-          "Al ragù, come da tradizione",
-        ],
-      },
-      {
-        day: "ogni tanto",
-        tag: "paper",
-        surface: "ink",
-        title: "Le spedizioni speciali",
-        text: `St. Patrick’s, San Valentino, Natale: menù a tema, posti contati. Chi prima chiama meglio alloggia: ${phoneDisplay}.`,
-      },
-    ],
   },
   garden: {
     kicker: "capitolo VI · l’isola misteriosa",
@@ -281,7 +228,7 @@ export const site = {
     text: "Misteriosa fino a un certo punto: è il garden qui fuori. Gazebo, siepi, lucine. Appena il meteo collabora si mangia e si beve all’aperto.",
   },
   eventi: {
-    kicker: showGarden ? "capitolo VII · dalla Terra alla Luna" : "capitolo VI · dalla Terra alla Luna",
+    kicker: "capitolo V · dalla Terra alla Luna",
     title: "Tu porti l’equipaggio. Al resto pensiamo noi.",
     text: "Compleanni, lauree, battesimi, cene aziendali che per una volta non sono una tortura. Aperitivo a buffet o cena su misura: dicci quanti siete.",
     tags: ["18 anni", "lauree", "compleanni", "battesimi", "cene aziendali"],

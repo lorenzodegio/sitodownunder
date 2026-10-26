@@ -4,9 +4,9 @@ import { readMenuPdf } from "@/lib/blob-archive";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET(): Promise<NextResponse> {
+export async function GET(request: Request): Promise<NextResponse> {
   const file = await readMenuPdf();
-  if (!file) return new NextResponse(null, { status: 404 });
+  if (!file) return NextResponse.redirect(new URL("/menu", request.url), 307);
   return new NextResponse(Buffer.from(file), {
     headers: {
       "Content-Type": "application/pdf",

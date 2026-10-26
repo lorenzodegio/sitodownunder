@@ -2,6 +2,7 @@ import { Decorazioni } from "@/components/Decorazioni";
 import { PhotoFrame } from "@/components/PhotoFrame";
 import { PhotoStrip } from "@/components/PhotoStrip";
 import { site } from "@/content/site";
+import { capitolo } from "@/lib/capitoli";
 import type { PublicPhoto } from "@/lib/archivio-shared";
 
 export function Garden({ photos }: { photos: readonly PublicPhoto[] }) {
@@ -18,7 +19,7 @@ export function Garden({ photos }: { photos: readonly PublicPhoto[] }) {
         </svg>
         <PhotoFrame photo={frame} />
         <div className="rv">
-          <span className="rib">{site.garden.kicker}</span>
+          <span className="rib">{capitolo("garden")} · l’isola misteriosa</span>
           <h2 id="garden-title" className="display display-md">
             {site.garden.title}
           </h2>

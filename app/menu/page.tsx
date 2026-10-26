@@ -3,7 +3,8 @@ import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { MenuPranzoSettimana } from "@/components/MenuPranzoSettimana";
 import { SiteFrame } from "@/components/SiteFrame";
-import { serateMenu, vociMenu } from "@/data/menu";
+import { aperitivoDomenica, aperitivoDomenicaVisibile } from "@/data/format";
+import { vociMenu } from "@/data/menu";
 import { locale } from "@/data/locale";
 import { site } from "@/content/site";
 import { getMenuPdfUrl } from "@/lib/blob-archive";
@@ -64,20 +65,13 @@ export default async function MenuPage() {
             ))}
           </ul>
 
-          <h2>Serate su prenotazione</h2>
-          {serateMenu.map((night) => (
-            <div key={night.title}>
-              <h3>
-                {night.day} · {night.title}
-              </h3>
-              <p>{night.text}</p>
-              <ul className="local-dishes">
-                {night.dishes.map((dish) => (
-                  <li key={dish}>{dish}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <h2>Format</h2>
+          <p>I martedì della nonna sono solo a cena, solo su prenotazione.</p>
+          {aperitivoDomenicaVisibile() ? (
+            <p>
+              {aperitivoDomenica.titolo}: {aperitivoDomenica.orario} · {aperitivoDomenica.include} · {aperitivoDomenica.prezzo}
+            </p>
+          ) : null}
 
           <p>L’asporto è sempre attivo: si chiama, si passa, si porta via.</p>
           <div className="hero-actions">

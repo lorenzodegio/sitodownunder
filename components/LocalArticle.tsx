@@ -59,7 +59,7 @@ export function LocalArticle({ page, photos }: { page: PaginaLocale; photos: rea
         </div>
         <p className="local-links">
           <Link href="/">Torna alla home</Link>
-          <Link href="/menu">Leggi il menù</Link>
+          <Link href="/menu/pdf">Leggi il menù</Link>
           {page.links.map((link) => (
             <Link key={link.href} href={link.href}>
               {link.label}

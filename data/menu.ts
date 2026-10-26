@@ -22,23 +22,23 @@ export const vociMenu: readonly VoceMenu[] = [
     price: "[prezzo da confermare]",
   },
   {
+    name: "La carne",
+    text: "I piatti di carne della cucina. I tagli nuovi si annunciano quando arrivano.",
+    price: "[prezzo da confermare]",
+  },
+  {
     name: "Le Specialità",
     text: "I piatti della cucina. Cambiano spesso, quindi in sala si chiede.",
     price: "[prezzo da confermare]",
   },
   {
-    name: "Le Piade Romagnole",
-    text: "Farcite al momento. Per chi ha fame ma non troppa.",
-    price: "[prezzo da confermare]",
-  },
-  {
-    name: "Club Sandwich & Hotdog",
+    name: "Hot dog",
     text: "I classici da pub, con patatine.",
     price: "[prezzo da confermare]",
   },
   {
-    name: "Taglieri & Insalatone",
-    text: "Da dividere all’aperitivo. O l’insalatona, se oggi si fa i bravi.",
+    name: "Taglieri",
+    text: "Da dividere all’aperitivo.",
     price: "[prezzo da confermare]",
   },
   {
@@ -57,18 +57,3 @@ export const vociMenu: readonly VoceMenu[] = [
     price: "[prezzo da confermare]",
   },
 ];
-
-export const serateMenu = [
-  {
-    day: "Martedì",
-    title: "A cena come dalla nonna",
-    text: "Comfort food su prenotazione. Il programma del mese può cambiare: la versione aggiornata sta in sala e su Instagram.",
-    dishes: ["Polenta taragna e costine", "Pizzoccheri valtellinesi", "Cassoeula", "Polpette al sugo"],
-  },
-  {
-    day: "Giovedì",
-    title: "Che gnocchi!",
-    text: "Gnocchi freschi, condimento che ruota. Anche questa è una serata su prenotazione.",
-    dishes: ["Zucca e salsiccia", "Alla sorrentina", "Porri e gorgonzola", "Al ragù"],
-  },
-] as const;

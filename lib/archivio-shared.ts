@@ -1,7 +1,7 @@
-export const FOTO_SECTIONS = ["burger", "pizza", "bancone", "sala", "garden", "eventi", "martedi"] as const;
+export const FOTO_SECTIONS = ["burger", "pizza", "carne", "bancone", "sala", "garden", "eventi", "martedi"] as const;
 
 /** Garden resta nei dati già caricati, ma non si propone più come categoria nuova. */
-export const FOTO_UPLOAD_SECTIONS = ["burger", "pizza", "bancone", "sala", "eventi", "martedi"] as const;
+export const FOTO_UPLOAD_SECTIONS = ["burger", "pizza", "carne", "bancone", "sala", "eventi", "martedi"] as const;
 
 export type FotoSection = (typeof FOTO_SECTIONS)[number];
 export type FotoUploadSection = (typeof FOTO_UPLOAD_SECTIONS)[number];
@@ -12,6 +12,7 @@ export const INDEX_PATH = "foto/index.json";
 export const sectionLabel: Record<FotoSection, string> = {
   burger: "Burger",
   pizza: "Pizza",
+  carne: "Carne",
   bancone: "Bancone",
   sala: "Sala e murales",
   garden: "Garden",
@@ -31,7 +32,7 @@ export type FotoIndex = {
   items: Record<string, { alt: string; section: FotoSection }>;
 };
 
-const FOTO_PATH = /^foto\/(burger|pizza|bancone|sala|garden|eventi|martedi)\/[a-z0-9][a-z0-9.-]{0,90}$/;
+const FOTO_PATH = /^foto\/(burger|pizza|carne|bancone|sala|garden|eventi|martedi)\/[a-z0-9][a-z0-9.-]{0,90}$/;
 
 export function isFotoSection(value: string): value is FotoSection {
   return (FOTO_SECTIONS as readonly string[]).includes(value);
@@ -74,7 +75,7 @@ export function isMenuPath(pathname: string): boolean {
 }
 
 export function sectionFromPath(pathname: string): FotoSection | null {
-  const match = pathname.match(/^foto\/(burger|pizza|bancone|sala|garden|eventi|martedi)\//);
+  const match = pathname.match(/^foto\/(burger|pizza|carne|bancone|sala|garden|eventi|martedi)\//);
   return match && isFotoSection(match[1]) ? match[1] : null;
 }
 
@@ -82,6 +83,7 @@ export function emptyAlbum(): Record<FotoSection, PublicPhoto[]> {
   return {
     burger: [],
     pizza: [],
+    carne: [],
     bancone: [],
     sala: [],
     garden: [],

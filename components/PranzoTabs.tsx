@@ -29,7 +29,6 @@ export function PranzoTabs({ giorni, selected }: { giorni: readonly GiornoVista[
                 {voce.nota ? ` (${voce.nota})` : ""}
               </span>
             </div>
-            <span className="day-prezzo">{voce.prezzo}</span>
           </div>
         ))}
       </div>

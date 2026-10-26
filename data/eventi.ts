@@ -12,6 +12,7 @@ import {
  * Esempio:
  * {
  *   id: "esempio",
+ *   tipo: "evento",
  *   titolo: "Titolo della serata",
  *   tag: ["Etichetta"],
  *   descrizione: "Testo. [dato da confermare]",
@@ -39,6 +40,8 @@ export type DataEvento = {
 
 export type Evento = {
   id: string;
+  /** "format" è un appuntamento che torna. "evento" è una data singola. */
+  tipo: "format" | "evento";
   titolo: string;
   tag: readonly string[];
   descrizione: string;
@@ -52,10 +55,11 @@ export type Evento = {
 export const eventi: readonly Evento[] = [
   {
     id: "martedi-nonna",
+    tipo: "format",
     titolo: "I martedì della nonna",
-    tag: ["Novembre · ogni martedì", "Solo su prenotazione"],
+    tag: ["Novembre · ogni martedì", "Solo a cena", "Solo su prenotazione"],
     descrizione:
-      "Cucina lombarda dal quaderno di ricette della nonna: un piatto per martedì, quattro martedì. Cena dalle 18:30.",
+      "Cucina lombarda dal quaderno di ricette della nonna: un piatto per martedì. Solo a cena, solo su prenotazione.",
     orario: "18:30–00:30",
     dataFine: "2026-11-24",
     prenotazione: "Ciao! Vorrei prenotare per il martedì della nonna del {data}",
@@ -128,6 +132,14 @@ export function eventiAttivi(now = new Date()): EventoVista[] {
     visibili.push({ ...evento, date, next });
   }
   return visibili;
+}
+
+export function eventiFormat(now = new Date()): EventoVista[] {
+  return eventiAttivi(now).filter((evento) => evento.tipo === "format");
+}
+
+export function eventiSingoli(now = new Date()): EventoVista[] {
+  return eventiAttivi(now).filter((evento) => evento.tipo === "evento");
 }
 
 export type EventoHero = {

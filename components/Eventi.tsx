@@ -1,5 +1,6 @@
 import { Decorazioni } from "@/components/Decorazioni";
 import { site } from "@/content/site";
+import { capitolo } from "@/lib/capitoli";
 
 const stars = [
   [120, 90, 2.2, ""],
@@ -23,7 +24,7 @@ export function Eventi() {
       <Decorazioni dove="feste" />
       <div className="wrap eventi-grid">
         <div className="rv">
-          <span className="rib">{site.eventi.kicker}</span>
+          <span className="rib">{capitolo("eventi")} · dalla Terra alla Luna</span>
           <h2 id="eventi-title" className="display display-event">
             {site.eventi.title}
           </h2>

@@ -24,6 +24,6 @@ export const homeFaq: readonly Faq[] = [
   },
   {
     q: "Come si prenotano i martedì della nonna?",
-    a: "Solo su prenotazione, su WhatsApp o al telefono: 338 439 5727. Dicci il martedì e quanti siete.",
+    a: "Solo a cena, solo su prenotazione. Su WhatsApp o al telefono, 338 439 5727: dicci il martedì e quanti siete.",
   },
 ];

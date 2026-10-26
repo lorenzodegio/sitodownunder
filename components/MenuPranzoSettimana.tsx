@@ -23,7 +23,6 @@ export async function MenuPranzoSettimana({ variant = "card" }: { variant?: "car
                     <li key={`${voce.nome}-${index}`}>
                       {voce.tipo} · {voce.nome}
                       {voce.nota ? ` (${voce.nota})` : ""}
-                      {voce.prezzo ? ` · ${voce.prezzo}` : ""}
                     </li>
                   ))}
                 </ul>

@@ -1,11 +1,11 @@
+import { CosaDelGiorno } from "@/components/CosaDelGiorno";
 import { Decorazioni } from "@/components/Decorazioni";
 import { Dirigibile } from "@/components/Dirigibile";
-import { Murale } from "@/components/Murale";
 import { Nuvole } from "@/components/Nuvole";
 import { OpeningBadge } from "@/components/OpeningBadge";
 import { Stemma } from "@/components/Stemma";
 import { site } from "@/content/site";
-import { eventiAttivi, eventoInHero } from "@/data/eventi";
+import { eventiAttivi } from "@/data/eventi";
 import { theme } from "@/data/theme";
 import { stagioneAttiva } from "@/lib/season";
 
@@ -24,8 +24,6 @@ const stars = [
 export async function Hero() {
   const [lunch, ape, cena, again] = site.hero.lines;
   const stagione = await stagioneAttiva();
-  const spinta = eventoInHero();
-  const mostraRiga = Boolean(stagione?.rigaHero && spinta);
 
   return (
     <section className="hero">
@@ -57,29 +55,7 @@ export async function Hero() {
             <span className="in d3">{cena}</span>
             <span className="in d4 soft">{again}</span>
           </p>
-          {mostraRiga && spinta ? (
-            <a className="nonna-line" href="#prossimamente">
-              <Murale
-                src="/murales/mano-welcome.png"
-                alt=""
-                decorative
-                width={844}
-                height={207}
-                invert
-                className="nonna-hand"
-              />
-              <span>
-                <span className="nonna-hand-title">
-                  {spinta.oggi ? "Stasera, dalla nonna." : "…e a novembre, il martedì, dalla nonna."}
-                </span>
-                <span className="nonna-hand-dish">
-                  {spinta.oggi ? null : <>{spinta.day.label}: </>}
-                  <strong>{spinta.day.piatto}</strong> · <span>{spinta.day.prezzo}</span>
-                </span>
-                <span className="nonna-hand-cta">Scopri i martedì della nonna →</span>
-              </span>
-            </a>
-          ) : null}
+          {stagione?.rigaHero ? <CosaDelGiorno variant="hero" /> : null}
           <p className="hero-lead in d4">{site.hero.lead}</p>
           <div className="hero-actions in d5">
             <a className="pill btn-solid" href={site.phone.tel}>

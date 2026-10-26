@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { showGarden } from "@/data/flags";
+import { mostraNovita } from "@/data/novita";
 import { site } from "@/content/site";
 
 export function Header() {
-  const links = site.nav.filter((item) => showGarden || item.href !== "/#garden");
+  const base = site.nav.filter((item) => showGarden || item.href !== "/#garden");
+  const menuAt = base.findIndex((item) => item.href === "/#menu");
+  const links = mostraNovita()
+    ? [...base.slice(0, menuAt + 1), { href: "/#novita", label: "novità" }, ...base.slice(menuAt + 1)]
+    : base;
 
   return (
     <header className="site-header">

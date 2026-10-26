@@ -2550,7 +2550,7 @@ address {
 }
 .day-row {
   display: grid;
-  grid-template-columns: 74px minmax(0, 1fr) auto;
+  grid-template-columns: 74px minmax(0, 1fr);
   gap: 10px;
   align-items: baseline;
   padding: 7px 0;
@@ -2588,9 +2588,8 @@ address {
     padding: 20px 14px;
   }
   .day-row {
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: 12px;
-    align-items: center;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
   }
   .day-dish {
     display: flex;
@@ -2826,5 +2825,115 @@ address {
   .ev-book a {
     width: 100%;
     box-sizing: border-box;
+  }
+}
+
+.cosa-breve {
+  margin: 0 0 22px;
+  max-width: 640px;
+  font-size: 17px;
+  line-height: 1.45;
+}
+.cosa-breve a {
+  color: inherit;
+  text-decoration: none;
+}
+.cosa-kicker {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.format-block {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.format-title {
+  margin: 0;
+  font-family: var(--font-rokkitt), serif;
+  font-size: clamp(28px, 4vw, 42px);
+  text-transform: uppercase;
+}
+.vetrina {
+  display: grid;
+  gap: 16px;
+  margin-top: 28px;
+}
+.vetrina-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 24px;
+}
+.vetrina-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--ink);
+}
+.vetrina-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 18px 20px;
+}
+.vetrina-copy h3,
+.vetrina-mini h3,
+.novita-card h3 {
+  margin: 0;
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 32px;
+  line-height: 0.95;
+}
+.vetrina-copy p,
+.vetrina-mini p,
+.novita-card p {
+  margin: 0;
+}
+.vetrina-copy ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+}
+.vetrina-minori,
+.novita-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+.vetrina-mini,
+.novita-card {
+  padding: 18px;
+  border-radius: 20px;
+  background: rgba(246, 239, 223, 0.12);
+  color: var(--paper);
+}
+.novita-card {
+  background: var(--paper);
+  color: var(--ink);
+  border: 1.5px solid var(--inchiostro);
+}
+.novita-prezzo {
+  font-family: var(--font-caveat), cursive;
+  font-size: 28px;
+}
+.day-more {
+  display: inline-block;
+  margin-top: 8px;
+  font-weight: 700;
+  color: inherit;
+}
+@media (min-width: 800px) {
+  .vetrina {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .vetrina-minori,
+  .novita-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
