@@ -1205,27 +1205,52 @@ p {
 }
 
 .cucitura {
+  position: relative;
   overflow: hidden;
   line-height: 0;
+}
+.cucitura-onda {
   margin-bottom: -1px;
 }
 .cucitura-svg {
   display: block;
-  width: calc(100% + 200px);
-  min-width: 1700px;
+  width: 100%;
+  height: 36px;
+}
+.cucitura-deriva {
+  width: 200%;
+  animation: cucitura-deriva 42s linear infinite;
+}
+.cucitura-onda .cucitura-svg {
   height: 40px;
 }
-.cucitura-nastro {
-  height: 18px;
-  background: var(--carta);
+@keyframes cucitura-deriva {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
-.cucitura-tratto {
-  height: 22px;
-  margin: 0;
-  background: var(--fondo);
+.cucitura-punto {
+  position: absolute;
+  top: 18px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--burro);
+  animation: cucitura-punto 18s linear infinite;
 }
-.cucitura-tratto .cucitura-svg {
-  height: 22px;
+@keyframes cucitura-punto {
+  from { transform: translateX(-12px); }
+  to { transform: translateX(100vw); }
+}
+.cucitura-segnale {
+  animation: cucitura-segnale 8s linear infinite;
+}
+@keyframes cucitura-segnale {
+  to { stroke-dashoffset: -180; }
+}
+.cucitura-stacca {
+  padding-bottom: clamp(72px, 9vw, 120px);
 }
 .ground-biglietto {
   background: var(--biglietto);
@@ -1345,6 +1370,9 @@ p {
   .marquee,
   .wave,
   .nuvole-svg,
+  .cucitura-deriva,
+  .cucitura-punto,
+  .cucitura-segnale,
   .sway,
   .tw,
   .beam,

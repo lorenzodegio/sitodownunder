@@ -9,7 +9,7 @@ export function SiteFrame({ children, id }: { children: ReactNode; id?: string }
     <div className="page" id={id}>
       <Header />
       <main>{children}</main>
-      <Cucitura da="fondo" a="ink" />
+      <Cucitura da="fondo" a="ink" motivo="catena" />
       <Footer />
       <CallBar />
     </div>
