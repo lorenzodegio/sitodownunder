@@ -114,7 +114,7 @@ function righe(giorno: GiornoPranzo, sempre: VocePranzo[]): RigaPranzo[] {
   return [...giorno.voci, ...sempre].map((item) => ({
     tipo: tipoCorto(item.tipo),
     nome: item.nome,
-    prezzo: item.prezzo,
+    prezzo: "",
     nota: item.nota,
   }));
 }
