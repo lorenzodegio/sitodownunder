@@ -4,20 +4,13 @@ function withProtocol(value: string): string {
   return `https://${trimmed}`;
 }
 
-/** URL canonico: dominio definitivo, altrimenti l’host Vercel del deploy in corso. */
+/** Dominio definitivo, altrimenti l’URL di questo deployment Vercel. */
 export function siteUrl(): string {
   const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (configured) return withProtocol(configured);
 
-  if (process.env.VERCEL_ENV === "production") {
-    const host = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
-    if (host) return withProtocol(host);
-  }
-
-  if (process.env.VERCEL_ENV === "preview") {
-    const host = process.env.VERCEL_BRANCH_URL?.trim();
-    if (host) return withProtocol(host);
-  }
+  const deployment = process.env.VERCEL_URL?.trim();
+  if (deployment) return withProtocol(deployment);
 
   return "http://localhost:3000";
 }
