@@ -1153,12 +1153,17 @@ p {
   bottom: 12px;
   z-index: 20;
   gap: 8px;
+  align-items: stretch;
 }
 .call-primary,
 .call-secondary {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 13px 8px;
+  text-wrap: balance;
+  padding: 10px 8px;
   border: 2px solid;
   box-shadow: 0 10px 24px -10px var(--ombra);
   font-size: 13px;
