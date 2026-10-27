@@ -2990,6 +2990,57 @@ address {
   font-weight: 700;
   color: inherit;
 }
+.ape-domenica {
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid color-mix(in srgb, var(--paper) 35%, transparent);
+}
+.ape-etichetta {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.day.ink .ape-etichetta {
+  color: #a6dccb;
+}
+.day.ink .ape-offerta {
+  margin-top: 4px;
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1.05;
+  color: var(--paper);
+}
+.ape-prezzo {
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 700;
+}
+.ape-gruppi {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.ape-gruppi a,
+.ev-gruppi a {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.day.ink .ape-gruppi a {
+  color: #a6dccb;
+}
+.ev-gruppi {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+@media (max-width: 760px) {
+  .page {
+    padding-bottom: calc(84px + env(safe-area-inset-bottom));
+  }
+}
 @media (min-width: 800px) {
   .novita-grid {
     grid-template-columns: 1fr 1fr;

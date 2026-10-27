@@ -38,7 +38,7 @@ Richieste esplicite di quel giorno. Da lì in poi fanno parte del sito.
 - Il menù del pranzo in pagina non mostra il prezzo dei singoli piatti. Resta il prezzo del menù (da 14€ / da 7€) e le note.
 - «E tu cosa scegli?» resta l’elenco. Non ci sono piadine né insalate. Burger, pizze e carne si spingono nell’elenco, senza foto. Le novità restano spente finché non arrivano i dati, in `data/novita.ts`.
 - La sezione «La settimana ha già una rotta» non c’è più: niente voce di menu, niente ancora.
-- Prossimamente ha gli eventi. L’aperitivo della domenica resta spento (`aperitivoDomenicaPubblicato`) finché non arrivano orario, contenuto e prezzo. I martedì della nonna, con i prezzi già confermati, si vedono.
+- Prossimamente ha gli eventi. L’aperitivo della domenica è pubblicato: ogni domenica 18:00–20:00, aperitivo al tavolo, piatto abbondante e consumazione, da 13€. In hero si spinge solo in quella fascia. I gruppi, almeno 10 persone, lo hanno anche gli altri giorni a 15€ su prenotazione. I martedì della nonna, con i prezzi già confermati, si vedono.
 - Dal capitolo IV i fondi alternano: IV scuro, V chiaro, orari e contatti scuro (capitolo VI), capitolo VII chiaro. Il VII e le domande frequenti non si ridisegnano.
 - Un blocco nuovo con [parentesi] si vede in preview e in locale. In produzione no, finché i dati non sono compilati.
 - I QR in `public/qr/` servono per la stampa. Non vanno nel menu del sito.

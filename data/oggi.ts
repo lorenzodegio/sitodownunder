@@ -59,7 +59,9 @@ function attivo(id: MomentoId, now: Date): boolean {
     if (prossimo.data === today) return minutes >= 15 * 60;
     return prossimo.data === giornoDopo(today);
   }
-  if (id === "aperitivo-domenica") return weekday === 0 && aperitivoDomenicaVisibile();
+  if (id === "aperitivo-domenica") {
+    return weekday === 0 && aperitivoDomenicaVisibile() && minutes >= 18 * 60 && minutes < 20 * 60;
+  }
   return hours[weekday]?.some(([start]) => start >= 18 * 60) ?? false;
 }
 

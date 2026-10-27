@@ -11,6 +11,10 @@ export const homeFaq: readonly Faq[] = [
     a: "Sì: piatti del giorno da 7€, primo + secondo con contorno da 14€, bevande escluse, e anche tutto il menù della sera. Siamo a Vanzago, sul lato verso Rho e Pregnana Milanese. Per i gruppi scrivici in mattinata su WhatsApp.",
   },
   {
+    q: "Fate aperitivi per gruppi?",
+    a: "Sì: l’aperitivo al tavolo con piatto abbondante, gli altri giorni, per almeno 10 persone a 15€ a testa. Si prenota al 338 439 5727.",
+  },
+  {
     q: "Dove fare l’aperitivo tra Rho e Vanzago?",
     a: "Al Down Under, dal martedì al sabato dalle 18:30 e la domenica dalle 18: cocktail, bollicine e taglieri, in sala. Il lunedì sera è chiuso. L’indirizzo è Via I Maggio 1, Vanzago.",
   },

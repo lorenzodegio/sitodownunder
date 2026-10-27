@@ -3,6 +3,7 @@ import { Murale } from "@/components/Murale";
 import { PhotoFrame } from "@/components/PhotoFrame";
 import { PhotoStrip } from "@/components/PhotoStrip";
 import { site, type Photo } from "@/content/site";
+import { aperitivoDomenica, whatsappAperitivoGruppo } from "@/data/format";
 import type { PublicPhoto } from "@/lib/archivio-shared";
 
 function merge(photo: Photo, live: PublicPhoto | undefined): Photo {
@@ -48,9 +49,22 @@ export function Giornata({
               <h3>{card.title}</h3>
               <p>{card.text}</p>
               {card.title === "Ape" ? (
-                <a className="day-more" href="#prossimamente">
-                  I format della settimana →
-                </a>
+                <>
+                  <div className="ape-domenica">
+                    <p className="ape-etichetta">{aperitivoDomenica.etichetta}</p>
+                    <p className="ape-offerta">{aperitivoDomenica.offerta}</p>
+                    <p>
+                      {aperitivoDomenica.include}, <span className="ape-prezzo">{aperitivoDomenica.prezzo}</span>.
+                    </p>
+                    <p className="ape-gruppi">
+                      {aperitivoDomenica.gruppi}{" "}
+                      <a href={whatsappAperitivoGruppo}>Prenota</a>
+                    </p>
+                  </div>
+                  <a className="day-more" href="#prossimamente">
+                    I format della settimana →
+                  </a>
+                </>
               ) : null}
             </article>
           ))}

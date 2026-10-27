@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { caveat } from "@/components/duc-font";
 import { Decorazioni } from "@/components/Decorazioni";
-import { aperitivoDomenica, aperitivoDomenicaVisibile } from "@/data/format";
+import { aperitivoDomenica, aperitivoDomenicaVisibile, whatsappAperitivoGruppo } from "@/data/format";
 import { eventiFormat, eventiSingoli, whatsappEvento } from "@/data/eventi";
 import { locale } from "@/data/locale";
 import type { PublicPhoto } from "@/lib/archivio-shared";
@@ -123,6 +123,9 @@ export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
                   <p className="offerta-riga">
                     <span className="offerta-prezzo">{aperitivoDomenica.prezzo}</span>
                     <span>{aperitivoDomenica.include}</span>
+                  </p>
+                  <p className="ev-gruppi">
+                    {aperitivoDomenica.gruppi} <a href={whatsappAperitivoGruppo}>Prenota</a>
                   </p>
                 </div>
                 <div className="ev-actions">
