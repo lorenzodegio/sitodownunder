@@ -22,6 +22,7 @@ export async function MenuPranzoSettimana({ variant = "card" }: { variant?: "car
                   {giorno.voci.map((voce, index) => (
                     <li key={`${voce.nome}-${index}`}>
                       {voce.tipo} · {voce.nome}
+                      {voce.unico ? <span className="piatto-unico">piatto unico</span> : null}
                       {voce.nota ? ` (${voce.nota})` : ""}
                     </li>
                   ))}

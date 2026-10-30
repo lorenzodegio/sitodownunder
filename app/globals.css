@@ -3024,7 +3024,7 @@ address {
 }
 .ape-gruppi {
   margin-top: 8px;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.4;
 }
 .ape-gruppi a,
@@ -3038,8 +3038,89 @@ address {
 }
 .ev-gruppi {
   margin-top: 12px;
-  font-size: 14px;
+  font-size: 17px;
   line-height: 1.45;
+}
+.piatto-unico {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  opacity: 0.72;
+}
+.day-photos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+.day-photos .photo-frame {
+  aspect-ratio: 1;
+  border-radius: 14px;
+  font-size: 10px;
+}
+.day-speciali {
+  font-weight: 700;
+}
+.menu-sotto {
+  flex: 1 1 100%;
+  margin: 0;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+.menu-foto {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  overflow-x: auto;
+}
+.menu-row.is-spinta .menu-foto,
+.menu-row.is-spinta .mese-call,
+.menu-row.is-spinta .menu-sotto {
+  grid-column: 1 / -1;
+}
+.menu-foto-img,
+.mese-foto {
+  width: 112px;
+  height: 112px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+.mese-call {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+.mese-call.is-solo {
+  grid-template-columns: minmax(0, 1fr);
+}
+.mese-frase {
+  margin: 0;
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.05;
+}
+.mese-desc {
+  margin: 4px 0 0;
+  font-size: 15px;
+}
+.admin-card fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.admin-card legend {
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 700;
+  font-size: 22px;
+  text-transform: uppercase;
 }
 @media (max-width: 760px) {
   .page {

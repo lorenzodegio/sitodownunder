@@ -25,10 +25,10 @@ export default async function HomePage() {
       <Hero />
       <Prossimamente photos={photos.martedi} />
       <Cucitura da="carta" a="biglietto" motivo="mare" />
-      <Giornata burger={photos.burger} pizza={photos.pizza} bancone={photos.bancone} />
+      <Giornata burger={photos.burger} pizza={photos.pizza} bancone={photos.bancone} lunch={photos.lunch} />
       <Pranzo />
       <Cucitura da="biglietto" a="ink" motivo="onda" />
-      <Menu />
+      <Menu burger={photos.burger} />
       <Cucitura da="ink" a="fondo" motivo="doppia" />
       {showGarden ? <Garden photos={photos.garden} /> : null}
       <Eventi />

@@ -13,6 +13,7 @@ import {
   type FotoSection,
   type PublicPhoto,
 } from "@/lib/archivio-shared";
+import { DEL_MESE_PATH, parseDelMese, type DelMese } from "@/lib/del-mese";
 import { PRANZO_PATH, parseMenuPranzo, type MenuPranzo } from "@/lib/pranzo-settimana";
 
 export type Archivio = {
@@ -198,17 +199,51 @@ export async function saveMenuPranzo(menu: MenuPranzo): Promise<void> {
   }
 }
 
-export async function putFotoWebp(pathname: string, body: Buffer): Promise<string> {
+export async function putBlob(pathname: string, body: Buffer | string, contentType: string): Promise<string> {
   const token = tokenOrNull();
   if (!token) throw new Error("Blob non configurato");
-  const blob = await put(pathname, body, {
-    access: "public",
+  const shared = {
     token,
-    addRandomSuffix: false,
+    addRandomSuffix: false as const,
     allowOverwrite: true,
-    contentType: "image/webp",
-  });
-  return blob.url;
+    contentType,
+  };
+  try {
+    const blob = await put(pathname, body, { ...shared, access: "public" });
+    return blob.url;
+  } catch (error) {
+    try {
+      const blob = await put(pathname, body, { ...shared, access: "private" });
+      return blob.url;
+    } catch {
+      throw error;
+    }
+  }
+}
+
+export async function putFotoWebp(pathname: string, body: Buffer): Promise<string> {
+  return putBlob(pathname, body, "image/webp");
+}
+
+export async function loadDelMese(): Promise<DelMese> {
+  const vuoto: DelMese = { panino: null, pizza: null };
+  const token = tokenOrNull();
+  if (!token) return vuoto;
+  for (const access of ["public", "private"] as const) {
+    try {
+      const file = await get(DEL_MESE_PATH, { access, token, useCache: false });
+      if (!file?.stream) continue;
+      const text = await new Response(file.stream).text();
+      return parseDelMese(JSON.parse(text));
+    } catch {
+      continue;
+    }
+  }
+  return vuoto;
+}
+
+export async function saveDelMese(mese: DelMese): Promise<void> {
+  await putBlob(DEL_MESE_PATH, JSON.stringify(mese), "application/json");
 }
 
 export async function loadArchivio(): Promise<Archivio> {

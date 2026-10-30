@@ -7,7 +7,7 @@ import { toWebp } from "@/lib/optimize-image";
 
 export const runtime = "nodejs";
 
-const FOTO_LIMIT = 8 * 1024 * 1024;
+const FOTO_LIMIT = 4 * 1024 * 1024;
 const TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
 
 export async function POST(request: Request) {
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Scrivi il testo alternativo." }, { status: 400 });
   }
   if (file.size > FOTO_LIMIT) {
-    return NextResponse.json({ error: "La foto supera gli 8 MB." }, { status: 400 });
+    return NextResponse.json({ error: "La foto supera i 4 MB." }, { status: 400 });
   }
 
   try {

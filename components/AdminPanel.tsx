@@ -1,5 +1,7 @@
 "use client";
 
+import { FOTO_UPLOAD_SECTIONS, sectionLabel } from "@/lib/archivio-shared";
+import type { DelMese } from "@/lib/del-mese";
 import { CONTORNI_SEMPRE } from "@/lib/pranzo-settimana";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -22,10 +24,12 @@ export function AdminPanel({
   connected,
   menuUrl,
   environmentLabel,
+  delMese,
 }: {
   connected: boolean;
   menuUrl: string | null;
   environmentLabel: string;
+  delMese: DelMese;
 }) {
   const router = useRouter();
   const [message, setMessage] = useState("");
@@ -111,6 +115,116 @@ export function AdminPanel({
             <li key={voce.nome}>{voce.nome}</li>
           ))}
         </ul>
+      </section>
+
+      <section className="admin-card" aria-labelledby="admin-mese">
+        <h2 id="admin-mese">Del mese</h2>
+        <p>Se il mese salvato è già passato, il blocco non compare in pagina. La pizza è facoltativa: senza nome non si pubblica.</p>
+        <form
+          onSubmit={async (event) => {
+            event.preventDefault();
+            setPending(true);
+            try {
+              const response = await fetch("/api/mese", { method: "POST", body: new FormData(event.currentTarget) });
+              if (!response.ok) throw new Error(await readError(response, "Salvataggio non riuscito"));
+              report("Del mese salvato.");
+              router.refresh();
+            } catch (error) {
+              report(visibleError(error, "Salvataggio non riuscito"), true);
+            } finally {
+              setPending(false);
+            }
+          }}
+        >
+          <fieldset>
+            <legend>Panino del mese</legend>
+            <label>
+              Nome
+              <input name="paninoNome" defaultValue={delMese.panino?.nome ?? ""} maxLength={80} />
+            </label>
+            <label>
+              Descrizione breve
+              <input name="paninoDescrizione" defaultValue={delMese.panino?.descrizione ?? ""} maxLength={240} />
+            </label>
+            <label>
+              Mese
+              <input name="paninoMese" type="month" defaultValue={delMese.panino?.mese ?? ""} />
+            </label>
+            <label>
+              Foto, JPG PNG o WebP, massimo 4 MB
+              <input name="paninoFoto" type="file" accept="image/jpeg,image/png,image/webp" />
+            </label>
+            {delMese.panino?.foto ? <p>C’è già una foto. Se non ne scegli un’altra, resta quella.</p> : null}
+          </fieldset>
+          <fieldset>
+            <legend>Pizza del mese</legend>
+            <label>
+              Nome
+              <input name="pizzaNome" defaultValue={delMese.pizza?.nome ?? ""} maxLength={80} />
+            </label>
+            <label>
+              Descrizione breve
+              <input name="pizzaDescrizione" defaultValue={delMese.pizza?.descrizione ?? ""} maxLength={240} />
+            </label>
+            <label>
+              Mese
+              <input name="pizzaMese" type="month" defaultValue={delMese.pizza?.mese ?? ""} />
+            </label>
+            <label>
+              Foto, JPG PNG o WebP, massimo 4 MB
+              <input name="pizzaFoto" type="file" accept="image/jpeg,image/png,image/webp" />
+            </label>
+            {delMese.pizza?.foto ? <p>C’è già una foto. Se non ne scegli un’altra, resta quella.</p> : null}
+          </fieldset>
+          <button className="pill btn-solid" type="submit" disabled={pending}>
+            {pending ? "Salvataggio…" : "Salva del mese"}
+          </button>
+        </form>
+      </section>
+
+      <section className="admin-card" aria-labelledby="admin-foto">
+        <h2 id="admin-foto">Foto</h2>
+        <p>La categoria Pranzo serve alle foto del momento del pranzo, in «Entri per un panino».</p>
+        <form
+          onSubmit={async (event) => {
+            event.preventDefault();
+            const form = event.currentTarget;
+            setPending(true);
+            try {
+              const response = await fetch("/api/foto", { method: "POST", body: new FormData(form) });
+              if (!response.ok) throw new Error(await readError(response, "Caricamento non riuscito"));
+              report("Foto salvata.");
+              form.reset();
+              router.refresh();
+            } catch (error) {
+              report(visibleError(error, "Caricamento non riuscito"), true);
+            } finally {
+              setPending(false);
+            }
+          }}
+        >
+          <label>
+            Categoria
+            <select name="sezione" required defaultValue="lunch">
+              {FOTO_UPLOAD_SECTIONS.map((section) => (
+                <option key={section} value={section}>
+                  {sectionLabel[section]}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Testo alternativo
+            <input name="alt" required maxLength={180} />
+          </label>
+          <label>
+            Foto, massimo 4 MB
+            <input name="foto" type="file" accept="image/jpeg,image/png,image/webp" required />
+          </label>
+          <button className="pill btn-solid" type="submit" disabled={pending}>
+            {pending ? "Caricamento…" : "Carica la foto"}
+          </button>
+        </form>
       </section>
 
       <section className="admin-card" aria-labelledby="admin-menu">

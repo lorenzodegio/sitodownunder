@@ -11,14 +11,34 @@ function merge(photo: Photo, live: PublicPhoto | undefined): Photo {
   return { ...photo, src: live.src, label: live.alt };
 }
 
+function MomentoFoto({ photos, fallback }: { photos: readonly PublicPhoto[]; fallback: string }) {
+  const scelte = photos.slice(0, 3);
+  const vuoti = scelte.length ? [] : [0, 1, 2];
+  return (
+    <div className="day-photos">
+      {scelte.map((photo) => (
+        <PhotoFrame
+          key={photo.src}
+          photo={{ src: photo.src, label: photo.alt, ratio: "landscape", radius: 20 }}
+        />
+      ))}
+      {vuoti.map((slot) => (
+        <PhotoFrame key={`${fallback}-${slot}`} photo={{ src: null, label: fallback, ratio: "landscape", radius: 20 }} />
+      ))}
+    </div>
+  );
+}
+
 export function Giornata({
   burger,
   pizza,
   bancone,
+  lunch,
 }: {
   burger: readonly PublicPhoto[];
   pizza: readonly PublicPhoto[];
   bancone: readonly PublicPhoto[];
+  lunch: readonly PublicPhoto[];
 }) {
   const shots = [
     merge(site.photos.burger, burger[0]),
@@ -48,6 +68,13 @@ export function Giornata({
               <div className="day-time">{card.time}</div>
               <h3>{card.title}</h3>
               <p>{card.text}</p>
+              {card.title === "Lunch" ? <MomentoFoto photos={lunch} fallback="foto pranzo" /> : null}
+              {card.title === "Cena" ? (
+                <>
+                  <p className="day-speciali">Pulled pork, tartare e roastbeef.</p>
+                  <MomentoFoto photos={burger} fallback="foto burger" />
+                </>
+              ) : null}
               {card.title === "Ape" ? (
                 <>
                   <div className="ape-domenica">

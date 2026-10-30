@@ -7,7 +7,8 @@ import { aperitivoDomenica, aperitivoDomenicaVisibile } from "@/data/format";
 import { vociMenu } from "@/data/menu";
 import { locale } from "@/data/locale";
 import { site } from "@/content/site";
-import { getMenuPdfUrl } from "@/lib/blob-archive";
+import { getMenuPdfUrl, loadDelMese } from "@/lib/blob-archive";
+import { piattoInPagina } from "@/lib/del-mese";
 import { menuJsonLd } from "@/lib/jsonld";
 
 export const metadata: Metadata = {
@@ -28,7 +29,21 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 export default async function MenuPage() {
-  const pdf = await getMenuPdfUrl();
+  const [pdf, delMese] = await Promise.all([getMenuPdfUrl(), loadDelMese()]);
+  const pizza = piattoInPagina(delMese.pizza);
+  const voci = vociMenu.flatMap((voce) => {
+    if (voce.name === "I Burgers" && pizza) {
+      return [
+        voce,
+        {
+          name: "Pizza del mese",
+          text: `${pizza.nome}${pizza.descrizione ? `. ${pizza.descrizione}` : ""}`,
+          price: "[prezzo da confermare]",
+        },
+      ];
+    }
+    return [voce];
+  });
 
   return (
     <SiteFrame>
@@ -57,10 +72,10 @@ export default async function MenuPage() {
           <MenuPranzoSettimana variant="page" />
 
           <ul className="local-dishes">
-            {vociMenu.map((voce) => (
+            {voci.map((voce) => (
               <li key={voce.name}>
-                <strong>{voce.name}.</strong> {voce.text}{" "}
-                <span>{voce.price}</span>
+                <strong>{voce.name}.</strong> {voce.text}
+                {voce.price ? <span> {voce.price}</span> : null}
               </li>
             ))}
           </ul>
