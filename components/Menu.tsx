@@ -1,14 +1,14 @@
 import { Decorazioni } from "@/components/Decorazioni";
 import { Polpo } from "@/components/Polpo";
+import { SlotFrame } from "@/components/SlotFrame";
 import { site } from "@/content/site";
-import { novitaInPagina } from "@/data/novita";
 import { getMenuPdfUrl } from "@/lib/blob-archive";
+import type { SlotVista } from "@/lib/slot-types";
 
 const bubbles = ["b1", "b2", "b3", "b4", "b5"] as const;
 
-export async function Menu() {
+export async function Menu({ vista }: { vista: SlotVista }) {
   const pdf = await getMenuPdfUrl();
-  const novita = novitaInPagina();
 
   return (
     <section id="menu" className="section-sea section-menu" aria-labelledby="menu-title">
@@ -26,42 +26,47 @@ export async function Menu() {
           </div>
           <Polpo />
         </div>
-        {novita.length ? (
-          <div className="menu-novita" id="novita">
-            <h3 className="format-title">Novità</h3>
-            <div className="novita-grid">
-              {novita.map((voce) => (
-                <article key={voce.id} className="novita-card">
-                  <h3>{voce.nome}</h3>
-                  <p>
-                    {voce.provenienza} · {voce.peso}
-                  </p>
-                  <p>{voce.descrizione}</p>
-                  <p className="novita-prezzo">{voce.prezzo}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        ) : null}
         <div className="menu-list">
           {site.menu.items.map((item, index) => {
-            const numero = <span className="menu-num">{String(index + 1).padStart(2, "0")}</span>;
-            const nome = <h3 className="menu-name">{item.name}</h3>;
-            const testo = <p className="menu-text">{item.text}</p>;
-            if ("spinta" in item && item.spinta) {
-              return (
-                <div key={item.name} className="row rv menu-row is-spinta">
-                  {numero}
-                  {nome}
-                  {testo}
-                </div>
-              );
-            }
+            const foto = "slots" in item ? item.slots : null;
             return (
-              <div key={item.name} className="row rv menu-row">
-                {numero}
-                {nome}
-                {testo}
+              <div key={item.name} className={foto ? "row rv menu-row is-spinta has-photo" : "row rv menu-row"}>
+                <span className="menu-num">{String(index + 1).padStart(2, "0")}</span>
+                <h3 className="menu-name">{item.name}</h3>
+                {item.text ? (
+                  <p className="menu-text">
+                    {item.text}{" "}
+                    {"link" in item ? (
+                      <a className="spinta-link" href={item.link.href}>
+                        {item.link.label} →
+                      </a>
+                    ) : null}
+                  </p>
+                ) : null}
+                {"sotto" in item && item.sotto ? <p className="menu-sotto">{item.sotto}</p> : null}
+                {foto ? (
+                  <>
+                    <div className="spinta-thumbs">
+                      {foto.thumbs.map((id) => (
+                        <SlotFrame
+                          key={id}
+                          id={id}
+                          record={vista.items[id] ?? null}
+                          indicazioni={vista.indicazioni}
+                          sizes="120px"
+                        />
+                      ))}
+                    </div>
+                    <div className="spinta-main">
+                      <SlotFrame
+                        id={foto.main}
+                        record={vista.items[foto.main] ?? null}
+                        indicazioni={vista.indicazioni}
+                        sizes="(max-width: 860px) 100vw, 380px"
+                      />
+                    </div>
+                  </>
+                ) : null}
               </div>
             );
           })}

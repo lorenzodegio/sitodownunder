@@ -5,11 +5,13 @@ import { aperitivoDomenica, aperitivoDomenicaVisibile, whatsappAperitivoGruppo }
 import { eventiFormat, eventiSingoli, whatsappEvento } from "@/data/eventi";
 import { locale } from "@/data/locale";
 import type { PublicPhoto } from "@/lib/archivio-shared";
+import type { SlotVista } from "@/lib/slot-types";
+import { SlotFrame } from "@/components/SlotFrame";
 
 const whatsappDomenica =
   "https://wa.me/393384395727?text=Ciao%2C%20vorrei%20prenotare%20per%20l%27aperitivo%20della%20domenica";
 
-export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
+export function Prossimamente({ photos, vista }: { photos: readonly PublicPhoto[]; vista: SlotVista }) {
   const format = eventiFormat();
   const singoli = eventiSingoli();
   const domenica = aperitivoDomenicaVisibile();
@@ -20,7 +22,6 @@ export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
       <Decorazioni dove="paper" />
       <div className="chapter-wrap chapter-stack">
         <div className="chapter-intro">
-          <span className="kicker">capitolo I · il diario di bordo</span>
           <h2 id="prossimamente-title" className="display">
             Prossimamente
           </h2>
@@ -136,6 +137,11 @@ export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
                     Chiama
                   </a>
                 </div>
+              </div>
+              <div className="photo-row">
+                <SlotFrame id="05" record={vista.items["05"] ?? null} indicazioni={vista.indicazioni} sizes="(max-width: 760px) 100vw, 420px" />
+                <SlotFrame id="06" record={vista.items["06"] ?? null} indicazioni={vista.indicazioni} sizes="180px" />
+                <SlotFrame id="07" record={vista.items["07"] ?? null} indicazioni={vista.indicazioni} sizes="180px" />
               </div>
             </article>
           </div>

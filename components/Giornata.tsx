@@ -1,32 +1,11 @@
+import Image from "next/image";
 import { Decorazioni } from "@/components/Decorazioni";
 import { Murale } from "@/components/Murale";
-import { PhotoFrame } from "@/components/PhotoFrame";
-import { PhotoStrip } from "@/components/PhotoStrip";
-import { site, type Photo } from "@/content/site";
-import { aperitivoDomenica, whatsappAperitivoGruppo } from "@/data/format";
-import type { PublicPhoto } from "@/lib/archivio-shared";
+import { SlotFrame } from "@/components/SlotFrame";
+import { site } from "@/content/site";
+import type { SlotVista } from "@/lib/slot-types";
 
-function merge(photo: Photo, live: PublicPhoto | undefined): Photo {
-  if (!live) return photo;
-  return { ...photo, src: live.src, label: live.alt };
-}
-
-export function Giornata({
-  burger,
-  pizza,
-  bancone,
-}: {
-  burger: readonly PublicPhoto[];
-  pizza: readonly PublicPhoto[];
-  bancone: readonly PublicPhoto[];
-}) {
-  const shots = [
-    merge(site.photos.burger, burger[0]),
-    merge(site.photos.pizza, pizza[0]),
-    merge(site.photos.bancone, bancone[0]),
-  ];
-  const extra = [...burger.slice(1), ...pizza.slice(1), ...bancone.slice(1)];
-
+export function Giornata({ vista }: { vista: SlotVista }) {
   return (
     <section className="section ground-biglietto" aria-labelledby="giornata-title">
       <Decorazioni dove="giornata" />
@@ -49,42 +28,26 @@ export function Giornata({
               <h3>{card.title}</h3>
               <p>{card.text}</p>
               {card.title === "Ape" ? (
-                <>
-                  <div className="ape-domenica">
-                    <p className="ape-etichetta">{aperitivoDomenica.etichetta}</p>
-                    <p className="ape-offerta">{aperitivoDomenica.offerta}</p>
-                    <p>
-                      {aperitivoDomenica.include}, <span className="ape-prezzo">{aperitivoDomenica.prezzo}</span>.
-                    </p>
-                    <p className="ape-gruppi">
-                      {aperitivoDomenica.gruppi}{" "}
-                      <a href={whatsappAperitivoGruppo}>Prenota</a>
-                    </p>
-                  </div>
-                  <a className="day-more" href="#prossimamente">
-                    I format della settimana →
-                  </a>
-                </>
+                <a className="day-more" href="#prossimamente">
+                  I format della settimana →
+                </a>
               ) : null}
             </article>
           ))}
         </div>
-        <div className="photo-row">
-          {shots.map((photo) => (
-            <PhotoFrame key={photo.label} photo={photo} />
-          ))}
-          <article className="centro-tile rv">
-            <Murale
-              src="/murales/centro-terra.png"
-              alt="Lettering del murale: Voyage au centre de la Terre, Down Under Cafè Vanzago"
-              width={375}
-              height={374}
-              invert
-              className="centro-img"
+        <div className="photo-row photo-row-tre">
+          <SlotFrame id="08" record={vista.items["08"] ?? null} indicazioni={vista.indicazioni} className="rv" sizes="(max-width: 800px) 90vw, 360px" />
+          <div className="photo-frame rv rot-p1 has-fallback">
+            <Image
+              src="/murales/faro.png"
+              alt="Murale del faro con il monogramma DUC, Down Under Cafè Vanzago"
+              fill
+              sizes="(max-width: 800px) 90vw, 360px"
+              className="photo-img photo-fallback"
             />
-          </article>
+          </div>
+          <SlotFrame id="09" record={vista.items["09"] ?? null} indicazioni={vista.indicazioni} className="rv" sizes="(max-width: 800px) 90vw, 360px" />
         </div>
-        <PhotoStrip photos={extra} />
       </div>
     </section>
   );

@@ -26,6 +26,7 @@ export function PranzoTabs({ giorni, selected }: { giorni: readonly GiornoVista[
               <span className="day-tipo">{voce.tipo}</span>
               <span className="day-nome">
                 {voce.nome}
+                {voce.unico ? <span className="piatto-unico">piatto unico</span> : null}
                 {voce.nota ? ` (${voce.nota})` : ""}
               </span>
             </div>

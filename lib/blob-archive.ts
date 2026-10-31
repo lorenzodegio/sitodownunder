@@ -5,6 +5,7 @@ import { readBlobToken } from "@/lib/blob-token";
 import {
   INDEX_PATH,
   MENU_PATH,
+  SLOT_PATH,
   emptyAlbum,
   isFotoSection,
   sectionFromPath,
@@ -13,6 +14,8 @@ import {
   type FotoSection,
   type PublicPhoto,
 } from "@/lib/archivio-shared";
+import { pathnamesSlot, type SlotArchivio, type SlotRecord } from "@/lib/slot-types";
+import { DEL_MESE_PATH, parseDelMese, type DelMese } from "@/lib/del-mese";
 import { PRANZO_PATH, parseMenuPranzo, type MenuPranzo } from "@/lib/pranzo-settimana";
 
 export type Archivio = {
@@ -27,26 +30,38 @@ function tokenOrNull(): string | null {
 }
 
 async function readIndex(token: string): Promise<FotoIndex> {
-  try {
-    const file = await get(INDEX_PATH, { access: "public", token, useCache: false });
-    if (!file) return { items: {} };
-    const text = await new Response(file.stream).text();
-    const parsed = JSON.parse(text) as FotoIndex;
-    if (!parsed || typeof parsed !== "object" || !parsed.items) return { items: {} };
-    return parsed;
-  } catch {
-    return { items: {} };
+  for (const access of ["public", "private"] as const) {
+    try {
+      const file = await get(INDEX_PATH, { access, token, useCache: false });
+      if (!file?.stream) continue;
+      const text = await new Response(file.stream).text();
+      const parsed = JSON.parse(text) as FotoIndex;
+      if (!parsed || typeof parsed !== "object" || !parsed.items) return { items: {} };
+      return parsed;
+    } catch {
+      continue;
+    }
   }
+  return { items: {} };
 }
 
 async function writeIndex(token: string, index: FotoIndex): Promise<void> {
-  await put(INDEX_PATH, JSON.stringify(index), {
-    access: "public",
+  const body = JSON.stringify(index);
+  const shared = {
     token,
-    addRandomSuffix: false,
+    addRandomSuffix: false as const,
     allowOverwrite: true,
     contentType: "application/json",
-  });
+  };
+  try {
+    await put(INDEX_PATH, body, { ...shared, access: "public" });
+  } catch (error) {
+    try {
+      await put(INDEX_PATH, body, { ...shared, access: "private" });
+    } catch {
+      throw error;
+    }
+  }
 }
 
 const MENU_CANDIDATES = [MENU_PATH, "menu.pdf", "menu/menu.pdf"] as const;
@@ -198,17 +213,51 @@ export async function saveMenuPranzo(menu: MenuPranzo): Promise<void> {
   }
 }
 
-export async function putFotoWebp(pathname: string, body: Buffer): Promise<string> {
+export async function putBlob(pathname: string, body: Buffer | string, contentType: string): Promise<string> {
   const token = tokenOrNull();
   if (!token) throw new Error("Blob non configurato");
-  const blob = await put(pathname, body, {
-    access: "public",
+  const shared = {
     token,
-    addRandomSuffix: false,
+    addRandomSuffix: false as const,
     allowOverwrite: true,
-    contentType: "image/webp",
-  });
-  return blob.url;
+    contentType,
+  };
+  try {
+    const blob = await put(pathname, body, { ...shared, access: "public" });
+    return blob.url;
+  } catch (error) {
+    try {
+      const blob = await put(pathname, body, { ...shared, access: "private" });
+      return blob.url;
+    } catch {
+      throw error;
+    }
+  }
+}
+
+export async function putFotoWebp(pathname: string, body: Buffer): Promise<string> {
+  return putBlob(pathname, body, "image/webp");
+}
+
+export async function loadDelMese(): Promise<DelMese> {
+  const vuoto: DelMese = { panino: null, pizza: null };
+  const token = tokenOrNull();
+  if (!token) return vuoto;
+  for (const access of ["public", "private"] as const) {
+    try {
+      const file = await get(DEL_MESE_PATH, { access, token, useCache: false });
+      if (!file?.stream) continue;
+      const text = await new Response(file.stream).text();
+      return parseDelMese(JSON.parse(text));
+    } catch {
+      continue;
+    }
+  }
+  return vuoto;
+}
+
+export async function saveDelMese(mese: DelMese): Promise<void> {
+  await putBlob(DEL_MESE_PATH, JSON.stringify(mese), "application/json");
 }
 
 export async function loadArchivio(): Promise<Archivio> {
@@ -251,11 +300,89 @@ export async function loadArchivio(): Promise<Archivio> {
 
 export async function loadPublicPhotos(): Promise<Record<FotoSection, PublicPhoto[]>> {
   const album = emptyAlbum();
-  const archivio = await loadArchivio();
+  const [archivio, slots] = await Promise.all([loadArchivio(), loadSlotArchivio()]);
+  const riservati = pathnamesSlot(slots);
   for (const photo of archivio.photos) {
+    if (riservati.has(photo.pathname)) continue;
     album[photo.section].push({ src: photo.src, alt: photo.alt, section: photo.section });
   }
   return album;
+}
+
+function clampFocus(value: unknown): number {
+  const n = typeof value === "number" ? value : Number(value);
+  if (!Number.isFinite(n)) return 50;
+  return Math.min(100, Math.max(0, Math.round(n)));
+}
+
+function parseVersioni(value: unknown): SlotRecord["versioniPrecedenti"] {
+  if (!Array.isArray(value)) return [];
+  return value.slice(0, 3).flatMap((item) => {
+    if (!item || typeof item !== "object") return [];
+    const versione = item as SlotRecord["versioniPrecedenti"][number];
+    if (!versione.pathname || !versione.url) return [];
+    return [
+      {
+        url: String(versione.url),
+        pathname: String(versione.pathname),
+        width: Number(versione.width) || 0,
+        height: Number(versione.height) || 0,
+        aggiornata: String(versione.aggiornata || ""),
+      },
+    ];
+  });
+}
+
+export function parseSlotArchivio(value: unknown): SlotArchivio {
+  if (!value || typeof value !== "object") return { items: {} };
+  const raw = (value as SlotArchivio).items;
+  if (!raw || typeof raw !== "object") return { items: {} };
+  const items: Record<string, SlotRecord> = {};
+  for (const [key, item] of Object.entries(raw)) {
+    if (!item || typeof item !== "object") continue;
+    if (!isFotoSection(item.sezione) || typeof item.slot !== "string") continue;
+    items[key] = {
+      slot: item.slot,
+      sezione: item.sezione,
+      piatto: String(item.piatto || ""),
+      slug: String(item.slug || ""),
+      descrizione: String(item.descrizione || ""),
+      url: String(item.url || ""),
+      pathname: String(item.pathname || ""),
+      width: Number(item.width) || 0,
+      height: Number(item.height) || 0,
+      focusX: clampFocus(item.focusX),
+      focusY: clampFocus(item.focusY),
+      stato: item.stato === "pubblicata" ? "pubblicata" : "bozza",
+      aggiornata: String(item.aggiornata || ""),
+      versioniPrecedenti: parseVersioni(item.versioniPrecedenti),
+    };
+  }
+  return { items };
+}
+
+export async function loadSlotArchivio(): Promise<SlotArchivio> {
+  const token = tokenOrNull();
+  if (!token) return { items: {} };
+  for (const access of ["public", "private"] as const) {
+    try {
+      const file = await get(SLOT_PATH, { access, token, useCache: false });
+      if (!file?.stream) continue;
+      const text = await new Response(file.stream).text();
+      return parseSlotArchivio(JSON.parse(text));
+    } catch {
+      continue;
+    }
+  }
+  return { items: {} };
+}
+
+export async function saveSlotArchivio(archivio: SlotArchivio): Promise<void> {
+  await putBlob(SLOT_PATH, JSON.stringify(archivio), "application/json");
+}
+
+export function slotPubblicati(archivio: SlotArchivio): SlotRecord[] {
+  return Object.values(archivio.items).filter((item) => item.stato === "pubblicata" && item.url);
 }
 
 export async function upsertFotoMeta(pathname: string, alt: string, section: FotoSection): Promise<void> {

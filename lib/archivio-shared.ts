@@ -1,13 +1,44 @@
-export const FOTO_SECTIONS = ["burger", "pizza", "carne", "bancone", "sala", "garden", "eventi", "martedi"] as const;
+export const FOTO_SECTIONS = [
+  "burger",
+  "pizza",
+  "carne",
+  "specialita",
+  "bancone",
+  "sala",
+  "garden",
+  "eventi",
+  "martedi",
+  "lunch",
+  "aperitivo",
+  "novita",
+  "novita-panino",
+  "novita-pizza",
+  "novita-specialita",
+] as const;
 
 /** Garden resta nei dati già caricati, ma non si propone più come categoria nuova. */
-export const FOTO_UPLOAD_SECTIONS = ["burger", "pizza", "carne", "bancone", "sala", "eventi", "martedi"] as const;
+export const FOTO_UPLOAD_SECTIONS = [
+  "burger",
+  "pizza",
+  "carne",
+  "specialita",
+  "bancone",
+  "sala",
+  "eventi",
+  "martedi",
+  "lunch",
+  "aperitivo",
+  "novita-panino",
+  "novita-pizza",
+  "novita-specialita",
+] as const;
 
 export type FotoSection = (typeof FOTO_SECTIONS)[number];
 export type FotoUploadSection = (typeof FOTO_UPLOAD_SECTIONS)[number];
 
 export const MENU_PATH = "menu/menu-down-under.pdf";
 export const INDEX_PATH = "foto/index.json";
+export const SLOT_PATH = "foto/slot.json";
 
 export const sectionLabel: Record<FotoSection, string> = {
   burger: "Burger",
@@ -17,8 +48,18 @@ export const sectionLabel: Record<FotoSection, string> = {
   sala: "Sala e murales",
   garden: "Garden",
   eventi: "Feste ed eventi",
+  specialita: "Specialità",
   martedi: "Martedì della nonna",
+  lunch: "Pranzo",
+  aperitivo: "Aperitivo domenica",
+  novita: "Novità",
+  "novita-panino": "Novità panino",
+  "novita-pizza": "Novità pizza",
+  "novita-specialita": "Novità specialità",
 };
+
+const FOTO_SECTION_PATTERN =
+  "burger|pizza|carne|specialita|bancone|sala|garden|eventi|martedi|lunch|aperitivo|novita-panino|novita-pizza|novita-specialita|novita";
 
 export type PublicPhoto = {
   src: string;
@@ -32,7 +73,7 @@ export type FotoIndex = {
   items: Record<string, { alt: string; section: FotoSection }>;
 };
 
-const FOTO_PATH = /^foto\/(burger|pizza|carne|bancone|sala|garden|eventi|martedi)\/[a-z0-9][a-z0-9.-]{0,90}$/;
+const FOTO_PATH = new RegExp(`^foto/(${FOTO_SECTION_PATTERN})/[a-z0-9][a-z0-9.-]{0,90}$`);
 
 export function isFotoSection(value: string): value is FotoSection {
   return (FOTO_SECTIONS as readonly string[]).includes(value);
@@ -75,7 +116,7 @@ export function isMenuPath(pathname: string): boolean {
 }
 
 export function sectionFromPath(pathname: string): FotoSection | null {
-  const match = pathname.match(/^foto\/(burger|pizza|carne|bancone|sala|garden|eventi|martedi)\//);
+  const match = pathname.match(new RegExp(`^foto/(${FOTO_SECTION_PATTERN})/`));
   return match && isFotoSection(match[1]) ? match[1] : null;
 }
 
@@ -88,6 +129,13 @@ export function emptyAlbum(): Record<FotoSection, PublicPhoto[]> {
     sala: [],
     garden: [],
     eventi: [],
+    specialita: [],
     martedi: [],
+    lunch: [],
+    aperitivo: [],
+    novita: [],
+    "novita-panino": [],
+    "novita-pizza": [],
+    "novita-specialita": [],
   };
 }

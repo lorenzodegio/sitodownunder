@@ -45,6 +45,7 @@ export type RigaPranzo = {
   nome: string;
   prezzo: string;
   nota: string;
+  unico: boolean;
 };
 
 export type GiornoVista = {
@@ -126,6 +127,7 @@ function riga(item: VocePranzo): RigaPranzo {
     nome: item.nome,
     prezzo: "",
     nota: item.nota,
+    unico: item.tipo === "Piatto unico",
   };
 }
 
