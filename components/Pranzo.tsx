@@ -37,14 +37,13 @@ export function Pranzo({ lunch }: { lunch: readonly PublicPhoto[] }) {
               </article>
             ))}
             <div className="pranzo-foto">
-              {(lunch.length ? lunch.slice(0, 3) : []).map((photo) => (
-                <PhotoFrame key={photo.src} photo={{ src: photo.src, label: photo.alt, ratio: "landscape", radius: 20, tone: "light" }} />
-              ))}
-              {lunch.length
-                ? null
-                : [0, 1, 2].map((slot) => (
-                    <PhotoFrame key={slot} photo={{ src: null, label: "foto pranzo", ratio: "landscape", radius: 20, tone: "light" }} />
-                  ))}
+              {lunch.length ? (
+                lunch.map((photo) => (
+                  <PhotoFrame key={photo.src} photo={{ src: photo.src, label: photo.alt, ratio: "landscape", radius: 20, tone: "light" }} />
+                ))
+              ) : (
+                <PhotoFrame photo={{ src: null, label: "foto pranzo", ratio: "landscape", radius: 20, tone: "light" }} />
+              )}
             </div>
           </div>
         </div>

@@ -117,7 +117,7 @@ export const site = {
       {
         tone: "paper",
         time: "lun–ven 11:30–15",
-        title: "Lunch",
+        title: "Pranzo",
         text: "Primo + secondo con contorno da 14€, primi e secondi da 7€, bevande escluse. C’è anche tutto il menù della sera. Pensato per chi ha un’ora e un ufficio che aspetta.",
       },
       {

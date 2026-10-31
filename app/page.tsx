@@ -23,18 +23,15 @@ export default async function HomePage() {
     <SiteFrame id="top">
       <JsonLd data={homeJsonLd(photos)} />
       <Hero
-        novita={[photos["novita-panino"][0], photos["novita-pizza"][0], photos["novita-specialita"][0]].filter(
-          (photo): photo is NonNullable<typeof photo> => Boolean(photo),
-        )}
+        novita={[...photos["novita-panino"], ...photos["novita-pizza"], ...photos["novita-specialita"]]}
       />
-      <Prossimamente photos={photos.martedi} aperitivo={photos.aperitivo} />
+      <Prossimamente photos={photos.martedi} />
       <Cucitura da="carta" a="biglietto" motivo="mare" />
       <Giornata
         burger={photos.burger}
         pizza={photos.pizza}
         bancone={photos.bancone}
         lunch={photos.lunch}
-        aperitivo={photos.aperitivo}
       />
       <Pranzo lunch={photos.lunch} />
       <Cucitura da="biglietto" a="ink" motivo="onda" />

@@ -13,7 +13,7 @@ type RigaMenu = {
   sotto?: string;
   spinta?: boolean;
   photos: readonly PublicPhoto[];
-  novita: PublicPhoto | null;
+  novita: readonly PublicPhoto[];
   fallback: string;
 };
 
@@ -21,19 +21,17 @@ const bubbles = ["b1", "b2", "b3", "b4", "b5"] as const;
 
 function galleria(item: RigaMenu) {
   if (!item.spinta) return null;
-  const novita = item.novita;
-  const posti = novita ? 2 : 3;
-  const scelte = item.photos.slice(0, posti);
-  const vuoti = item.photos.length ? [] : Array.from({ length: posti }, (_, index) => index);
   return (
     <div className="menu-foto">
-      {novita ? <NovitaFoto photo={novita} /> : null}
-      {scelte.map((photo) => (
-        <PhotoFrame key={photo.src} photo={{ src: photo.src, label: photo.alt, ratio: "portrait", radius: 20 }} />
+      {item.novita.map((photo) => (
+        <NovitaFoto key={photo.src} photo={photo} />
       ))}
-      {vuoti.map((slot) => (
-        <PhotoFrame key={`${item.name}-${slot}`} photo={{ src: null, label: item.fallback, ratio: "portrait", radius: 20 }} />
+      {item.photos.map((photo) => (
+        <PhotoFrame key={photo.src} photo={{ src: photo.src, label: photo.alt, ratio: "landscape", radius: 20 }} />
       ))}
+      {item.novita.length || item.photos.length ? null : (
+        <PhotoFrame photo={{ src: null, label: item.fallback, ratio: "landscape", radius: 20 }} />
+      )}
     </div>
   );
 }
@@ -60,7 +58,7 @@ export async function Menu({
       text: burgerVoce.text,
       spinta: true,
       photos: burger,
-      novita: novitaPanino[0] ?? null,
+      novita: novitaPanino,
       fallback: "foto burger",
     },
     {
@@ -68,7 +66,7 @@ export async function Menu({
       text: carneVoce.text,
       spinta: true,
       photos: carne,
-      novita: null,
+      novita: [],
       fallback: "foto carne",
     },
     {
@@ -76,7 +74,7 @@ export async function Menu({
       text: specialitaVoce.text,
       spinta: true,
       photos: specialita,
-      novita: novitaSpecialita[0] ?? null,
+      novita: novitaSpecialita,
       fallback: "foto specialità",
     },
     ...resto.map((item) => ({
@@ -85,7 +83,7 @@ export async function Menu({
       sotto: "sotto" in item ? item.sotto : undefined,
       spinta: false,
       photos: [] as readonly PublicPhoto[],
-      novita: null,
+      novita: [],
       fallback: "",
     })),
   ];

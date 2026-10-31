@@ -471,15 +471,15 @@ p {
 }
 .hero-novita {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
   width: min(100%, 460px);
 }
 .hero-novita > .photo-frame,
 .hero-novita > .novita-shot {
-  flex: 1 1 0;
-  min-width: 0;
-  max-width: 148px;
+  flex: none;
+  width: 120px;
 }
 .hero-novita .photo-frame {
   aspect-ratio: 1;
@@ -683,8 +683,8 @@ p {
 }
 
 .day-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 16px;
   margin-top: 44px;
 }
@@ -729,6 +729,16 @@ p {
   text-transform: uppercase;
   font-size: 52px;
   line-height: 0.9;
+}
+.day.is-wide {
+  display: grid;
+  grid-template-columns: minmax(220px, 340px) minmax(0, 1fr);
+  align-items: end;
+  gap: 16px 28px;
+  min-height: 0;
+}
+.day.is-wide .day-foot {
+  margin-top: 0;
 }
 .day-foot {
   display: flex;
@@ -862,7 +872,8 @@ p {
   display: grid;
   gap: 16px;
   height: 100%;
-  grid-template-rows: auto auto auto minmax(140px, 1fr);
+  align-content: flex-start;
+  grid-template-rows: auto auto auto auto;
 }
 .feature {
   border: 1.5px solid var(--lineD);
@@ -3082,16 +3093,18 @@ address {
   opacity: 0.72;
 }
 .day-photos {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
   gap: 8px;
-  flex: 1;
-  margin-top: 12px;
-  min-height: 96px;
+  margin: 0;
+  min-height: 0;
 }
 .day-photos .photo-frame {
-  height: 100%;
-  aspect-ratio: auto;
+  width: 148px;
+  height: 110px;
+  aspect-ratio: 4 / 3;
+  flex: none;
   border-radius: 14px;
   font-size: 10px;
 }
@@ -3146,15 +3159,16 @@ address {
   border-radius: 16px;
 }
 .pranzo-foto {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
   gap: 8px;
-  min-height: 0;
 }
 .pranzo-foto .photo-frame {
-  height: 100%;
-  min-height: 120px;
-  aspect-ratio: auto;
+  width: 132px;
+  height: 98px;
+  aspect-ratio: 4 / 3;
+  flex: none;
   border-radius: 16px;
   font-size: 10px;
 }
@@ -3167,9 +3181,9 @@ address {
 }
 .menu-foto {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   width: 100%;
-  overflow-x: auto;
 }
 .menu-foto > .photo-frame,
 .menu-foto > .novita-shot {
@@ -3177,9 +3191,19 @@ address {
   flex: none;
 }
 .menu-foto .photo-frame {
-  aspect-ratio: 1;
+  width: 120px;
+  height: 90px;
+  aspect-ratio: 4 / 3;
   border-radius: 16px;
   font-size: 10px;
+}
+@media (max-width: 760px) {
+  .day.is-wide {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .day.is-wide .day-photos {
+    order: -1;
+  }
 }
 .menu-row.is-spinta .menu-foto,
 .menu-row.is-spinta .mese-call,

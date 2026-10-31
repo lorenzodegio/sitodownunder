@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { caveat } from "@/components/duc-font";
-import { PhotoFrame } from "@/components/PhotoFrame";
 import { Decorazioni } from "@/components/Decorazioni";
 import { aperitivoDomenica, aperitivoDomenicaVisibile, whatsappAperitivoGruppo } from "@/data/format";
 import { eventiFormat, eventiSingoli, whatsappEvento } from "@/data/eventi";
@@ -10,13 +9,7 @@ import type { PublicPhoto } from "@/lib/archivio-shared";
 const whatsappDomenica =
   "https://wa.me/393384395727?text=Ciao%2C%20vorrei%20prenotare%20per%20l%27aperitivo%20della%20domenica";
 
-export function Prossimamente({
-  photos,
-  aperitivo,
-}: {
-  photos: readonly PublicPhoto[];
-  aperitivo: readonly PublicPhoto[];
-}) {
+export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
   const format = eventiFormat();
   const singoli = eventiSingoli();
   const domenica = aperitivoDomenicaVisibile();
@@ -135,25 +128,13 @@ export function Prossimamente({
                     {aperitivoDomenica.gruppi} <a href={whatsappAperitivoGruppo}>Prenota</a>
                   </p>
                 </div>
-                <div className="ev-side">
-                  <div className="ev-foto">
-                    <PhotoFrame
-                      photo={{
-                        src: aperitivo[0]?.src ?? null,
-                        label: aperitivo[0]?.alt ?? "foto aperitivo",
-                        ratio: "portrait",
-                        radius: 20,
-                      }}
-                    />
-                  </div>
-                  <div className="ev-actions">
-                    <a className="pill btn-ink" href={whatsappDomenica}>
-                      Prenota su WhatsApp
-                    </a>
-                    <a className="pill btn-ink-ghost" href={`tel:${locale.phoneE164}`}>
-                      Chiama
-                    </a>
-                  </div>
+                <div className="ev-actions">
+                  <a className="pill btn-ink" href={whatsappDomenica}>
+                    Prenota su WhatsApp
+                  </a>
+                  <a className="pill btn-ink-ghost" href={`tel:${locale.phoneE164}`}>
+                    Chiama
+                  </a>
                 </div>
               </div>
             </article>

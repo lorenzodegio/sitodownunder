@@ -3,7 +3,6 @@ import { Murale } from "@/components/Murale";
 import { PhotoFrame } from "@/components/PhotoFrame";
 import { PhotoStrip } from "@/components/PhotoStrip";
 import { site, type Photo } from "@/content/site";
-import { aperitivoDomenica, whatsappAperitivoGruppo } from "@/data/format";
 import type { PublicPhoto } from "@/lib/archivio-shared";
 
 function merge(photo: Photo, live: PublicPhoto | undefined): Photo {
@@ -12,19 +11,18 @@ function merge(photo: Photo, live: PublicPhoto | undefined): Photo {
 }
 
 function MomentoFoto({ photos, fallback }: { photos: readonly PublicPhoto[]; fallback: string }) {
-  const scelte = photos.slice(0, 3);
-  const vuoti = scelte.length ? [] : [0, 1, 2];
   return (
     <div className="day-photos">
-      {scelte.map((photo) => (
-        <PhotoFrame
-          key={photo.src}
-          photo={{ src: photo.src, label: photo.alt, ratio: "landscape", radius: 20 }}
-        />
-      ))}
-      {vuoti.map((slot) => (
-        <PhotoFrame key={`${fallback}-${slot}`} photo={{ src: null, label: fallback, ratio: "landscape", radius: 20 }} />
-      ))}
+      {photos.length ? (
+        photos.map((photo) => (
+          <PhotoFrame
+            key={photo.src}
+            photo={{ src: photo.src, label: photo.alt, ratio: "landscape", radius: 20 }}
+          />
+        ))
+      ) : (
+        <PhotoFrame photo={{ src: null, label: fallback, ratio: "landscape", radius: 20 }} />
+      )}
     </div>
   );
 }
@@ -34,13 +32,11 @@ export function Giornata({
   pizza,
   bancone,
   lunch,
-  aperitivo,
 }: {
   burger: readonly PublicPhoto[];
   pizza: readonly PublicPhoto[];
   bancone: readonly PublicPhoto[];
   lunch: readonly PublicPhoto[];
-  aperitivo: readonly PublicPhoto[];
 }) {
   const shots = [
     merge(site.photos.burger, burger[0]),
@@ -65,45 +61,16 @@ export function Giornata({
           {site.giornata.title}
         </h2>
         <div className="day-grid">
-          {site.giornata.cards.map((card) => (
-            <article key={card.title} className={`lift rv day ${card.tone}`}>
-              <div className="day-time">{card.time}</div>
-              {card.title === "Lunch" ? <MomentoFoto photos={lunch} fallback="foto pranzo" /> : null}
-              {card.title === "Cena" ? <MomentoFoto photos={burger} fallback="foto burger" /> : null}
+          {site.giornata.cards.filter((card) => card.title !== "Ape").map((card) => (
+            <article key={card.title} className={`lift rv day is-wide ${card.tone}`}>
               <div className="day-foot">
+              <div className="day-time">{card.time}</div>
               <h3>{card.title}</h3>
               <p>{card.text}</p>
               {card.title === "Cena" ? <p className="day-speciali">Pulled pork, tartare e roastbeef.</p> : null}
-              {card.title === "Ape" ? (
-                <>
-                  <div className="ape-domenica">
-                    <div className="ape-foto">
-                      <PhotoFrame
-                        photo={{
-                          src: aperitivo[0]?.src ?? null,
-                          label: aperitivo[0]?.alt ?? "foto aperitivo",
-                          ratio: "landscape",
-                          radius: 20,
-                          tone: "light",
-                        }}
-                      />
-                    </div>
-                    <p className="ape-etichetta">{aperitivoDomenica.etichetta}</p>
-                    <p className="ape-offerta">{aperitivoDomenica.offerta}</p>
-                    <p>
-                      {aperitivoDomenica.include}, <span className="ape-prezzo">{aperitivoDomenica.prezzo}</span>.
-                    </p>
-                    <p className="ape-gruppi">
-                      {aperitivoDomenica.gruppi}{" "}
-                      <a href={whatsappAperitivoGruppo}>Prenota</a>
-                    </p>
-                  </div>
-                  <a className="day-more" href="#prossimamente">
-                    I format della settimana →
-                  </a>
-                </>
-              ) : null}
               </div>
+              {card.title === "Pranzo" ? <MomentoFoto photos={lunch} fallback="foto pranzo" /> : null}
+              {card.title === "Cena" ? <MomentoFoto photos={burger} fallback="foto burger" /> : null}
             </article>
           ))}
         </div>

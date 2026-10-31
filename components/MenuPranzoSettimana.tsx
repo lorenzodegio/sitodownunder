@@ -6,16 +6,15 @@ import { loadMenuPranzo } from "@/lib/blob-archive";
 import { REGOLA_PRANZO, WEEK_PENDING, presentMenuPranzo } from "@/lib/pranzo-settimana";
 
 function PranzoFoto({ photos }: { photos: readonly PublicPhoto[] }) {
-  const scelte = photos.slice(0, 3);
-  const vuoti = scelte.length ? [] : [0, 1, 2];
   return (
     <div className="pranzo-foto">
-      {scelte.map((photo) => (
-        <PhotoFrame key={photo.src} photo={{ src: photo.src, label: photo.alt, ratio: "landscape", radius: 20 }} />
-      ))}
-      {vuoti.map((slot) => (
-        <PhotoFrame key={`pranzo-${slot}`} photo={{ src: null, label: "foto pranzo", ratio: "landscape", radius: 20 }} />
-      ))}
+      {photos.length ? (
+        photos.map((photo) => (
+          <PhotoFrame key={photo.src} photo={{ src: photo.src, label: photo.alt, ratio: "landscape", radius: 20 }} />
+        ))
+      ) : (
+        <PhotoFrame photo={{ src: null, label: "foto pranzo", ratio: "landscape", radius: 20 }} />
+      )}
     </div>
   );
 }

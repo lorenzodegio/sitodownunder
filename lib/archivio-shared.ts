@@ -26,7 +26,6 @@ export const FOTO_UPLOAD_SECTIONS = [
   "eventi",
   "martedi",
   "lunch",
-  "aperitivo",
   "novita-panino",
   "novita-pizza",
   "novita-specialita",
