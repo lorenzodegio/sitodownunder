@@ -22,7 +22,7 @@ export async function POST(request: Request) {
   const file = form.get("foto");
   const section = form.get("sezione");
   const altRaw = form.get("alt");
-  const alt = typeof altRaw === "string" ? altRaw.trim().slice(0, 180) : "";
+  const alt = typeof altRaw === "string" ? altRaw.trim().slice(0, 80) : "";
 
   if (!(file instanceof File) || typeof section !== "string" || !isUploadSection(section)) {
     return NextResponse.json({ error: "Dati della foto non validi." }, { status: 400 });
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Usa JPG, PNG o WebP." }, { status: 400 });
   }
   if (!alt) {
-    return NextResponse.json({ error: "Scrivi il testo alternativo." }, { status: 400 });
+    return NextResponse.json({ error: "Scrivi il nome." }, { status: 400 });
   }
   if (file.size > FOTO_LIMIT) {
     return NextResponse.json({ error: "La foto supera i 4 MB." }, { status: 400 });

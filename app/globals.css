@@ -3100,13 +3100,34 @@ address {
   margin: 0;
   min-height: 0;
 }
-.day-photos .photo-frame {
+.photo-shot {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  min-width: 0;
+}
+.photo-caption {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  color: inherit;
+}
+.day-photos > .photo-shot,
+.day-photos > .photo-frame {
   width: 148px;
+  flex: none;
+}
+.day-photos .photo-frame {
   height: 110px;
   aspect-ratio: 4 / 3;
-  flex: none;
   border-radius: 14px;
   font-size: 10px;
+}
+.day-photos > .photo-shot .photo-frame {
+  width: 100%;
 }
 .day-speciali {
   font-weight: 700;
@@ -3164,13 +3185,19 @@ address {
   align-content: flex-start;
   gap: 8px;
 }
-.pranzo-foto .photo-frame {
+.pranzo-foto > .photo-shot,
+.pranzo-foto > .photo-frame {
   width: 132px;
+  flex: none;
+}
+.pranzo-foto .photo-frame {
   height: 98px;
   aspect-ratio: 4 / 3;
-  flex: none;
   border-radius: 16px;
   font-size: 10px;
+}
+.pranzo-foto > .photo-shot .photo-frame {
+  width: 100%;
 }
 .pranzo-page .pranzo-foto {
   aspect-ratio: auto;
@@ -3186,16 +3213,24 @@ address {
   width: 100%;
 }
 .menu-foto > .photo-frame,
+.menu-foto > .photo-shot,
 .menu-foto > .novita-shot {
   width: 120px;
   flex: none;
 }
 .menu-foto .photo-frame {
-  width: 120px;
   height: 90px;
   aspect-ratio: 4 / 3;
   border-radius: 16px;
   font-size: 10px;
+}
+.menu-foto > .photo-shot .photo-frame,
+.menu-foto > .novita-shot .photo-frame {
+  width: 100%;
+}
+.novita-shot .photo-shot,
+.hero-novita .photo-shot {
+  width: 100%;
 }
 @media (max-width: 760px) {
   .day.is-wide {

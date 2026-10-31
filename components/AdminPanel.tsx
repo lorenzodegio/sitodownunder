@@ -185,7 +185,7 @@ export function AdminPanel({
       <section className="admin-card" aria-labelledby="admin-foto">
         <h2 id="admin-foto">Foto</h2>
         <p>
-          Pranzo, burger, carne e specialità riempiono i riquadri: se ne carichi molte, si vedono tutte. Novità panino, Novità pizza e Novità specialità sono le cartelle del mese: senza foto, il riquadro con il bollino non si mostra.
+          Pranzo, burger, carne e specialità riempiono i riquadri: se ne carichi molte, si vedono tutte. Il nome che scrivi compare sotto la foto. Novità panino, Novità pizza e Novità specialità sono le cartelle del mese: senza foto, il riquadro con il bollino non si mostra.
         </p>
         <form
           onSubmit={async (event) => {
@@ -216,8 +216,8 @@ export function AdminPanel({
             </select>
           </label>
           <label>
-            Testo alternativo
-            <input name="alt" required maxLength={180} />
+            Nome, compare sotto la foto
+            <input name="alt" required maxLength={80} placeholder="es. Bacon burger" />
           </label>
           <label>
             Foto, massimo 4 MB

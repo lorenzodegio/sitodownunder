@@ -7,15 +7,10 @@ export function PhotoStrip({ photos }: { photos: readonly PublicPhoto[] }) {
   return (
     <div className="photo-strip">
       {photos.map((photo) => (
-        <Image
-          key={photo.src}
-          src={photo.src}
-          alt={photo.alt}
-          width={280}
-          height={350}
-          loading="lazy"
-          className="strip-img"
-        />
+        <figure key={photo.src} className="photo-shot">
+          <Image src={photo.src} alt={photo.alt} width={280} height={350} loading="lazy" className="strip-img" />
+          {photo.alt ? <figcaption className="photo-caption">{photo.alt}</figcaption> : null}
+        </figure>
       ))}
     </div>
   );
