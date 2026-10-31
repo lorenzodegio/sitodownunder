@@ -462,6 +462,28 @@ p {
   margin-top: 36px;
 }
 
+.hero-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
+}
+.hero-novita {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: min(100%, 460px);
+}
+.hero-novita > .photo-frame,
+.hero-novita > .novita-shot {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 148px;
+}
+.hero-novita .photo-frame {
+  aspect-ratio: 1;
+}
 .crest {
   position: relative;
   max-width: 460px;
@@ -701,12 +723,21 @@ p {
   color: var(--mutedD);
 }
 .day h3 {
-  margin: auto 0 0;
+  margin: 0;
   font-family: var(--font-rokkitt), serif;
   font-weight: 800;
   text-transform: uppercase;
   font-size: 52px;
   line-height: 0.9;
+}
+.day-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+.day:not(:has(.day-photos)) .day-foot {
+  margin-top: auto;
 }
 
 .photo-row {
@@ -831,7 +862,7 @@ p {
   display: grid;
   gap: 16px;
   height: 100%;
-  grid-template-rows: repeat(3, minmax(0, 1fr));
+  grid-template-rows: auto auto auto minmax(140px, 1fr);
 }
 .feature {
   border: 1.5px solid var(--lineD);
@@ -3054,10 +3085,13 @@ address {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
-  margin-top: 8px;
+  flex: 1;
+  margin-top: 12px;
+  min-height: 96px;
 }
 .day-photos .photo-frame {
-  aspect-ratio: 1;
+  height: 100%;
+  aspect-ratio: auto;
   border-radius: 14px;
   font-size: 10px;
 }
@@ -3070,11 +3104,82 @@ address {
   font-size: 14px;
   letter-spacing: 0.02em;
 }
+.novita-shot {
+  position: relative;
+}
+.novita-shot .photo-frame {
+  border: 3px solid #a6dccb;
+  border-style: solid;
+}
+.novita-bollino {
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: calc(100% - 12px);
+  background: #a6dccb;
+  color: var(--inchiostro);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.15;
+  padding: 4px 7px;
+  border-radius: 999px;
+}
+.ape-foto .photo-frame {
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  border-color: color-mix(in srgb, var(--paper) 55%, transparent);
+  color: var(--paper);
+}
+.ev-side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(180px, 100%);
+}
+.ev-foto .photo-frame {
+  aspect-ratio: 1;
+  border-radius: 16px;
+}
+.pranzo-foto {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  min-height: 0;
+}
+.pranzo-foto .photo-frame {
+  height: 100%;
+  min-height: 120px;
+  aspect-ratio: auto;
+  border-radius: 16px;
+  font-size: 10px;
+}
+.pranzo-page .pranzo-foto {
+  aspect-ratio: auto;
+}
+.pranzo-page .pranzo-foto .photo-frame {
+  aspect-ratio: 4 / 3;
+  height: auto;
+}
 .menu-foto {
   display: flex;
   gap: 8px;
   width: 100%;
   overflow-x: auto;
+}
+.menu-foto > .photo-frame,
+.menu-foto > .novita-shot {
+  width: 120px;
+  flex: none;
+}
+.menu-foto .photo-frame {
+  aspect-ratio: 1;
+  border-radius: 16px;
+  font-size: 10px;
 }
 .menu-row.is-spinta .menu-foto,
 .menu-row.is-spinta .mese-call,

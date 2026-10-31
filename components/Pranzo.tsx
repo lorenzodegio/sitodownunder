@@ -1,9 +1,11 @@
 import { Decorazioni } from "@/components/Decorazioni";
 import { MenuPranzoSettimana } from "@/components/MenuPranzoSettimana";
 import { Murale } from "@/components/Murale";
+import { PhotoFrame } from "@/components/PhotoFrame";
 import { site } from "@/content/site";
+import type { PublicPhoto } from "@/lib/archivio-shared";
 
-export function Pranzo() {
+export function Pranzo({ lunch }: { lunch: readonly PublicPhoto[] }) {
   return (
     <section id="pranzo" className="section-tight ground-biglietto" aria-labelledby="pranzo-title">
       <Decorazioni dove="pranzo" />
@@ -34,6 +36,16 @@ export function Pranzo() {
                 <p>{feature.text}</p>
               </article>
             ))}
+            <div className="pranzo-foto">
+              {(lunch.length ? lunch.slice(0, 3) : []).map((photo) => (
+                <PhotoFrame key={photo.src} photo={{ src: photo.src, label: photo.alt, ratio: "landscape", radius: 20, tone: "light" }} />
+              ))}
+              {lunch.length
+                ? null
+                : [0, 1, 2].map((slot) => (
+                    <PhotoFrame key={slot} photo={{ src: null, label: "foto pranzo", ratio: "landscape", radius: 20, tone: "light" }} />
+                  ))}
+            </div>
           </div>
         </div>
         <div className="cta-row rv">

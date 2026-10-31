@@ -222,8 +222,8 @@ export const site = {
     title: "E tu cosa scegli?",
     items: [
       { name: "I Burgers", text: "Il motivo per cui la gente viene. Carne seria, pane ai semi, abbinamenti che non ti aspetti.", spinta: true },
-      { name: "Carne", text: "Carni del mese: costata, bavetta e tagliata di picanha." },
-      { name: "Specialità", text: "Pulled pork, tartare e roastbeef." },
+      { name: "Carne", text: "Carni del mese: costata, bavetta e tagliata di picanha.", spinta: true },
+      { name: "Specialità", text: "Pulled pork, tartare e roastbeef.", spinta: true },
       { name: "I Dolci", text: "Fatti in casa. Il tiramisù ha un fan club." },
       { name: "I Cocktail", text: "I classici fatti come si deve, più quello che si inventa il bancone." },
       { name: "Vini, Bolle & Birre", text: "Al calice, in bottiglia, alla spina." },

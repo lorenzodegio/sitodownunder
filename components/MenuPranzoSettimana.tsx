@@ -1,15 +1,39 @@
+import { PhotoFrame } from "@/components/PhotoFrame";
 import { PranzoTabs } from "@/components/PranzoTabs";
 import { caveat } from "@/components/duc-font";
+import type { PublicPhoto } from "@/lib/archivio-shared";
 import { loadMenuPranzo } from "@/lib/blob-archive";
 import { REGOLA_PRANZO, WEEK_PENDING, presentMenuPranzo } from "@/lib/pranzo-settimana";
 
-export async function MenuPranzoSettimana({ variant = "card" }: { variant?: "card" | "page" }) {
+function PranzoFoto({ photos }: { photos: readonly PublicPhoto[] }) {
+  const scelte = photos.slice(0, 3);
+  const vuoti = scelte.length ? [] : [0, 1, 2];
+  return (
+    <div className="pranzo-foto">
+      {scelte.map((photo) => (
+        <PhotoFrame key={photo.src} photo={{ src: photo.src, label: photo.alt, ratio: "landscape", radius: 20 }} />
+      ))}
+      {vuoti.map((slot) => (
+        <PhotoFrame key={`pranzo-${slot}`} photo={{ src: null, label: "foto pranzo", ratio: "landscape", radius: 20 }} />
+      ))}
+    </div>
+  );
+}
+
+export async function MenuPranzoSettimana({
+  variant = "card",
+  photos = [],
+}: {
+  variant?: "card" | "page";
+  photos?: readonly PublicPhoto[];
+}) {
   const view = presentMenuPranzo(await loadMenuPranzo());
 
   if (variant === "page") {
     return (
       <section className={`${caveat.variable} pranzo-page`} aria-labelledby="pranzo-week-title">
         <h2 id="pranzo-week-title">Menù pranzo della settimana</h2>
+        <PranzoFoto photos={photos} />
         {view.status === "pending" ? (
           <p>{WEEK_PENDING}</p>
         ) : (

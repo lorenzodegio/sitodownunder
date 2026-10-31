@@ -119,7 +119,7 @@ export function AdminPanel({
 
       <section className="admin-card" aria-labelledby="admin-mese">
         <h2 id="admin-mese">Del mese</h2>
-        <p>Se il mese salvato è già passato, il blocco non compare in pagina. La pizza è facoltativa: senza nome non si pubblica.</p>
+        <p>Nome e descrizione restano qui. Il bollino «novità del mese» usa invece le cartelle foto Novità panino, Novità pizza e Novità specialità: se la cartella è vuota, quel riquadro non compare.</p>
         <form
           onSubmit={async (event) => {
             event.preventDefault();
@@ -184,7 +184,10 @@ export function AdminPanel({
 
       <section className="admin-card" aria-labelledby="admin-foto">
         <h2 id="admin-foto">Foto</h2>
-        <p>La categoria Pranzo serve alle foto del momento del pranzo, in «Entri per un panino».</p>
+        <p>
+          Pranzo, burger, carne e specialità riempiono i riquadri delle sezioni. Aperitivo domenica va nella card della domenica.
+          Novità panino, Novità pizza e Novità specialità sono le cartelle del mese: senza foto, il riquadro con il bollino non si mostra.
+        </p>
         <form
           onSubmit={async (event) => {
             event.preventDefault();

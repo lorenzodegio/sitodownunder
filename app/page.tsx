@@ -22,13 +22,29 @@ export default async function HomePage() {
   return (
     <SiteFrame id="top">
       <JsonLd data={homeJsonLd(photos)} />
-      <Hero />
-      <Prossimamente photos={photos.martedi} />
+      <Hero
+        novita={[photos["novita-panino"][0], photos["novita-pizza"][0], photos["novita-specialita"][0]].filter(
+          (photo): photo is NonNullable<typeof photo> => Boolean(photo),
+        )}
+      />
+      <Prossimamente photos={photos.martedi} aperitivo={photos.aperitivo} />
       <Cucitura da="carta" a="biglietto" motivo="mare" />
-      <Giornata burger={photos.burger} pizza={photos.pizza} bancone={photos.bancone} lunch={photos.lunch} />
-      <Pranzo />
+      <Giornata
+        burger={photos.burger}
+        pizza={photos.pizza}
+        bancone={photos.bancone}
+        lunch={photos.lunch}
+        aperitivo={photos.aperitivo}
+      />
+      <Pranzo lunch={photos.lunch} />
       <Cucitura da="biglietto" a="ink" motivo="onda" />
-      <Menu burger={photos.burger} />
+      <Menu
+        burger={photos.burger}
+        carne={photos.carne}
+        specialita={photos.specialita}
+        novitaPanino={photos["novita-panino"]}
+        novitaSpecialita={photos["novita-specialita"]}
+      />
       <Cucitura da="ink" a="fondo" motivo="doppia" />
       {showGarden ? <Garden photos={photos.garden} /> : null}
       <Eventi />

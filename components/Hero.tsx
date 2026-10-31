@@ -1,12 +1,15 @@
 import { CosaDelGiorno } from "@/components/CosaDelGiorno";
 import { Decorazioni } from "@/components/Decorazioni";
 import { Dirigibile } from "@/components/Dirigibile";
+import { NovitaFoto } from "@/components/NovitaFoto";
 import { Nuvole } from "@/components/Nuvole";
 import { OpeningBadge } from "@/components/OpeningBadge";
+import { PhotoFrame } from "@/components/PhotoFrame";
 import { Stemma } from "@/components/Stemma";
 import { site } from "@/content/site";
 import { eventiAttivi } from "@/data/eventi";
 import { theme } from "@/data/theme";
+import type { PublicPhoto } from "@/lib/archivio-shared";
 import { stagioneAttiva } from "@/lib/season";
 
 const stars = [
@@ -21,7 +24,7 @@ const stars = [
   [60, 360, 1.8, ".4s"],
 ] as const;
 
-export async function Hero() {
+export async function Hero({ novita }: { novita: readonly PublicPhoto[] }) {
   const [lunch, ape, cena, again] = site.hero.lines;
   const stagione = await stagioneAttiva();
 
@@ -66,7 +69,8 @@ export async function Hero() {
             </a>
           </div>
         </div>
-        <div className="crest in d3">
+        <div className="hero-side in d3">
+        <div className="crest">
           <svg className="spin crest-ring" aria-hidden="true" viewBox="0 0 400 400">
             <defs>
               <path id="ring" d="M200 200m-182 0a182 182 0 1 1 364 0a182 182 0 1 1 -364 0" />
@@ -81,6 +85,14 @@ export async function Hero() {
             <circle className="gear-ring" cx="50" cy="50" r="34" />
             <circle cx="50" cy="50" r="12" />
           </svg>
+        </div>
+          <div className="hero-novita">
+            {novita.length ? (
+              novita.map((photo) => <NovitaFoto key={photo.src} photo={photo} tone="light" />)
+            ) : (
+              <PhotoFrame photo={{ src: null, label: "novità del mese", ratio: "portrait", radius: 20, tone: "light" }} />
+            )}
+          </div>
         </div>
       </div>
       <Nuvole color={eventiAttivi().length ? theme.carta : theme.fondo} />

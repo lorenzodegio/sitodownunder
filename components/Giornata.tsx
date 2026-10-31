@@ -34,11 +34,13 @@ export function Giornata({
   pizza,
   bancone,
   lunch,
+  aperitivo,
 }: {
   burger: readonly PublicPhoto[];
   pizza: readonly PublicPhoto[];
   bancone: readonly PublicPhoto[];
   lunch: readonly PublicPhoto[];
+  aperitivo: readonly PublicPhoto[];
 }) {
   const shots = [
     merge(site.photos.burger, burger[0]),
@@ -66,18 +68,26 @@ export function Giornata({
           {site.giornata.cards.map((card) => (
             <article key={card.title} className={`lift rv day ${card.tone}`}>
               <div className="day-time">{card.time}</div>
+              {card.title === "Lunch" ? <MomentoFoto photos={lunch} fallback="foto pranzo" /> : null}
+              {card.title === "Cena" ? <MomentoFoto photos={burger} fallback="foto burger" /> : null}
+              <div className="day-foot">
               <h3>{card.title}</h3>
               <p>{card.text}</p>
-              {card.title === "Lunch" ? <MomentoFoto photos={lunch} fallback="foto pranzo" /> : null}
-              {card.title === "Cena" ? (
-                <>
-                  <p className="day-speciali">Pulled pork, tartare e roastbeef.</p>
-                  <MomentoFoto photos={burger} fallback="foto burger" />
-                </>
-              ) : null}
+              {card.title === "Cena" ? <p className="day-speciali">Pulled pork, tartare e roastbeef.</p> : null}
               {card.title === "Ape" ? (
                 <>
                   <div className="ape-domenica">
+                    <div className="ape-foto">
+                      <PhotoFrame
+                        photo={{
+                          src: aperitivo[0]?.src ?? null,
+                          label: aperitivo[0]?.alt ?? "foto aperitivo",
+                          ratio: "landscape",
+                          radius: 20,
+                          tone: "light",
+                        }}
+                      />
+                    </div>
                     <p className="ape-etichetta">{aperitivoDomenica.etichetta}</p>
                     <p className="ape-offerta">{aperitivoDomenica.offerta}</p>
                     <p>
@@ -93,6 +103,7 @@ export function Giornata({
                   </a>
                 </>
               ) : null}
+              </div>
             </article>
           ))}
         </div>

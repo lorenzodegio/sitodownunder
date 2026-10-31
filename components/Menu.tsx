@@ -1,11 +1,11 @@
-import Image from "next/image";
 import { Decorazioni } from "@/components/Decorazioni";
+import { NovitaFoto } from "@/components/NovitaFoto";
+import { PhotoFrame } from "@/components/PhotoFrame";
 import { Polpo } from "@/components/Polpo";
 import { site } from "@/content/site";
 import { novitaInPagina } from "@/data/novita";
 import type { PublicPhoto } from "@/lib/archivio-shared";
-import { getMenuPdfUrl, loadDelMese } from "@/lib/blob-archive";
-import { piattoInPagina, type PiattoMese } from "@/lib/del-mese";
+import { getMenuPdfUrl } from "@/lib/blob-archive";
 
 type RigaMenu = {
   name: string;
@@ -13,47 +13,80 @@ type RigaMenu = {
   sotto?: string;
   spinta?: boolean;
   photos: readonly PublicPhoto[];
-  mese: PiattoMese | null;
-  fraseMese?: string;
+  novita: PublicPhoto | null;
+  fallback: string;
 };
 
 const bubbles = ["b1", "b2", "b3", "b4", "b5"] as const;
 
-export async function Menu({ burger }: { burger: readonly PublicPhoto[] }) {
-  const [pdf, delMese] = await Promise.all([getMenuPdfUrl(), loadDelMese()]);
+function galleria(item: RigaMenu) {
+  if (!item.spinta) return null;
+  const novita = item.novita;
+  const posti = novita ? 2 : 3;
+  const scelte = item.photos.slice(0, posti);
+  const vuoti = item.photos.length ? [] : Array.from({ length: posti }, (_, index) => index);
+  return (
+    <div className="menu-foto">
+      {novita ? <NovitaFoto photo={novita} /> : null}
+      {scelte.map((photo) => (
+        <PhotoFrame key={photo.src} photo={{ src: photo.src, label: photo.alt, ratio: "portrait", radius: 20 }} />
+      ))}
+      {vuoti.map((slot) => (
+        <PhotoFrame key={`${item.name}-${slot}`} photo={{ src: null, label: item.fallback, ratio: "portrait", radius: 20 }} />
+      ))}
+    </div>
+  );
+}
+
+export async function Menu({
+  burger,
+  carne,
+  specialita,
+  novitaPanino,
+  novitaSpecialita,
+}: {
+  burger: readonly PublicPhoto[];
+  carne: readonly PublicPhoto[];
+  specialita: readonly PublicPhoto[];
+  novitaPanino: readonly PublicPhoto[];
+  novitaSpecialita: readonly PublicPhoto[];
+}) {
+  const pdf = await getMenuPdfUrl();
   const novita = novitaInPagina();
-  const panino = piattoInPagina(delMese.panino);
-  const pizza = piattoInPagina(delMese.pizza);
-  const burgerVoce = site.menu.items[0];
-  const resto = site.menu.items.slice(1);
+  const [burgerVoce, carneVoce, specialitaVoce, ...resto] = site.menu.items;
   const righe: RigaMenu[] = [
     {
       name: burgerVoce.name,
       text: burgerVoce.text,
       spinta: true,
-      photos: burger.slice(0, 4),
-      mese: panino,
-      fraseMese: panino ? `Vieni a scoprire il panino del mese: ${panino.nome}` : undefined,
+      photos: burger,
+      novita: novitaPanino[0] ?? null,
+      fallback: "foto burger",
     },
-    ...(pizza
-      ? [
-          {
-            name: "Pizza del mese",
-            text: pizza.descrizione,
-            spinta: true,
-            photos: [] as readonly PublicPhoto[],
-            mese: pizza,
-            fraseMese: pizza.nome,
-          },
-        ]
-      : []),
+    {
+      name: carneVoce.name,
+      text: carneVoce.text,
+      spinta: true,
+      photos: carne,
+      novita: null,
+      fallback: "foto carne",
+    },
+    {
+      name: specialitaVoce.name,
+      text: specialitaVoce.text,
+      spinta: true,
+      photos: specialita,
+      novita: novitaSpecialita[0] ?? null,
+      fallback: "foto specialità",
+    },
     ...resto.map((item) => ({
       name: item.name,
       text: item.text,
       sotto: "sotto" in item ? item.sotto : undefined,
-      spinta: "spinta" in item ? item.spinta : undefined,
+      spinta: false,
       photos: [] as readonly PublicPhoto[],
-      mese: null,
+      novita: null,
+      fallback: "",
     })),
   ];
 
@@ -96,37 +129,13 @@ export async function Menu({ burger }: { burger: readonly PublicPhoto[] }) {
             const nome = <h3 className="menu-name">{item.name}</h3>;
             const testo = item.text ? <p className="menu-text">{item.text}</p> : null;
             const sotto = item.sotto ? <p className="menu-sotto">{item.sotto}</p> : null;
-            const fotoMese = item.mese?.foto ? (
-              <div className="mese-call">
-                <Image src={item.mese.foto} alt={item.mese.nome} width={160} height={160} className="mese-foto" />
-                <div>
-                  <p className="mese-frase">{item.fraseMese}</p>
-                  {item.mese.descrizione ? <p className="mese-desc">{item.mese.descrizione}</p> : null}
-                </div>
-              </div>
-            ) : item.fraseMese ? (
-              <div className="mese-call is-solo">
-                <div>
-                  <p className="mese-frase">{item.fraseMese}</p>
-                  {item.mese?.descrizione ? <p className="mese-desc">{item.mese.descrizione}</p> : null}
-                </div>
-              </div>
-            ) : null;
-            const galleria = item.photos.length ? (
-              <div className="menu-foto">
-                {item.photos.map((photo) => (
-                  <Image key={photo.src} src={photo.src} alt={photo.alt} width={160} height={160} className="menu-foto-img" />
-                ))}
-              </div>
-            ) : null;
             return (
               <div key={item.name} className={item.spinta ? "row rv menu-row is-spinta" : "row rv menu-row"}>
                 {numero}
                 {nome}
                 {testo}
                 {sotto}
-                {galleria}
-                {fotoMese}
+                {galleria(item)}
               </div>
             );
           })}
