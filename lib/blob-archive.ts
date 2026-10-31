@@ -28,26 +28,38 @@ function tokenOrNull(): string | null {
 }
 
 async function readIndex(token: string): Promise<FotoIndex> {
-  try {
-    const file = await get(INDEX_PATH, { access: "public", token, useCache: false });
-    if (!file) return { items: {} };
-    const text = await new Response(file.stream).text();
-    const parsed = JSON.parse(text) as FotoIndex;
-    if (!parsed || typeof parsed !== "object" || !parsed.items) return { items: {} };
-    return parsed;
-  } catch {
-    return { items: {} };
+  for (const access of ["public", "private"] as const) {
+    try {
+      const file = await get(INDEX_PATH, { access, token, useCache: false });
+      if (!file?.stream) continue;
+      const text = await new Response(file.stream).text();
+      const parsed = JSON.parse(text) as FotoIndex;
+      if (!parsed || typeof parsed !== "object" || !parsed.items) return { items: {} };
+      return parsed;
+    } catch {
+      continue;
+    }
   }
+  return { items: {} };
 }
 
 async function writeIndex(token: string, index: FotoIndex): Promise<void> {
-  await put(INDEX_PATH, JSON.stringify(index), {
-    access: "public",
+  const body = JSON.stringify(index);
+  const shared = {
     token,
-    addRandomSuffix: false,
+    addRandomSuffix: false as const,
     allowOverwrite: true,
     contentType: "application/json",
-  });
+  };
+  try {
+    await put(INDEX_PATH, body, { ...shared, access: "public" });
+  } catch (error) {
+    try {
+      await put(INDEX_PATH, body, { ...shared, access: "private" });
+    } catch {
+      throw error;
+    }
+  }
 }
 
 const MENU_CANDIDATES = [MENU_PATH, "menu.pdf", "menu/menu.pdf"] as const;
