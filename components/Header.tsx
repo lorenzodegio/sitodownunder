@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { showGarden } from "@/data/flags";
+import { novitaInPagina } from "@/data/novita";
 import { site } from "@/content/site";
 
 export function Header() {
-  const links = site.nav.filter((item) => showGarden || item.href !== "/#garden");
+  const links = site.nav.filter((item) => {
+    if (!showGarden && item.href === "/#garden") return false;
+    if (item.href === "/#novita" && novitaInPagina().length === 0) return false;
+    return true;
+  });
 
   return (
     <header className="site-header">

@@ -1,27 +1,68 @@
+import { contieneSegnaposto, visibileConSegnaposto } from "@/lib/segnaposto";
+
 export type Novita = {
   id: string;
+  slot: string;
   nome: string;
   provenienza: string;
   peso: string;
+  cottura: string;
   descrizione: string;
   prezzo: string;
-  foto: string | null;
+  unita: string;
 };
 
-/** Tagli nuovi. Il blocco in pagina resta spento finché non arrivano i dati veri. */
+/** Tagli nuovi. In produzione il capitolo resta spento finché i dati non sono compilati. */
 export const novita: readonly Novita[] = [
   {
     id: "taglio-1",
-    nome: "[nome del taglio]",
+    slot: "02",
+    nome: "[Nome taglio 1]",
     provenienza: "[provenienza]",
     peso: "[peso]",
-    descrizione: "[descrizione]",
+    cottura: "[cottura consigliata]",
+    descrizione: "[una riga]",
     prezzo: "[prezzo]",
-    foto: null,
+    unita: "[a persona / al etto]",
+  },
+  {
+    id: "taglio-2",
+    slot: "03",
+    nome: "[Nome taglio 2]",
+    provenienza: "[provenienza]",
+    peso: "[peso]",
+    cottura: "[cottura consigliata]",
+    descrizione: "[una riga]",
+    prezzo: "[prezzo]",
+    unita: "[a persona / al etto]",
+  },
+  {
+    id: "taglio-3",
+    slot: "04",
+    nome: "[Nome taglio 3]",
+    provenienza: "[provenienza]",
+    peso: "[peso]",
+    cottura: "[cottura consigliata]",
+    descrizione: "[una riga]",
+    prezzo: "[prezzo]",
+    unita: "[a persona / al etto]",
   },
 ];
 
-export function novitaInPagina(): readonly Novita[] {
-  return [];
+function testi(voce: Novita): string[] {
+  return [voce.nome, voce.provenienza, voce.peso, voce.cottura, voce.descrizione, voce.prezzo, voce.unita];
 }
 
+export function novitaConfermate(): readonly Novita[] {
+  return novita.filter((voce) => !testi(voce).some((testo) => contieneSegnaposto(testo)));
+}
+
+export function novitaInPagina(): readonly Novita[] {
+  const confermate = novitaConfermate();
+  if (process.env.VERCEL_ENV === "production") return confermate;
+  return visibileConSegnaposto(novita.flatMap(testi)) ? novita : confermate;
+}
+
+export function meseNovita(data = new Date()): string {
+  return new Intl.DateTimeFormat("it-IT", { month: "long", timeZone: "Europe/Rome" }).format(data);
+}

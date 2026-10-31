@@ -1,92 +1,14 @@
 import { Decorazioni } from "@/components/Decorazioni";
-import { NovitaFoto } from "@/components/NovitaFoto";
-import { PhotoFrame } from "@/components/PhotoFrame";
 import { Polpo } from "@/components/Polpo";
+import { SlotFrame } from "@/components/SlotFrame";
 import { site } from "@/content/site";
-import { novitaInPagina } from "@/data/novita";
-import type { PublicPhoto } from "@/lib/archivio-shared";
 import { getMenuPdfUrl } from "@/lib/blob-archive";
-
-type RigaMenu = {
-  name: string;
-  text: string;
-  sotto?: string;
-  spinta?: boolean;
-  photos: readonly PublicPhoto[];
-  novita: readonly PublicPhoto[];
-  fallback: string;
-};
+import type { SlotVista } from "@/lib/slot-types";
 
 const bubbles = ["b1", "b2", "b3", "b4", "b5"] as const;
 
-function galleria(item: RigaMenu) {
-  if (!item.spinta) return null;
-  return (
-    <div className="menu-foto">
-      {item.novita.map((photo) => (
-        <NovitaFoto key={photo.src} photo={photo} />
-      ))}
-      {item.photos.map((photo) => (
-        <PhotoFrame key={photo.src} photo={{ src: photo.src, label: photo.alt, ratio: "landscape", radius: 20 }} />
-      ))}
-      {item.novita.length || item.photos.length ? null : (
-        <PhotoFrame photo={{ src: null, label: item.fallback, ratio: "landscape", radius: 20 }} />
-      )}
-    </div>
-  );
-}
-
-export async function Menu({
-  burger,
-  carne,
-  specialita,
-  novitaPanino,
-  novitaSpecialita,
-}: {
-  burger: readonly PublicPhoto[];
-  carne: readonly PublicPhoto[];
-  specialita: readonly PublicPhoto[];
-  novitaPanino: readonly PublicPhoto[];
-  novitaSpecialita: readonly PublicPhoto[];
-}) {
+export async function Menu({ vista }: { vista: SlotVista }) {
   const pdf = await getMenuPdfUrl();
-  const novita = novitaInPagina();
-  const [burgerVoce, carneVoce, specialitaVoce, ...resto] = site.menu.items;
-  const righe: RigaMenu[] = [
-    {
-      name: burgerVoce.name,
-      text: burgerVoce.text,
-      spinta: true,
-      photos: burger,
-      novita: novitaPanino,
-      fallback: "foto burger",
-    },
-    {
-      name: carneVoce.name,
-      text: carneVoce.text,
-      spinta: true,
-      photos: carne,
-      novita: [],
-      fallback: "foto carne",
-    },
-    {
-      name: specialitaVoce.name,
-      text: specialitaVoce.text,
-      spinta: true,
-      photos: specialita,
-      novita: novitaSpecialita,
-      fallback: "foto specialità",
-    },
-    ...resto.map((item) => ({
-      name: item.name,
-      text: item.text,
-      sotto: "sotto" in item ? item.sotto : undefined,
-      spinta: false,
-      photos: [] as readonly PublicPhoto[],
-      novita: [],
-      fallback: "",
-    })),
-  ];
 
   return (
     <section id="menu" className="section-sea section-menu" aria-labelledby="menu-title">
@@ -104,36 +26,47 @@ export async function Menu({
           </div>
           <Polpo />
         </div>
-        {novita.length ? (
-          <div className="menu-novita" id="novita">
-            <h3 className="format-title">Novità</h3>
-            <div className="novita-grid">
-              {novita.map((voce) => (
-                <article key={voce.id} className="novita-card">
-                  <h3>{voce.nome}</h3>
-                  <p>
-                    {voce.provenienza} · {voce.peso}
-                  </p>
-                  <p>{voce.descrizione}</p>
-                  <p className="novita-prezzo">{voce.prezzo}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        ) : null}
         <div className="menu-list">
-          {righe.map((item, index) => {
-            const numero = <span className="menu-num">{String(index + 1).padStart(2, "0")}</span>;
-            const nome = <h3 className="menu-name">{item.name}</h3>;
-            const testo = item.text ? <p className="menu-text">{item.text}</p> : null;
-            const sotto = item.sotto ? <p className="menu-sotto">{item.sotto}</p> : null;
+          {site.menu.items.map((item, index) => {
+            const foto = "slots" in item ? item.slots : null;
             return (
-              <div key={item.name} className={item.spinta ? "row rv menu-row is-spinta" : "row rv menu-row"}>
-                {numero}
-                {nome}
-                {testo}
-                {sotto}
-                {galleria(item)}
+              <div key={item.name} className={foto ? "row rv menu-row is-spinta has-photo" : "row rv menu-row"}>
+                <span className="menu-num">{String(index + 1).padStart(2, "0")}</span>
+                <h3 className="menu-name">{item.name}</h3>
+                {item.text ? (
+                  <p className="menu-text">
+                    {item.text}{" "}
+                    {"link" in item ? (
+                      <a className="spinta-link" href={item.link.href}>
+                        {item.link.label} →
+                      </a>
+                    ) : null}
+                  </p>
+                ) : null}
+                {"sotto" in item && item.sotto ? <p className="menu-sotto">{item.sotto}</p> : null}
+                {foto ? (
+                  <>
+                    <div className="spinta-thumbs">
+                      {foto.thumbs.map((id) => (
+                        <SlotFrame
+                          key={id}
+                          id={id}
+                          record={vista.items[id] ?? null}
+                          indicazioni={vista.indicazioni}
+                          sizes="120px"
+                        />
+                      ))}
+                    </div>
+                    <div className="spinta-main">
+                      <SlotFrame
+                        id={foto.main}
+                        record={vista.items[foto.main] ?? null}
+                        indicazioni={vista.indicazioni}
+                        sizes="(max-width: 860px) 100vw, 380px"
+                      />
+                    </div>
+                  </>
+                ) : null}
               </div>
             );
           })}

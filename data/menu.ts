@@ -17,8 +17,13 @@ export const vociMenu: readonly VoceMenu[] = [
     price: "[prezzo da confermare]",
   },
   {
-    name: "Carne",
-    text: "Carni del mese: costata, bavetta e tagliata di picanha.",
+    name: "Le Pizze",
+    text: "Dalla margherita a burrata, crudo e pistacchio. Sì, puoi fare la foto prima.",
+    price: "[prezzo da confermare]",
+  },
+  {
+    name: "La carne",
+    text: "I piatti di carne della cucina. I tagli nuovi si annunciano quando arrivano.",
     price: "[prezzo da confermare]",
   },
   {

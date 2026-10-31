@@ -100,7 +100,7 @@ export function AdminPanel({
       <p className={connected ? "admin-status" : "admin-status is-missing"} role="status">
         {connected ? `Archivio: ${environmentLabel} collegato` : "Archivio: token mancante"}
       </p>
-      <p>Il menù in PDF. La pagina pubblica si aggiorna al salvataggio.</p>
+      <p>Il menù in PDF e le foto per categoria. Gli slot della home si caricano in <Link href="/admin/foto">Foto</Link>. La pagina pubblica si aggiorna al salvataggio.</p>
       {message ? (
         <p className={failed ? "admin-message is-error" : "admin-message"} role="status">
           {message}

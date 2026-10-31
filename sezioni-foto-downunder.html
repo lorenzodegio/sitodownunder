@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="it" data-season="autunno">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Down Under Cafè · Sezioni foto (riferimento per il sito)</title>
+<!--
+  RIFERIMENTO DI DESIGN per le sezioni foto di www.downundervanzago.it
+  - Riusa le classi e il CSS del sito attuale (copiati qui sotto, sezione "CSS DEL SITO").
+  - Le regole nuove sono nella sezione "CSS NUOVO" e usano solo le variabili del sito.
+  - Ogni riquadro foto ha data-slot="NN": è il numero dello slot di /admin/foto.
+  - Se lo slot ha la foto: <img class="photo-img"> dentro .photo-frame.has-image (come oggi).
+    Se non ce l'ha: in produzione il murale (.has-fallback, come oggi); in preview/admin il riquadro con l'indicazione di scatto (.is-slot).
+  - Testi tra [parentesi] = dati da compilare, non inventarli.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Rokkitt:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ===================== VARIABILI DEL SITO (tema autunno) ===================== */
+:root{
+  --font-rokkitt:"Rokkitt";--font-instrument:"Instrument Serif";--font-dm:"DM Sans";--font-caveat:"Caveat";
+  --fondo:#F4F0E6;--fondo-hero:#2B2420;--inchiostro:#1E282B;--bianco:#FFFFFF;--biglietto:#FFFCF4;--carta:#F6EFDF;
+  --accento:#E3A08A;--burro:#F3DFA2;--salvia:#A9BCA0;--terracotta:#E3A08A;--rame:#C98A63;--tiffany:#A6DCCB;
+  --linea:rgba(30,40,43,.18);--linea-media:rgba(30,40,43,.3);--linea-forte:rgba(30,40,43,.55);
+  --riga-salvia:rgba(169,188,160,.45);--tratteggio:rgba(243,223,162,.45);--carta-morbida:rgba(246,239,223,.88);
+  --ink:#1E282B;--paper:#F4F0E6;--corda:#D9D3C4;--accent:#A6DCCB;--mutedD:#A9B4B2;--mutedL:#556163;--lineD:rgba(244,240,230,.2);
+  --inchiostro-mano:#B8604A;--testo-muto:#3C4A4E;--status-closed:#E3A6A0;--status-open:#A6DCCB;--status-neutral:#A9B4B2;
+  --barra:#2B2420;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--ink);font-family:var(--font-dm),system-ui,sans-serif;font-size:17px;line-height:1.55}
+img{max-width:100%}
+
+/* ===================== CSS DEL SITO (copiato, invariato) ===================== */
+a{color:inherit;text-decoration:none}
+a:hover{opacity:.7}
+.lift{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.lift:hover{transform:translate(-4px,-6px);box-shadow:currentcolor 8px 10px 0}
+.pill{display:inline-block;transition:transform .25s;font-size:15px}
+.pill:hover{transform:scale(1.05) rotate(-1.5deg);opacity:1}
+.rib{display:inline-block;position:relative;font-family:var(--font-instrument),serif;font-style:italic;font-size:21px;line-height:1.2;padding:5px 22px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);transform:rotate(-2deg);z-index:1}
+.rib::after,.rib::before{content:"";position:absolute;top:8px;width:16px;height:100%;border:2px solid var(--ink);background:var(--corda);z-index:-1}
+.rib::before{left:-12px}.rib::after{right:-12px}
+.site-header{position:sticky;top:0;z-index:10;background:var(--barra);color:var(--paper);backdrop-filter:blur(14px);border-bottom:1px solid var(--lineD)}
+.header-inner{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-family:var(--font-rokkitt),serif;font-weight:500;font-size:22px;letter-spacing:.16em;line-height:1;color:inherit}
+.logo-cafe{font-family:var(--font-instrument),serif;font-style:italic;letter-spacing:.04em;color:var(--accent)}
+.nav-links{display:flex;gap:26px;font-weight:500;font-size:15px}
+.btn-ghost,.btn-solid{font-weight:700;border-radius:999px}
+.btn-solid{background:var(--paper);padding:15px 28px}
+.btn-solid,.btn-solid:hover{color:var(--ink)}
+.btn-compact{padding:11px 22px;font-size:15px;white-space:nowrap}
+.btn-ghost{background:transparent;color:inherit;padding:13px 28px;border:2px solid var(--paper)}
+.hero{overflow:visible;padding:clamp(40px,7vw,90px) 24px 0;background:var(--ink);color:var(--paper)}
+.hero,.hero-grid{position:relative}
+.hero-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(32px,5vw,72px);align-items:center;z-index:2}
+[data-season] .hero,[data-season] .site-header{background:var(--fondo-hero)}
+.status{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;padding:7px 16px;border-radius:999px;border:1.5px solid var(--lineD)}
+.status-dot{width:9px;height:9px;border-radius:50%;background:var(--status-neutral)}
+.status-dot.is-closed{background:var(--status-closed)}
+.hero-h1{margin:18px 0 0;max-width:14em;font-family:var(--font-instrument),serif;font-style:italic;font-weight:400;font-size:clamp(32px,4vw,48px);line-height:1.05;color:var(--paper)}
+.hero-title{margin:26px 0 0;font-family:var(--font-rokkitt),serif;font-weight:800;text-transform:uppercase;font-size:clamp(56px,10vw,150px);line-height:.84;letter-spacing:-.01em}
+.hero-title span{display:block}
+.hero-title .stroke{color:transparent;-webkit-text-stroke:2px var(--paper)}
+.hero-title .soft{font-family:var(--font-instrument),serif;font-style:italic;font-weight:400;text-transform:none;font-size:.62em;line-height:1.1;color:var(--accent)}
+[data-season] .hero-title .soft{color:var(--accento)}
+.hero-lead{margin:26px 0 0;max-width:480px;font-size:clamp(18px,2vw,21px);color:var(--mutedD)}
+.cta-row,.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.nonna-line{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;align-items:start;margin-top:22px;padding-top:22px;border-top:1.5px dashed var(--tratteggio);text-decoration:none}
+.nonna-hand{width:150px;height:auto;margin-top:10px}
+.nonna-line > span{display:flex;flex-direction:column;gap:6px;min-width:0}
+.nonna-hand-title{font-family:var(--font-caveat),cursive;font-weight:700;font-size:38px;line-height:1;color:var(--burro)}
+.nonna-hand-dish{font-size:17px;line-height:1.45;color:var(--carta-morbida)}
+.nonna-hand-dish span{font-family:var(--font-caveat),cursive;font-weight:700;font-size:26px;color:var(--accento)}
+.nonna-hand-cta{font-weight:700;font-size:16px;color:var(--burro);text-decoration:underline;text-underline-offset:5px}
+.inv{filter:invert(1) sepia(.12) brightness(1.03)}
+.section{position:relative;padding:clamp(72px,9vw,120px) 24px}
+.section-tight{position:relative;padding:0 24px clamp(72px,9vw,120px)}
+.wrap{position:relative;z-index:2;max-width:1200px;margin:0 auto}
+.display{margin:18px 0 0;font-family:var(--font-rokkitt),serif;font-weight:800;text-transform:uppercase;font-size:clamp(38px,6vw,84px);line-height:.9}
+.display.w-900{max-width:900px}.display.w-820{max-width:820px}
+.sub{margin:18px 0 0;font-size:19px}.sub.w-600{max-width:600px}
+.on-dark{color:var(--mutedD)}
+.ground-biglietto{background:var(--biglietto)}
+.chapter{position:relative;overflow:hidden;padding:96px 0}
+.chapter-paper{background:var(--carta);color:var(--inchiostro)}
+.chapter-wrap{max-width:1280px;margin:0 auto;padding-left:48px;padding-right:48px;position:relative;z-index:2}
+.chapter-lead{max-width:620px;font-size:18px;line-height:1.55}
+.day-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:44px}
+.day{border:2px solid var(--ink);border-radius:24px;padding:30px;min-height:270px;display:flex;flex-direction:column;gap:8px}
+.day.paper{background:var(--bianco)}
+.day.ink{background:var(--ink);color:var(--paper)}
+.day-time{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mutedL)}
+.day.ink .day-time{color:var(--accent)}
+.day p{margin:0;color:var(--mutedL)}
+.day.ink p{color:var(--mutedD)}
+.day h3{margin:auto 0 0;font-family:var(--font-rokkitt),serif;font-weight:800;text-transform:uppercase;font-size:52px;line-height:.9}
+.day-more{display:inline-block;margin-top:8px;font-weight:700;color:inherit}
+.photo-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:16px}
+.photo-frame{border-radius:24px;border:2px dashed var(--ink);display:grid;place-items:center;text-align:center;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mutedL);position:relative;overflow:hidden;aspect-ratio:4/5}
+.photo-frame.landscape{aspect-ratio:4/3}
+.photo-frame.tone-light{border-color:var(--lineD);color:var(--mutedD)}
+.photo-frame.has-image{border-style:solid}
+.photo-frame.has-fallback{background:var(--bianco);border-color:var(--ink)}
+.photo-img{object-fit:cover}
+.photo-fallback{object-fit:contain;object-position:center;padding:9%}
+.rot-n15{transform:rotate(-1.5deg)}.rot-p1{transform:rotate(1deg)}.rot-n1{transform:rotate(-1deg)}.rot-p15{transform:rotate(1.5deg)}
+.sheet-ink{position:relative;background:var(--ink);color:var(--paper);border-radius:32px;padding:clamp(28px,5vw,64px)}
+.head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px}
+.head-copy{flex:1 1 420px}
+.mongolfiera{width:min(190px,46vw);flex:0 1 190px;height:auto}
+.polpo{flex:0 1 320px;width:320px;max-width:76%;height:auto}
+.pranzo-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:36px;align-items:stretch}
+@media (min-width:860px){.pranzo-grid{grid-template-columns:minmax(0,1.15fr) minmax(240px,.85fr)}}
+.stack{display:grid;gap:16px;height:100%;grid-template-rows:repeat(3,minmax(0,1fr))}
+.feature{border:1.5px solid var(--lineD);border-radius:24px;padding:22px 26px}
+.feature p{margin:0;color:var(--mutedD)}
+.feature h3{margin:0 0 4px;font-family:var(--font-rokkitt),serif;font-weight:800;text-transform:uppercase;font-size:28px;line-height:1}
+.pranzo-card{background:var(--bianco);color:var(--inchiostro);border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:16px}
+.pranzo-kicker{font-family:var(--font-caveat),cursive;font-size:30px;font-weight:700;color:var(--inchiostro-mano);line-height:1}
+.pranzo-card h3{margin:0;font-family:var(--font-rokkitt),serif;font-weight:900;font-size:32px;text-transform:uppercase;line-height:1}
+.pranzo-rule{display:flex;flex-direction:column;gap:6px;border-top:1.5px solid var(--inchiostro);padding-top:14px}
+.pranzo-rule > span{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:15px;font-weight:700}
+.pranzo-rule > span span:last-child{flex:0 0 auto;font-family:var(--font-rokkitt),serif;font-weight:900;font-size:28px;white-space:nowrap}
+.pranzo-rule p{font-size:14px;line-height:1.45;margin:0}
+.section-sea{position:relative;overflow:hidden;background:var(--ink);color:var(--paper)}
+.section-menu{padding:clamp(56px,8vw,100px) 24px clamp(72px,9vw,120px)}
+.menu-list{margin-top:32px;border-top:2px solid var(--paper)}
+.menu-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 32px;padding:20px 4px;border-bottom:1px solid var(--lineD)}
+.menu-num{font-family:var(--font-instrument),serif;font-style:italic;font-size:20px;width:36px;color:var(--accent)}
+.menu-name{margin:0;flex:1 1 300px;font-family:var(--font-rokkitt),serif;font-weight:700;text-transform:uppercase;font-size:clamp(28px,3.6vw,44px);line-height:1}
+.menu-text{flex:1 1 320px;margin:0;color:var(--mutedD)}
+.menu-row.is-spinta{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 22px;align-items:center;margin:16px 0;padding:18px 22px 20px;background:var(--biglietto);color:var(--inchiostro);border:0;border-radius:22px}
+.menu-row.is-spinta .menu-num{grid-area:1/1/span 2;width:auto;font-family:var(--font-rokkitt),serif;font-style:normal;font-weight:800;font-size:clamp(46px,6vw,76px);line-height:.8;color:var(--inchiostro-mano)}
+.menu-row.is-spinta .menu-name{grid-area:1/2;flex:0 0 auto;font-size:clamp(34px,4.4vw,58px);color:var(--inchiostro)}
+.menu-row.is-spinta .menu-text{grid-area:2/2;flex:0 0 auto;max-width:38rem;color:var(--testo-muto)}
+.menu-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-top:28px;color:var(--mutedD)}
+.evento-sheet{background:var(--biglietto);border:1.5px solid var(--inchiostro);border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:32px}
+.ev-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end}
+.ev-actions,.ev-copy,.ev-tags{display:flex;flex-wrap:wrap;gap:10px}
+.ev-copy{flex-direction:column;gap:10px;min-width:0}
+.ev-tag{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;border:1.5px solid var(--inchiostro);padding:5px 12px;border-radius:999px}
+.ev-tag-fill{background:var(--burro);border-color:transparent}
+.ev-title{margin:0;font-family:var(--font-caveat),cursive;font-weight:700;font-size:clamp(42px,6vw,64px);line-height:1;text-transform:none}
+.ev-text{margin:0;max-width:640px;font-size:17px;line-height:1.55}
+.btn-ink,.btn-ink-ghost{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;text-align:center;font-weight:700}
+.btn-ink{background:var(--inchiostro);padding:16px 24px}
+.btn-ink,.btn-ink:hover{color:var(--carta)}
+.btn-ink-ghost{border:2px solid var(--inchiostro);padding:14px 22px}
+.ev-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;align-items:stretch}
+.ev-card{height:100%;display:flex;flex-direction:column;background:var(--carta);border-radius:18px;overflow:hidden;border:1.5px solid var(--linea)}
+.ev-card.is-next{border:2px solid var(--inchiostro-mano)}
+.ev-photo{position:relative;flex:0 0 auto;aspect-ratio:4/3;background:var(--biglietto)}
+.ev-photo img{object-fit:cover}
+.ev-photo-empty{background-image:repeating-linear-gradient(180deg,transparent 0 23px,var(--riga-salvia) 23px 24px);display:flex;align-items:center;justify-content:center}
+.ev-photo-empty > span{font-family:var(--font-caveat),cursive;font-size:26px;color:var(--linea-forte)}
+.ev-badge{position:absolute;top:12px;left:12px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:var(--inchiostro-mano);color:var(--biglietto);padding:6px 10px;border-radius:999px}
+.ev-body{flex:0 0 auto;height:132px;padding:18px 20px 0;display:flex;flex-direction:column;gap:4px;overflow:hidden}
+.ev-date{font-family:var(--font-caveat),cursive;font-size:26px;font-weight:700;color:var(--inchiostro-mano);line-height:1}
+.ev-dish{font-family:var(--font-rokkitt),serif;font-weight:700;font-size:22px;line-height:1.2}
+.ev-price{flex:0 0 auto;height:52px;padding:8px 20px 0;display:flex;align-items:baseline;gap:10px}
+.ev-price span:first-child{font-family:var(--font-caveat),cursive;font-weight:700;font-size:34px;color:var(--inchiostro-mano);line-height:1}
+.ev-price span:last-child{font-size:14px;color:var(--testo-muto)}
+.ev-book{margin-top:auto;padding:12px 20px 20px}
+.ev-book a{display:flex;justify-content:center;align-items:center;min-height:44px;border:1.5px solid var(--inchiostro);border-radius:999px;padding:10px 14px;font-weight:700;font-size:14px;line-height:1.2;text-align:center;white-space:nowrap}
+.offerta-riga{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin:4px 0 0}
+.offerta-prezzo{font-family:var(--font-caveat),cursive;font-weight:700;font-size:42px;line-height:1;color:var(--inchiostro-mano)}
+.ev-gruppi{margin:12px 0 0;font-size:14px;line-height:1.45}
+.ev-gruppi a{font-weight:700;text-decoration:underline;text-underline-offset:2px}
+@media (max-width:1000px){.ev-head{grid-template-columns:minmax(0,1fr)}.ev-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.chapter-wrap{padding-left:16px;padding-right:16px}.ev-grid,.nonna-line{grid-template-columns:minmax(0,1fr)}.nav-links{display:none}}
+
+/* ===================== CSS NUOVO (solo variabili del sito) ===================== */
+/* Riquadro slot: mostrato SOLO in preview e /admin quando manca la foto */
+.photo-frame.is-slot{background:var(--biglietto);padding:18px;align-content:space-between;place-items:stretch;text-align:left}
+.photo-frame.is-slot.tone-light{background:rgba(244,240,230,.04)}
+.slot-num{justify-self:start;align-self:start;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 10px;border-radius:999px;background:var(--ink);color:var(--paper)}
+.tone-light .slot-num{background:var(--paper);color:var(--ink)}
+.slot-hint{align-self:end;font-family:var(--font-caveat),cursive;font-size:24px;line-height:1.05;letter-spacing:0;text-transform:none;font-weight:700;color:var(--linea-forte)}
+.tone-light .slot-hint{color:var(--mutedD)}
+.ev-photo-empty{flex-direction:column;gap:6px;padding:16px;text-align:center}
+.ev-photo-empty > small{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--linea-forte)}
+
+/* Hero: foto della novità al posto dello stemma (lo stemma resta nella versione senza novità) */
+.novita-frame{position:relative;max-width:460px;width:100%;margin:0 auto}
+.novita-frame .photo-frame{aspect-ratio:4/5}
+.novita-frame .photo-frame.is-slot{padding:72px 22px 132px}
+.novita-frame .rib{position:absolute;left:-14px;top:22px;z-index:3}
+.novita-frame .dirigibile{position:absolute;right:-60px;top:-40px;width:200px;z-index:3}
+.novita-cap{position:absolute;left:22px;right:22px;bottom:22px;z-index:3;background:var(--biglietto);color:var(--inchiostro);border:2px solid var(--ink);border-radius:18px;padding:14px 18px;transform:rotate(-1deg)}
+.novita-cap b{display:block;font-family:var(--font-rokkitt),serif;font-weight:800;text-transform:uppercase;font-size:26px;line-height:1}
+.novita-cap span{font-size:15px;color:var(--testo-muto)}
+
+/* Novità di {mese}: stesse card degli eventi, sezione carta */
+.novita-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:40px}
+@media (max-width:1000px){.novita-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.novita-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Aperitivo: riga foto dentro il foglio evento */
+.evento-sheet .photo-row{margin-top:0;grid-template-columns:1.3fr 1fr 1fr}
+.evento-sheet .photo-row .photo-frame:not(:first-child){aspect-ratio:1/1;align-self:end}
+@media (max-width:760px){.evento-sheet .photo-row{grid-template-columns:1fr 1fr}.evento-sheet .photo-row .photo-frame:first-child{grid-column:1/-1}}
+
+/* Giro del pranzo: quattro tappe */
+.tappe{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:40px;position:relative}
+.tappe::before{content:"";position:absolute;left:0;right:0;top:20px;border-top:2px dashed var(--lineD)}
+.tappa{display:flex;flex-direction:column;gap:14px;position:relative}
+.tappa .rib{align-self:flex-start;font-size:18px;padding:3px 16px}
+.tappa:nth-child(even) .rib{transform:rotate(1.5deg)}
+.tappa h3{margin:0;font-family:var(--font-rokkitt),serif;font-weight:800;text-transform:uppercase;font-size:24px;line-height:1}
+.tappa p{margin:0;font-size:15px;line-height:1.45;color:var(--mutedD)}
+@media (max-width:860px){.tappe{grid-template-columns:repeat(2,minmax(0,1fr))}.tappe::before{display:none}}
+
+/* E tu cosa scegli: 01–03 con foto */
+.menu-row.is-spinta.has-photo{grid-template-columns:auto minmax(0,1fr) minmax(0,380px);grid-template-rows:auto auto 1fr;gap:6px 22px;align-items:start;padding:22px}
+.menu-row.is-spinta.has-photo .menu-num{grid-area:1/1/span 2}
+.menu-row.is-spinta.has-photo .menu-name{grid-area:1/2}
+.menu-row.is-spinta.has-photo .menu-text{grid-area:2/2}
+.menu-row.is-spinta.has-photo .spinta-thumbs{grid-area:3/2;align-self:end;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.menu-row.is-spinta.has-photo .spinta-main{grid-area:1/3/span 3}
+.spinta-thumbs .photo-frame{aspect-ratio:1/1;border-radius:18px}
+.spinta-thumbs .photo-frame.is-slot{padding:10px}
+.spinta-thumbs .slot-hint{font-size:19px}
+.spinta-main .photo-frame{aspect-ratio:4/3}
+.spinta-link{grid-area:auto;font-weight:700;color:var(--inchiostro);text-decoration:underline;text-underline-offset:5px}
+@media (max-width:860px){.menu-row.is-spinta.has-photo{grid-template-columns:auto minmax(0,1fr)}.menu-row.is-spinta.has-photo .spinta-main{grid-area:3/1/auto/span 2}.menu-row.is-spinta.has-photo .spinta-thumbs{grid-area:4/1/auto/span 2}}
+</style>
+</head>
+<body>
+
+<header class="site-header"><div class="header-inner"><a class="logo" href="#">DOWN UNDER <span class="logo-cafe">cafè</span></a><nav class="nav-links" aria-label="Sezioni"><a href="#novita">novità</a><a href="#prossimamente">prossimamente</a><a href="#pranzo">pranzo</a><a href="#menu">menù</a><a href="#info">orari</a></nav><a class="pill btn-solid btn-compact" href="tel:+393384395727">Prenota</a></div></header>
+
+<!-- ===================== 1. HERO · NOVITÀ ===================== -->
+<section class="hero" aria-label="Novità">
+  <div class="hero-grid" style="padding-bottom:clamp(56px,7vw,96px)">
+    <div>
+      <div class="in status"><span class="dot status-dot is-closed" aria-hidden="true"></span><span>Ora chiusi · si riapre alle 18:30</span></div>
+      <h1 class="hero-h1">Burger, pizza e aperitivo a Vanzago</h1>
+      <p class="hero-title"><span class="in d1">Pranzo.</span><span class="in d2 stroke">Ape.</span><span class="in d3">Cena.</span><span class="in d4 soft">ripeti.</span></p>
+      <!-- La riga sotto il titolo diventa la NOVITÀ DI {MESE}: stesso componente .nonna-line di oggi -->
+      <a class="nonna-line" href="#novita">
+        <img alt="" aria-hidden="true" class="inv nonna-hand" src="https://www.downundervanzago.it/murales/mano-welcome.png">
+        <span>
+          <span class="nonna-hand-title">Novità di novembre</span>
+          <span class="nonna-hand-dish">[Nome del nuovo taglio], [una riga]. <span>[prezzo]€</span></span>
+          <span class="nonna-hand-cta">Tutte le novità →</span>
+        </span>
+      </a>
+      <p class="hero-lead in d4">Viaggi straordinari a base di burger, pizza e cocktail. In un locale disegnato come un romanzo di Jules Verne, a Vanzago dal 2010.</p>
+      <div class="hero-actions in d5"><a class="pill btn-solid" href="tel:+393384395727">Sali a bordo</a><a class="pill btn-ghost" href="#menu">Cosa si mangia</a></div>
+    </div>
+    <!-- Colonna destra: foto della NOVITÀ (generale). Senza novità pubblicata torna lo stemma come oggi. -->
+    <div class="novita-frame in d3">
+      <span class="rib">appena sbarcato</span>
+      <img alt="" aria-hidden="true" class="inv dirigibile" src="https://www.downundervanzago.it/murales/dirigibile.png">
+      <div class="photo-frame tone-light is-slot rot-p1" data-slot="01">
+        <span class="slot-num">Foto 01 · novità · 4:5</span>
+        <span class="slot-hint">Il piatto nuovo protagonista, a 45° sul tavolo di legno, luce calda di lato, murale sfocato dietro.</span>
+      </div>
+      <div class="novita-cap"><b>[Nome della novità]</b><span>[una riga che la racconta]</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 1b. NOVITÀ DI {MESE} ===================== -->
+<section id="novita" class="chapter chapter-paper" aria-labelledby="novita-title">
+  <div class="chapter-wrap">
+    <span class="rib rv">capitolo I · il diario di bordo</span>
+    <h2 id="novita-title" class="display rv w-900">Novità di novembre</h2>
+    <p class="chapter-lead" style="margin:18px 0 0">I tagli nuovi sono sbarcati. Carne seria, appena arrivata: finché c'è.</p>
+    <div class="ev-grid novita-grid">
+      <article class="ev-card is-next">
+        <div class="ev-photo ev-photo-empty" data-slot="02"><span class="ev-badge">Nuovo</span><small>Foto 02 · 4:3</small><span>taglio intero sul tagliere, dall'alto, sale grosso</span></div>
+        <div class="ev-body"><span class="ev-date">[provenienza]</span><span class="ev-dish">[Nome taglio 1]</span><span style="font-size:14px;color:var(--testo-muto)">[peso] · [cottura consigliata]</span></div>
+        <div class="ev-price"><span>[prezzo]€</span><span>[a persona / al etto]</span></div>
+        <div class="ev-book"><a href="#wa">Prenota e chiedilo</a></div>
+      </article>
+      <article class="ev-card">
+        <div class="ev-photo ev-photo-empty" data-slot="03"><small>Foto 03 · 4:3</small><span>fette tagliate, cuore rosa ben visibile</span></div>
+        <div class="ev-body"><span class="ev-date">[provenienza]</span><span class="ev-dish">[Nome taglio 2]</span><span style="font-size:14px;color:var(--testo-muto)">[peso] · [cottura consigliata]</span></div>
+        <div class="ev-price"><span>[prezzo]€</span><span>[a persona / al etto]</span></div>
+        <div class="ev-book"><a href="#wa">Prenota e chiedilo</a></div>
+      </article>
+      <article class="ev-card">
+        <div class="ev-photo ev-photo-empty" data-slot="04"><small>Foto 04 · 4:3</small><span>sulla griglia con la fiamma, di lato</span></div>
+        <div class="ev-body"><span class="ev-date">[provenienza]</span><span class="ev-dish">[Nome taglio 3]</span><span style="font-size:14px;color:var(--testo-muto)">[peso] · [cottura consigliata]</span></div>
+        <div class="ev-price"><span>[prezzo]€</span><span>[a persona / al etto]</span></div>
+        <div class="ev-book"><a href="#wa">Prenota e chiedilo</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 2. APERITIVO DELLA DOMENICA ===================== -->
+<!-- Stesso .evento-sheet di oggi (id format-domenica) con in più la riga foto -->
+<section id="prossimamente" class="chapter chapter-paper" style="padding-top:0" aria-label="Aperitivo della domenica">
+  <div class="chapter-wrap">
+    <h3 class="display" style="font-size:clamp(28px,3vw,40px);margin:0 0 24px">Aperitivi</h3>
+    <article id="format-domenica" class="evento-sheet">
+      <div class="ev-head">
+        <div class="ev-copy">
+          <div class="ev-tags"><span class="ev-tag ev-tag-fill">Ogni domenica</span><span class="ev-tag">Offerta</span></div>
+          <h3 class="ev-title">Aperitivo della domenica</h3>
+          <p class="ev-text">Ogni domenica, dalle 18:00 alle 20:00: aperitivo al tavolo, piatto abbondante e consumazione.</p>
+          <p class="ev-text">18:00–20:00</p>
+          <p class="offerta-riga"><span class="offerta-prezzo">da 13€</span><span>Piatto abbondante + consumazione</span></p>
+          <p class="ev-gruppi">In gruppo? Lo stesso aperitivo al tavolo, con il piatto abbondante, lo facciamo anche gli altri giorni per almeno 10 persone: 15€ a testa, solo su prenotazione. <a href="#wa">Prenota</a></p>
+        </div>
+        <div class="ev-actions"><a class="pill btn-ink" href="#wa">Prenota su WhatsApp</a><a class="pill btn-ink-ghost" href="tel:+393384395727">Chiama</a></div>
+      </div>
+      <div class="photo-row">
+        <div class="photo-frame is-slot rot-n1" data-slot="05"><span class="slot-num">Foto 05 · 4:5</span><span class="slot-hint">Il piatto abbondante dall'alto, intero nel quadro, due drink ai lati. Deve sembrare tanto.</span></div>
+        <div class="photo-frame is-slot rot-p1" data-slot="06"><span class="slot-num">Foto 06 · 1:1</span><span class="slot-hint">Spritz o cocktail sul bancone, mano che lo prende.</span></div>
+        <div class="photo-frame is-slot rot-n15" data-slot="07"><span class="slot-num">Foto 07 · 1:1</span><span class="slot-hint">Tavolo pieno, bicchieri che brindano (niente facce).</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== 3. LUNCH · CENA ===================== -->
+<!-- Stessa sezione "una giornata tipo" di oggi: le foto sotto le card seguono le colonne Lunch / Ape / Cena -->
+<section class="section ground-biglietto" aria-labelledby="giornata-title">
+  <div class="wrap">
+    <img alt="Mano del murale che indica welcome, Down Under Cafè Vanzago" class="mano-welcome" style="display:block;width:min(440px,100%);margin:0 0 8px" src="https://www.downundervanzago.it/murales/mano-welcome.png">
+    <span class="rib rv">capitolo II · una giornata tipo</span>
+    <h2 id="giornata-title" class="display rv w-900">Entri per un panino, esci che chiudiamo.</h2>
+    <div class="day-grid">
+      <article class="lift rv day paper"><div class="day-time">lun–ven 11:30–15</div><h3>Lunch</h3><p>Primo + secondo con contorno da 14€, primi e secondi da 7€, bevande escluse. C’è anche tutto il menù della sera. Pensato per chi ha un’ora e un ufficio che aspetta.</p></article>
+      <article class="lift rv day ink"><div class="day-time">mar–sab 18:30 · dom 18:00</div><h3>Ape</h3><p>L’aperitivo è il primo porto della serata: cocktail, bollicine e taglieri. Se la sera si allunga, i format stanno nel diario di bordo.</p><a class="day-more" href="#prossimamente">I format della settimana →</a></article>
+      <article class="lift rv day paper"><div class="day-time">fino alle 00:30 · ven e sab all’1</div><h3>Cena</h3><p>Burger, pizze e i piatti della cucina. Poi arriva il tiramisù fatto in casa e la dieta riparte lunedì.</p></article>
+    </div>
+    <div class="photo-row" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+      <div class="photo-frame is-slot rv rot-n15" data-slot="08"><span class="slot-num">Foto 08 · lunch · 4:5</span><span class="slot-hint">Sala di giorno, luce dalle vetrate: primo e secondo sul tavolo apparecchiato.</span></div>
+      <div class="photo-frame rv rot-p1 has-fallback"><img alt="Murale del faro con il monogramma DUC, Down Under Cafè Vanzago" class="photo-img photo-fallback" style="position:absolute;inset:0;width:100%;height:100%" src="https://www.downundervanzago.it/murales/faro.png"></div>
+      <div class="photo-frame is-slot rv rot-n1" data-slot="09"><span class="slot-num">Foto 09 · cena · 4:5</span><span class="slot-hint">Sera, luci basse e murales dietro: burger e pizza sullo stesso tavolo, birra in primo piano.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 4. IL GIRO DEL PRANZO IN 60 MINUTI ===================== -->
+<!-- Stessa sezione #pranzo di oggi: si aggiungono le 4 tappe tra il titolo e il menù della settimana -->
+<section id="pranzo" class="section-tight ground-biglietto" aria-labelledby="pranzo-title">
+  <div class="wrap sheet-ink">
+    <div class="head">
+      <div class="head-copy">
+        <span class="rib rv">capitolo III · pausa pranzo</span>
+        <h2 id="pranzo-title" class="display rv w-820">Il giro del pranzo in 60 minuti.</h2>
+        <p class="sub rv w-600 on-dark">Phileas Fogg ci ha messo 80 giorni, tu hai un’ora.</p>
+      </div>
+      <img alt="Murale della mongolfiera: Il giro del mondo in 80 giorni, Down Under Cafè Vanzago" class="inv mongolfiera" src="https://www.downundervanzago.it/murales/mongolfiera.png">
+    </div>
+    <div class="tappe">
+      <div class="tappa"><span class="rib">0' · si salpa</span><div class="photo-frame tone-light is-slot" data-slot="10"><span class="slot-num">Foto 10 · 4:5</span><span class="slot-hint">Tavolo già apparecchiato, acqua e coperto pronti.</span></div><h3>Tavolo pronto</h3><p>Siete in tanti? Scrivici in mattinata.</p></div>
+      <div class="tappa"><span class="rib">10' · il primo</span><div class="photo-frame tone-light is-slot" data-slot="11"><span class="slot-num">Foto 11 · 4:5</span><span class="slot-hint">Il primo del giorno, fumante, a 45°.</span></div><h3>Il primo</h3><p>Cambia ogni giorno, lo trovi qui sotto.</p></div>
+      <div class="tappa"><span class="rib">30' · il secondo</span><div class="photo-frame tone-light is-slot" data-slot="12"><span class="slot-num">Foto 12 · 4:5</span><span class="slot-hint">Secondo con contorno, dall'alto.</span></div><h3>Secondo e contorno</h3><p>Verdure, insalata o patatine: scegli tu.</p></div>
+      <div class="tappa"><span class="rib">60' · si rientra</span><div class="photo-frame tone-light is-slot" data-slot="13"><span class="slot-num">Foto 13 · 4:5</span><span class="slot-hint">Tazzina sul bancone, murale "order here" dietro.</span></div><h3>Caffè e via</h3><p>Giro del mondo completato, Fogg muto.</p></div>
+    </div>
+    <div class="pranzo-grid">
+      <aside class="pranzo-card"><span class="pranzo-kicker">il giro del pranzo in 60 minuti</span><h3>Menù pranzo della settimana</h3><p style="margin:0;color:var(--testo-muto)">[qui resta il menù della settimana di oggi, con i tab dei giorni]</p>
+        <div class="pranzo-rule"><span><span>Primo + secondo con contorno</span><span>da 14€</span></span><p>Primi e secondi da 7€, bevande escluse. E a pranzo c'è anche tutto il menù della sera.</p></div></aside>
+      <div class="stack">
+        <article class="rv feature"><h3>Il diario di bordo</h3><p>Il menù della settimana è in questa sezione, dal lunedì al venerdì.</p></article>
+        <article class="rv feature"><h3>L’equipaggio dell’ufficio</h3><p>Siete in sei e avete un’ora? Scrivici in mattinata e trovate il tavolo pronto.</p></article>
+        <article class="rv feature"><h3>La call non finisce?</h3><p>Take away: ordini al telefono, passi, mangi davanti al monitor. Non giudichiamo.</p></article>
+      </div>
+    </div>
+    <div class="cta-row rv"><a class="pill btn-solid" href="#wa">Prenota il tavolo su WhatsApp</a><a class="pill btn-ghost" href="tel:+393384395727">Ordina da asporto</a></div>
+  </div>
+</section>
+
+<!-- ===================== 5. E TU COSA SCEGLI? · 01 BURGERS · 02 PIZZE · 03 CARNE ===================== -->
+<!-- Stesse righe .menu-row.is-spinta di oggi + .has-photo: foto principale a destra e tre dettagli sotto il testo. Schema identico per le tre. -->
+<section id="menu" class="section-sea section-menu" aria-labelledby="menu-title">
+  <div class="wrap menu-stage">
+    <div class="head">
+      <div class="head-copy"><span class="rib rv">capitolo IV · ventimila burger sotto i mari</span><h2 id="menu-title" class="display rv">E tu cosa scegli?</h2></div>
+      <img alt="Murale del polpo gigante: 20.000 leghe sotto i mari, Down Under Cafè Vanzago" class="inv sway polpo" src="https://www.downundervanzago.it/murales/polpo.png">
+    </div>
+    <div class="menu-list">
+
+      <div class="row rv menu-row is-spinta has-photo">
+        <span class="menu-num">01</span>
+        <h3 class="menu-name">I Burgers</h3>
+        <p class="menu-text">Il motivo per cui la gente viene. Carne seria, pane ai semi, abbinamenti che non ti aspetti. <a class="spinta-link" href="#menu">Vedi i burger →</a></p>
+        <div class="spinta-thumbs">
+          <div class="photo-frame is-slot" data-slot="15"><span class="slot-num">15 · 1:1</span><span class="slot-hint">Morso, sezione del burger</span></div>
+          <div class="photo-frame is-slot" data-slot="16"><span class="slot-num">16 · 1:1</span><span class="slot-hint">Carne sulla piastra</span></div>
+          <div class="photo-frame is-slot" data-slot="17"><span class="slot-num">17 · 1:1</span><span class="slot-hint">Bun pretzel e anelli di cipolla</span></div>
+        </div>
+        <div class="spinta-main"><div class="photo-frame is-slot rot-p1" data-slot="14"><span class="slot-num">Foto 14 · 4:3</span><span class="slot-hint">Il burger simbolo, frontale ad altezza piatto: strati visibili, formaggio che cola, patatine dietro.</span></div></div>
+      </div>
+
+      <div class="row rv menu-row is-spinta has-photo">
+        <span class="menu-num">02</span>
+        <h3 class="menu-name">Le Pizze</h3>
+        <p class="menu-text">Dalla margherita a burrata, crudo e pistacchio. Sì, puoi fare la foto prima. <a class="spinta-link" href="#menu">Vedi le pizze →</a></p>
+        <div class="spinta-thumbs">
+          <div class="photo-frame is-slot" data-slot="19"><span class="slot-num">19 · 1:1</span><span class="slot-hint">Filo di mozzarella che si allunga</span></div>
+          <div class="photo-frame is-slot" data-slot="20"><span class="slot-num">20 · 1:1</span><span class="slot-hint">Burrata, crudo e pistacchio</span></div>
+          <div class="photo-frame is-slot" data-slot="21"><span class="slot-num">21 · 1:1</span><span class="slot-hint">Pizza che esce dal forno</span></div>
+        </div>
+        <div class="spinta-main"><div class="photo-frame is-slot rot-p1" data-slot="18"><span class="slot-num">Foto 18 · 4:3</span><span class="slot-hint">La pizza intera dall'alto sul tagliere, cornicione gonfio, un trancio appena staccato.</span></div></div>
+      </div>
+
+      <div class="row rv menu-row is-spinta has-photo">
+        <span class="menu-num">03</span>
+        <h3 class="menu-name">La carne</h3>
+        <p class="menu-text">I piatti di carne della cucina. I tagli nuovi si annunciano quando arrivano. <a class="spinta-link" href="#novita">Vedi la carne →</a></p>
+        <div class="spinta-thumbs">
+          <div class="photo-frame is-slot" data-slot="23"><span class="slot-num">23 · 1:1</span><span class="slot-hint">Fiamma sulla griglia</span></div>
+          <div class="photo-frame is-slot" data-slot="24"><span class="slot-num">24 · 1:1</span><span class="slot-hint">Pulled pork sfilacciato</span></div>
+          <div class="photo-frame is-slot" data-slot="25"><span class="slot-num">25 · 1:1</span><span class="slot-hint">Taglio crudo, marezzatura</span></div>
+        </div>
+        <div class="spinta-main"><div class="photo-frame is-slot rot-p1" data-slot="22"><span class="slot-num">Foto 22 · 4:3</span><span class="slot-hint">La costata tagliata sul tagliere, cuore rosa, sale grosso e chimichurri a lato.</span></div></div>
+      </div>
+
+      <div class="row rv menu-row"><span class="menu-num">04</span><h3 class="menu-name">Le Specialità</h3><p class="menu-text">I piatti della cucina. Cambiano spesso, quindi chiedi.</p></div>
+      <div class="row rv menu-row"><span class="menu-num">05</span><h3 class="menu-name">Club Sandwich &amp; Hotdog</h3><p class="menu-text">I classici da pub, con patatine. Zero sorprese, solo gioie.</p></div>
+      <div class="row rv menu-row"><span class="menu-num">06</span><h3 class="menu-name">Taglieri</h3><p class="menu-text">Da dividere all’ape.</p></div>
+    </div>
+    <div class="menu-foot rv"><p>Serata divano? Take away sempre attivo: chiami, passi, sparisci.</p><a class="pill btn-solid" href="#">Scarica PDF</a></div>
+  </div>
+</section>
+
+</body>
+</html>

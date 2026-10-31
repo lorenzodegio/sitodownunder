@@ -57,6 +57,7 @@ export const site = {
     url: locale.instagram,
   },
   nav: [
+    { href: "/#novita", label: "novità" },
     { href: "/#prossimamente", label: "prossimamente" },
     { href: "/#pranzo", label: "pranzo" },
     { href: "/#menu", label: "menù" },
@@ -117,7 +118,7 @@ export const site = {
       {
         tone: "paper",
         time: "lun–ven 11:30–15",
-        title: "Pranzo",
+        title: "Lunch",
         text: "Primo + secondo con contorno da 14€, primi e secondi da 7€, bevande escluse. C’è anche tutto il menù della sera. Pensato per chi ha un’ora e un ufficio che aspetta.",
       },
       {
@@ -221,9 +222,25 @@ export const site = {
     kicker: "capitolo IV · ventimila burger sotto i mari",
     title: "E tu cosa scegli?",
     items: [
-      { name: "I Burgers", text: "Il motivo per cui la gente viene. Carne seria, pane ai semi, abbinamenti che non ti aspetti.", spinta: true },
-      { name: "Carne", text: "Carni del mese: costata, bavetta e tagliata di picanha.", spinta: true },
-      { name: "Specialità", text: "Pulled pork, tartare e roastbeef.", spinta: true },
+      {
+        name: "I Burgers",
+        text: "Il motivo per cui la gente viene. Carne seria, pane ai semi, abbinamenti che non ti aspetti.",
+        link: { href: "#menu", label: "Vedi i burger" },
+        slots: { main: "14", thumbs: ["15", "16", "17"] },
+      },
+      {
+        name: "Le Pizze",
+        text: "Dalla margherita a burrata, crudo e pistacchio. Sì, puoi fare la foto prima.",
+        link: { href: "#menu", label: "Vedi le pizze" },
+        slots: { main: "18", thumbs: ["19", "20", "21"] },
+      },
+      {
+        name: "La carne",
+        text: "I piatti di carne della cucina. I tagli nuovi si annunciano quando arrivano.",
+        link: { href: "#novita", label: "Vedi la carne" },
+        slots: { main: "22", thumbs: ["23", "24", "25"] },
+      },
+      { name: "Specialità", text: "Pulled pork, tartare e roastbeef." },
       { name: "I Dolci", text: "Fatti in casa. Il tiramisù ha un fan club." },
       { name: "I Cocktail", text: "I classici fatti come si deve, più quello che si inventa il bancone." },
       { name: "Vini, Bolle & Birre", text: "Al calice, in bottiglia, alla spina." },

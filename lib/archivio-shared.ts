@@ -10,6 +10,7 @@ export const FOTO_SECTIONS = [
   "martedi",
   "lunch",
   "aperitivo",
+  "novita",
   "novita-panino",
   "novita-pizza",
   "novita-specialita",
@@ -37,6 +38,7 @@ export type FotoUploadSection = (typeof FOTO_UPLOAD_SECTIONS)[number];
 
 export const MENU_PATH = "menu/menu-down-under.pdf";
 export const INDEX_PATH = "foto/index.json";
+export const SLOT_PATH = "foto/slot.json";
 
 export const sectionLabel: Record<FotoSection, string> = {
   burger: "Burger",
@@ -50,13 +52,14 @@ export const sectionLabel: Record<FotoSection, string> = {
   martedi: "Martedì della nonna",
   lunch: "Pranzo",
   aperitivo: "Aperitivo domenica",
+  novita: "Novità",
   "novita-panino": "Novità panino",
   "novita-pizza": "Novità pizza",
   "novita-specialita": "Novità specialità",
 };
 
 const FOTO_SECTION_PATTERN =
-  "burger|pizza|carne|specialita|bancone|sala|garden|eventi|martedi|lunch|aperitivo|novita-panino|novita-pizza|novita-specialita";
+  "burger|pizza|carne|specialita|bancone|sala|garden|eventi|martedi|lunch|aperitivo|novita-panino|novita-pizza|novita-specialita|novita";
 
 export type PublicPhoto = {
   src: string;
@@ -130,6 +133,7 @@ export function emptyAlbum(): Record<FotoSection, PublicPhoto[]> {
     martedi: [],
     lunch: [],
     aperitivo: [],
+    novita: [],
     "novita-panino": [],
     "novita-pizza": [],
     "novita-specialita": [],

@@ -4,6 +4,7 @@ import { areaServed, hours, locale, schemaDays } from "@/data/locale";
 import { eventiAttivi } from "@/data/eventi";
 import type { FotoSection, PublicPhoto } from "@/lib/archivio-shared";
 import { FOTO_SECTIONS } from "@/lib/archivio-shared";
+import type { SlotRecord } from "@/lib/slot-types";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
 
 function pad(value: number): string {
@@ -39,13 +40,26 @@ function faqNode(faqs: readonly Faq[], id: string) {
   };
 }
 
-export function restaurantNode(photos: Record<FotoSection, PublicPhoto[]>) {
-  const images = [absoluteUrl("/murales/logo-scudo.png")];
-  const sections = showGarden ? FOTO_SECTIONS : FOTO_SECTIONS.filter((section) => section !== "garden");
-  for (const section of sections) {
-    for (const photo of photos[section]) {
-      if (images.length >= 4) break;
-      images.push(photo.src);
+export function restaurantNode(photos: Record<FotoSection, PublicPhoto[]>, slots: SlotRecord[] = []) {
+  const images: (string | Record<string, unknown>)[] = [absoluteUrl("/murales/logo-scudo.png")];
+  if (slots.length) {
+    for (const slot of slots) {
+      images.push({
+        "@type": "ImageObject",
+        contentUrl: slot.url,
+        name: slot.piatto,
+        description: slot.descrizione,
+        ...(slot.width ? { width: slot.width } : {}),
+        ...(slot.height ? { height: slot.height } : {}),
+      });
+    }
+  } else {
+    const sections = showGarden ? FOTO_SECTIONS : FOTO_SECTIONS.filter((section) => section !== "garden");
+    for (const section of sections) {
+      for (const photo of photos[section]) {
+        if (images.length >= 4) break;
+        images.push(photo.src);
+      }
     }
   }
 
@@ -115,10 +129,10 @@ function martediEvents(photos: Record<FotoSection, PublicPhoto[]>) {
   );
 }
 
-export function homeJsonLd(photos: Record<FotoSection, PublicPhoto[]>) {
+export function homeJsonLd(photos: Record<FotoSection, PublicPhoto[]>, slots: SlotRecord[] = []) {
   return {
     "@context": "https://schema.org",
-    "@graph": [restaurantNode(photos), ...martediEvents(photos), faqNode(homeFaq, `${siteUrl()}/#faq`)],
+    "@graph": [restaurantNode(photos, slots), ...martediEvents(photos), faqNode(homeFaq, `${siteUrl()}/#faq`)],
   };
 }
 
