@@ -1,12 +1,15 @@
 import Link from "next/link";
 import { showGarden } from "@/data/flags";
-import { novitaInPagina } from "@/data/novita";
+import { novitaConFoto } from "@/data/novita";
 import { site } from "@/content/site";
+import { loadSlotVista } from "@/lib/slot-vista";
 
-export function Header() {
+export async function Header() {
+  const vista = await loadSlotVista();
+  const novitaVisibile = novitaConFoto(vista.items).length > 0;
   const links = site.nav.filter((item) => {
     if (!showGarden && item.href === "/#garden") return false;
-    if (item.href === "/#novita" && novitaInPagina().length === 0) return false;
+    if (item.href === "/#novita" && !novitaVisibile) return false;
     return true;
   });
 

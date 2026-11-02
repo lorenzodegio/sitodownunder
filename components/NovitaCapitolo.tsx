@@ -1,7 +1,7 @@
 import { Decorazioni } from "@/components/Decorazioni";
 import { SlotEvPhoto } from "@/components/SlotFrame";
 import { site } from "@/content/site";
-import { meseNovita, novita, novitaInPagina, type Novita } from "@/data/novita";
+import { meseNovita, novitaConFoto, type Novita } from "@/data/novita";
 import type { SlotVista } from "@/lib/slot-types";
 
 function whatsappTaglio(nome: string): string {
@@ -12,9 +12,8 @@ function whatsappTaglio(nome: string): string {
   return `https://wa.me/${numero}?text=${encodeURIComponent(testo)}`;
 }
 
-export async function NovitaCapitolo({ vista, forza = false }: { vista: SlotVista; forza?: boolean }) {
-  const pagine = novitaInPagina();
-  const voci: readonly Novita[] = pagine.length ? pagine : forza ? novita : [];
+export async function NovitaCapitolo({ vista }: { vista: SlotVista }) {
+  const voci: readonly Novita[] = novitaConFoto(vista.items);
   if (!voci.length) return null;
   const mese = meseNovita();
 

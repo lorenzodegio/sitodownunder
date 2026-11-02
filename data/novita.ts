@@ -63,6 +63,11 @@ export function novitaInPagina(): readonly Novita[] {
   return visibileConSegnaposto(novita.flatMap(testi)) ? novita : confermate;
 }
 
+/** Card da disegnare: solo gli slot che hanno una foto visibile in questo ambiente. */
+export function novitaConFoto(items: Readonly<Record<string, unknown>>): readonly Novita[] {
+  return novitaInPagina().filter((voce) => items[voce.slot] != null);
+}
+
 export function meseNovita(data = new Date()): string {
   return new Intl.DateTimeFormat("it-IT", { month: "long", timeZone: "Europe/Rome" }).format(data);
 }

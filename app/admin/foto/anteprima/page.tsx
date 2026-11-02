@@ -24,7 +24,7 @@ export default async function AnteprimaFoto({ searchParams }: { searchParams: Pr
       />
     );
   }
-  if (sezione === "novita") return <NovitaCapitolo vista={vista} forza />;
+  if (sezione === "novita") return <NovitaCapitolo vista={vista} />;
   if (sezione === "aperitivo") return <Prossimamente photos={photos?.martedi ?? []} vista={vista} />;
   if (sezione === "giornata") return <Giornata vista={vista} />;
   if (sezione === "pranzo") return <Pranzo vista={vista} />;

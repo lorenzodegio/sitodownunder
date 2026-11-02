@@ -21,6 +21,11 @@ export function nomeFileSlot(prefisso: string, slug: string): string {
   return `${corpo}.webp`;
 }
 
+/** Nome logico restituito dall'API: il file sul Blob resta `percorsoSlot`. */
+export function nomeFileApi(slot: string, slug: string): string {
+  return `${slot}-${slug}.webp`;
+}
+
 export function percorsoSlot(sezione: string, prefisso: string, slug: string): string {
   return `foto/${sezione}/${nomeFileSlot(prefisso, slug)}`;
 }

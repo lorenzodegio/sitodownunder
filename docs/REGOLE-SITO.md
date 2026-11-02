@@ -48,9 +48,11 @@ Richieste esplicite di quel giorno. Da lì in poi fanno parte del sito.
 
 ## Foto degli slot, 31 ottobre 2026
 
-La home ha 25 slot in `data/foto-slot.ts`. Si caricano da `/admin/foto`, non dalla lista per categoria. In produzione, se la foto manca, si vede il murale; in preview e in `/admin` si vede l’indicazione di scatto. Sul sito pubblico vanno solo le foto pubblicate.
+La home ha 25 slot in `data/foto-slot.ts`. Si caricano da `/admin/foto`, non dalla lista per categoria. Lo stesso archivio si può aggiornare da uno script: il contratto è in `docs/API-FOTO.md` e si accende con `FOTO_API_TOKEN` (un valore in Production, un altro in Preview). In produzione, se la foto manca, si vede il murale; in preview e in `/admin` si vede l’indicazione di scatto. Sul sito pubblico vanno solo le foto pubblicate.
 
-Il nome del file è il nome del piatto: `foto/{sezione}/{prefisso}-{slug}.webp`. Per il caricamento multiplo il file si chiama `{numero slot}-{nome-del-piatto}.jpg`, per esempio `14-burger-il-signore-degli-anelli.jpg`. La descrizione è il testo alternativo.
+Nella sezione Novità (slot 02, 03 e 04) la card c’è solo se quello slot ha una foto. Lo slot 04 può restare vuoto: la card non si mostra e al suo posto non si usa il murale. In produzione servono la foto pubblicata e i testi del taglio senza parentesi. In preview e in `/admin` basta la bozza.
+
+Il nome del file è il nome del piatto: `foto/{sezione}/{prefisso}-{slug}.webp`. Per il caricamento multiplo il file si chiama `{numero slot}-{nome-del-piatto}.jpg`, per esempio `14-burger-il-signore-degli-anelli.jpg`. La descrizione è il testo alternativo. L’API, nella risposta, chiama il file `{slot}-{slug-del-piatto}.webp`: i byte restano sul percorso qui sopra e l’indirizzo vero è `url`.
 
 Il nastro «capitolo I · il diario di bordo» sta sulla sezione Novità, subito dopo la hero. Prossimamente non lo ripete. I capitoli dal II in poi non cambiano numero. La card del giorno si chiama Lunch. Sotto Lunch, Ape e Cena la riga foto è slot 08, il murale del faro, slot 09.
 
