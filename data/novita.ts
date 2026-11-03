@@ -14,14 +14,39 @@ export type Novita = {
 
 /** Novità del mese. Provenienza, peso, cottura e prezzo restano fuori finché sono tra parentesi. */
 export const novita: readonly Novita[] = [
-  voce("picanha", "02", "Picanha"),
-  voce("bavetta", "03", "Bavetta"),
-  voce("pulled-pork", "04", "Pulled pork"),
-  voce("costata", "26", "Costata"),
-  voce("burger-mese", "27", "Burger del mese"),
+  voce(
+    "picanha",
+    "02",
+    "Tagliata di Picanha",
+    "Da 250 grammi alla griglia, condita con olio EVO non filtrato, sale Maldon a scaglie, servita con salsa chimichurri e patata piastrata.",
+  ),
+  voce(
+    "bavetta",
+    "03",
+    "Bavetta",
+    "Flank steak da 250 grammi alla griglia, condita con olio EVO non filtrato, sale Maldon a scaglie, servita con fondo bruno.",
+  ),
+  voce(
+    "pulled-pork",
+    "04",
+    "Pulled pork",
+    "Bun, salsa BBQ, spalla di suino sfilacciata, affumicata e cotta a bassa temperatura, servita insieme all'insalata stile coleslaw. Con patatine fritte.",
+  ),
+  voce(
+    "costata",
+    "26",
+    "Costata",
+    "Di scottona da 400 grammi alla griglia, condita con olio EVO non filtrato, sale Maldon a scaglie, servita con salsa chimichurri.",
+  ),
+  voce(
+    "zuccotto",
+    "27",
+    "Lo zuccotto",
+    "Bun pretzel, crema di zucca stufata condita con sale, olio e pepe, hamburger da 200 g, gorgonzola DOP e speck croccante. Con patatine fritte.",
+  ),
 ];
 
-function voce(id: string, slot: string, nome: string): Novita {
+function voce(id: string, slot: string, nome: string, descrizione: string): Novita {
   return {
     id,
     slot,
@@ -29,7 +54,7 @@ function voce(id: string, slot: string, nome: string): Novita {
     provenienza: "[provenienza]",
     peso: "[peso]",
     cottura: "[cottura consigliata]",
-    descrizione: "[una riga]",
+    descrizione,
     prezzo: "[prezzo]",
     unita: "[a persona / al etto]",
   };
