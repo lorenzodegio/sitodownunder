@@ -738,7 +738,7 @@ p {
 .day.is-wide {
   display: grid;
   grid-template-columns: minmax(220px, 340px) minmax(0, 1fr);
-  align-items: end;
+  align-items: flex-end;
   gap: 16px 28px;
   min-height: 0;
 }
@@ -1723,7 +1723,7 @@ html:not([data-season]) .stemma-img.inv {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
   margin: 28px 0;
-  align-items: end;
+  align-items: flex-end;
 }
 
 .local-murale,
@@ -2368,7 +2368,7 @@ address {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 32px;
-  align-items: end;
+  align-items: flex-end;
 }
 .ev-copy,
 .ev-tags,
@@ -3117,7 +3117,7 @@ address {
 .day-photos {
   display: flex;
   flex-wrap: nowrap;
-  align-items: end;
+  align-items: flex-end;
   gap: 8px;
   margin: 0;
   min-height: 0;
