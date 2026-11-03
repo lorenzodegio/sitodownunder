@@ -1,18 +1,16 @@
 import { Decorazioni } from "@/components/Decorazioni";
 import { MenuPranzoSettimana } from "@/components/MenuPranzoSettimana";
 import { Murale } from "@/components/Murale";
-import { SlotFrame } from "@/components/SlotFrame";
 import { site } from "@/content/site";
-import type { SlotVista } from "@/lib/slot-types";
 
 const TAPPE = [
-  { id: "10", nastro: "0' · si salpa", titolo: "Tavolo pronto", testo: "Siete in tanti? Scrivici in mattinata." },
-  { id: "11", nastro: "10' · il primo", titolo: "Il primo", testo: "Cambia ogni giorno, lo trovi qui sotto." },
-  { id: "12", nastro: "30' · il secondo", titolo: "Secondo e contorno", testo: "Verdure, insalata o patatine: scegli tu." },
-  { id: "13", nastro: "60' · si rientra", titolo: "Caffè e via", testo: "Giro del mondo completato, Fogg muto." },
+  { nastro: "0' · si salpa", titolo: "Tavolo pronto", testo: "Siete in tanti? Scrivici in mattinata." },
+  { nastro: "10' · il primo", titolo: "Il primo", testo: "Cambia ogni giorno, lo trovi qui sotto." },
+  { nastro: "30' · il secondo", titolo: "Secondo e contorno", testo: "Verdure, insalata o patatine: scegli tu." },
+  { nastro: "60' · si rientra", titolo: "Caffè e via", testo: "Giro del mondo completato, Fogg muto." },
 ] as const;
 
-export function Pranzo({ vista }: { vista: SlotVista }) {
+export function Pranzo() {
   return (
     <section id="pranzo" className="section-tight ground-biglietto" aria-labelledby="pranzo-title">
       <Decorazioni dove="pranzo" />
@@ -36,14 +34,8 @@ export function Pranzo({ vista }: { vista: SlotVista }) {
         </div>
         <div className="tappe">
           {TAPPE.map((tappa) => (
-            <div key={tappa.id} className="tappa">
+            <div key={tappa.nastro} className="tappa">
               <span className="rib">{tappa.nastro}</span>
-              <SlotFrame
-                id={tappa.id}
-                record={vista.items[tappa.id] ?? null}
-                indicazioni={vista.indicazioni}
-                sizes="(max-width: 860px) 45vw, 260px"
-              />
               <h3>{tappa.titolo}</h3>
               <p>{tappa.testo}</p>
             </div>

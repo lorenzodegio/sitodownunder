@@ -1,8 +1,8 @@
 # API foto degli slot
 
-Secondo ingresso agli stessi 25 slot di `/admin/foto`. Stessi dati (`foto/slot.json` sullo store Blob dell’ambiente), stessa elaborazione (rotazione EXIF, metadati tolti, WebP qualità 82, lato lungo massimo 2400 px), stesse versioni precedenti per il ripristino. `/admin/foto` resta il pannello.
+Secondo ingresso agli stessi slot di `/admin/foto` (02–07, 14–27). Stessi dati (`foto/slot.json` sullo store Blob dell’ambiente), stessa elaborazione (rotazione EXIF, metadati tolti, WebP qualità 82, lato lungo massimo 2400 px), stesse versioni precedenti per il ripristino. `/admin/foto` resta il pannello.
 
-Le bozze si vedono in `/admin/foto` e in preview. In produzione va solo ciò che è `pubblicata`. Uno slot senza foto resta vuoto: fuori dalla sezione Novità si vede il murale; nella sezione Novità la card non c’è. Lo slot 04 può restare vuoto.
+Le bozze si vedono in `/admin/foto` e in preview. In produzione va solo ciò che è `pubblicata`. Uno slot senza foto resta vuoto: fuori da Novità, Lunch e Cena si vede il murale; nella sezione Novità la card resta senza foto; in Lunch e Cena resta il placeholder. Lo slot 04 può restare vuoto. Non ci sono più gli slot 01, 08–13 e 28–35.
 
 ## Variabili
 
@@ -25,11 +25,11 @@ Nel JSON, `file` è `{slot}-{slug-del-piatto}.webp`, per esempio `01-tagliata-di
 
 I byte stanno sul percorso già usato da `/admin/foto`: `foto/{cartella}/{prefisso}-{slug}.webp`. L’indirizzo da usare è `url`, non `file`.
 
-`sezione` nella lista è il gruppo in pagina (`hero`, `novita`, `aperitivo`, `giornata`, `pranzo`, `burger`, `pizza`, `carne`), non la cartella Blob.
+`sezione` nella lista è il gruppo in pagina (`novita`, `aperitivo`, `burger`, `pizza`, `carne`), non la cartella Blob.
 
 ## GET /api/admin/foto/slots
 
-Elenco di tutti gli slot, da `01` a `25`.
+Elenco di tutti gli slot definiti in `data/foto-slot.ts`.
 
 ```json
 {
@@ -58,7 +58,7 @@ Elenco di tutti gli slot, da `01` a `25`.
 | Campo | Regola |
 |---|---|
 | `file` | JPG, PNG, WebP o HEIC, massimo 20 MB |
-| `slot` | `"01"` … `"25"` |
+| `slot` | `"01"` … `"29"` |
 | `piatto` | nome del piatto, da 1 a 80 caratteri |
 | `descrizione` | testo alternativo, da 1 a 200 caratteri |
 | `stato` | `bozza` se manca, oppure `pubblicata` |

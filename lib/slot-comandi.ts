@@ -3,7 +3,7 @@ import { isAllowedFotoPath } from "@/lib/archivio-shared";
 import { loadSlotArchivio, putFotoWebp, readBlobBytes, saveSlotArchivio } from "@/lib/blob-archive";
 import { readBlobToken } from "@/lib/blob-token";
 import { percorsoSlot, percorsoUnivoco, slugPiatto } from "@/lib/foto-nome";
-import { pathnamesSlot, type SlotRecord, type SlotStato, type SlotVersione } from "@/lib/slot-types";
+import { pathnamesSlot, type SlotArchivio, type SlotRecord, type SlotStato, type SlotVersione } from "@/lib/slot-types";
 
 export class SlotErrore extends Error {}
 
@@ -26,6 +26,39 @@ function ricorda(record: SlotRecord | undefined): SlotVersione[] {
   ].slice(0, 3);
 }
 
+let catena: Promise<void> = Promise.resolve();
+let copiaLocale: SlotArchivio | null = null;
+
+function istante(archivio: SlotArchivio): string {
+  let max = "";
+  for (const record of Object.values(archivio.items)) {
+    if (record.aggiornata > max) max = record.aggiornata;
+  }
+  return max;
+}
+
+/** Lettura che non torna indietro se il Blob non ha ancora la scrittura appena fatta. */
+export async function leggiArchivioSlot(): Promise<SlotArchivio> {
+  const remoto = await loadSlotArchivio();
+  if (copiaLocale && istante(copiaLocale) > istante(remoto)) return structuredClone(copiaLocale);
+  return remoto;
+}
+
+function inArchivioSlot<T>(lavoro: (archivio: SlotArchivio) => Promise<T>): Promise<T> {
+  const esegui = catena.then(async () => {
+    const archivio = await leggiArchivioSlot();
+    const risultato = await lavoro(archivio);
+    await saveSlotArchivio(archivio);
+    copiaLocale = structuredClone(archivio);
+    return risultato;
+  });
+  catena = esegui.then(
+    () => undefined,
+    () => undefined,
+  );
+  return esegui;
+}
+
 async function copia(from: string, to: string): Promise<string> {
   const token = readBlobToken();
   if (!token) throw new SlotErrore("Manca il token Blob di questo ambiente.");
@@ -45,8 +78,8 @@ export async function salvaSlot(input: {
   ripristina?: number | null;
   elimina?: boolean;
 }): Promise<SlotRecord> {
+  return inArchivioSlot(async (archivio) => {
   const definizione = slotById(input.slot);
-  const archivio = await loadSlotArchivio();
   const attuale = archivio.items[input.slot];
   const quando = new Date().toISOString();
   const piatto = input.piatto.trim().slice(0, 80);
@@ -65,7 +98,6 @@ export async function salvaSlot(input: {
       versioniPrecedenti: ricorda(attuale),
     };
     archivio.items[input.slot] = record;
-    await saveSlotArchivio(archivio);
     return record;
   }
 
@@ -84,7 +116,6 @@ export async function salvaSlot(input: {
       versioniPrecedenti: ricorda({ ...attuale, versioniPrecedenti: altre }).slice(0, 3),
     };
     archivio.items[input.slot] = record;
-    await saveSlotArchivio(archivio);
     return record;
   }
 
@@ -157,6 +188,6 @@ export async function salvaSlot(input: {
     versioniPrecedenti: versioni.slice(0, 3),
   };
   archivio.items[input.slot] = record;
-  await saveSlotArchivio(archivio);
   return record;
+  });
 }

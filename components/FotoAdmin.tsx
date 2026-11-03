@@ -1,6 +1,7 @@
 "use client";
 
 import { FOTO_SLOTS, GRUPPI_SLOT, slotById } from "@/data/foto-slot";
+import { urlMediaSlot } from "@/lib/archivio-shared";
 import {
   REGOLA_NOME_FILE,
   descrizioneFoto,
@@ -58,7 +59,8 @@ export function FotoAdmin({
   const [pending, setPending] = useState("");
   const [messaggio, setMessaggio] = useState("");
   const [errore, setErrore] = useState(false);
-  const [anteprima, setAnteprima] = useState<string | null>(null);
+  const [ancora, setAncora] = useState("hero");
+  const [vista, setVista] = useState(0);
   const [viewport, setViewport] = useState<"desktop" | "mobile">("desktop");
   const nomi = useMemo(() => suggerimenti.map((voce) => voce.nome), [suggerimenti]);
 
@@ -105,6 +107,10 @@ export function FotoAdmin({
       if (bozza?.preview) URL.revokeObjectURL(bozza.preview);
       aggiorna(id, { file: null, preview: null });
       setMessaggio(action === "pubblica" ? "Foto pubblicata." : action === "elimina" ? "Foto tolta. Puoi ripristinarla." : "Bozza salvata.");
+      const dove = destinazione(id);
+      setAncora(dove);
+      setVista((n) => n + 1);
+      localStorage.setItem("foto-vivo", `${Date.now()}#${dove}`);
       router.refresh();
       return true;
     } catch (error) {
@@ -131,13 +137,33 @@ export function FotoAdmin({
   }
 
   return (
-    <div className="admin-wrap larga">
+    <div className="admin-wrap larga con-vivo">
       <h1>Foto</h1>
       <p className={connesso ? "admin-status" : "admin-status is-missing"} role="status">
         {connesso ? "Archivio collegato." : "Manca il token Blob di questo ambiente."}
       </p>
       <p>{REGOLA_NOME_FILE}</p>
-      <p>Sul sito pubblico vanno solo le foto pubblicate. La bozza si vede qui e nella preview. Un clic sulla foto sceglie il punto focale.</p>
+      <p>Sul sito pubblico vanno solo le foto pubblicate. Il riquadro a destra mostra il sito con le bozze e si aggiorna quando salvi o pubblichi. Un clic sulla foto sceglie il punto focale.</p>
+      <aside className="foto-vivo" id="vivo" aria-label="Sito in diretta">
+        <h2>Sito in diretta</h2>
+        <p>Qui vedi le bozze. Sul sito pubblico la foto compare quando la pubblichi.</p>
+        <div className="admin-nav">
+          <button className="pill btn-solid" type="button" onClick={() => setViewport("desktop")}>
+            Desktop
+          </button>
+          <button className="pill btn-solid" type="button" onClick={() => setViewport("mobile")}>
+            Mobile
+          </button>
+          <a className="pill btn-ink-ghost" href={`/admin/foto/anteprima?sezione=sito#${ancora}`} target="_blank" rel="noreferrer">
+            A tutto schermo
+          </a>
+        </div>
+        <iframe
+          className={viewport === "mobile" ? "anteprima-iframe mobile" : "anteprima-iframe"}
+          title="Sito in diretta"
+          src={`/admin/foto/anteprima?sezione=sito&v=${vista}#${ancora}`}
+        />
+      </aside>
       {messaggio ? (
         <p className={errore ? "admin-message is-error" : "admin-message"} role="status">
           {messaggio}
@@ -208,7 +234,7 @@ export function FotoAdmin({
               const bozza = locali[slot.id];
               const definizione = slotById(slot.id);
               const percorso = percorsoSlot(definizione.sezione, definizione.prefisso, slugPiatto(bozza.piatto));
-              const src = bozza.preview || record?.url || "";
+              const src = bozza.preview || (record ? urlMediaSlot(record.pathname, record.url) : "");
               const formato = slot.formato === "4:3" ? "landscape" : slot.formato === "1:1" ? "square" : "";
               return (
                 <article key={slot.id} className="slot-card">
@@ -257,8 +283,8 @@ export function FotoAdmin({
                   <button className="pill btn-solid" type="button" disabled={!connesso || pending === slot.id || !bozza.descrizione.trim()} onClick={() => void invia(slot.id, "pubblica")}>
                     Pubblica
                   </button>
-                  <button className="pill btn-ink-ghost" type="button" disabled={!connesso || pending === slot.id} onClick={() => setAnteprima(gruppo.anteprima)}>
-                    Anteprima sezione
+                  <button className="pill btn-ink-ghost" type="button" onClick={() => setAncora(destinazione(slot.id))}>
+                    Vedi nel sito
                   </button>
                   {record?.url ? (
                     <button className="pill btn-ink-ghost" type="button" disabled={!connesso || pending === slot.id} onClick={() => void invia(slot.id, "elimina")}>
@@ -282,21 +308,12 @@ export function FotoAdmin({
           <option key={nome} value={nome} />
         ))}
       </datalist>
-
-      {anteprima ? (
-        <section className="admin-card" aria-label="Anteprima sezione">
-          <h2>Anteprima</h2>
-          <div className="admin-nav">
-            <button className="pill btn-solid" type="button" onClick={() => setViewport("desktop")}>
-              Desktop
-            </button>
-            <button className="pill btn-solid" type="button" onClick={() => setViewport("mobile")}>
-              Mobile
-            </button>
-          </div>
-          <iframe className={viewport === "mobile" ? "anteprima-iframe mobile" : "anteprima-iframe"} title="Anteprima della sezione" src={`/admin/foto/anteprima?sezione=${anteprima}`} />
-        </section>
-      ) : null}
     </div>
   );
+}
+
+function destinazione(slotId: string): string {
+  const gruppo = GRUPPI_SLOT.find((voce) => voce.id === slotById(slotId).gruppo);
+  if (gruppo?.anteprima === "aperitivo") return "prossimamente";
+  return gruppo?.anteprima ?? "hero";
 }

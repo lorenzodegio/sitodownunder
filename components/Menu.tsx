@@ -53,7 +53,7 @@ export async function Menu({ vista }: { vista: SlotVista }) {
                           id={id}
                           record={vista.items[id] ?? null}
                           indicazioni={vista.indicazioni}
-                          sizes="120px"
+                          sizes="(max-width: 860px) 28vw, 280px"
                         />
                       ))}
                     </div>
@@ -62,7 +62,7 @@ export async function Menu({ vista }: { vista: SlotVista }) {
                         id={foto.main}
                         record={vista.items[foto.main] ?? null}
                         indicazioni={vista.indicazioni}
-                        sizes="(max-width: 860px) 100vw, 380px"
+                        sizes="(max-width: 860px) 92vw, 720px"
                       />
                     </div>
                   </>

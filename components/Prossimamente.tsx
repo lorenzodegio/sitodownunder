@@ -62,7 +62,7 @@ export function Prossimamente({ photos, vista }: { photos: readonly PublicPhoto[
                     <div key={giorno.data} className={giorno.isNext ? "ev-card is-next" : "ev-card"}>
                       <div className={photo ? "ev-photo" : "ev-photo ev-photo-empty"}>
                         {photo ? (
-                          <Image src={photo} alt={alt} fill sizes="(max-width: 640px) 100vw, 25vw" />
+                          <Image src={photo} alt={alt} fill sizes="(max-width: 640px) 100vw, 25vw" className="photo-img" />
                         ) : (
                           <span>foto del piatto</span>
                         )}
@@ -138,10 +138,9 @@ export function Prossimamente({ photos, vista }: { photos: readonly PublicPhoto[
                   </a>
                 </div>
               </div>
-              <div className="photo-row">
-                <SlotFrame id="05" record={vista.items["05"] ?? null} indicazioni={vista.indicazioni} sizes="(max-width: 760px) 100vw, 420px" />
-                <SlotFrame id="06" record={vista.items["06"] ?? null} indicazioni={vista.indicazioni} sizes="180px" />
-                <SlotFrame id="07" record={vista.items["07"] ?? null} indicazioni={vista.indicazioni} sizes="180px" />
+              <div className="photo-row aperitivo-foto">
+                <SlotFrame id="05" record={vista.items["05"] ?? null} indicazioni={vista.indicazioni} adatta sizes="(max-width: 760px) 46vw, 280px" />
+                <SlotFrame id="06" record={vista.items["06"] ?? null} indicazioni={vista.indicazioni} adatta sizes="(max-width: 760px) 46vw, 280px" />
               </div>
             </article>
           </div>

@@ -361,24 +361,47 @@ export function parseSlotArchivio(value: unknown): SlotArchivio {
   return { items };
 }
 
+async function testoSlot(token: string, access: "public" | "private"): Promise<string | null> {
+  try {
+    const file = await get(SLOT_PATH, { access, token, useCache: false });
+    if (!file?.stream) return null;
+    const text = await new Response(file.stream).text();
+    return text.trim() ? text : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function loadSlotArchivio(): Promise<SlotArchivio> {
   const token = tokenOrNull();
   if (!token) return { items: {} };
-  for (const access of ["public", "private"] as const) {
-    try {
-      const file = await get(SLOT_PATH, { access, token, useCache: false });
-      if (!file?.stream) continue;
-      const text = await new Response(file.stream).text();
-      return parseSlotArchivio(JSON.parse(text));
-    } catch {
-      continue;
-    }
+  // La copia pubblica resta in cache. Quella privata, con useCache: false, è quella appena scritta.
+  const privato = await testoSlot(token, "private");
+  const testo = privato ?? (await testoSlot(token, "public"));
+  if (!testo) return { items: {} };
+  try {
+    return parseSlotArchivio(JSON.parse(testo));
+  } catch {
+    return { items: {} };
   }
-  return { items: {} };
 }
 
 export async function saveSlotArchivio(archivio: SlotArchivio): Promise<void> {
-  await putBlob(SLOT_PATH, JSON.stringify(archivio), "application/json");
+  const token = tokenOrNull();
+  if (!token) throw new Error("Blob non configurato");
+  const body = JSON.stringify(archivio);
+  const shared = {
+    token,
+    addRandomSuffix: false as const,
+    allowOverwrite: true,
+    contentType: "application/json",
+  };
+  await put(SLOT_PATH, body, { ...shared, access: "private" });
+  try {
+    await put(SLOT_PATH, body, { ...shared, access: "public" });
+  } catch {
+    // La lettura usa la copia privata.
+  }
 }
 
 export function slotPubblicati(archivio: SlotArchivio): SlotRecord[] {

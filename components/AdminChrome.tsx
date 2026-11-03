@@ -16,6 +16,7 @@ export function AdminChrome() {
         <nav className="admin-nav" aria-label="Archivio">
           <Link href="/admin">Archivio</Link>
           <Link href="/admin/foto">Foto</Link>
+          <Link href="/admin/foto#vivo">In diretta</Link>
         </nav>
       </div>
     </header>

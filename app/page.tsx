@@ -24,15 +24,12 @@ export default async function HomePage() {
   return (
     <SiteFrame id="top">
       <JsonLd data={homeJsonLd(photos, slotPubblicati(slots))} />
-      <Hero
-        novita={[...photos["novita-panino"], ...photos["novita-pizza"], ...photos["novita-specialita"]]}
-        vista={vista}
-      />
+      <Hero />
       <NovitaCapitolo vista={vista} />
       <Prossimamente photos={photos.martedi} vista={vista} />
       <Cucitura da="carta" a="biglietto" motivo="mare" />
-      <Giornata vista={vista} />
-      <Pranzo vista={vista} />
+      <Giornata />
+      <Pranzo />
       <Cucitura da="biglietto" a="ink" motivo="onda" />
       <Menu vista={vista} />
       <Cucitura da="ink" a="fondo" motivo="doppia" />

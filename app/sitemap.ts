@@ -1,13 +1,14 @@
 import type { MetadataRoute } from "next";
 import { pagineLocali } from "@/data/pagine-locali";
+import { urlMediaSlot } from "@/lib/archivio-shared";
 import { loadSlotArchivio, slotPubblicati } from "@/lib/blob-archive";
-import { siteUrl } from "@/lib/site-url";
+import { absoluteUrl, siteUrl } from "@/lib/site-url";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
   let images: string[] = [];
   try {
-    images = slotPubblicati(await loadSlotArchivio()).map((slot) => slot.url);
+    images = slotPubblicati(await loadSlotArchivio()).map((slot) => absoluteUrl(urlMediaSlot(slot.pathname, slot.url)));
   } catch {
     images = [];
   }

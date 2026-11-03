@@ -1,7 +1,7 @@
 import { Decorazioni } from "@/components/Decorazioni";
 import { SlotEvPhoto } from "@/components/SlotFrame";
 import { site } from "@/content/site";
-import { meseNovita, novitaConFoto, type Novita } from "@/data/novita";
+import { elencoNomi, meseNovita, novitaInElenco, testoConfermato } from "@/data/novita";
 import type { SlotVista } from "@/lib/slot-types";
 
 function whatsappTaglio(nome: string): string {
@@ -13,7 +13,7 @@ function whatsappTaglio(nome: string): string {
 }
 
 export async function NovitaCapitolo({ vista }: { vista: SlotVista }) {
-  const voci: readonly Novita[] = novitaConFoto(vista.items);
+  const voci = novitaInElenco();
   if (!voci.length) return null;
   const mese = meseNovita();
 
@@ -25,33 +25,44 @@ export async function NovitaCapitolo({ vista }: { vista: SlotVista }) {
         <h2 id="novita-title" className="display rv w-900">
           Novità di {mese}
         </h2>
-        <p className="chapter-lead">I tagli nuovi sono sbarcati. Carne seria, appena arrivata: finché c&apos;è.</p>
+        <p className="chapter-lead">{elencoNomi(voci)}. Finché ci sono.</p>
         <div className="ev-grid novita-tagli">
-          {voci.map((voce, index) => (
+          {voci.map((voce, index) => {
+            const record = vista.items[voce.slot] ?? null;
+            const nome = testoConfermato(voce.nome, record?.piatto);
+            const provenienza = testoConfermato(voce.provenienza);
+            const peso = testoConfermato(voce.peso);
+            const cottura = testoConfermato(voce.cottura);
+            const prezzo = testoConfermato(voce.prezzo);
+            const unita = testoConfermato(voce.unita);
+            const descrizione = testoConfermato(voce.descrizione, record?.descrizione);
+            const meta = [peso, cottura].filter(Boolean).join(" · ") || descrizione;
+            return (
             <article key={voce.id} className={index === 0 ? "ev-card is-next" : "ev-card"}>
               <SlotEvPhoto
                 id={voce.slot}
-                record={vista.items[voce.slot] ?? null}
+                record={record}
                 indicazioni={vista.indicazioni}
                 badge={index === 0 ? "Nuovo" : undefined}
                 sizes="(max-width: 640px) 100vw, 33vw"
               />
               <div className="ev-body">
-                <span className="ev-date">{voce.provenienza}</span>
-                <span className="ev-dish">{voce.nome}</span>
-                <span className="ev-meta">
-                  {voce.peso} · {voce.cottura}
-                </span>
+                {provenienza ? <span className="ev-date">{provenienza}</span> : null}
+                <span className="ev-dish">{nome}</span>
+                {meta ? <span className="ev-meta">{meta}</span> : null}
               </div>
-              <div className="ev-price">
-                <span>{voce.prezzo}</span>
-                <span>{voce.unita}</span>
-              </div>
+              {prezzo || unita ? (
+                <div className="ev-price">
+                  {prezzo ? <span>{prezzo}</span> : null}
+                  {unita ? <span>{unita}</span> : null}
+                </div>
+              ) : null}
               <div className="ev-book">
-                <a href={whatsappTaglio(voce.nome)}>Prenota e chiedilo</a>
+                <a href={whatsappTaglio(nome)}>Prenota e chiedilo</a>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

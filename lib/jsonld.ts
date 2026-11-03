@@ -3,7 +3,7 @@ import { showGarden } from "@/data/flags";
 import { areaServed, hours, locale, schemaDays } from "@/data/locale";
 import { eventiAttivi } from "@/data/eventi";
 import type { FotoSection, PublicPhoto } from "@/lib/archivio-shared";
-import { FOTO_SECTIONS } from "@/lib/archivio-shared";
+import { FOTO_SECTIONS, urlMediaSlot } from "@/lib/archivio-shared";
 import type { SlotRecord } from "@/lib/slot-types";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
 
@@ -46,7 +46,7 @@ export function restaurantNode(photos: Record<FotoSection, PublicPhoto[]>, slots
     for (const slot of slots) {
       images.push({
         "@type": "ImageObject",
-        contentUrl: slot.url,
+        contentUrl: absoluteUrl(urlMediaSlot(slot.pathname, slot.url)),
         name: slot.piatto,
         description: slot.descrizione,
         ...(slot.width ? { width: slot.width } : {}),

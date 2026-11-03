@@ -1,10 +1,10 @@
 import { createHash, timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
 import { FOTO_SLOTS, isSlotId, type FotoSlot } from "@/data/foto-slot";
-import { loadSlotArchivio, revalidatePublic } from "@/lib/blob-archive";
+import { revalidatePublic } from "@/lib/blob-archive";
 import { readBlobToken } from "@/lib/blob-token";
 import { nomeFileApi, slugPiatto } from "@/lib/foto-nome";
-import { SlotErrore, salvaSlot } from "@/lib/slot-comandi";
+import { SlotErrore, leggiArchivioSlot, salvaSlot } from "@/lib/slot-comandi";
 import type { SlotRecord } from "@/lib/slot-types";
 
 const FINESTRA_MS = 60_000;
@@ -115,7 +115,7 @@ export function rigaSlot(def: FotoSlot, record: SlotRecord | undefined): RigaSlo
 }
 
 export async function elencoSlot(): Promise<RigaSlotApi[]> {
-  const archivio = await loadSlotArchivio();
+  const archivio = await leggiArchivioSlot();
   return FOTO_SLOTS.map((def) => rigaSlot(def, archivio.items[def.id]));
 }
 
@@ -133,7 +133,7 @@ export function validaCampi(input: {
 }): { ok: true; slot: string; piatto: string; descrizione: string; stato: "bozza" | "pubblicata" } | { ok: false; risposta: NextResponse } {
   const rifiuta = (messaggio: string, campo: Campo) => ({ ok: false as const, risposta: erroreApi(messaggio, campo) });
   if (typeof input.slot !== "string" || !isSlotId(input.slot)) {
-    return rifiuta("Lo slot non è valido. Usa un numero da 01 a 25.", "slot");
+    return rifiuta("Lo slot non è valido.", "slot");
   }
   if (typeof input.piatto !== "string" || input.piatto.trim().length < 1) {
     return rifiuta("Scrivi il nome del piatto.", "piatto");
@@ -193,7 +193,7 @@ function eBozza(record: SlotRecord | undefined): record is SlotRecord {
 }
 
 export async function pubblicaBozze(ids: string[]): Promise<{ pubblicati: string[]; saltati: string[] }> {
-  const archivio = await loadSlotArchivio();
+  const archivio = await leggiArchivioSlot();
   const pubblicati: string[] = [];
   const saltati: string[] = [];
   const visti = new Set<string>();

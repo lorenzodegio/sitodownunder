@@ -244,7 +244,7 @@ export const site = {
       { name: "I Dolci", text: "Fatti in casa. Il tiramisù ha un fan club." },
       { name: "I Cocktail", text: "I classici fatti come si deve, più quello che si inventa il bancone." },
       { name: "Vini, Bolle & Birre", text: "Al calice, in bottiglia, alla spina." },
-      { name: "E altro", text: "", sotto: "hot dog · club sandwich · taglieri" },
+      { name: "E altro", text: "Hot dog, club sandwich e taglieri." },
     ],
     takeaway: "Serata divano? Take away sempre attivo: chiami, passi, sparisci.",
     pdfLabel: "Scarica PDF",

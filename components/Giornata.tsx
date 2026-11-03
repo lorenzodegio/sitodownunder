@@ -1,11 +1,24 @@
 import Image from "next/image";
 import { Decorazioni } from "@/components/Decorazioni";
 import { Murale } from "@/components/Murale";
-import { SlotFrame } from "@/components/SlotFrame";
 import { site } from "@/content/site";
-import type { SlotVista } from "@/lib/slot-types";
 
-export function Giornata({ vista }: { vista: SlotVista }) {
+const MURALI_GIORNO = [
+  {
+    src: "/murales/mongolfiera.png",
+    alt: "Murale della mongolfiera: Il giro del mondo in 80 giorni, Down Under Cafè Vanzago",
+  },
+  {
+    src: "/murales/faro.png",
+    alt: "Murale del faro con il monogramma DUC, Down Under Cafè Vanzago",
+  },
+  {
+    src: "/murales/caverna-duc.png",
+    alt: "Murale della caverna con il monogramma DUC, Down Under Cafè Vanzago",
+  },
+] as const;
+
+export function Giornata() {
   return (
     <section className="section ground-biglietto" aria-labelledby="giornata-title">
       <Decorazioni dove="giornata" />
@@ -36,17 +49,11 @@ export function Giornata({ vista }: { vista: SlotVista }) {
           ))}
         </div>
         <div className="photo-row photo-row-tre">
-          <SlotFrame id="08" record={vista.items["08"] ?? null} indicazioni={vista.indicazioni} className="rv" sizes="(max-width: 800px) 90vw, 360px" />
-          <div className="photo-frame rv rot-p1 has-fallback">
-            <Image
-              src="/murales/faro.png"
-              alt="Murale del faro con il monogramma DUC, Down Under Cafè Vanzago"
-              fill
-              sizes="(max-width: 800px) 90vw, 360px"
-              className="photo-img photo-fallback"
-            />
-          </div>
-          <SlotFrame id="09" record={vista.items["09"] ?? null} indicazioni={vista.indicazioni} className="rv" sizes="(max-width: 800px) 90vw, 360px" />
+          {MURALI_GIORNO.map((murale) => (
+            <div key={murale.src} className="photo-frame rv has-fallback">
+              <Image src={murale.src} alt={murale.alt} fill sizes="(max-width: 800px) 90vw, 360px" className="photo-img photo-fallback" />
+            </div>
+          ))}
         </div>
       </div>
     </section>

@@ -111,6 +111,13 @@ export function isAllowedFotoPath(pathname: string): boolean {
   return FOTO_PATH.test(pathname);
 }
 
+/** Indirizzo sul nostro sito. Lo store Blob è privato e il browser non può aprirlo. */
+export function urlMediaSlot(pathname: string, url = ""): string {
+  if (!isAllowedFotoPath(pathname)) return url;
+  const query = url.includes("?") ? url.slice(url.indexOf("?")) : "";
+  return `/media/${pathname}${query}`;
+}
+
 export function isMenuPath(pathname: string): boolean {
   return pathname === MENU_PATH;
 }

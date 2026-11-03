@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { slotById, type FotoSlot } from "@/data/foto-slot";
+import { urlMediaSlot } from "@/lib/archivio-shared";
 import type { SlotRecord } from "@/lib/slot-types";
 
 function classi(slot: FotoSlot, extra: string): string {
@@ -22,6 +23,7 @@ export function SlotFrame({
   className = "",
   priority = false,
   sizes,
+  adatta = false,
 }: {
   id: string;
   record: SlotRecord | null;
@@ -29,19 +31,21 @@ export function SlotFrame({
   className?: string;
   priority?: boolean;
   sizes: string;
+  adatta?: boolean;
 }) {
   const slot = slotById(id);
+  const forma = adatta && record?.width && record?.height ? { aspectRatio: `${record.width} / ${record.height}` } : undefined;
 
   if (record) {
     return (
-      <div className={classi(slot, `has-image ${className}`)} data-slot={id}>
+      <div className={classi(slot, `has-image ${className}`)} data-slot={id} style={forma}>
         <Image
-          src={record.url}
+          src={urlMediaSlot(record.pathname, record.url)}
           alt={record.descrizione || record.piatto}
           fill
+          unoptimized
           sizes={sizes}
-          className="photo-img"
-          style={{ objectPosition: `${record.focusX}% ${record.focusY}%` }}
+          className="photo-img photo-intera"
           priority={priority}
         />
       </div>
@@ -83,12 +87,12 @@ export function SlotEvPhoto({
       <div className="ev-photo" data-slot={id}>
         {badge ? <span className="ev-badge">{badge}</span> : null}
         <Image
-          src={record.url}
+          src={urlMediaSlot(record.pathname, record.url)}
           alt={record.descrizione || record.piatto}
           fill
+          unoptimized
           sizes={sizes}
-          className="photo-img"
-          style={{ objectPosition: `${record.focusX}% ${record.focusY}%` }}
+          className="photo-img photo-intera"
         />
       </div>
     );

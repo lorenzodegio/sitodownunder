@@ -466,7 +466,7 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
+  justify-content: center;
   min-width: 0;
 }
 .hero-novita {
@@ -683,10 +683,15 @@ p {
 }
 
 .day-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   margin-top: 44px;
+}
+@media (max-width: 760px) {
+  .day-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .day {
@@ -790,6 +795,14 @@ p {
 }
 .photo-img {
   object-fit: cover;
+}
+.photo-intera {
+  object-fit: contain;
+  object-position: center;
+}
+.photo-frame.has-image,
+.ev-photo:has(.photo-intera) {
+  background: var(--carta);
 }
 .rot-n15 {
   transform: rotate(-1.5deg);
@@ -2438,13 +2451,22 @@ address {
 .ev-photo {
   position: relative;
   flex: none;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 4;
   background: var(--biglietto);
 }
 .ev-photo img {
   object-fit: cover;
+  object-position: center;
+}
+.evento-sheet .ev-photo {
+  aspect-ratio: 4 / 5;
+}
+.evento-sheet .ev-photo img {
+  object-fit: cover;
 }
 .ev-photo-empty {
+  aspect-ratio: auto;
+  min-height: 88px;
   background-image: repeating-linear-gradient(180deg, transparent 0 23px, var(--riga-salvia) 23px 24px);
   display: flex;
   align-items: center;
@@ -3094,11 +3116,12 @@ address {
 }
 .day-photos {
   display: flex;
-  flex-wrap: wrap;
-  align-content: flex-end;
+  flex-wrap: nowrap;
+  align-items: end;
   gap: 8px;
   margin: 0;
   min-height: 0;
+  overflow-x: auto;
 }
 .photo-shot {
   display: flex;
@@ -3121,10 +3144,14 @@ address {
   flex: none;
 }
 .day-photos .photo-frame {
-  height: 110px;
-  aspect-ratio: 4 / 3;
+  height: auto;
+  aspect-ratio: 3 / 4;
   border-radius: 14px;
   font-size: 10px;
+}
+.day.is-wide .day-photos > .photo-frame {
+  width: 148px;
+  flex: none;
 }
 .day-photos > .photo-shot .photo-frame {
   width: 100%;
@@ -3387,10 +3414,65 @@ address {
   line-height: 1;
 }
 .novita-cap span { font-size: 15px; color: var(--testo-muto); }
-.ev-grid.novita-tagli { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 40px; }
-.novita-tagli .ev-body { height: auto; min-height: 132px; padding-bottom: 12px; }
+.ev-grid.novita-tagli {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 28px;
+  overflow-x: auto;
+}
+.novita-tagli > .ev-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 168px;
+  min-width: 168px;
+  height: auto;
+  overflow: hidden;
+}
+.novita-tagli .ev-photo,
+.novita-tagli .ev-photo-empty {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: 0;
+  margin: 0;
+  padding: 133.333% 0 0;
+  aspect-ratio: auto;
+  min-height: 0;
+  overflow: hidden;
+  font-size: 0;
+  line-height: 0;
+}
+.novita-tagli .ev-body {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: auto;
+  overflow: visible;
+  padding: 12px 12px 0;
+}
+.novita-tagli .ev-dish { font-size: 18px; }
+.novita-tagli .ev-meta {
+  display: block;
+  overflow: visible;
+  white-space: normal;
+}
+.novita-tagli .ev-book { padding: 8px 12px 12px; }
+.novita-tagli .ev-book a { min-height: 36px; font-size: 14px; }
 .evento-sheet .photo-row { margin-top: 0; grid-template-columns: 1.3fr 1fr 1fr; }
 .evento-sheet .photo-row .photo-frame:not(:first-child) { aspect-ratio: 1 / 1; align-self: end; }
+.evento-sheet .photo-row.aperitivo-foto {
+  grid-template-columns: repeat(2, minmax(0, 240px));
+  justify-content: start;
+  align-items: start;
+  margin-top: 22px;
+}
+.evento-sheet .photo-row.aperitivo-foto .photo-frame,
+.evento-sheet .photo-row.aperitivo-foto .photo-frame:not(:first-child) {
+  aspect-ratio: 3 / 4;
+  align-self: start;
+}
 .photo-row-tre { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .tappe {
   display: grid;
@@ -3438,10 +3520,10 @@ address {
   margin-top: 14px;
 }
 .menu-row.is-spinta.has-photo .spinta-main { grid-area: 1 / 3 / span 3; }
-.spinta-thumbs .photo-frame { aspect-ratio: 1 / 1; border-radius: 18px; }
+.spinta-thumbs .photo-frame { aspect-ratio: 3 / 4; border-radius: 18px; }
 .spinta-thumbs .photo-frame.is-slot { padding: 10px; }
 .spinta-thumbs .slot-hint { font-size: 19px; }
-.spinta-main .photo-frame { aspect-ratio: 4 / 3; }
+.spinta-main .photo-frame { aspect-ratio: 3 / 4; }
 .spinta-link {
   font-weight: 700;
   color: var(--inchiostro);
@@ -3460,10 +3542,41 @@ address {
 .slot-card .photo-frame { width: 100%; cursor: crosshair; }
 .slot-file { font-size: 13px; word-break: break-all; }
 .slot-warn { color: var(--inchiostro-mano); font-weight: 700; }
+.admin-wrap.con-vivo { max-width: none; margin: 0; padding: 32px 24px 80px; }
+.foto-vivo {
+  position: fixed;
+  z-index: 30;
+  top: 76px;
+  right: 16px;
+  width: min(460px, 36vw);
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  background: var(--carta);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+}
+.foto-vivo h2 {
+  margin: 0;
+  font-family: var(--font-rokkitt), serif;
+  font-size: 28px;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+.foto-vivo p { margin: 0; font-size: 14px; }
+.foto-vivo .admin-nav { display: flex; flex-wrap: wrap; gap: 8px; }
+.foto-vivo .anteprima-iframe { height: calc(100vh - 230px); min-height: 420px; }
+.admin-wrap.con-vivo { padding-right: calc(min(460px, 36vw) + 40px); }
+@media (max-width: 1100px) {
+  .admin-wrap.con-vivo { padding-right: 24px; }
+  .foto-vivo { position: static; width: auto; margin: 0 0 28px; }
+  .foto-vivo .anteprima-iframe { height: 70vh; }
+}
 .anteprima-iframe { width: 100%; height: 80vh; border: 2px solid var(--ink); border-radius: 16px; background: var(--fondo); }
 .anteprima-iframe.mobile { width: min(390px, 100%); }
 @media (max-width: 1000px) {
-  .ev-grid.novita-tagli { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .novita-tagli > .ev-card { flex-basis: 180px; }
 }
 @media (max-width: 860px) {
   .tappe { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -3473,9 +3586,7 @@ address {
   .menu-row.is-spinta.has-photo .spinta-thumbs { grid-area: 4 / 1 / auto / span 2; }
 }
 @media (max-width: 760px) {
-  .evento-sheet .photo-row { grid-template-columns: 1fr 1fr; }
-  .evento-sheet .photo-row .photo-frame:first-child { grid-column: 1 / -1; }
-}
-@media (max-width: 640px) {
-  .ev-grid.novita-tagli { grid-template-columns: minmax(0, 1fr); }
+  .evento-sheet .photo-row:not(.aperitivo-foto) { grid-template-columns: 1fr 1fr; }
+  .evento-sheet .photo-row:not(.aperitivo-foto) .photo-frame:first-child { grid-column: 1 / -1; }
+  .evento-sheet .photo-row.aperitivo-foto { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
