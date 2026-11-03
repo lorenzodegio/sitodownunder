@@ -1,15 +1,38 @@
+import { PhotoFrame } from "@/components/PhotoFrame";
 import { PranzoTabs } from "@/components/PranzoTabs";
 import { caveat } from "@/components/duc-font";
+import type { PublicPhoto } from "@/lib/archivio-shared";
 import { loadMenuPranzo } from "@/lib/blob-archive";
 import { REGOLA_PRANZO, WEEK_PENDING, presentMenuPranzo } from "@/lib/pranzo-settimana";
 
-export async function MenuPranzoSettimana({ variant = "card" }: { variant?: "card" | "page" }) {
+function PranzoFoto({ photos }: { photos: readonly PublicPhoto[] }) {
+  return (
+    <div className="pranzo-foto">
+      {photos.length ? (
+        photos.map((photo) => (
+          <PhotoFrame key={photo.src} photo={{ src: photo.src, label: photo.alt, ratio: "landscape", radius: 20 }} />
+        ))
+      ) : (
+        <PhotoFrame photo={{ src: null, label: "foto pranzo", ratio: "landscape", radius: 20 }} />
+      )}
+    </div>
+  );
+}
+
+export async function MenuPranzoSettimana({
+  variant = "card",
+  photos = [],
+}: {
+  variant?: "card" | "page";
+  photos?: readonly PublicPhoto[];
+}) {
   const view = presentMenuPranzo(await loadMenuPranzo());
 
   if (variant === "page") {
     return (
       <section className={`${caveat.variable} pranzo-page`} aria-labelledby="pranzo-week-title">
         <h2 id="pranzo-week-title">Menù pranzo della settimana</h2>
+        <PranzoFoto photos={photos} />
         {view.status === "pending" ? (
           <p>{WEEK_PENDING}</p>
         ) : (
@@ -22,6 +45,7 @@ export async function MenuPranzoSettimana({ variant = "card" }: { variant?: "car
                   {giorno.voci.map((voce, index) => (
                     <li key={`${voce.nome}-${index}`}>
                       {voce.tipo} · {voce.nome}
+                      {voce.unico ? <span className="piatto-unico">piatto unico</span> : null}
                       {voce.nota ? ` (${voce.nota})` : ""}
                     </li>
                   ))}

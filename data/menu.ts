@@ -18,7 +18,7 @@ export const vociMenu: readonly VoceMenu[] = [
   },
   {
     name: "Le Pizze",
-    text: "Dalla margherita a burrata, crudo e pistacchio. Si mangiano in sala, e si possono ordinare anche d’asporto.",
+    text: "Dalla margherita a burrata, crudo e pistacchio. Sì, puoi fare la foto prima.",
     price: "[prezzo da confermare]",
   },
   {
@@ -27,18 +27,8 @@ export const vociMenu: readonly VoceMenu[] = [
     price: "[prezzo da confermare]",
   },
   {
-    name: "Le Specialità",
-    text: "I piatti della cucina. Cambiano spesso, quindi in sala si chiede.",
-    price: "[prezzo da confermare]",
-  },
-  {
-    name: "Club Sandwich & Hotdog",
-    text: "I classici da pub, con patatine. Zero sorprese, solo gioie.",
-    price: "[prezzo da confermare]",
-  },
-  {
-    name: "Taglieri",
-    text: "Da dividere all’ape.",
+    name: "Specialità",
+    text: "Pulled pork, tartare e roastbeef.",
     price: "[prezzo da confermare]",
   },
   {
@@ -55,5 +45,10 @@ export const vociMenu: readonly VoceMenu[] = [
     name: "Vini, Bolle & Birre",
     text: "Al calice, in bottiglia, alla spina.",
     price: "[prezzo da confermare]",
+  },
+  {
+    name: "E altro",
+    text: "hot dog · club sandwich · taglieri",
+    price: "",
   },
 ];

@@ -16,11 +16,20 @@ export function PhotoFrame({ photo }: { photo: Photo }) {
     .filter(Boolean)
     .join(" ");
 
+  if (photo.src) {
+    return (
+      <figure className="photo-shot">
+        <div className={classes}>
+          <Image src={photo.src} alt={photo.label} fill sizes="(max-width: 800px) 90vw, 320px" className="photo-img" />
+        </div>
+        {photo.label ? <figcaption className="photo-caption">{photo.label}</figcaption> : null}
+      </figure>
+    );
+  }
+
   return (
     <div className={classes}>
-      {photo.src ? (
-        <Image src={photo.src} alt={photo.label} fill sizes="(max-width: 800px) 90vw, 320px" className="photo-img" />
-      ) : photo.fallbackSrc ? (
+      {photo.fallbackSrc ? (
         <Image
           src={photo.fallbackSrc}
           alt={photo.fallbackAlt || ""}

@@ -5,11 +5,13 @@ import { aperitivoDomenica, aperitivoDomenicaVisibile, whatsappAperitivoGruppo }
 import { eventiFormat, eventiSingoli, whatsappEvento } from "@/data/eventi";
 import { locale } from "@/data/locale";
 import type { PublicPhoto } from "@/lib/archivio-shared";
+import type { SlotVista } from "@/lib/slot-types";
+import { SlotFrame } from "@/components/SlotFrame";
 
 const whatsappDomenica =
   "https://wa.me/393384395727?text=Ciao%2C%20vorrei%20prenotare%20per%20l%27aperitivo%20della%20domenica";
 
-export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
+export function Prossimamente({ photos, vista }: { photos: readonly PublicPhoto[]; vista: SlotVista }) {
   const format = eventiFormat();
   const singoli = eventiSingoli();
   const domenica = aperitivoDomenicaVisibile();
@@ -20,7 +22,6 @@ export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
       <Decorazioni dove="paper" />
       <div className="chapter-wrap chapter-stack">
         <div className="chapter-intro">
-          <span className="kicker">capitolo I · il diario di bordo</span>
           <h2 id="prossimamente-title" className="display">
             Prossimamente
           </h2>
@@ -61,7 +62,7 @@ export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
                     <div key={giorno.data} className={giorno.isNext ? "ev-card is-next" : "ev-card"}>
                       <div className={photo ? "ev-photo" : "ev-photo ev-photo-empty"}>
                         {photo ? (
-                          <Image src={photo} alt={alt} fill sizes="(max-width: 640px) 100vw, 25vw" />
+                          <Image src={photo} alt={alt} fill sizes="(max-width: 640px) 100vw, 25vw" className="photo-img" />
                         ) : (
                           <span>foto del piatto</span>
                         )}
@@ -136,6 +137,10 @@ export function Prossimamente({ photos }: { photos: readonly PublicPhoto[] }) {
                     Chiama
                   </a>
                 </div>
+              </div>
+              <div className="photo-row aperitivo-foto">
+                <SlotFrame id="05" record={vista.items["05"] ?? null} indicazioni={vista.indicazioni} adatta sizes="(max-width: 760px) 46vw, 280px" />
+                <SlotFrame id="06" record={vista.items["06"] ?? null} indicazioni={vista.indicazioni} adatta sizes="(max-width: 760px) 46vw, 280px" />
               </div>
             </article>
           </div>
