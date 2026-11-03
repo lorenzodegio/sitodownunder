@@ -43,7 +43,6 @@ export async function Menu({ vista }: { vista: SlotVista }) {
                     ) : null}
                   </p>
                 ) : null}
-                {"sotto" in item && item.sotto ? <p className="menu-sotto">{item.sotto}</p> : null}
                 {foto ? (
                   <>
                     <div className="spinta-thumbs">
