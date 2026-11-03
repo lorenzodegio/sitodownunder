@@ -53,7 +53,7 @@ export const FOTO_SLOTS: readonly FotoSlot[] = [
   slot("24", "carne", "carne", "carne", "1:1", "24 · 1:1", "Pulled pork sfilacciato", "/murales/centro-terra.png", centroAlt),
   slot("25", "carne", "carne", "carne", "1:1", "25 · 1:1", "Taglio crudo, marezzatura", "/murales/centro-terra.png", centroAlt),
   slot("26", "novita", "novita", "carne", "4:5", "Foto 26 · costata · 4:5", "La costata del mese, sul tagliere, cuore rosa visibile.", "/murales/centro-terra.png", centroAlt, { vuoto: "quaderno" }),
-  slot("27", "novita", "novita", "burger", "4:5", "Foto 27 · burger del mese · 4:5", "Il burger del mese, frontale, con gli strati visibili.", "/murales/mongolfiera.png", mongolfieraAlt, { vuoto: "quaderno" }),
+  slot("27", "novita", "novita", "burger", "4:5", "Foto 27 · Lo zuccotto · 4:5", "Lo zuccotto, frontale, con gli strati visibili.", "/murales/mongolfiera.png", mongolfieraAlt, { vuoto: "quaderno" }),
 ];
 
 function slot(

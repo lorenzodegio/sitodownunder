@@ -36,7 +36,7 @@ export async function NovitaCapitolo({ vista }: { vista: SlotVista }) {
             const prezzo = testoConfermato(voce.prezzo);
             const unita = testoConfermato(voce.unita);
             const descrizione = testoConfermato(voce.descrizione, record?.descrizione);
-            const meta = [peso, cottura].filter(Boolean).join(" · ") || descrizione;
+            const meta = descrizione || [peso, cottura].filter(Boolean).join(" · ");
             return (
             <article key={voce.id} className={index === 0 ? "ev-card is-next" : "ev-card"}>
               <SlotEvPhoto
