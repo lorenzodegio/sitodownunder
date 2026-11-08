@@ -217,7 +217,7 @@ export function AdminPanel({
           </label>
           <label>
             Nome, compare sotto la foto
-            <input name="alt" required maxLength={80} placeholder="es. Bacon burger" />
+            <input name="alt" required maxLength={80} placeholder="es. Burger al bacon" />
           </label>
           <label>
             Foto, massimo 4 MB

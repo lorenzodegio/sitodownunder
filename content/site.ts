@@ -61,7 +61,7 @@ export const site = {
     { href: "/#prossimamente", label: "prossimamente" },
     { href: "/#pranzo", label: "pranzo" },
     { href: "/#menu", label: "menù" },
-    { href: "/#garden", label: "garden" },
+    { href: "/#garden", label: "giardino" },
     { href: "/#eventi", label: "feste" },
     { href: "/#info", label: "orari" },
   ],
@@ -126,8 +126,8 @@ export const site = {
         time: "mar–sab 18:30 · dom 18:00",
         title: "Ape",
         text: showGarden
-          ? "L’aperitivo è il primo porto della serata: cocktail, bollicine e taglieri, in sala o nel garden. Se la sera si allunga, i format stanno nel diario di bordo."
-          : "L’aperitivo è il primo porto della serata: cocktail, bollicine e taglieri. Se la sera si allunga, i format stanno nel diario di bordo.",
+          ? "L’aperitivo è il primo porto della serata: cocktail, bollicine e taglieri, in sala o in giardino. Se la sera si allunga, gli appuntamenti stanno nel diario di bordo."
+          : "L’aperitivo è il primo porto della serata: cocktail, bollicine e taglieri. Se la sera si allunga, gli appuntamenti stanno nel diario di bordo.",
       },
       {
         tone: "paper",
@@ -175,9 +175,9 @@ export const site = {
     },
     garden: {
       src: null,
-      label: "foto del garden",
+      label: "foto del giardino",
       fallbackSrc: "/murales/gabbie.png",
-      fallbackAlt: "Murale della voliera di gabbie, al posto della foto del garden, Down Under Cafè Vanzago",
+      fallbackAlt: "Murale della voliera di gabbie, al posto della foto del giardino, Down Under Cafè Vanzago",
       ratio: "landscape",
       radius: 20,
     },
@@ -212,7 +212,7 @@ export const site = {
       },
       {
         title: "La call non finisce?",
-        text: "Take away: ordini al telefono, passi, mangi davanti al monitor. Non giudichiamo.",
+        text: "Asporto: ordini al telefono, passi, mangi davanti al monitor. Non giudichiamo.",
       },
     ],
     whatsappCta: "Prenota il tavolo su WhatsApp",
@@ -241,19 +241,19 @@ export const site = {
         slots: { main: "22", thumbs: ["23", "24", "25"] },
       },
       { name: "Specialità", text: "Pulled pork, tartare e roastbeef." },
-      { name: "I Dolci", text: "Fatti in casa. Il tiramisù ha un fan club." },
+      { name: "I Dolci", text: "Fatti in casa. Il tiramisù ha un seguito fedele." },
       { name: "I Cocktail", text: "I classici fatti come si deve, più quello che si inventa il bancone." },
       { name: "Vini, Bolle & Birre", text: "Al calice, in bottiglia, alla spina." },
       { name: "E altro", text: "Hot dog, club sandwich e taglieri." },
     ],
-    takeaway: "Serata divano? Take away sempre attivo: chiami, passi, sparisci.",
+    takeaway: "Serata divano? L’asporto è sempre attivo: chiami, passi, sparisci.",
     pdfLabel: "Scarica PDF",
     pdfHref: "/menu/pdf",
   },
   garden: {
     kicker: "capitolo VI · l’isola misteriosa",
-    title: "Garden mode: on.",
-    text: "Misteriosa fino a un certo punto: è il garden qui fuori. Gazebo, siepi, lucine. Appena il meteo collabora si mangia e si beve all’aperto.",
+    title: "Modalità giardino: accesa.",
+    text: "Misteriosa fino a un certo punto: è il giardino qui fuori. Gazebo, siepi, lucine. Appena il meteo collabora si mangia e si beve all’aperto.",
   },
   eventi: {
     kicker: "capitolo V · dalla Terra alla Luna",

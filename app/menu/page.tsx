@@ -23,6 +23,12 @@ export const metadata: Metadata = {
     type: "website",
     url: "/menu",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Menù · Down Under Cafè Vanzago",
+    description:
+      "Burger, pizze, cocktail e pranzo. Primo e secondo con contorno da 14€. Il PDF si scarica da questa pagina.",
+  },
 };
 
 export const revalidate = 3600;
@@ -65,7 +71,7 @@ export default async function MenuPage() {
             ))}
           </ul>
 
-          <h2>Format</h2>
+          <h2>Appuntamenti</h2>
           <p>I martedì della nonna sono solo a cena, solo su prenotazione.</p>
           {aperitivoDomenicaVisibile() ? (
             <p>
