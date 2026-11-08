@@ -42,7 +42,7 @@ export function Giornata() {
               <p>{card.text}</p>
               {card.title === "Ape" ? (
                 <a className="day-more" href="#prossimamente">
-                  I format della settimana →
+                  Gli appuntamenti della settimana →
                 </a>
               ) : null}
             </article>

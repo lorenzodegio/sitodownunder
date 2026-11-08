@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: page.h1,
+      title: `${page.h1} · Down Under Cafè Vanzago`,
       description: page.description,
     },
   };
