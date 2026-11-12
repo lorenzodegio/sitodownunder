@@ -3638,6 +3638,12 @@ address {
 [data-season]:has(.hero + .natale) .site-header {
   background: #1a2326;
 }
+.hero:has(+ .natale) {
+  padding-bottom: 40px;
+}
+.hero:has(+ .natale) .hero-actions {
+  gap: 22px;
+}
 .hero:has(+ .natale) .nuvole {
   display: none;
 }
