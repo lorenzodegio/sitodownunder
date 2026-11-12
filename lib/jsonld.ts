@@ -1,4 +1,5 @@
 import { homeFaq, type Faq } from "@/data/faq";
+import { natale, nataleFaq } from "@/data/natale";
 import { showGarden } from "@/data/flags";
 import { areaServed, hours, locale, schemaDays } from "@/data/locale";
 import { eventiAttivi } from "@/data/eventi";
@@ -150,6 +151,29 @@ export function localJsonLd(page: { h1: string; slug: string; faq: readonly Faq[
   return {
     "@context": "https://schema.org",
     "@graph": [breadcrumb(page.h1, `/${page.slug}`), faqNode(page.faq, `${siteUrl()}/${page.slug}#faq`)],
+  };
+}
+
+export function nataleJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Restaurant",
+        "@id": `${siteUrl()}/#ristorante`,
+        name: locale.name,
+        makesOffer: natale.proposte.map((proposta) => ({
+          "@type": "Offer",
+          name: proposta.nome,
+          description: proposta.frase,
+          price: proposta.prezzo,
+          priceCurrency: "EUR",
+          availabilityEnds: "2026-12-31",
+          url: absoluteUrl("/cene-di-natale"),
+        })),
+      },
+      faqNode(nataleFaq, `${siteUrl()}/cene-di-natale#faq`),
+    ],
   };
 }
 

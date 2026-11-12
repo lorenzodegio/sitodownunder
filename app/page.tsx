@@ -1,3 +1,4 @@
+import { CeneNatale } from "@/components/CeneNatale";
 import { Cucitura } from "@/components/Cucitura";
 import { Eventi } from "@/components/Eventi";
 import { Garden } from "@/components/Garden";
@@ -14,6 +15,7 @@ import { Zona } from "@/components/Zona";
 import { showGarden } from "@/data/flags";
 import { loadPublicPhotos, loadSlotArchivio, slotPubblicati } from "@/lib/blob-archive";
 import { homeJsonLd } from "@/lib/jsonld";
+import { nataleAttivo } from "@/lib/natale";
 import { loadSlotVista } from "@/lib/slot-vista";
 
 export const revalidate = 3600;
@@ -25,6 +27,8 @@ export default async function HomePage() {
     <SiteFrame id="top">
       <JsonLd data={homeJsonLd(photos, slotPubblicati(slots))} />
       <Hero />
+      <CeneNatale />
+      {nataleAttivo() ? <Cucitura da="natale" a="carta" motivo="onda" /> : null}
       <NovitaCapitolo vista={vista} />
       <Prossimamente photos={photos.martedi} vista={vista} />
       <Cucitura da="carta" a="biglietto" motivo="mare" />

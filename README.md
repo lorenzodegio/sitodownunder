@@ -45,6 +45,7 @@ La sezione garden si accende con `showGarden` in `data/flags.ts`. I martedì del
 2. Su [vercel.com](https://vercel.com) importa il repository e collega lo store Blob (Storage → Blob → Connect).
 3. In Project → Settings → Environment Variables imposta `ADMIN_PASSWORD`, `BLOB_READ_WRITE_TOKEN` solo per Production e `PREVIEWBLOB_READ_WRITE_TOKEN` per Preview e Development. Nessuno ha un valore di default. Se manca il token di quell’ambiente, l’admin si ferma e non usa l’altro store.
 4. `NEXT_PUBLIC_SITE_URL` va impostata solo quando c’è il dominio definitivo, e solo in produzione se vuoi che Google indicizzi. Finché manca, tutto il sito — produzione compresa — risponde `noindex`. Sitemap, robots e canonical usano quella variabile se c’è; altrimenti l’host di produzione Vercel in produzione e l’host del branch in preview. Se il canonical punta a un `.vercel.app`, manca `NEXT_PUBLIC_SITE_URL` in Production.
-5. Framework: Next.js. Deploy.
+5. Accendere le cene di Natale: Vercel › Settings › Environment Variables › `NATALE_ATTIVO=1` solo su Production › Redeploy dell’ultimo deploy di `main`. Per spegnerle: togli la variabile e Redeploy.
+6. Framework: Next.js. Deploy.
 
 Il comando `npm run build` deve terminare senza errori prima del deploy. La checklist fuori dal codice sta in `README-SEO.md`.
