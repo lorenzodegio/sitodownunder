@@ -15,7 +15,7 @@ export const natale = {
       voci: [
         "Piatto aperitivo",
         "Una consumazione",
-        "Pandoro o panettone con crema al mascarpone",
+        "Pandoro o panettone con crema al mascarpone fatta in casa",
       ],
     },
     {
@@ -25,9 +25,10 @@ export const natale = {
       frase: "perché a dicembre fa freddo, ok?",
       prezzo: 30,
       voci: [
-        "Piatto aperitivo con consumazione",
-        "Primo piatto caldo: orecchiette al ragù di salsiccia fresca",
-        "Pandoro o panettone con crema al mascarpone",
+        "Piatto aperitivo",
+        "Una consumazione",
+        "Orecchiette al sugo di salsiccia fresca",
+        "Pandoro o panettone con crema al mascarpone fatta in casa",
       ],
     },
     {
@@ -37,12 +38,12 @@ export const natale = {
       frase: "la rotta completa, dal tagliere al caffè",
       prezzo: 40,
       voci: [
-        "Tagliere di coppa piacentina, salame felino e prosciutto crudo di Parma, con la nostra focaccia alta",
-        "Carpaccio di vitello cotto a bassa temperatura con la sua salsa",
-        "Orecchiette al ragù di luganega fresca",
-        "Roast beef di picanha affumicata con patate rustiche al forno",
+        "Tagliere di salumi con la nostra focaccia alta",
+        "Carpaccio di vitello",
+        "Orecchiette al sugo di salsiccia fresca",
+        "Roast beef di picanha affumicata con patate rustiche",
+        "Coperto, acqua, caffè e una bottiglia di vino ogni 5 persone",
       ],
-      incluso: "Coperto, acqua, caffè e una bottiglia di vino ogni 5 persone",
     },
   ],
 } as const;
