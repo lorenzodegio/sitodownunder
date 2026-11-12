@@ -61,20 +61,11 @@ export async function Hero() {
             <span className="in d4 soft">{again}</span>
           </p>
           {nataleAttivo() ? (
-            <a className="nonna-line" href="#natale">
-              <Murale
-                src="/murales/mano-welcome.png"
-                alt=""
-                decorative
-                width={844}
-                height={207}
-                invert
-                className="nonna-hand"
-              />
-              <span>
-                <span className="nonna-hand-title">Cene di Natale · prenota per dicembre</span>
-                <span className="nonna-hand-cta">Vedi i menù →</span>
-              </span>
+            <a className="natale-banner" href="#natale">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="#FFFCF4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2l2.4 6.9H22l-6 4.5 2.3 7L12 16l-6.3 4.4 2.3-7-6-4.5h7.6z" />
+              </svg>
+              Cene di Natale · prenota per dicembre
             </a>
           ) : mostraNovita ? (
             <a className="nonna-line" href="#novita">

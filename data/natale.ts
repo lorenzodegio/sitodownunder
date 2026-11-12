@@ -2,8 +2,9 @@ import { locale } from "@/data/locale";
 
 export const natale = {
   titolo: "Il giro del Natale in tre menù",
-  sottotitolo: "Cene aziendali o tra amici. Tu porti la squadra, noi la rotta.",
-  condizioni: "Proposte valide per tutto dicembre, per almeno 10 persone.",
+  sottotitolo:
+    "Cene aziendali o tra amici. Tu porti la squadra, noi la rotta: scegli fin dove spingerti.",
+  condizioni: "Tutto dicembre · minimo 10 persone",
   proposte: [
     {
       id: "aperitivo",
