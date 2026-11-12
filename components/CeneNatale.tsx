@@ -66,11 +66,22 @@ export function CeneNatale() {
   return (
     <section id="natale" className={`${caveat.variable} natale`} aria-labelledby="natale-title">
       <svg className="natale-luci" aria-hidden="true" viewBox="0 0 1440 60" preserveAspectRatio="xMidYMin slice">
-        <path d="M0 10 Q720 66 1440 10" fill="none" stroke="#F6EFDF" strokeOpacity="0.35" strokeWidth="1.6" />
+        <path d="M0 2 Q720 58 1440 2" fill="none" stroke="#F6EFDF" strokeOpacity="0.35" strokeWidth="1.6" />
         {luci.map(([x, y], index) => (
-          <g key={x} transform={`translate(${x} ${y})`}>
+          <g key={x} transform={`translate(${x} ${y - 8})`}>
             <rect x="-3" y="-2" width="6" height="5" rx="1" fill="#F6EFDF" opacity="0.5" />
-            <ellipse cx="0" cy="10" rx="5.5" ry="8" fill={CICLO[index % CICLO.length]} />
+            <ellipse
+              className="natale-lampadina"
+              cx="0"
+              cy="10"
+              rx="5.5"
+              ry="8"
+              fill={CICLO[index % CICLO.length]}
+              style={{
+                animationDuration: `${1.1 + (index % 5) * 0.35}s`,
+                animationDelay: `${(index % 7) * 0.17}s`,
+              }}
+            />
           </g>
         ))}
       </svg>

@@ -1430,7 +1430,8 @@ p {
   .dot,
   .leaf,
   .rv,
-  .natale-luci {
+  .natale-luci,
+  .natale-lampadina {
     animation: none !important;
   }
 }
@@ -3632,11 +3633,27 @@ address {
   position: absolute;
   pointer-events: none;
 }
+.hero:has(+ .natale) .nuvole {
+  display: none;
+}
 .natale-luci {
   left: 0;
   top: 0;
   width: 100%;
   height: 60px;
+}
+.natale-lampadina {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation-name: natale-lampo;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 0 4px rgba(255, 214, 120, 0.9));
+}
+@keyframes natale-lampo {
+  0%, 40% { opacity: 1; }
+  52%, 90% { opacity: 0.15; }
+  100% { opacity: 1; }
 }
 .natale-mongolfiera {
   right: -40px;
