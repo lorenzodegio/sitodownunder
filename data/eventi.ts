@@ -101,6 +101,7 @@ export type DataVista = DataEvento & {
   breve: string;
   short: string;
   isNext: boolean;
+  passato: boolean;
 };
 
 export type EventoVista = Omit<Evento, "date"> & {
@@ -126,6 +127,7 @@ export function eventiAttivi(now = new Date()): EventoVista[] {
       breve: formatGiornoBreve(item.data),
       short: formatMartediShort(item.data),
       isNext: item.data === nextDate,
+      passato: item.data < today,
     }));
     const next = date.find((item) => item.isNext);
     if (!next) continue;
