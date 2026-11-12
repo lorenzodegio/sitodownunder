@@ -110,28 +110,23 @@ export function CeneNatale() {
         </div>
 
         <div className="natale-grid">
-          {natale.proposte.map((proposta, index) => {
-            const cena = proposta.numero === "III";
-            return (
+          {natale.proposte.map((proposta, index) => (
               <article key={proposta.id} className={`natale-card ${tilt[index] ?? ""}`}>
                 <div className="natale-nastro" aria-hidden="true" />
                 <Fiocco />
                 <p className="natale-proposta">Proposta {proposta.numero}</p>
                 <h3>{proposta.nome}</h3>
                 <p className="natale-frase">{proposta.frase}</p>
-                <ul className={cena ? "natale-portate" : undefined}>
+                <ul>
                   {proposta.voci.map((voce, voceIndex) => (
                     <li key={voce}>
-                      {cena ? null : (
-                        <span className="natale-segno" aria-hidden="true">
-                          {voceIndex > 0 ? "+" : ""}
-                        </span>
-                      )}
+                      <span className="natale-segno" aria-hidden="true">
+                        {voceIndex > 0 ? "+" : ""}
+                      </span>
                       <span>{voce}</span>
                     </li>
                   ))}
                 </ul>
-                {"incluso" in proposta ? <p className="natale-incluso">{proposta.incluso}</p> : null}
                 <div className="natale-piede">
                   <p className="natale-prezzo">
                     <span>
@@ -149,8 +144,7 @@ export function CeneNatale() {
                   </a>
                 </div>
               </article>
-            );
-          })}
+          ))}
         </div>
 
         <div className="natale-azioni">
