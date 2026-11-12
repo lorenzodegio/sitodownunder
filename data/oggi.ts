@@ -2,8 +2,9 @@ import { romeToday, romeWeekday } from "@/data/calendario";
 import { aperitivoDomenica, aperitivoDomenicaVisibile } from "@/data/format";
 import { eventiAttivi, prossimoMartedi } from "@/data/eventi";
 import { hours } from "@/data/locale";
+import { nataleAttivo } from "@/lib/natale";
 
-export type MomentoId = "evento" | "pranzo" | "nonna" | "aperitivo-domenica" | "ape-cena";
+export type MomentoId = "evento" | "pranzo" | "nonna" | "aperitivo-domenica" | "natale" | "ape-cena";
 
 /**
  * Chi vince, dall'alto in basso. Per spingere il pranzo basta metterlo per primo:
@@ -14,6 +15,7 @@ export const prioritaMomenti: readonly MomentoId[] = [
   "pranzo",
   "nonna",
   "aperitivo-domenica",
+  "natale",
   "ape-cena",
 ];
 
@@ -61,6 +63,10 @@ function attivo(id: MomentoId, now: Date): boolean {
   }
   if (id === "aperitivo-domenica") {
     return weekday === 0 && aperitivoDomenicaVisibile() && minutes >= 18 * 60 && minutes < 20 * 60;
+  }
+  if (id === "natale") {
+    if (!nataleAttivo(now) || romeToday(now) > "2026-12-23") return false;
+    return hours[weekday]?.some(([start]) => start >= 18 * 60) ?? false;
   }
   return hours[weekday]?.some(([start]) => start >= 18 * 60) ?? false;
 }
@@ -124,6 +130,17 @@ export function presentaMomento(now = new Date(), piattiPranzo: readonly string[
       testo: `${aperitivoDomenica.orario} · ${aperitivoDomenica.include} · ${aperitivoDomenica.prezzo}`,
       href: "#format-domenica",
       cta: "Prenota",
+    };
+  }
+
+  if (id === "natale") {
+    return {
+      id,
+      kicker: "Dicembre",
+      titolo: "Cene di Natale",
+      testo: "Tre menù per gruppi, da 20€. Almeno 10 persone.",
+      href: "#natale",
+      cta: "Prenota per dicembre",
     };
   }
 

@@ -1,3 +1,4 @@
+import { CeneNatale } from "@/components/CeneNatale";
 import { Cucitura } from "@/components/Cucitura";
 import { Eventi } from "@/components/Eventi";
 import { Garden } from "@/components/Garden";
@@ -25,6 +26,7 @@ export default async function HomePage() {
     <SiteFrame id="top">
       <JsonLd data={homeJsonLd(photos, slotPubblicati(slots))} />
       <Hero />
+      <CeneNatale />
       <NovitaCapitolo vista={vista} />
       <Prossimamente photos={photos.martedi} vista={vista} />
       <Cucitura da="carta" a="biglietto" motivo="mare" />

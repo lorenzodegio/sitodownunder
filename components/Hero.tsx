@@ -9,6 +9,7 @@ import { site } from "@/content/site";
 import { eventiAttivi } from "@/data/eventi";
 import { elencoNomi, meseNovita, novitaInElenco } from "@/data/novita";
 import { theme } from "@/data/theme";
+import { nataleAttivo } from "@/lib/natale";
 import { stagioneAttiva } from "@/lib/season";
 
 const stars = [
@@ -59,7 +60,23 @@ export async function Hero() {
             <span className="in d3">{cena}</span>
             <span className="in d4 soft">{again}</span>
           </p>
-          {mostraNovita ? (
+          {nataleAttivo() ? (
+            <a className="nonna-line" href="#natale">
+              <Murale
+                src="/murales/mano-welcome.png"
+                alt=""
+                decorative
+                width={844}
+                height={207}
+                invert
+                className="nonna-hand"
+              />
+              <span>
+                <span className="nonna-hand-title">Cene di Natale · prenota per dicembre</span>
+                <span className="nonna-hand-cta">Vedi i menù →</span>
+              </span>
+            </a>
+          ) : mostraNovita ? (
             <a className="nonna-line" href="#novita">
               <Murale
                 src="/murales/mano-welcome.png"

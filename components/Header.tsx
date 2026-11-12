@@ -2,11 +2,13 @@ import Link from "next/link";
 import { showGarden } from "@/data/flags";
 import { novitaInElenco } from "@/data/novita";
 import { site } from "@/content/site";
+import { nataleAttivo } from "@/lib/natale";
 
 export function Header() {
   const novitaVisibile = novitaInElenco().length > 0;
   const links = site.nav.filter((item) => {
     if (!showGarden && item.href === "/#garden") return false;
+    if (item.href === "/#natale" && !nataleAttivo()) return false;
     if (item.href === "/#novita" && !novitaVisibile) return false;
     return true;
   });

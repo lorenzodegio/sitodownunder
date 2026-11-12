@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { pagineLocali } from "@/data/pagine-locali";
 import { urlMediaSlot } from "@/lib/archivio-shared";
 import { loadSlotArchivio, slotPubblicati } from "@/lib/blob-archive";
+import { nataleAttivo } from "@/lib/natale";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -13,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     images = [];
   }
   const pages = ["/", "/menu", ...pagineLocali.map((page) => `/${page.slug}`)];
+  if (nataleAttivo()) pages.push("/cene-di-natale");
   return pages.map((path) => ({
     url: `${siteUrl()}${path === "/" ? "/" : path}`,
     lastModified,

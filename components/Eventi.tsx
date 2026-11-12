@@ -1,6 +1,7 @@
 import { Decorazioni } from "@/components/Decorazioni";
 import { site } from "@/content/site";
 import { capitolo } from "@/lib/capitoli";
+import { nataleAttivo } from "@/lib/natale";
 
 export function Eventi() {
   return (
@@ -13,6 +14,11 @@ export function Eventi() {
             {site.eventi.title}
           </h2>
           <p className="prose-lg prose-mutedL">{site.eventi.text}</p>
+          {nataleAttivo() ? (
+            <p className="prose-lg">
+              <a href="#natale">A dicembre ci sono i menù di Natale per gruppi →</a>
+            </p>
+          ) : null}
           <div className="chips">
             {site.eventi.tags.map((tag) => (
               <span key={tag} className="pill chip">

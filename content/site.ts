@@ -57,6 +57,7 @@ export const site = {
     url: locale.instagram,
   },
   nav: [
+    { href: "/#natale", label: "Natale" },
     { href: "/#novita", label: "novità" },
     { href: "/#prossimamente", label: "prossimamente" },
     { href: "/#pranzo", label: "pranzo" },
