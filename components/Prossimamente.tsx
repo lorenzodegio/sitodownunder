@@ -2,7 +2,7 @@ import Image from "next/image";
 import { caveat } from "@/components/duc-font";
 import { Decorazioni } from "@/components/Decorazioni";
 import { aperitivoDomenica, aperitivoDomenicaVisibile, whatsappAperitivoGruppo } from "@/data/format";
-import { eventiFormat, eventiSingoli, whatsappEvento } from "@/data/eventi";
+import { eventiFormat, eventiSingoli, whatsappEvento, type EventoVista, type DataVista } from "@/data/eventi";
 import { locale } from "@/data/locale";
 import type { PublicPhoto } from "@/lib/archivio-shared";
 import type { SlotVista } from "@/lib/slot-types";
@@ -10,6 +10,11 @@ import { SlotFrame } from "@/components/SlotFrame";
 
 const whatsappDomenica =
   "https://wa.me/393384395727?text=Ciao%2C%20vorrei%20prenotare%20per%20l%27aperitivo%20della%20domenica";
+
+function PrenotaGiorno({ evento, giorno }: { evento: EventoVista; giorno: DataVista }) {
+  if (giorno.passato) return <span className="ev-passato">finito</span>;
+  return <a href={whatsappEvento(evento.prenotazione, giorno.short)}>Prenota il {giorno.breve}</a>;
+}
 
 export function Prossimamente({ photos, vista }: { photos: readonly PublicPhoto[]; vista: SlotVista }) {
   const format = eventiFormat();
@@ -77,7 +82,7 @@ export function Prossimamente({ photos, vista }: { photos: readonly PublicPhoto[
                         <span>a persona</span>
                       </div>
                       <div className="ev-book">
-                        <a href={whatsappEvento(evento.prenotazione, giorno.short)}>Prenota il {giorno.breve}</a>
+                        <PrenotaGiorno evento={evento} giorno={giorno} />
                       </div>
                     </div>
                   );
@@ -184,7 +189,7 @@ export function Prossimamente({ photos, vista }: { photos: readonly PublicPhoto[
                         <span>a persona</span>
                       </div>
                       <div className="ev-book">
-                        <a href={whatsappEvento(evento.prenotazione, giorno.short)}>Prenota il {giorno.breve}</a>
+                        <PrenotaGiorno evento={evento} giorno={giorno} />
                       </div>
                     </div>
                   ))}

@@ -2539,20 +2539,26 @@ address {
   margin-top: auto;
   padding: 12px 20px 20px;
 }
-.ev-book a {
+.ev-book a,
+.ev-book .ev-passato {
   display: flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
   min-height: 44px;
-  border: 1.5px solid var(--inchiostro);
   border-radius: 999px;
   padding: 10px 14px;
   font-weight: 700;
   font-size: 14px;
   line-height: 1.2;
   text-align: center;
+}
+.ev-book a {
+  border: 1.5px solid var(--inchiostro);
   white-space: nowrap;
+}
+.ev-book .ev-passato {
+  color: var(--testo-muto);
 }
 
 .pranzo-card {
