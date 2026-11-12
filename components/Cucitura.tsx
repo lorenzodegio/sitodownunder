@@ -5,6 +5,7 @@ const tono = {
   carta: "var(--carta)",
   fondo: "var(--fondo)",
   biglietto: "var(--biglietto)",
+  natale: "#1A2326",
 } as const;
 
 type Tono = keyof typeof tono;

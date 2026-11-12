@@ -3633,6 +3633,11 @@ address {
   position: absolute;
   pointer-events: none;
 }
+.hero:has(+ .natale),
+[data-season] .hero:has(+ .natale),
+[data-season]:has(.hero + .natale) .site-header {
+  background: #1a2326;
+}
 .hero:has(+ .natale) .nuvole {
   display: none;
 }
