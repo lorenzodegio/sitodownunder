@@ -8,3 +8,4 @@ _design
 .env
 .env*.local
 .env*
+!.env.example

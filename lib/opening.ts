@@ -19,8 +19,8 @@ function isWeekday(value: number): value is Weekday {
 }
 
 /** Stessa conversione dello script originale: l’orologio di Roma, letto in locale. */
-export function romeNow(): Date {
-  return new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" }));
+export function romeNow(now = new Date()): Date {
+  return new Date(now.toLocaleString("en-US", { timeZone: "Europe/Rome" }));
 }
 
 export function formatMinutes(total: number): string {

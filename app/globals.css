@@ -1429,7 +1429,9 @@ p {
   .dash,
   .dot,
   .leaf,
-  .rv {
+  .rv,
+  .natale-luci,
+  .natale-lampadina {
     animation: none !important;
   }
 }
@@ -3589,4 +3591,334 @@ address {
   .evento-sheet .photo-row:not(.aperitivo-foto) { grid-template-columns: 1fr 1fr; }
   .evento-sheet .photo-row:not(.aperitivo-foto) .photo-frame:first-child { grid-column: 1 / -1; }
   .evento-sheet .photo-row.aperitivo-foto { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.natale-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin-top: 22px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: #b5372e;
+  color: #fffcf4;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+}
+.natale-banner svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+.natale-banner:hover {
+  color: #fffcf4;
+  opacity: 1;
+}
+.natale {
+  position: relative;
+  overflow: hidden;
+  background: #1a2326;
+  color: #f6efdf;
+  border-top: 1px solid rgba(246, 239, 223, 0.1);
+  border-bottom: 1px solid rgba(246, 239, 223, 0.1);
+}
+.natale-intro {
+  padding-bottom: 8px;
+}
+.natale-luci,
+.natale-mongolfiera,
+.natale-albero {
+  position: absolute;
+  pointer-events: none;
+}
+.hero:has(+ .natale),
+[data-season] .hero:has(+ .natale),
+[data-season]:has(.hero + .natale) .site-header {
+  background: #1a2326;
+}
+.hero:has(+ .natale) .nuvole {
+  display: none;
+}
+.natale-luci {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 60px;
+}
+.natale-lampadina {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation-name: natale-lampo;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 0 4px rgba(255, 214, 120, 0.9));
+}
+@keyframes natale-lampo {
+  0%, 40% { opacity: 1; }
+  52%, 90% { opacity: 0.15; }
+  100% { opacity: 1; }
+}
+.natale-mongolfiera {
+  right: -40px;
+  bottom: -30px;
+  width: 340px;
+  height: 340px;
+}
+.natale-albero {
+  left: -30px;
+  bottom: -20px;
+  width: 200px;
+  height: 260px;
+}
+.natale-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 88px 24px 72px;
+}
+.natale-testa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
+.natale-kicker {
+  margin: 0;
+  font-family: var(--font-caveat), cursive;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1;
+  color: #f3dfa2;
+  transform: rotate(-3deg);
+  transform-origin: left;
+}
+.natale-title {
+  margin: 6px 0 0;
+  line-height: 0.92;
+}
+.natale-soft,
+.natale-hard {
+  display: block;
+}
+.natale-soft {
+  font-family: var(--font-instrument), serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(30px, 4vw, 44px);
+  color: #f3dfa2;
+}
+.natale-hard {
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(48px, 7vw, 84px);
+  color: #f6efdf;
+}
+.natale-lead {
+  margin: 14px 0 0;
+  max-width: 560px;
+  font-size: 18px;
+  line-height: 1.45;
+}
+.natale-condizioni {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  border: 1px dashed rgba(246, 239, 223, 0.4);
+  border-radius: 10px;
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.natale-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 40px 28px;
+  align-items: stretch;
+  margin-top: 56px;
+}
+.natale-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #fffcf4;
+  color: #1e282b;
+  padding: 30px 64px 26px 26px;
+  box-shadow: 5px 8px 0 rgba(0, 0, 0, 0.28);
+}
+.natale-tilt-a { transform: rotate(-0.6deg); }
+.natale-tilt-b { transform: rotate(0.5deg); }
+.natale-tilt-c { transform: rotate(-0.4deg); }
+.natale-nastro {
+  position: absolute;
+  right: 22px;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  background: #b5372e;
+  border-left: 2px solid #8e2a23;
+  border-right: 2px solid #8e2a23;
+}
+.natale-fiocco {
+  position: absolute;
+  right: -6px;
+  top: -28px;
+  width: 84px;
+  height: 49px;
+}
+.natale-proposta {
+  margin: 0;
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8e2a23;
+}
+.natale-card h3 {
+  margin: 4px 0 0;
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.natale-frase {
+  margin: 6px 0 0;
+  font-family: var(--font-instrument), serif;
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.15;
+  color: #4a5558;
+}
+.natale-card ul {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.4;
+}
+.natale-card li {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  padding: 6px 0;
+}
+.natale-segno {
+  width: 16px;
+  flex: none;
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 800;
+  color: #b5372e;
+  font-size: 24px;
+  line-height: 0.7;
+}
+.natale-portate li {
+  display: block;
+  padding: 7px 0;
+  border-bottom: 1px dashed rgba(30, 40, 43, 0.22);
+}
+.natale-incluso {
+  margin: 12px 0 0;
+  font-family: var(--font-caveat), cursive;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.1;
+  color: #8e2a23;
+}
+.natale-piede {
+  margin-top: auto;
+  padding-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.natale-prezzo {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  margin: 0;
+}
+.natale-prezzo span {
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 800;
+  font-size: 52px;
+  line-height: 0.85;
+  color: #b5372e;
+}
+.natale-prezzo small {
+  font-family: var(--font-caveat), cursive;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 0.95;
+  color: #8e2a23;
+}
+.natale-book,
+.natale-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.natale-book {
+  min-height: 44px;
+  padding: 0 18px;
+  background: #b5372e;
+  color: #fffcf4;
+  font-size: 15px;
+}
+.natale-book svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+.natale-book:hover,
+.natale-info:hover {
+  color: #fffcf4;
+  opacity: 1;
+}
+.natale-azioni {
+  margin-top: 44px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 24px;
+}
+.natale-info {
+  min-height: 48px;
+  padding: 0 22px;
+  border: 2px solid #f6efdf;
+  color: #f6efdf;
+}
+.natale-dettagli {
+  color: #f6efdf;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+}
+.natale-dettagli:hover {
+  color: #fffcf4;
+  opacity: 1;
+}
+.natale a:focus-visible,
+.natale-banner:focus-visible {
+  outline: 2px solid #f6efdf;
+  outline-offset: 3px;
+}
+@media (max-width: 800px) {
+  .natale-wrap { padding: 72px 16px 56px; }
+  .natale-hard { font-size: clamp(42px, 12vw, 64px); }
+  .natale-mongolfiera { width: 220px; height: 220px; }
 }
