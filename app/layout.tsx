@@ -7,6 +7,7 @@ import { leggiStagione } from "@/data/stagioni";
 import { themeStyle } from "@/data/theme";
 import { indexingEnabled, siteUrl } from "@/lib/site-url";
 import { activeSeason } from "@/lib/season";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const rokkitt = Rokkitt({
@@ -69,7 +70,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       style={themeStyle(stagione)}
       className={`${rokkitt.variable} ${instrumentSerif.variable} ${dmSans.variable} ${caveat.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
