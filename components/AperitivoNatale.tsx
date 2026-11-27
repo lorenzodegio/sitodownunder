@@ -1,5 +1,7 @@
+import Image from "next/image";
 import { formatMartedi } from "@/data/calendario";
 import { MESSAGGIO_APERITIVO_NATALE, type EventoVista } from "@/data/eventi";
+import { loadFotoAperitivoNatale } from "@/lib/blob-archive";
 import { whatsappLink } from "@/lib/whatsapp";
 
 function Fiocco() {
@@ -22,16 +24,10 @@ function WhatsApp() {
   );
 }
 
-const FOTO = [
-  { src: "/images/aperitivo-natale/albero-bancone.jpg", alt: "Albero al bancone" },
-  { src: "/images/aperitivo-natale/albero-sala.jpg", alt: "Albero in sala" },
-  { src: "/images/aperitivo-natale/albero-tavolino.jpg", alt: "Albero dal tavolino" },
-  { src: "/images/aperitivo-natale/albero-specchio.jpg", alt: "Albero allo specchio" },
-] as const;
-
 /** Biglietto dell'aperitivo di Natale. Non si disegna se l'evento è già passato. */
-export function AperitivoNatale({ evento }: { evento: EventoVista }) {
+export async function AperitivoNatale({ evento }: { evento: EventoVista }) {
   const giorno = evento.next;
+  const foto = await loadFotoAperitivoNatale();
   return (
     <article id={evento.id} className="aperitivo-natale" aria-labelledby="aperitivo-natale-title">
       <span className="natale-nastro" aria-hidden="true" />
@@ -51,13 +47,24 @@ export function AperitivoNatale({ evento }: { evento: EventoVista }) {
           Info su WhatsApp
         </a>
       </div>
-      <ul className="aperitivo-foto">
-        {FOTO.map((foto) => (
-          <li key={foto.src}>
-            <img src={foto.src} alt={foto.alt} width={1200} height={1600} />
-          </li>
-        ))}
-      </ul>
+      {foto.length > 0 ? (
+        <ul className="aperitivo-foto">
+          {foto.map((item) => (
+            <li key={item.pathname}>
+              <div className="photo-frame has-image">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  unoptimized
+                  sizes="(max-width: 640px) 42vw, 220px"
+                  className="photo-img"
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </article>
   );
 }

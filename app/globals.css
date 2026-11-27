@@ -3967,7 +3967,7 @@ address {
   gap: 12px;
   min-width: 0;
 }
-.aperitivo-foto {
+.aperitivo-natale .aperitivo-foto {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
@@ -3976,18 +3976,17 @@ address {
   min-width: 0;
   list-style: none;
 }
-.aperitivo-foto li {
+.aperitivo-natale .aperitivo-foto li {
   margin: 0;
   min-width: 0;
-  overflow: hidden;
-  border: 1.5px solid rgba(30, 40, 43, 0.16);
 }
-.aperitivo-foto img {
-  display: block;
+.aperitivo-natale .aperitivo-foto .photo-frame {
   width: 100%;
-  height: 210px;
-  object-fit: cover;
-  object-position: center 30%;
+  aspect-ratio: 4 / 5;
+  border-radius: 24px;
+}
+.aperitivo-natale .aperitivo-foto .photo-img {
+  object-position: center 28%;
 }
 .aperitivo-quando,
 .aperitivo-voci {
@@ -4024,18 +4023,12 @@ address {
   .aperitivo-natale {
     grid-template-columns: minmax(0, 1fr);
   }
-  .aperitivo-foto img {
-    height: 160px;
-  }
 }
 @media (max-width: 640px) {
   .aperitivo-natale {
     padding-right: 64px;
   }
-  .aperitivo-foto {
+  .aperitivo-natale .aperitivo-foto {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .aperitivo-foto img {
-    height: 132px;
   }
 }
