@@ -17,7 +17,7 @@ export function Pranzo() {
       <div className="wrap sheet-ink">
         <div className="head">
           <div className="head-copy">
-            <span className="rib rv">{site.pranzo.kicker}</span>
+            <span className="rib cap rv">{site.pranzo.kicker}</span>
             <h2 id="pranzo-title" className="display rv w-820">
               {site.pranzo.title}
             </h2>

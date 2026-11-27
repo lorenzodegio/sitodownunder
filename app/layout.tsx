@@ -8,6 +8,8 @@ import { themeStyle } from "@/data/theme";
 import { indexingEnabled, siteUrl } from "@/lib/site-url";
 import { activeSeason } from "@/lib/season";
 import { Analytics } from "@vercel/analytics/next";
+import { PausaAnimazioni } from "@/components/PausaAnimazioni";
+import { faseDecorazione } from "@/lib/season";
 import "./globals.css";
 
 const rokkitt = Rokkitt({
@@ -63,15 +65,18 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const season = await activeSeason();
   const stagione = leggiStagione(season);
+  const fase = await faseDecorazione();
   return (
     <html
       lang="it"
       data-season={stagione ? season ?? undefined : undefined}
+      data-fase={fase ?? undefined}
       style={themeStyle(stagione)}
       className={`${rokkitt.variable} ${instrumentSerif.variable} ${dmSans.variable} ${caveat.variable}`}
     >
       <body>
         {children}
+        <PausaAnimazioni />
         <Analytics />
       </body>
     </html>

@@ -59,7 +59,9 @@ function kebab(name: string) {
 }
 
 /** Variabili applicate su <html>. I nomi storici (--ink, --paper, …) restano alias. */
-export function themeStyle(season?: { fondoHero: string; accento: string } | null): React.CSSProperties {
+export function themeStyle(
+  season?: { fondoHero: string; accento: string; fondo?: string; tiffany?: string; linea?: string } | null,
+): React.CSSProperties {
   const style: Record<string, string> = {};
   for (const [name, value] of Object.entries(theme)) {
     style[`--${kebab(name)}`] = value;
@@ -81,5 +83,19 @@ export function themeStyle(season?: { fondoHero: string; accento: string } | nul
   style["--coccio"] = theme.coccio;
   style["--fondo-hero"] = season?.fondoHero ?? theme.inchiostro;
   style["--accento"] = season?.accento ?? theme.tiffany;
+  if (season?.fondo) {
+    style["--ink"] = season.fondo;
+    style["--inchiostro"] = season.fondo;
+    style["--hero-bg"] = season.fondo;
+    style["--barra"] = "rgba(26, 36, 40, 0.92)";
+  }
+  if (season?.tiffany) {
+    style["--accent"] = season.tiffany;
+    style["--spot"] = season.tiffany;
+  }
+  if (season?.linea) {
+    style["--rame"] = season.linea;
+    style["--lineD"] = "rgba(185, 198, 204, 0.45)";
+  }
   return style as CSSProperties;
 }

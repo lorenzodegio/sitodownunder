@@ -19,7 +19,7 @@ export function Garden({ photos }: { photos: readonly PublicPhoto[] }) {
         </svg>
         <PhotoFrame photo={frame} />
         <div className="rv">
-          <span className="rib">{capitolo("garden")} · l’isola misteriosa</span>
+          <span className="rib cap">{capitolo("garden")} · l’isola misteriosa</span>
           <h2 id="garden-title" className="display display-md">
             {site.garden.title}
           </h2>

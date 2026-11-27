@@ -12,11 +12,14 @@ export type ColoriNeve = {
   fiocco: string;
 };
 
-/** Solo i campi che una stagione può cambiare. */
+/** Solo i campi che una stagione può cambiare. `fondo`, `tiffany` e `linea` li usa l’inverno. */
 export type Stagione = {
   fondoHero: string;
   accento: string;
   rigaHero: boolean;
+  fondo?: string;
+  tiffany?: string;
+  linea?: string;
   decorazioni: { tipo: "foglie"; colori: ColoriFoglie } | { tipo: "neve"; colori: ColoriNeve };
 };
 
@@ -34,6 +37,18 @@ export const stagioni = {
         mano: theme.inchiostroMano,
         terra: "#8C6A4A",
       },
+    },
+  },
+  inverno: {
+    fondoHero: "#1A2428",
+    accento: "#CFE3EA",
+    fondo: "#1A2428",
+    tiffany: "#A6DCCB",
+    linea: "#B9C6CC",
+    rigaHero: true,
+    decorazioni: {
+      tipo: "neve",
+      colori: { fiocco: "#F6EFDF" },
     },
   },
 } as const satisfies Record<string, Stagione>;
