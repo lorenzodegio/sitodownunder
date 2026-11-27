@@ -14,6 +14,7 @@ export const FOTO_SECTIONS = [
   "novita-panino",
   "novita-pizza",
   "novita-specialita",
+  "natale",
 ] as const;
 
 /** Garden resta nei dati già caricati, ma non si propone più come categoria nuova. */
@@ -56,10 +57,11 @@ export const sectionLabel: Record<FotoSection, string> = {
   "novita-panino": "Novità panino",
   "novita-pizza": "Novità pizza",
   "novita-specialita": "Novità specialità",
+  natale: "Natale",
 };
 
 const FOTO_SECTION_PATTERN =
-  "burger|pizza|carne|specialita|bancone|sala|garden|eventi|martedi|lunch|aperitivo|novita-panino|novita-pizza|novita-specialita|novita";
+  "burger|pizza|carne|specialita|bancone|sala|garden|eventi|martedi|lunch|aperitivo|novita-panino|novita-pizza|novita-specialita|novita|natale";
 
 export type PublicPhoto = {
   src: string;
@@ -144,5 +146,6 @@ export function emptyAlbum(): Record<FotoSection, PublicPhoto[]> {
     "novita-panino": [],
     "novita-pizza": [],
     "novita-specialita": [],
+    natale: [],
   };
 }

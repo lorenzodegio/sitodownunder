@@ -11,7 +11,7 @@ export async function Info() {
       <div className="wrap">
         <div className="head">
           <div className="head-copy slim">
-            <span className="rib rv">{site.info.kicker}</span>
+            <span className="rib cap rv">{site.info.kicker}</span>
             <h2 id="info-title" className="display rv">
               {site.info.title}
             </h2>

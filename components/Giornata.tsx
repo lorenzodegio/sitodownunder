@@ -30,7 +30,7 @@ export function Giornata() {
           height={207}
           className="mano-welcome"
         />
-        <span className="rib rv">{site.giornata.kicker}</span>
+        <span className="rib cap rv">{site.giornata.kicker}</span>
         <h2 id="giornata-title" className="display rv w-900">
           {site.giornata.title}
         </h2>

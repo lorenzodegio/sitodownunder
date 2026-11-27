@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { caveat } from "@/components/duc-font";
+import { BigliettoAlbero } from "@/components/FotoNatale";
 import { messaggioNatale, natale } from "@/data/natale";
 import { site } from "@/content/site";
 import { nataleAttivo } from "@/lib/natale";
+import type { SlotRecord } from "@/lib/slot-types";
 import { whatsappLink } from "@/lib/whatsapp";
 
 const ROSSO = "#B5372E";
@@ -60,7 +62,7 @@ function WhatsApp() {
   );
 }
 
-export function CeneNatale() {
+export function CeneNatale({ albero = null }: { albero?: SlotRecord | null }) {
   if (!nataleAttivo()) return null;
 
   return (
@@ -97,7 +99,7 @@ export function CeneNatale() {
       </svg>
 
       <div className="natale-wrap">
-        <div className="natale-testa">
+        <div className={albero ? "natale-testa ha-albero" : "natale-testa"}>
           <div>
             <p className="natale-kicker">Natale a bordo</p>
             <h2 id="natale-title" className="natale-title">
@@ -106,6 +108,7 @@ export function CeneNatale() {
             </h2>
             <p className="natale-lead">{natale.sottotitolo}</p>
           </div>
+          {albero ? <BigliettoAlbero record={albero} /> : null}
           <p className="natale-condizioni">{natale.condizioni}</p>
         </div>
 

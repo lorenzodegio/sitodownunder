@@ -59,7 +59,9 @@ function kebab(name: string) {
 }
 
 /** Variabili applicate su <html>. I nomi storici (--ink, --paper, …) restano alias. */
-export function themeStyle(season?: { fondoHero: string; accento: string } | null): React.CSSProperties {
+export function themeStyle(
+  season?: { fondoHero: string; accento: string; fondo?: string; tiffany?: string; linea?: string } | null,
+): React.CSSProperties {
   const style: Record<string, string> = {};
   for (const [name, value] of Object.entries(theme)) {
     style[`--${kebab(name)}`] = value;
@@ -81,5 +83,37 @@ export function themeStyle(season?: { fondoHero: string; accento: string } | nul
   style["--coccio"] = theme.coccio;
   style["--fondo-hero"] = season?.fondoHero ?? theme.inchiostro;
   style["--accento"] = season?.accento ?? theme.tiffany;
+  if (season?.fondo) {
+    style["--ink"] = season.fondo;
+    style["--inchiostro"] = season.fondo;
+    style["--hero-bg"] = season.fondo;
+    style["--barra"] = "rgba(26, 36, 40, 0.92)";
+  }
+  if (season?.tiffany) {
+    style["--accent"] = season.tiffany;
+    style["--spot"] = season.tiffany;
+  }
+  if (season?.linea) {
+    style["--rame"] = season.linea;
+    style["--lineD"] = "rgba(185, 198, 204, 0.45)";
+  }
+  if (season?.fondo) {
+    style["--carta"] = "#E7F1F3";
+    style["--paper"] = "#E7F1F3";
+    style["--fondo"] = "#E7F1F3";
+    style["--biglietto"] = "#F4F8F9";
+    style["--crema"] = "#E4EEF0";
+    style["--burro"] = "#CFE3EA";
+    style["--burro-chiaro"] = "#E7F1F3";
+    style["--burro-base"] = "#D5E4E8";
+    style["--butter"] = "#D5E4E8";
+    style["--corda"] = "#C5D3D6";
+    style["--carta-morbida"] = "rgba(231, 241, 243, 0.88)";
+    style["--carta-velata"] = "rgba(231, 241, 243, 0.85)";
+    style["--tratteggio"] = "rgba(207, 227, 234, 0.45)";
+    style["--linea-chiara"] = "rgba(207, 227, 234, 0.35)";
+    style["--burro-chiaro"] = "#E7F1F3";
+    style["--avorio"] = "#F4F8F9";
+  }
   return style as CSSProperties;
 }

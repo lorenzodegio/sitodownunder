@@ -19,7 +19,7 @@ export async function Menu({ vista }: { vista: SlotVista }) {
       <div className="wrap menu-stage">
         <div className="head">
           <div className="head-copy">
-            <span className="rib rv">{site.menu.kicker}</span>
+            <span className="rib cap rv">{site.menu.kicker}</span>
             <h2 id="menu-title" className="display rv">
               {site.menu.title}
             </h2>

@@ -24,7 +24,7 @@ export function Galleria({ photos }: { photos: readonly PublicPhoto[] }) {
       <Decorazioni dove="pareti" />
       <div className="chapter-wrap chapter-stack">
         <div className="chapter-intro">
-          <span className="kicker">capitolo IV · il giro del locale in 80 pareti</span>
+          <span className="kicker cap">capitolo IV · il giro del locale in 80 pareti</span>
           <h2 id="galleria-title" className="display">
             Ogni parete, un libro
           </h2>
