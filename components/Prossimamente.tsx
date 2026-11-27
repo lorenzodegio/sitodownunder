@@ -2,7 +2,8 @@ import Image from "next/image";
 import { caveat } from "@/components/duc-font";
 import { Decorazioni } from "@/components/Decorazioni";
 import { aperitivoDomenica, aperitivoDomenicaVisibile, whatsappAperitivoGruppo } from "@/data/format";
-import { eventiFormat, eventiSingoli, whatsappEvento, type EventoVista, type DataVista } from "@/data/eventi";
+import { AperitivoNatale } from "@/components/AperitivoNatale";
+import { aperitivoNatale, eventiFormat, eventiSingoli, ID_APERITIVO_NATALE, whatsappEvento, type EventoVista, type DataVista } from "@/data/eventi";
 import { locale } from "@/data/locale";
 import type { PublicPhoto } from "@/lib/archivio-shared";
 import type { SlotVista } from "@/lib/slot-types";
@@ -18,7 +19,8 @@ function PrenotaGiorno({ evento, giorno }: { evento: EventoVista; giorno: DataVi
 
 export function Prossimamente({ photos, vista }: { photos: readonly PublicPhoto[]; vista: SlotVista }) {
   const format = eventiFormat();
-  const singoli = eventiSingoli();
+  const aperitivo = aperitivoNatale();
+  const singoli = eventiSingoli().filter((evento) => evento.id !== ID_APERITIVO_NATALE);
   const domenica = aperitivoDomenicaVisibile();
   const nonnaInCalendario = format.some((evento) => evento.id === "martedi-nonna");
 
@@ -32,6 +34,8 @@ export function Prossimamente({ photos, vista }: { photos: readonly PublicPhoto[
           </h2>
           <p className="chapter-lead">Aperitivi ed eventi. Ogni data è un’offerta, con il suo prezzo.</p>
         </div>
+
+        {aperitivo ? <AperitivoNatale evento={aperitivo} /> : null}
 
         <div className="format-block">
           <h3 className="format-title">Eventi</h3>

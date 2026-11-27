@@ -52,7 +52,30 @@ export type Evento = {
   date: readonly DataEvento[];
 };
 
+export const ID_APERITIVO_NATALE = "aperitivo-natale-2026";
+
+export const MESSAGGIO_APERITIVO_NATALE =
+  "Ciao! Vorrei info sull'aperitivo di Natale di domenica 20 dicembre.";
+
 export const eventi: readonly Evento[] = [
+  {
+    id: ID_APERITIVO_NATALE,
+    tipo: "evento",
+    titolo: "L'aperitivo di Natale",
+    tag: ["Domenica 20 dicembre"],
+    descrizione: "Vi aspettiamo per brindisi e auguri",
+    orario: "18:00–20:00",
+    dataFine: "2026-12-20",
+    prenotazione: MESSAGGIO_APERITIVO_NATALE,
+    date: [
+      {
+        data: "2026-12-20",
+        piatto: "Aperitivo a buffet + prima consumazione + pandoro e panettone per tutti",
+        prezzo: "15 €",
+        amount: "15",
+      },
+    ],
+  },
   {
     id: "martedi-nonna",
     tipo: "format",
@@ -142,6 +165,10 @@ export function eventiFormat(now = new Date()): EventoVista[] {
 
 export function eventiSingoli(now = new Date()): EventoVista[] {
   return eventiAttivi(now).filter((evento) => evento.tipo === "evento");
+}
+
+export function aperitivoNatale(now = new Date()): EventoVista | null {
+  return eventiSingoli(now).find((evento) => evento.id === ID_APERITIVO_NATALE) ?? null;
 }
 
 export type EventoHero = {

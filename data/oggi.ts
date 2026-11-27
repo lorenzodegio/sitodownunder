@@ -1,6 +1,6 @@
 import { romeToday, romeWeekday } from "@/data/calendario";
 import { aperitivoDomenica, aperitivoDomenicaVisibile } from "@/data/format";
-import { eventiAttivi, prossimoMartedi } from "@/data/eventi";
+import { eventiAttivi, ID_APERITIVO_NATALE, prossimoMartedi } from "@/data/eventi";
 import { hours } from "@/data/locale";
 import { nataleAttivo } from "@/lib/natale";
 
@@ -52,7 +52,9 @@ function attivo(id: MomentoId, now: Date): boolean {
   const weekday = romeWeekday(today);
   const minutes = minutiRoma(now);
   if (id === "evento") {
-    return eventiAttivi(now).some((evento) => evento.date.some((giorno) => giorno.data === today));
+    return eventiAttivi(now).some(
+      (evento) => evento.id !== ID_APERITIVO_NATALE && evento.date.some((giorno) => giorno.data === today),
+    );
   }
   if (id === "pranzo") return weekday >= 1 && weekday <= 5 && minutes < 15 * 60;
   if (id === "nonna") {
@@ -71,11 +73,31 @@ function attivo(id: MomentoId, now: Date): boolean {
   return hours[weekday]?.some(([start]) => start >= 18 * 60) ?? false;
 }
 
+function seraAperitivoNatale(now: Date): boolean {
+  const today = romeToday(now);
+  if (today !== "2026-12-19" && today !== "2026-12-20") return false;
+  if (minutiRoma(now) < 18 * 60) return false;
+  return eventiAttivi(now).some((evento) => evento.id === ID_APERITIVO_NATALE);
+}
+
 export function scegliMomento(now = new Date()): MomentoId | null {
+  if (seraAperitivoNatale(now)) return "evento";
   return prioritaMomenti.find((id) => attivo(id, now)) ?? null;
 }
 
 export function presentaMomento(now = new Date(), piattiPranzo: readonly string[] = []): VistaMomento | null {
+  if (seraAperitivoNatale(now)) {
+    const stasera = romeToday(now) === "2026-12-20";
+    return {
+      id: "evento",
+      kicker: stasera ? "Stasera" : "Domani",
+      titolo: "L'aperitivo di Natale",
+      testo: "Aperitivo a buffet, prima consumazione, pandoro e panettone. 15 €.",
+      href: `#${ID_APERITIVO_NATALE}`,
+      cta: "Vedi la serata",
+    };
+  }
+
   const id = scegliMomento(now);
   if (!id) return null;
   const today = romeToday(now);

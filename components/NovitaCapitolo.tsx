@@ -21,7 +21,7 @@ export async function NovitaCapitolo({ vista }: { vista: SlotVista }) {
     <section id="novita" className="chapter chapter-paper" aria-labelledby="novita-title">
       <Decorazioni dove="paper" />
       <div className="chapter-wrap">
-        <span className="rib rv">capitolo I · il diario di bordo</span>
+        <span className="rib cap rv">capitolo I · il diario di bordo</span>
         <h2 id="novita-title" className="display rv w-900">
           Novità di {mese}
         </h2>

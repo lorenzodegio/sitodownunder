@@ -302,7 +302,7 @@ p {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 40;
   background: var(--barra);
   color: var(--paper);
   backdrop-filter: blur(14px);
@@ -1431,7 +1431,10 @@ p {
   .leaf,
   .rv,
   .natale-luci,
-  .natale-lampadina {
+  .natale-lampadina,
+  .flake,
+  .neve-fiocco,
+  .lucine-lampadina {
     animation: none !important;
   }
 }
@@ -3833,19 +3836,6 @@ address {
   font-size: 24px;
   line-height: 0.7;
 }
-.natale-portate li {
-  display: block;
-  padding: 7px 0;
-  border-bottom: 1px dashed rgba(30, 40, 43, 0.22);
-}
-.natale-incluso {
-  margin: 12px 0 0;
-  font-family: var(--font-caveat), cursive;
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 1.1;
-  color: #8e2a23;
-}
 .natale-piede {
   margin-top: auto;
   padding-top: 22px;
@@ -3933,4 +3923,500 @@ address {
   .natale-wrap { padding: 72px 16px 56px; }
   .natale-hard { font-size: clamp(42px, 12vw, 64px); }
   .natale-mongolfiera { width: 220px; height: 220px; }
+}
+
+.natale-aperitivo {
+  margin: 28px 0 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+.natale-aperitivo a {
+  color: #fffcf4;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.aperitivo-natale {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(240px, 360px) minmax(0, 1fr);
+  align-items: center;
+  gap: 16px 22px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin-top: 36px;
+  padding: 22px 84px 22px 22px;
+  background: #fffcf4;
+  color: #1e282b;
+  box-shadow: 5px 8px 0 rgba(0, 0, 0, 0.28);
+}
+.aperitivo-testo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+}
+.aperitivo-natale .aperitivo-foto {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  list-style: none;
+}
+.aperitivo-natale .aperitivo-foto li {
+  margin: 0;
+  min-width: 0;
+}
+.aperitivo-natale .aperitivo-foto .photo-frame {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 24px;
+}
+.aperitivo-natale .aperitivo-foto .photo-img {
+  object-position: center 28%;
+}
+.aperitivo-quando,
+.aperitivo-voci {
+  margin: 0;
+}
+.aperitivo-quando {
+  font-weight: 700;
+}
+.aperitivo-orario {
+  white-space: nowrap;
+}
+.aperitivo-voci {
+  max-width: 36rem;
+  font-size: 17px;
+  line-height: 1.45;
+}
+.aperitivo-prezzo {
+  margin: 0;
+  padding: 6px 14px;
+  background: #b5372e;
+  color: #fffcf4;
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 1;
+}
+.aperitivo-natale .natale-book {
+  margin-top: 4px;
+}
+.local-page .aperitivo-natale {
+  margin-top: 28px;
+}
+@media (max-width: 900px) {
+  .aperitivo-natale {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .aperitivo-natale {
+    padding-right: 64px;
+  }
+  .aperitivo-natale .aperitivo-foto {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+#natale,
+#novita,
+#prossimamente,
+#pranzo,
+#menu,
+#garden,
+#eventi,
+#info {
+  scroll-margin-top: 76px;
+}
+
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--paper);
+  cursor: pointer;
+}
+.menu-toggle-barre,
+.menu-toggle-barre::before,
+.menu-toggle-barre::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 1px;
+  background: currentColor;
+}
+.menu-toggle-barre {
+  position: relative;
+}
+.menu-toggle-barre::before,
+.menu-toggle-barre::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  transition: transform 200ms ease, top 200ms ease;
+}
+.menu-toggle-barre::before { top: -6px; }
+.menu-toggle-barre::after { top: 6px; }
+.menu-toggle.is-open .menu-toggle-barre { background: transparent; }
+.menu-toggle.is-open .menu-toggle-barre::before { top: 0; transform: rotate(45deg); }
+.menu-toggle.is-open .menu-toggle-barre::after { top: 0; transform: rotate(-45deg); }
+
+.menu-mobile {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 22px 28px;
+  background: #1e282b;
+  color: #f6efdf;
+  overflow: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 200ms ease, transform 200ms ease, visibility 0s linear 200ms;
+}
+.menu-mobile.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  pointer-events: auto;
+  transition: opacity 200ms ease, transform 200ms ease, visibility 0s;
+}
+.menu-mobile-voci {
+  display: flex;
+  flex-direction: column;
+}
+.menu-mobile-voce {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1;
+  color: #f6efdf;
+}
+.menu-mobile-voce.is-natale {
+  color: #f3dfa2;
+}
+.menu-mobile-azioni {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+}
+.menu-mobile-azione {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html.menu-aperto,
+html.menu-aperto body {
+  overflow: hidden;
+}
+html.menu-aperto .callbar {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .header-inner {
+    flex-wrap: nowrap;
+    padding: 6px 10px;
+    gap: 6px;
+  }
+  .logo {
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .header-tools { gap: 2px; }
+  .header-tools .btn-compact {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  .menu-toggle { display: inline-flex; }
+  .menu-mobile { display: flex; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-mobile,
+  .menu-toggle-barre::before,
+  .menu-toggle-barre::after {
+    transition: none;
+  }
+}
+
+.natale-testa.ha-albero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+}
+.natale-testa.ha-albero .albero-biglietto {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+}
+.albero-biglietto {
+  position: relative;
+  width: min(220px, 70vw);
+  margin: 0;
+  padding: 14px 28px 16px 14px;
+  background: #fffcf4;
+  box-shadow: 4px 6px 0 rgba(0, 0, 0, 0.28);
+}
+.albero-nastro {
+  position: absolute;
+  top: 0;
+  right: 16px;
+  bottom: 0;
+  width: 16px;
+  background: #b5372e;
+  border-left: 2px solid #8e2a23;
+  border-right: 2px solid #8e2a23;
+}
+.albero-fiocco {
+  position: absolute;
+  right: -10px;
+  top: -22px;
+  width: 72px;
+  height: 42px;
+}
+.albero-quadro {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: #fffcf4;
+}
+.albero-galleria {
+  padding: 8px 0 12px;
+}
+.albero-galleria h2 {
+  font-size: clamp(32px, 5vw, 48px);
+}
+.albero-lista {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 800px) {
+  .albero-lista { grid-template-columns: repeat(4, minmax(0, 160px)); }
+}
+@media (max-width: 800px) {
+  .natale-testa.ha-albero { grid-template-columns: 1fr; }
+  .natale-testa.ha-albero .albero-biglietto {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: center;
+    margin-top: 8px;
+  }
+}
+
+.flake {
+  position: absolute;
+  top: -16px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: cade-neve linear infinite;
+}
+@keyframes cade-neve {
+  0% { transform: translate3d(0, -24px, 0); }
+  100% { transform: translate3d(0, 110vh, 0); }
+}
+@media (max-width: 760px) {
+  .flake-extra { display: none; }
+}
+html[data-pausa] .flake,
+html[data-pausa] .lucine-lampadina,
+html[data-pausa] .natale-lampadina {
+  animation-play-state: paused;
+}
+
+.lucine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  width: 100%;
+  height: 34px;
+  pointer-events: none;
+}
+.lucine-lampadina {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation-name: natale-lampo;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.hero-natale-kicker {
+  margin: 14px 0 0;
+  font-family: var(--font-caveat), cursive;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1;
+  color: #f3dfa2;
+  transform: rotate(-3deg);
+  transform-origin: left;
+}
+
+[data-fase="natale"] .cap {
+  position: relative;
+}
+[data-fase="natale"] .rib.cap {
+  padding-left: 32px;
+}
+[data-fase="natale"] .kicker.cap {
+  position: relative;
+  padding-left: 22px;
+}
+[data-fase="natale"] .cap::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translateY(-50%);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23B5372E' d='M8 1.2l1.5 4.2H14l-3.6 2.7 1.4 4.3L8 9.8 4.2 12.4 5.6 8.1 2 5.4h4.5z'/%3E%3C/svg%3E") center / contain no-repeat;
+  pointer-events: none;
+}
+
+[data-fase="natale"] .ev-card,
+[data-fase="natale"] .menu-row {
+  position: relative;
+}
+[data-fase="natale"] .ev-card {
+  overflow: visible;
+}
+[data-fase="natale"] .ev-photo {
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+}
+[data-fase="natale"] .ev-body {
+  padding-right: 36px;
+}
+[data-fase="natale"] .ev-card::after,
+[data-fase="natale"] .menu-row::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 14px;
+  bottom: 0;
+  width: 14px;
+  background: #b5372e;
+  border-left: 2px solid #8e2a23;
+  border-right: 2px solid #8e2a23;
+  pointer-events: none;
+  z-index: 2;
+}
+[data-fase="natale"] .ev-card::before,
+[data-fase="natale"] .menu-row::before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  right: -2px;
+  top: 0;
+  width: 58px;
+  height: 34px;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 70'%3E%3Cpath fill='%23B5372E' stroke='%238E2A23' stroke-width='2' d='M60 36C44 14 14 6 8 22s22 26 52 14z'/%3E%3Cpath fill='%23B5372E' stroke='%238E2A23' stroke-width='2' d='M60 36C76 14 106 6 112 22s-22 26-52 14z'/%3E%3Cpath stroke='%23B5372E' stroke-width='9' stroke-linecap='round' d='M56 40l-14 28M64 40l14 28'/%3E%3Crect x='51' y='28' width='18' height='16' rx='5' fill='%238E2A23'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+[data-fase="natale"] .menu-row {
+  padding-right: 42px;
+}
+
+.neve-caduta {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  overflow: hidden;
+  pointer-events: none;
+}
+.neve-fiocco {
+  position: absolute;
+  top: -36px;
+  height: auto;
+  animation: cade-fiocco linear infinite;
+}
+.neve-fiocco.bianco {
+  color: #fff;
+  filter: drop-shadow(0 0 1px rgba(26, 36, 40, 0.45));
+}
+@keyframes cade-fiocco {
+  0% { transform: translate3d(0, -8vh, 0) rotate(0deg); }
+  100% { transform: translate3d(var(--deriva, 16px), 110vh, 0) rotate(200deg); }
+}
+@media (max-width: 760px) {
+  .neve-fiocco-extra { display: none; }
+}
+html[data-pausa] .neve-fiocco {
+  animation-play-state: paused;
+}
+
+[data-season="inverno"] #prossimamente {
+  background: #1a2428;
+  color: #f4f7f8;
+}
+[data-season="inverno"] #prossimamente .evento-sheet,
+[data-season="inverno"] #prossimamente .ev-card,
+[data-season="inverno"] #prossimamente .nonna-band,
+[data-season="inverno"] #prossimamente .nonna-sheet {
+  color: #1a2428;
+}
+[data-season="inverno"] .natale,
+[data-season="inverno"] .natale-hard,
+[data-season="inverno"] .natale-info,
+[data-season="inverno"] .natale-dettagli,
+[data-season="inverno"] .natale-banner,
+[data-season="inverno"] .menu-mobile,
+[data-season="inverno"] .menu-mobile-voce {
+  color: #f4f7f8;
+}
+[data-season="inverno"] .natale-soft,
+[data-season="inverno"] .natale-kicker,
+[data-season="inverno"] .hero-natale-kicker,
+[data-season="inverno"] .menu-mobile-voce.is-natale {
+  color: #cfe3ea;
+}
+[data-season="inverno"] .natale-info {
+  border-color: #f4f7f8;
+}
+[data-season="inverno"] .natale-card,
+[data-season="inverno"] .albero-biglietto,
+[data-season="inverno"] .albero-quadro {
+  background: #f4f8f9;
+}
+[data-season="inverno"] .natale-book,
+[data-season="inverno"] .natale-book:hover,
+[data-season="inverno"] .natale-info:hover,
+[data-season="inverno"] .natale-dettagli:hover {
+  color: #f4f7f8;
 }

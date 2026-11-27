@@ -9,6 +9,7 @@ import {
   emptyAlbum,
   isFotoSection,
   sectionFromPath,
+  urlMediaSlot,
   type ArchivioFoto,
   type FotoIndex,
   type FotoSection,
@@ -27,6 +28,20 @@ export type Archivio = {
 
 function tokenOrNull(): string | null {
   return readBlobToken();
+}
+
+/** Foto dell'albero dentro il biglietto dell'aperitivo. Non entrano negli album delle sezioni. */
+export const FOTO_APERITIVO_NATALE = [
+  { pathname: "foto/eventi/aperitivo-natale-albero-bancone.webp", alt: "Albero al bancone" },
+  { pathname: "foto/eventi/aperitivo-natale-albero-sala.webp", alt: "Albero in sala" },
+  { pathname: "foto/eventi/aperitivo-natale-albero-tavolino.webp", alt: "Albero dal tavolino" },
+  { pathname: "foto/eventi/aperitivo-natale-albero-specchio.webp", alt: "Albero allo specchio" },
+] as const;
+
+const pathAperitivoNatale = new Set<string>(FOTO_APERITIVO_NATALE.map((foto) => foto.pathname));
+
+export function eFotoAperitivoNatale(pathname: string): boolean {
+  return pathAperitivoNatale.has(pathname);
 }
 
 async function readIndex(token: string): Promise<FotoIndex> {
@@ -239,6 +254,19 @@ export async function putFotoWebp(pathname: string, body: Buffer): Promise<strin
   return putBlob(pathname, body, "image/webp");
 }
 
+/** Solo le foto già sul Blob. Se manca lo store, il biglietto resta senza immagini. */
+export async function loadFotoAperitivoNatale(): Promise<{ pathname: string; src: string; alt: string }[]> {
+  const token = tokenOrNull();
+  if (!token) return [];
+  const trovate: { pathname: string; src: string; alt: string }[] = [];
+  for (const foto of FOTO_APERITIVO_NATALE) {
+    const blob = await head(foto.pathname, { token }).catch(() => null);
+    if (!blob) continue;
+    trovate.push({ pathname: foto.pathname, src: urlMediaSlot(foto.pathname, blob.url), alt: foto.alt });
+  }
+  return trovate;
+}
+
 export async function loadDelMese(): Promise<DelMese> {
   const vuoto: DelMese = { panino: null, pizza: null };
   const token = tokenOrNull();
@@ -303,7 +331,7 @@ export async function loadPublicPhotos(): Promise<Record<FotoSection, PublicPhot
   const [archivio, slots] = await Promise.all([loadArchivio(), loadSlotArchivio()]);
   const riservati = pathnamesSlot(slots);
   for (const photo of archivio.photos) {
-    if (riservati.has(photo.pathname)) continue;
+    if (riservati.has(photo.pathname) || eFotoAperitivoNatale(photo.pathname)) continue;
     album[photo.section].push({ src: photo.src, alt: photo.alt, section: photo.section });
   }
   return album;

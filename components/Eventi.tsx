@@ -9,7 +9,7 @@ export function Eventi() {
       <Decorazioni dove="feste" />
       <div className="wrap eventi-grid">
         <div className="rv">
-          <span className="rib">{capitolo("eventi")} · dalla Terra alla Luna</span>
+          <span className="rib cap">{capitolo("eventi")} · dalla Terra alla Luna</span>
           <h2 id="eventi-title" className="display display-event">
             {site.eventi.title}
           </h2>

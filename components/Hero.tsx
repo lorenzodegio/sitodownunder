@@ -10,7 +10,7 @@ import { eventiAttivi } from "@/data/eventi";
 import { elencoNomi, meseNovita, novitaInElenco } from "@/data/novita";
 import { theme } from "@/data/theme";
 import { nataleAttivo } from "@/lib/natale";
-import { stagioneAttiva } from "@/lib/season";
+import { faseDecorazione, stagioneAttiva } from "@/lib/season";
 
 const stars = [
   [90, 80, 2.4, ""],
@@ -27,6 +27,7 @@ const stars = [
 export async function Hero() {
   const [lunch, ape, cena, again] = site.hero.lines;
   const stagione = await stagioneAttiva();
+  const fase = await faseDecorazione();
   const elenco = novitaInElenco();
   const mostraNovita = elenco.length > 0;
 
@@ -54,6 +55,7 @@ export async function Hero() {
         <div>
           <OpeningBadge />
           <h1 className="hero-h1">Burger, pizza e aperitivo a Vanzago</h1>
+          {fase === "natale" ? <p className="hero-natale-kicker">Natale a bordo</p> : null}
           <p className="hero-title">
             <span className="in d1">{lunch}</span>
             <span className="in d2 stroke">{ape}</span>

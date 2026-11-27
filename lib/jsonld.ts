@@ -2,7 +2,7 @@ import { homeFaq, type Faq } from "@/data/faq";
 import { natale, nataleFaq } from "@/data/natale";
 import { showGarden } from "@/data/flags";
 import { areaServed, hours, locale, schemaDays } from "@/data/locale";
-import { eventiAttivi } from "@/data/eventi";
+import { aperitivoNatale, eventiAttivi, ID_APERITIVO_NATALE } from "@/data/eventi";
 import type { FotoSection, PublicPhoto } from "@/lib/archivio-shared";
 import { FOTO_SECTIONS, urlMediaSlot } from "@/lib/archivio-shared";
 import type { SlotRecord } from "@/lib/slot-types";
@@ -92,8 +92,34 @@ export function restaurantNode(photos: Record<FotoSection, PublicPhoto[]>, slots
   };
 }
 
+export function aperitivoNataleEvent(now = new Date()) {
+  const evento = aperitivoNatale(now);
+  if (!evento) return null;
+  const [inizio, fine] = evento.orario.split("–");
+  const giorno = evento.next.data;
+  return {
+    "@type": "Event",
+    "@id": `${siteUrl()}/#${evento.id}`,
+    name: evento.titolo,
+    startDate: `${giorno}T${inizio}:00+01:00`,
+    endDate: `${giorno}T${fine}:00+01:00`,
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    description: evento.descrizione,
+    location: { "@id": `${siteUrl()}/#ristorante` },
+    offers: {
+      "@type": "Offer",
+      price: evento.next.amount,
+      priceCurrency: "EUR",
+      url: `${siteUrl()}/#${evento.id}`,
+    },
+  };
+}
+
 function martediEvents(photos: Record<FotoSection, PublicPhoto[]>) {
-  return eventiAttivi().flatMap((evento) =>
+  return eventiAttivi()
+    .filter((evento) => evento.id !== ID_APERITIVO_NATALE)
+    .flatMap((evento) =>
     evento.date.map((day, index) => {
       const photo = day.foto || photos.martedi[index]?.src;
       return {
@@ -131,9 +157,15 @@ function martediEvents(photos: Record<FotoSection, PublicPhoto[]>) {
 }
 
 export function homeJsonLd(photos: Record<FotoSection, PublicPhoto[]>, slots: SlotRecord[] = []) {
+  const aperitivo = aperitivoNataleEvent();
   return {
     "@context": "https://schema.org",
-    "@graph": [restaurantNode(photos, slots), ...martediEvents(photos), faqNode(homeFaq, `${siteUrl()}/#faq`)],
+    "@graph": [
+      restaurantNode(photos, slots),
+      ...martediEvents(photos),
+      ...(aperitivo ? [aperitivo] : []),
+      faqNode(homeFaq, `${siteUrl()}/#faq`),
+    ],
   };
 }
 
@@ -155,9 +187,11 @@ export function localJsonLd(page: { h1: string; slug: string; faq: readonly Faq[
 }
 
 export function nataleJsonLd() {
+  const aperitivo = aperitivoNataleEvent();
   return {
     "@context": "https://schema.org",
     "@graph": [
+      ...(aperitivo ? [aperitivo] : []),
       {
         "@type": "Restaurant",
         "@id": `${siteUrl()}/#ristorante`,

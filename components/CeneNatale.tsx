@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { caveat } from "@/components/duc-font";
+import { BigliettoAlbero } from "@/components/FotoNatale";
+import { aperitivoNatale, ID_APERITIVO_NATALE } from "@/data/eventi";
 import { messaggioNatale, natale } from "@/data/natale";
 import { site } from "@/content/site";
 import { nataleAttivo } from "@/lib/natale";
+import type { SlotRecord } from "@/lib/slot-types";
 import { whatsappLink } from "@/lib/whatsapp";
 
 const ROSSO = "#B5372E";
@@ -60,7 +63,7 @@ function WhatsApp() {
   );
 }
 
-export function CeneNatale() {
+export function CeneNatale({ albero = null }: { albero?: SlotRecord | null }) {
   if (!nataleAttivo()) return null;
 
   return (
@@ -97,7 +100,7 @@ export function CeneNatale() {
       </svg>
 
       <div className="natale-wrap">
-        <div className="natale-testa">
+        <div className={albero ? "natale-testa ha-albero" : "natale-testa"}>
           <div>
             <p className="natale-kicker">Natale a bordo</p>
             <h2 id="natale-title" className="natale-title">
@@ -106,32 +109,28 @@ export function CeneNatale() {
             </h2>
             <p className="natale-lead">{natale.sottotitolo}</p>
           </div>
+          {albero ? <BigliettoAlbero record={albero} /> : null}
           <p className="natale-condizioni">{natale.condizioni}</p>
         </div>
 
         <div className="natale-grid">
-          {natale.proposte.map((proposta, index) => {
-            const cena = proposta.numero === "III";
-            return (
+          {natale.proposte.map((proposta, index) => (
               <article key={proposta.id} className={`natale-card ${tilt[index] ?? ""}`}>
                 <div className="natale-nastro" aria-hidden="true" />
                 <Fiocco />
                 <p className="natale-proposta">Proposta {proposta.numero}</p>
                 <h3>{proposta.nome}</h3>
                 <p className="natale-frase">{proposta.frase}</p>
-                <ul className={cena ? "natale-portate" : undefined}>
+                <ul>
                   {proposta.voci.map((voce, voceIndex) => (
                     <li key={voce}>
-                      {cena ? null : (
-                        <span className="natale-segno" aria-hidden="true">
-                          {voceIndex > 0 ? "+" : ""}
-                        </span>
-                      )}
+                      <span className="natale-segno" aria-hidden="true">
+                        {voceIndex > 0 ? "+" : ""}
+                      </span>
                       <span>{voce}</span>
                     </li>
                   ))}
                 </ul>
-                {"incluso" in proposta ? <p className="natale-incluso">{proposta.incluso}</p> : null}
                 <div className="natale-piede">
                   <p className="natale-prezzo">
                     <span>
@@ -149,9 +148,16 @@ export function CeneNatale() {
                   </a>
                 </div>
               </article>
-            );
-          })}
+          ))}
         </div>
+
+        {aperitivoNatale() ? (
+          <p className="natale-aperitivo">
+            <Link href={`/#${ID_APERITIVO_NATALE}`}>
+              E domenica 20 dicembre, dalle 18 alle 20: l&apos;aperitivo di Natale a buffet, 15 € →
+            </Link>
+          </p>
+        ) : null}
 
         <div className="natale-azioni">
           <a className="natale-info" href={site.phone.tel}>

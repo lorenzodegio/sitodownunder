@@ -1,7 +1,7 @@
 import type { FotoSection } from "@/lib/archivio-shared";
 
 export type FormatoSlot = "4:5" | "4:3" | "1:1";
-export type GruppoSlot = "novita" | "aperitivo" | "burger" | "pizza" | "carne";
+export type GruppoSlot = "novita" | "aperitivo" | "burger" | "pizza" | "carne" | "natale";
 
 export type FotoSlot = {
   id: string;
@@ -25,6 +25,7 @@ export const GRUPPI_SLOT: readonly { id: GruppoSlot; label: string; anteprima: s
   { id: "burger", label: "I Burgers", anteprima: "menu" },
   { id: "pizza", label: "Le Pizze", anteprima: "menu" },
   { id: "carne", label: "La carne", anteprima: "menu" },
+  { id: "natale", label: "Albero di Natale", anteprima: "natale" },
 ];
 
 const mongolfieraAlt = "Murale della mongolfiera: Il giro del mondo in 80 giorni, Down Under Cafè Vanzago";
@@ -54,6 +55,10 @@ export const FOTO_SLOTS: readonly FotoSlot[] = [
   slot("25", "carne", "carne", "carne", "1:1", "25 · 1:1", "Taglio crudo, marezzatura", "/murales/centro-terra.png", centroAlt),
   slot("26", "novita", "novita", "carne", "4:5", "Foto 26 · costata · 4:5", "La costata del mese, sul tagliere, cuore rosa visibile.", "/murales/centro-terra.png", centroAlt, { vuoto: "quaderno" }),
   slot("27", "novita", "novita", "burger", "4:5", "Foto 27 · Lo zuccotto · 4:5", "Lo zuccotto, frontale, con gli strati visibili.", "/murales/mongolfiera.png", mongolfieraAlt, { vuoto: "quaderno" }),
+  slot("28", "natale", "natale", "albero", "4:5", "Foto 28 · albero · 4:5", "L'albero addobbato in sala, intero nel quadro.", "/murales/mongolfiera.png", mongolfieraAlt, { vuoto: "quaderno" }),
+  slot("29", "natale", "natale", "albero", "4:5", "Foto 29 · albero · 4:5", "L'albero addobbato, un altro angolo della sala.", "/murales/mongolfiera.png", mongolfieraAlt, { vuoto: "quaderno" }),
+  slot("30", "natale", "natale", "albero", "4:5", "Foto 30 · albero · 4:5", "L'albero e gli addobbi, da vicino.", "/murales/mongolfiera.png", mongolfieraAlt, { vuoto: "quaderno" }),
+  slot("31", "natale", "natale", "albero", "4:5", "Foto 31 · albero · 4:5", "L'albero di Natale in sala, un'altra inquadratura.", "/murales/mongolfiera.png", mongolfieraAlt, { vuoto: "quaderno" }),
 ];
 
 function slot(
