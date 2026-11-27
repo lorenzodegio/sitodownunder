@@ -94,5 +94,13 @@ export function testoConfermato(value: string | undefined, fallback = ""): strin
 }
 
 export function meseNovita(data = new Date()): string {
+  const giorno = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Rome",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(data);
+  // Le novità in pagina, ancora a novembre 2026, sono quelle di dicembre.
+  if (giorno < "2026-12-01") return "dicembre";
   return new Intl.DateTimeFormat("it-IT", { month: "long", timeZone: "Europe/Rome" }).format(data);
 }

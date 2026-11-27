@@ -8,6 +8,7 @@ import { themeStyle } from "@/data/theme";
 import { indexingEnabled, siteUrl } from "@/lib/site-url";
 import { activeSeason } from "@/lib/season";
 import { Analytics } from "@vercel/analytics/next";
+import { NeveCaduta } from "@/components/NeveCaduta";
 import { PausaAnimazioni } from "@/components/PausaAnimazioni";
 import { faseDecorazione } from "@/lib/season";
 import "./globals.css";
@@ -76,6 +77,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     >
       <body>
         {children}
+        {stagione?.decorazioni.tipo === "neve" ? <NeveCaduta /> : null}
         <PausaAnimazioni />
         <Analytics />
       </body>

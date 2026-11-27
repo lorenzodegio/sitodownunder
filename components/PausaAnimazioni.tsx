@@ -8,6 +8,7 @@ export function PausaAnimazioni() {
     const sync = () => {
       document.documentElement.toggleAttribute("data-pausa", document.hidden);
     };
+    sync();
     document.addEventListener("visibilitychange", sync);
     return () => document.removeEventListener("visibilitychange", sync);
   }, []);

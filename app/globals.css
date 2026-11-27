@@ -1433,6 +1433,7 @@ p {
   .natale-luci,
   .natale-lampadina,
   .flake,
+  .neve-fiocco,
   .lucine-lampadina {
     animation: none !important;
   }
@@ -4265,4 +4266,72 @@ html[data-pausa] .natale-lampadina {
 }
 [data-fase="natale"] .menu-row {
   padding-right: 42px;
+}
+
+.neve-caduta {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  overflow: hidden;
+  pointer-events: none;
+}
+.neve-fiocco {
+  position: absolute;
+  top: -36px;
+  height: auto;
+  animation: cade-fiocco linear infinite;
+}
+.neve-fiocco.bianco {
+  color: #fff;
+  filter: drop-shadow(0 0 1px rgba(26, 36, 40, 0.45));
+}
+@keyframes cade-fiocco {
+  0% { transform: translate3d(0, -8vh, 0) rotate(0deg); }
+  100% { transform: translate3d(var(--deriva, 16px), 110vh, 0) rotate(200deg); }
+}
+@media (max-width: 760px) {
+  .neve-fiocco-extra { display: none; }
+}
+html[data-pausa] .neve-fiocco {
+  animation-play-state: paused;
+}
+
+[data-season="inverno"] #prossimamente {
+  background: #1a2428;
+  color: #f4f7f8;
+}
+[data-season="inverno"] #prossimamente .evento-sheet,
+[data-season="inverno"] #prossimamente .ev-card,
+[data-season="inverno"] #prossimamente .nonna-band,
+[data-season="inverno"] #prossimamente .nonna-sheet {
+  color: #1a2428;
+}
+[data-season="inverno"] .natale,
+[data-season="inverno"] .natale-hard,
+[data-season="inverno"] .natale-info,
+[data-season="inverno"] .natale-dettagli,
+[data-season="inverno"] .natale-banner,
+[data-season="inverno"] .menu-mobile,
+[data-season="inverno"] .menu-mobile-voce {
+  color: #f4f7f8;
+}
+[data-season="inverno"] .natale-soft,
+[data-season="inverno"] .natale-kicker,
+[data-season="inverno"] .hero-natale-kicker,
+[data-season="inverno"] .menu-mobile-voce.is-natale {
+  color: #cfe3ea;
+}
+[data-season="inverno"] .natale-info {
+  border-color: #f4f7f8;
+}
+[data-season="inverno"] .natale-card,
+[data-season="inverno"] .albero-biglietto,
+[data-season="inverno"] .albero-quadro {
+  background: #f4f8f9;
+}
+[data-season="inverno"] .natale-book,
+[data-season="inverno"] .natale-book:hover,
+[data-season="inverno"] .natale-info:hover,
+[data-season="inverno"] .natale-dettagli:hover {
+  color: #f4f7f8;
 }

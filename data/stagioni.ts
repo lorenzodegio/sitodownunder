@@ -48,7 +48,7 @@ export const stagioni = {
     rigaHero: true,
     decorazioni: {
       tipo: "neve",
-      colori: { fiocco: "#F6EFDF" },
+      colori: { fiocco: "#F4F8F8" },
     },
   },
 } as const satisfies Record<string, Stagione>;
