@@ -22,8 +22,6 @@ export function Prossimamente({ photos, vista }: { photos: readonly PublicPhoto[
   const aperitivo = aperitivoNatale();
   const singoli = eventiSingoli().filter((evento) => evento.id !== ID_APERITIVO_NATALE);
   const domenica = aperitivoDomenicaVisibile();
-  const nonnaInCalendario = format.some((evento) => evento.id === "martedi-nonna");
-
   return (
     <section id="prossimamente" className={`${caveat.variable} chapter chapter-paper`} aria-labelledby="prossimamente-title">
       <Decorazioni dove="paper" />
@@ -37,6 +35,7 @@ export function Prossimamente({ photos, vista }: { photos: readonly PublicPhoto[
 
         {aperitivo ? <AperitivoNatale evento={aperitivo} /> : null}
 
+        {format.length ? (
         <div className="format-block">
           <h3 className="format-title">Eventi</h3>
           {format.map((evento) => (
@@ -94,28 +93,8 @@ export function Prossimamente({ photos, vista }: { photos: readonly PublicPhoto[
               </div>
             </article>
           ))}
-
-          {nonnaInCalendario ? null : (
-            <article id="format-nonna" className="evento-sheet">
-              <div className="ev-head">
-                <div className="ev-copy">
-                  <div className="ev-tags">
-                    <span className="ev-tag ev-tag-fill">Solo a cena</span>
-                    <span className="ev-tag">Solo su prenotazione</span>
-                  </div>
-                  <h3 className="ev-title">I martedì della nonna</h3>
-                  <p className="ev-text">Solo a cena, solo su prenotazione. Il prossimo calendario arriva qui.</p>
-                </div>
-                <div className="ev-actions">
-                  <a className="pill btn-ink-ghost" href={`tel:${locale.phoneE164}`}>
-                    Chiama
-                  </a>
-                </div>
-              </div>
-            </article>
-          )}
-
         </div>
+        ) : null}
 
         {domenica ? (
           <div className="format-block">

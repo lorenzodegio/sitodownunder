@@ -15,6 +15,7 @@ import {
   type FotoSection,
   type PublicPhoto,
 } from "@/lib/archivio-shared";
+import { isSlotId } from "@/data/foto-slot";
 import { pathnamesSlot, type SlotArchivio, type SlotRecord } from "@/lib/slot-types";
 import { DEL_MESE_PATH, parseDelMese, type DelMese } from "@/lib/del-mese";
 import { PRANZO_PATH, parseMenuPranzo, type MenuPranzo } from "@/lib/pranzo-settimana";
@@ -433,7 +434,7 @@ export async function saveSlotArchivio(archivio: SlotArchivio): Promise<void> {
 }
 
 export function slotPubblicati(archivio: SlotArchivio): SlotRecord[] {
-  return Object.values(archivio.items).filter((item) => item.stato === "pubblicata" && item.url);
+  return Object.values(archivio.items).filter((item) => item.stato === "pubblicata" && item.url && isSlotId(item.slot));
 }
 
 export async function upsertFotoMeta(pathname: string, alt: string, section: FotoSection): Promise<void> {

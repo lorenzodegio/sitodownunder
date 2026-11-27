@@ -2,38 +2,46 @@ import type { CSSProperties } from "react";
 import type { ColoriNeve } from "@/data/stagioni";
 import type { SlotDecorazione } from "@/components/Foglie";
 
-const angoli: Partial<Record<Exclude<SlotDecorazione, "hero">, CSSProperties[]>> = {
+/** Mucchi piccoli, sul bordo della sezione. Non coprono titoli né foto. */
+const mucchi: Record<SlotDecorazione, CSSProperties[]> = {
+  hero: [
+    { left: "3%", bottom: 14, width: 52 },
+    { right: "7%", bottom: 22, width: 34 },
+  ],
   paper: [
-    { right: "3%", top: 36, width: 28, transform: "rotate(12deg)", opacity: 0.45 },
-    { left: "2%", bottom: 48, width: 22, transform: "rotate(-20deg)", opacity: 0.35 },
+    { left: "2%", bottom: 12, width: 40 },
+    { right: "4%", bottom: 20, width: 28 },
   ],
-  menu: [
-    { left: "3%", top: 28, width: 24, transform: "rotate(18deg)", opacity: 0.4 },
-    { right: "4%", bottom: 40, width: 26, transform: "rotate(-8deg)", opacity: 0.35 },
-  ],
-  feste: [{ right: "5%", top: 48, width: 26, transform: "rotate(8deg)", opacity: 0.4 }],
+  menu: [{ right: "3%", bottom: 16, width: 44 }],
+  pareti: [{ left: "3%", bottom: 18, width: 32 }],
+  feste: [{ left: "4%", bottom: 14, width: 46 }],
+  faq: [{ right: "5%", bottom: 12, width: 30 }],
+  info: [{ left: "3%", bottom: 16, width: 36 }],
+  giornata: [{ right: "4%", bottom: 14, width: 38 }],
+  pranzo: [{ left: "3%", bottom: 18, width: 42 }],
+  serate: [{ right: "6%", bottom: 12, width: 28 }],
+  garden: [{ left: "4%", bottom: 16, width: 34 }],
 };
 
-const stella = "M12 1.5v21M1.5 12h21M4.2 4.2l15.6 15.6M19.8 4.2L4.2 19.8";
-
-function Tratto({ style }: { style: CSSProperties }) {
+function Mucchio({ style }: { style: CSSProperties }) {
   return (
-    <svg className="fg" style={style} viewBox="0 0 24 24" aria-hidden="true">
-      <path d={stella} fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+    <svg className="neve-posata" style={style} viewBox="0 0 80 24" aria-hidden="true">
+      <path
+        d="M0 24h80v-2C74 22 70 14 62 14c-6 0-8 6-16 5-7-1-9-9-18-8-8 1-10 8-18 7C4 17 2 22 0 22z"
+        fill="currentColor"
+      />
     </svg>
   );
 }
 
-/** Neve al posto delle foglie. Solo decorativa. */
+/** Neve posata al posto delle foglie. Solo decorativa. */
 export function Neve({ dove }: { dove: SlotDecorazione; colori: ColoriNeve }) {
-  if (dove === "hero") return null;
-
-  const tratti = angoli[dove];
-  if (!tratti) return null;
+  const tratti = mucchi[dove];
+  if (!tratti?.length) return null;
   return (
     <div className="foglie" aria-hidden="true">
       {tratti.map((style, index) => (
-        <Tratto key={index} style={style} />
+        <Mucchio key={index} style={style} />
       ))}
     </div>
   );

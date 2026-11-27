@@ -4337,6 +4337,22 @@ html[data-pausa] .natale-lampadina {
   pointer-events: none;
   z-index: 2;
 }
+[data-fase="natale"] .novita-tagli > .ev-card {
+  overflow: hidden;
+}
+[data-fase="natale"] .novita-tagli .ev-card::after {
+  content: none;
+}
+[data-fase="natale"] .novita-tagli .ev-body {
+  padding-right: 12px;
+}
+[data-fase="natale"] .novita-tagli .ev-card::before {
+  left: 10px;
+  right: auto;
+  top: 10px;
+  width: 34px;
+  height: 20px;
+}
 [data-fase="natale"] .ev-card::before,
 [data-fase="natale"] .menu-row::before {
   content: "";
@@ -4365,6 +4381,14 @@ html[data-pausa] .natale-lampadina {
   top: -36px;
   height: auto;
   animation: cade-fiocco linear infinite;
+}
+.neve-posata {
+  position: absolute;
+  z-index: 1;
+  height: auto;
+  color: #fff;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 0 rgba(26, 36, 40, 0.18));
 }
 .neve-fiocco.bianco {
   color: #fff;

@@ -38,12 +38,6 @@ export const novita: readonly Novita[] = [
     "Costata",
     "Di scottona da 400 grammi alla griglia, condita con olio EVO non filtrato, sale Maldon a scaglie, servita con salsa chimichurri.",
   ),
-  voce(
-    "zuccotto",
-    "27",
-    "Lo zuccotto",
-    "Bun pretzel, crema di zucca stufata condita con sale, olio e pepe, hamburger da 200 g, gorgonzola DOP e speck croccante. Con patatine fritte.",
-  ),
 ];
 
 function voce(id: string, slot: string, nome: string, descrizione: string): Novita {
