@@ -22,6 +22,13 @@ function WhatsApp() {
   );
 }
 
+const FOTO = [
+  { src: "/images/aperitivo-natale/albero-bancone.jpg", alt: "Albero al bancone" },
+  { src: "/images/aperitivo-natale/albero-sala.jpg", alt: "Albero in sala" },
+  { src: "/images/aperitivo-natale/albero-tavolino.jpg", alt: "Albero dal tavolino" },
+  { src: "/images/aperitivo-natale/albero-specchio.jpg", alt: "Albero allo specchio" },
+] as const;
+
 /** Biglietto dell'aperitivo di Natale. Non si disegna se l'evento è già passato. */
 export function AperitivoNatale({ evento }: { evento: EventoVista }) {
   const giorno = evento.next;
@@ -29,18 +36,28 @@ export function AperitivoNatale({ evento }: { evento: EventoVista }) {
     <article id={evento.id} className="aperitivo-natale" aria-labelledby="aperitivo-natale-title">
       <span className="natale-nastro" aria-hidden="true" />
       <Fiocco />
-      <p className="aperitivo-quando">
-        {formatMartedi(giorno.data)} · {evento.orario}
-      </p>
-      <h3 id="aperitivo-natale-title" className="ev-title">
-        {evento.titolo}
-      </h3>
-      <p className="aperitivo-voci">{giorno.piatto}</p>
-      <p className="aperitivo-prezzo">{giorno.amount} €</p>
-      <a className="natale-book" href={whatsappLink(MESSAGGIO_APERITIVO_NATALE)}>
-        <WhatsApp />
-        Info su WhatsApp
-      </a>
+      <div className="aperitivo-testo">
+        <p className="aperitivo-quando">
+          {formatMartedi(giorno.data)}
+          <span className="aperitivo-orario"> · {evento.orario}</span>
+        </p>
+        <h3 id="aperitivo-natale-title" className="ev-title">
+          {evento.titolo}
+        </h3>
+        <p className="aperitivo-voci">{giorno.piatto}</p>
+        <p className="aperitivo-prezzo">{giorno.amount} €</p>
+        <a className="natale-book" href={whatsappLink(MESSAGGIO_APERITIVO_NATALE)}>
+          <WhatsApp />
+          Info su WhatsApp
+        </a>
+      </div>
+      <ul className="aperitivo-foto">
+        {FOTO.map((foto) => (
+          <li key={foto.src}>
+            <img src={foto.src} alt={foto.alt} width={1200} height={1600} />
+          </li>
+        ))}
+      </ul>
     </article>
   );
 }
