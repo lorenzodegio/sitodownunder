@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { MenuMobile } from "@/components/MenuMobile";
 import { showGarden } from "@/data/flags";
 import { novitaInElenco } from "@/data/novita";
 import { site } from "@/content/site";
 import { nataleAttivo } from "@/lib/natale";
+import { whatsappLink } from "@/lib/whatsapp";
 
 export function Header() {
   const novitaVisibile = novitaInElenco().length > 0;
@@ -26,9 +28,20 @@ export function Header() {
             </a>
           ))}
         </nav>
-        <a className="pill btn-solid btn-compact" href={site.phone.tel}>
-          {site.header.cta}
-        </a>
+        <div className="header-tools">
+          <MenuMobile
+            voci={links.map((item) => ({
+              href: item.href,
+              label: item.label,
+              evidenza: item.href === "/#natale",
+            }))}
+            chiama={{ href: site.phone.tel, label: "Chiama" }}
+            whatsapp={{ href: whatsappLink("Ciao, vorrei prenotare un tavolo."), label: "Prenota su WhatsApp" }}
+          />
+          <a className="pill btn-solid btn-compact" href={site.phone.tel}>
+            {site.header.cta}
+          </a>
+        </div>
       </div>
     </header>
   );

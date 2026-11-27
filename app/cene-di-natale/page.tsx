@@ -3,12 +3,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AperitivoNatale } from "@/components/AperitivoNatale";
 import { CeneNatale } from "@/components/CeneNatale";
+import { GalleriaAlbero } from "@/components/FotoNatale";
 import { aperitivoNatale } from "@/data/eventi";
 import { JsonLd } from "@/components/JsonLd";
 import { SiteFrame } from "@/components/SiteFrame";
 import { natale, nataleFaq } from "@/data/natale";
 import { nataleJsonLd } from "@/lib/jsonld";
 import { nataleAttivo } from "@/lib/natale";
+import { fotoAlbero, loadSlotVista } from "@/lib/slot-vista";
 
 const title = "Cene di Natale aziendali e tra amici · Down Under Cafè Vanzago";
 const description = `Tre menù per gruppi: ${natale.proposte.map((proposta) => `${proposta.nome} ${proposta.prezzo}€`).join(", ")}. Per almeno 10 persone, tutto dicembre.`;
@@ -34,9 +36,11 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default function CeneDiNatalePage() {
+export default async function CeneDiNatalePage() {
   if (!nataleAttivo()) notFound();
   const aperitivo = aperitivoNatale();
+  const vista = await loadSlotVista();
+  const albero = fotoAlbero(vista.items);
 
   return (
     <SiteFrame>
@@ -51,7 +55,8 @@ export default function CeneDiNatalePage() {
           <h1 className="display local-h1">Cene di Natale a Vanzago: tre menù per gruppi</h1>
         </div>
       </article>
-      <CeneNatale />
+      <GalleriaAlbero foto={albero} />
+      <CeneNatale albero={albero[0] ?? null} />
       <article className="local-page">
         <div className="local-wrap">
           <p>
