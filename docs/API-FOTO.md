@@ -1,8 +1,8 @@
 # API foto degli slot
 
-Secondo ingresso agli stessi slot di `/admin/foto` (02–07, 14–27). Stessi dati (`foto/slot.json` sullo store Blob dell’ambiente), stessa elaborazione (rotazione EXIF, metadati tolti, WebP qualità 82, lato lungo massimo 2400 px), stesse versioni precedenti per il ripristino. `/admin/foto` resta il pannello.
+Secondo ingresso agli stessi slot di `/admin/foto` (02–07, 14–27, e 28–31 per l’albero di Natale). Stessi dati (`foto/slot.json` sullo store Blob dell’ambiente), stessa elaborazione (rotazione EXIF, metadati tolti, WebP qualità 82, lato lungo massimo 2400 px), stesse versioni precedenti per il ripristino. `/admin/foto` resta il pannello.
 
-Le bozze si vedono in `/admin/foto` e in preview. In produzione va solo ciò che è `pubblicata`. Uno slot senza foto resta vuoto: fuori da Novità, Lunch e Cena si vede il murale; nella sezione Novità la card resta senza foto; in Lunch e Cena resta il placeholder. Lo slot 04 può restare vuoto. Non ci sono più gli slot 01, 08–13 e 28–35.
+Le bozze si vedono in `/admin/foto` e in preview. In produzione va solo ciò che è `pubblicata`. Uno slot senza foto resta vuoto: fuori da Novità, Lunch e Cena si vede il murale; nella sezione Novità la card resta senza foto; in Lunch e Cena resta il placeholder. Lo slot 04 può restare vuoto. Gli slot 28–31, sezione `natale`, non disegnano un riquadro se la foto manca. Non ci sono gli slot 01 e 08–13.
 
 ## Variabili
 
@@ -58,7 +58,7 @@ Elenco di tutti gli slot definiti in `data/foto-slot.ts`.
 | Campo | Regola |
 |---|---|
 | `file` | JPG, PNG, WebP o HEIC, massimo 20 MB |
-| `slot` | `"01"` … `"29"` |
+| `slot` | uno slot definito in `data/foto-slot.ts` |
 | `piatto` | nome del piatto, da 1 a 80 caratteri |
 | `descrizione` | testo alternativo, da 1 a 200 caratteri |
 | `stato` | `bozza` se manca, oppure `pubblicata` |

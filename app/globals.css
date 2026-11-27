@@ -302,7 +302,7 @@ p {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 40;
   background: var(--barra);
   color: var(--paper);
   backdrop-filter: blur(14px);
@@ -3833,19 +3833,6 @@ address {
   font-size: 24px;
   line-height: 0.7;
 }
-.natale-portate li {
-  display: block;
-  padding: 7px 0;
-  border-bottom: 1px dashed rgba(30, 40, 43, 0.22);
-}
-.natale-incluso {
-  margin: 12px 0 0;
-  font-family: var(--font-caveat), cursive;
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 1.1;
-  color: #8e2a23;
-}
 .natale-piede {
   margin-top: auto;
   padding-top: 22px;
@@ -3933,4 +3920,219 @@ address {
   .natale-wrap { padding: 72px 16px 56px; }
   .natale-hard { font-size: clamp(42px, 12vw, 64px); }
   .natale-mongolfiera { width: 220px; height: 220px; }
+}
+
+#natale,
+#novita,
+#prossimamente,
+#pranzo,
+#menu,
+#garden,
+#eventi,
+#info {
+  scroll-margin-top: 76px;
+}
+
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--paper);
+  cursor: pointer;
+}
+.menu-toggle-barre,
+.menu-toggle-barre::before,
+.menu-toggle-barre::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 1px;
+  background: currentColor;
+}
+.menu-toggle-barre {
+  position: relative;
+}
+.menu-toggle-barre::before,
+.menu-toggle-barre::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  transition: transform 200ms ease, top 200ms ease;
+}
+.menu-toggle-barre::before { top: -6px; }
+.menu-toggle-barre::after { top: 6px; }
+.menu-toggle.is-open .menu-toggle-barre { background: transparent; }
+.menu-toggle.is-open .menu-toggle-barre::before { top: 0; transform: rotate(45deg); }
+.menu-toggle.is-open .menu-toggle-barre::after { top: 0; transform: rotate(-45deg); }
+
+.menu-mobile {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 22px 28px;
+  background: #1e282b;
+  color: #f6efdf;
+  overflow: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 200ms ease, transform 200ms ease, visibility 0s linear 200ms;
+}
+.menu-mobile.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  pointer-events: auto;
+  transition: opacity 200ms ease, transform 200ms ease, visibility 0s;
+}
+.menu-mobile-voci {
+  display: flex;
+  flex-direction: column;
+}
+.menu-mobile-voce {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1;
+  color: #f6efdf;
+}
+.menu-mobile-voce.is-natale {
+  color: #f3dfa2;
+}
+.menu-mobile-azioni {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+}
+.menu-mobile-azione {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html.menu-aperto,
+html.menu-aperto body {
+  overflow: hidden;
+}
+html.menu-aperto .callbar {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .header-inner {
+    flex-wrap: nowrap;
+    padding: 6px 10px;
+    gap: 6px;
+  }
+  .logo {
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .header-tools { gap: 2px; }
+  .header-tools .btn-compact {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  .menu-toggle { display: inline-flex; }
+  .menu-mobile { display: flex; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-mobile,
+  .menu-toggle-barre::before,
+  .menu-toggle-barre::after {
+    transition: none;
+  }
+}
+
+.natale-testa.ha-albero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+}
+.natale-testa.ha-albero .albero-biglietto {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+}
+.albero-biglietto {
+  position: relative;
+  width: min(220px, 70vw);
+  margin: 0;
+  padding: 14px 28px 16px 14px;
+  background: #fffcf4;
+  box-shadow: 4px 6px 0 rgba(0, 0, 0, 0.28);
+}
+.albero-nastro {
+  position: absolute;
+  top: 0;
+  right: 16px;
+  bottom: 0;
+  width: 16px;
+  background: #b5372e;
+  border-left: 2px solid #8e2a23;
+  border-right: 2px solid #8e2a23;
+}
+.albero-fiocco {
+  position: absolute;
+  right: -10px;
+  top: -22px;
+  width: 72px;
+  height: 42px;
+}
+.albero-quadro {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: #fffcf4;
+}
+.albero-galleria {
+  padding: 8px 0 12px;
+}
+.albero-galleria h2 {
+  font-size: clamp(32px, 5vw, 48px);
+}
+.albero-lista {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 800px) {
+  .albero-lista { grid-template-columns: repeat(4, minmax(0, 160px)); }
+}
+@media (max-width: 800px) {
+  .natale-testa.ha-albero { grid-template-columns: 1fr; }
+  .natale-testa.ha-albero .albero-biglietto {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: center;
+    margin-top: 8px;
+  }
 }
