@@ -3934,3 +3934,55 @@ address {
   .natale-hard { font-size: clamp(42px, 12vw, 64px); }
   .natale-mongolfiera { width: 220px; height: 220px; }
 }
+
+.natale-aperitivo {
+  margin: 28px 0 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+.natale-aperitivo a {
+  color: #fffcf4;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.aperitivo-natale {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 640px;
+  margin-top: 36px;
+  padding: 28px 76px 26px 26px;
+  background: #fffcf4;
+  color: #1e282b;
+  box-shadow: 5px 8px 0 rgba(0, 0, 0, 0.28);
+}
+.aperitivo-quando,
+.aperitivo-voci {
+  margin: 0;
+}
+.aperitivo-quando {
+  font-weight: 700;
+}
+.aperitivo-voci {
+  max-width: 36rem;
+  font-size: 17px;
+  line-height: 1.45;
+}
+.aperitivo-prezzo {
+  margin: 0;
+  padding: 6px 14px;
+  background: #b5372e;
+  color: #fffcf4;
+  font-family: var(--font-rokkitt), serif;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 1;
+}
+.aperitivo-natale .natale-book {
+  margin-top: 4px;
+}
+.local-page .aperitivo-natale {
+  margin-top: 28px;
+}

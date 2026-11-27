@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { caveat } from "@/components/duc-font";
+import { aperitivoNatale, ID_APERITIVO_NATALE } from "@/data/eventi";
 import { messaggioNatale, natale } from "@/data/natale";
 import { site } from "@/content/site";
 import { nataleAttivo } from "@/lib/natale";
@@ -152,6 +153,14 @@ export function CeneNatale() {
             );
           })}
         </div>
+
+        {aperitivoNatale() ? (
+          <p className="natale-aperitivo">
+            <Link href={`/#${ID_APERITIVO_NATALE}`}>
+              E domenica 20 dicembre, dalle 18 alle 20: l&apos;aperitivo di Natale a buffet, 15 € →
+            </Link>
+          </p>
+        ) : null}
 
         <div className="natale-azioni">
           <a className="natale-info" href={site.phone.tel}>

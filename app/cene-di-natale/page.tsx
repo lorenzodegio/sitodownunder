@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AperitivoNatale } from "@/components/AperitivoNatale";
 import { CeneNatale } from "@/components/CeneNatale";
+import { aperitivoNatale } from "@/data/eventi";
 import { JsonLd } from "@/components/JsonLd";
 import { SiteFrame } from "@/components/SiteFrame";
 import { natale, nataleFaq } from "@/data/natale";
@@ -34,6 +36,7 @@ export function generateMetadata(): Metadata {
 
 export default function CeneDiNatalePage() {
   if (!nataleAttivo()) notFound();
+  const aperitivo = aperitivoNatale();
 
   return (
     <SiteFrame>
@@ -62,6 +65,7 @@ export default function CeneDiNatalePage() {
               <p>{voce.a}</p>
             </div>
           ))}
+          {aperitivo ? <AperitivoNatale evento={aperitivo} /> : null}
           <p className="local-links">
             <Link href="/">Torna alla home</Link>
             <Link href="/#natale">I tre menù</Link>
