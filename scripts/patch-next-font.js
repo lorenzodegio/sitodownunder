@@ -1,6 +1,7 @@
 /**
  * Next 15.5.27 legge l'estensione in fondo all'URL di Google Fonts.
  * A volte la risposta è /l/font?kit= senza .woff2 e il build su Vercel muore.
+ * La correzione è in Next 16.4.3, non ancora su 15.x.
  */
 const fs = require("fs");
 const path = require("path");

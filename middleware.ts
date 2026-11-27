@@ -6,6 +6,10 @@ function withSeason(request: NextRequest): Headers {
   if (process.env.VERCEL_ENV !== "production" && request.nextUrl.searchParams.get("stagione") === "off") {
     requestHeaders.set("x-du-season", "off");
   }
+  if (process.env.VERCEL_ENV !== "production") {
+    const fase = request.nextUrl.searchParams.get("fase");
+    if (fase === "natale" || fase === "inverno") requestHeaders.set("x-du-fase", fase);
+  }
   return requestHeaders;
 }
 

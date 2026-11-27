@@ -1,12 +1,15 @@
 import Link from "next/link";
+import { Lucine } from "@/components/Lucine";
 import { MenuMobile } from "@/components/MenuMobile";
 import { showGarden } from "@/data/flags";
 import { novitaInElenco } from "@/data/novita";
 import { site } from "@/content/site";
 import { nataleAttivo } from "@/lib/natale";
+import { faseDecorazione } from "@/lib/season";
 import { whatsappLink } from "@/lib/whatsapp";
 
-export function Header() {
+export async function Header() {
+  const fase = await faseDecorazione();
   const novitaVisibile = novitaInElenco().length > 0;
   const links = site.nav.filter((item) => {
     if (!showGarden && item.href === "/#garden") return false;
@@ -43,6 +46,7 @@ export function Header() {
           </a>
         </div>
       </div>
+      {fase === "natale" ? <Lucine /> : null}
     </header>
   );
 }

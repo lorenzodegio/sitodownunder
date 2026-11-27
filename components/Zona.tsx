@@ -8,7 +8,7 @@ export function Zona() {
     <section id="zona" className="section section-tight" aria-labelledby="zona-title">
       <Decorazioni dove="info" />
       <div className="wrap">
-        <span className="rib rv">{showGarden ? "capitolo VIII · da dove arrivi" : "capitolo VII · da dove arrivi"}</span>
+        <span className="rib cap rv">{showGarden ? "capitolo VIII · da dove arrivi" : "capitolo VII · da dove arrivi"}</span>
         <h2 id="zona-title" className="display rv w-900">
           Milano ovest, senza attraversare la città.
         </h2>
