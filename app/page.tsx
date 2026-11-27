@@ -16,7 +16,7 @@ import { showGarden } from "@/data/flags";
 import { loadPublicPhotos, loadSlotArchivio, slotPubblicati } from "@/lib/blob-archive";
 import { homeJsonLd } from "@/lib/jsonld";
 import { nataleAttivo } from "@/lib/natale";
-import { loadSlotVista } from "@/lib/slot-vista";
+import { fotoAlbero, loadSlotVista } from "@/lib/slot-vista";
 
 export const revalidate = 3600;
 
@@ -27,7 +27,7 @@ export default async function HomePage() {
     <SiteFrame id="top">
       <JsonLd data={homeJsonLd(photos, slotPubblicati(slots))} />
       <Hero />
-      <CeneNatale />
+      <CeneNatale albero={fotoAlbero(vista.items)[0] ?? null} />
       {nataleAttivo() ? <Cucitura da="natale" a="carta" motivo="onda" /> : null}
       <NovitaCapitolo vista={vista} />
       <Prossimamente photos={photos.martedi} vista={vista} />
