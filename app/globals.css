@@ -3833,19 +3833,6 @@ address {
   font-size: 24px;
   line-height: 0.7;
 }
-.natale-portate li {
-  display: block;
-  padding: 7px 0;
-  border-bottom: 1px dashed rgba(30, 40, 43, 0.22);
-}
-.natale-incluso {
-  margin: 12px 0 0;
-  font-family: var(--font-caveat), cursive;
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 1.1;
-  color: #8e2a23;
-}
 .natale-piede {
   margin-top: auto;
   padding-top: 22px;
